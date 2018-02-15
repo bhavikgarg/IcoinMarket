@@ -1,0 +1,237 @@
+<style>
+  .app .table.table-bordered>tbody>tr>td
+  {
+    border-bottom: 1px solid #DBE0E4 !important;
+  }
+  </style>
+<div class="block block-condensed">
+  <div class="app-heading app-heading-small">
+    <div class="title">
+      <h5 style="font-size: 20px; padding: 10px 0px;"> Commitments</h5><span ng-model="status">{{currentView}}</span>
+    </div>
+    <button type="button" class="btn btn-success pull-right" ng-disabled="!purchaseinfo" ng-click='exportDataAsExcel()'>
+      <i class='fa fa-file-excel-o'></i> &nbsp;Export as XLS
+      </button>
+    <span class="help-block pull-right" style="color : red; margin-right: 45px" ng-show="exportMessage">{{exportMessage}}</span>
+  </div>
+  <div class="block-content">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group margin-bottom-10 from-datepicker">
+          <label>From:</label>
+          <div class="input-group">
+            <div ng-click="OpenfromDate()" class="input-group-addon"><span class="icon-calendar-full"></span></div>
+            <div style="position: relative;">
+              <input ng-click="OpenfromDate()" type="text" class="form-control from-date calandar-dates" uib-datepicker-popup="dd/MM/yyyy"
+                ng-model="fromDate" name="fromDate" is-open="fromDatePopup.opened" datepicker-options="fromDateOptions" ng-required="true"
+                close-text="Close" placeholder="From Date" readonly />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group to-datepicker">
+          <label>To:</label>
+          <div class="input-group">
+            <div ng-click="OpentillDate()" class="input-group-addon"><span class="icon-calendar-full"></span></div>
+            <input ng-click="OpentillDate()" type="text" class="form-control to-date calandar-dates" uib-datepicker-popup="dd/MM/yyyy"
+              ng-model="tillDate" name="tillDate" is-open="tillDatePopup.opened" datepicker-options="tillDateOptions" ng-required="true"
+              close-text="Close" ng-change="ChangeExpiryMinDate(tillDate)" placeholder="Till Date" readonly />
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="role">Status</label>
+          <select class="form-control" ng-model="currentView">
+                        <option selected value="All">All</option>
+                        <option value="COMMITTED">Commited</option>
+                        <option value="ON TRADE">On Trade</option>
+                        <option value="COMPLETED">Matured</option>
+                        <option value="WITHDRAWN">Withdrawn</option>
+                        <option value="CANCELLED"> Cancelled</option>
+                        <option value="MATURED_WITHDRAWN"> Matured Withdrawan</option>
+                        <option value="MATURED_PROFIT_WITHDRAWN"> Matured Profit Withdrawan</option>                        
+                  </select>
+        </div>
+      </div>
+      <div class="col-md-4" style="margin-top:20px">
+        <div class="row">
+          <div class="col-md-8">
+            <input type="text" ng-model="filter.data" name="filterdate" placeholder="Search Filter (Name And Email) " style="line-height : 30px; width : 100%"
+            />
+            <span style="margin-top: 0px;display: block;font-size: 0.85em;margin-bottom: 25px;">Filter based on name, email</span>
+          </div>
+          <div class="col-md-4">
+            <button class="btn blue" style="height:42px" ng-click="loadPage()">Search</button>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+      <div class="row" style="overflow-x: auto;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <table class="table-responsive table-scrollable table table-stripped table-hover table-bordered no-footer dataTable product_details">
+            <thead>
+              <tr>
+                <th class="text-center">Created At</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">User Name/ User Id</th>
+                <th class="text-center">User Email</th>
+                <th class="text-center">Package Name</th>
+                <th class="text-center">Amount</th>
+                <th class="text-center">Portfilio Manager </th>              
+                <!-- <th class="text-center">Start Date</th> -->
+                <th class="text-center">Maturity Date</th>
+                <th class="text-center">Actions</th>               
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="(key,wire) in committmentsData">
+                <td class="text-center">{{wire.createdat | date:'medium'}}</td>
+                <td class="text-center">{{wire.status}}</td>
+                <td class="text-center">{{wire.userid.name}} <br/> {{wire.userid._id}}</td>
+                <td class="text-center"> {{wire.userid.email}} </td>
+                <td class="text-center">{{wire.packagename}}</td>
+                <td class="text-center">{{wire.amount}} $</td>
+                <td class="text-center">{{wire.portfoliomanager}} </td>            
+                <!-- <td class="text-center">{{wire.startdate | date:'medium'}}</td> -->
+                <td class="text-center">{{wire.maturitydate | date:'medium'}}</td>
+                <td>                      
+                  <button ng-if="wire.status === 'COMMITTED'" style="margin-top:3px;" type="button" ng-click="cancelCommitment(key, 'cancel')"
+                    class="btn btn-danger btn-sm"><i class="fa fa-ban skyblueicon" aria-hidden="true"></i> Cancel</button>
+                </td>
+                
+              </tr>
+            </tbody>
+            <tfoot>
+              <!-- <tr>
+                <td colspan="11">
+                  <span ng-if="pageWait!=''" class="text-danger">{{pageWait}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="11">
+                  <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                    ng-change="loadPage()"></ul>
+                </td>
+              </tr> -->
+              <tr>                    
+                 <td colspan="9">
+                    <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true" ng-click="loadPage()"></ul>
+                 </td>
+                </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    <!-- View Details Popup -->
+    <div class="modal fade" id="viewDetails" tabindex="-1" role="dialog" aria-labelledby="myBankWireLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal modal-header">
+            <h3>Payment Details</h3>
+            <button type="button" class="close close-button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="bank-modal">
+              <h3>Payment Details</h3>
+            </div>
+            <div class="form-group bankwireform">
+              <div class="col-sm-12">
+                <div class="form-group" style="overflow:hidden;">
+                  <div class="col-lg-7">
+                    <label class="control-label"><strong>Purchase Information</strong></label>
+                  </div>
+                  <div class="col-lg-5">&nbsp;</div>
+                </div>
+                <div class="form-group" style="overflow:hidden;" ng-repeat="(k, d) in popInfo.paytoken" ng-if="popInfo.paytoken.TOKEN">
+                  <div class="col-lg-6">
+                    <label class="control-label">{{k}}</label><br>
+                  </div>
+                  <div class="col-lg-6">{{d}}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-12" ng-if="popInfo.gatewaysuccess.TOKEN || popInfo.gatewayfailure.TOKEN">
+                <div class="form-group" style="overflow:hidden;">
+                  <div class="col-lg-6">
+                    <label class="control-label"><strong>Gateway Response</strong></label>
+                  </div>
+                  <div class="col-lg-6">&nbsp;</div>
+                </div>
+
+                <div class="form-group" style="overflow:hidden;" ng-repeat="(k, d) in popInfo.gatewaysuccess" ng-if="popInfo.gatewaysuccess.TOKEN">
+                  <div class="col-lg-6">
+                    <label class="control-label text-capitalize" style="font-size:0.9em;">{{k}}</label><br>
+                  </div>
+                  <div class="col-lg-6">{{d}}</div>
+                </div>
+
+                <div class="form-group" style="overflow:hidden;" ng-repeat="(k, d) in popInfo.gatewayfailure" ng-if="popInfo.gatewayfailure.TOKEN">
+                  <div class="col-lg-6">
+                    <label class="control-label text-uppercase" style="font-size:0.9em;">{{k}}</label><br>
+                  </div>
+                  <div class="col-lg-6">{{d}}</div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--View Wire Details Ends -->
+    <!-- Get Transaction Popup -->
+    <div class="modal fade" id="getTxDetails" tabindex="-1" role="dialog" aria-labelledby="">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal modal-header">
+            <h3>Get Transaction Details</h3>
+            <button type="button" class="close close-button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <form name="getTnxDetails" ng-submit="getTxDetails();">
+                  <label class="control-label"><strong>Transaction Id: </strong></label> <input class="form-control" type="text"
+                    placeholder="Transaction Id" ng-model="getTnxDetails.tx" required />
+                  <button class="btn blue" ng-disabled="getTnxDetails.tx.$error" style="margin-top:15px;">
+                                                        <strong>Get Details</strong>
+                                                    </button>
+                  <button class="btn btn-warning" data-dismiss='modal' style="margin-top:15px;" type="button" ng-click="restoreModal()">
+                                                        <strong>Back</strong>
+                                                    </button>
+                </form>
+              </div>
+            </div>
+            <div class="row" ng-if="loadingText">
+              <div class="col-sm-12">
+                <p style="color : red">{{loadingText}}</p>
+              </div>
+            </div>
+            <div class="col-sm-12" ng-if="transactionInfo.status == 'success'">
+              <p><label class="control-label"><strong>Transaction Id:  </strong></label><span> {{transactionInfo.data.txid}}</span></p>
+              <p><label class="control-label"><strong>Status:  </strong></label><span> {{transactionInfo.status | uppercase}}</span></p>
+              <p><label class="control-label"><strong>BTC Transferred:  </strong></label><span> {{transactionInfo.data.outputs.value}}</span></p>
+              <p><label class="control-label"><strong>Calculated USD:  </strong></label><span> {{usdAmount | currency}}</span></p>
+              <p ng-if="adscashCoins"><label class="control-label"><strong>Calculated :  </strong></label><span> {{adscashCoins}}</span></p>
+              <input ng-if="adscashCoins" class="form-control" type="number" placeholder="Approved" id="approved-coins" ng-model="approvedCoins"
+              />
+              <input ng-if="!adscashCoins" class="form-control" type="number" placeholder="Approved Amount" id="approved-amount" ng-model="approvedAmount"
+              />
+              <button class="btn blue" ng-disabled="buttonStatus" ng-click="approvePayment();" style="margin-top:15px;" type="button">
+                                                <strong>Approve</strong>
+                                            </button>
+            </div>
+            <p style="color:red">{{transactionInfoError}}</p>
+            <p style="color:red">{{loadingMsg}}</p>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>

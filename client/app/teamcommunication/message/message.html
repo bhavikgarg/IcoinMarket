@@ -1,0 +1,222 @@
+<div class="block block-condensed">
+    <div class="app-heading app-heading-small">
+        <div class="title">
+            <p><a href="/dashboard">Dashboard</a> / Team Communication / Send Message</p>
+        </div>
+    </div>
+    <div class="block-content">
+        <div ng-show="!isSponsorMessage">
+            <h5 style="font-size: 20px; padding: 10px 0px;"> Search</h5>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="block block-condensed block-arrow-top">
+                        <div class="block-content padding-top-15">
+                            <form name="messageFilter">
+                                <div class="row">
+                                    <!--<div class="col-md-4 col-sm-12" ng-if="!isReply">
+                                        <select name="filter_type" ng-model="msgsearch.field"
+                                                ng-options="item for item in ['', 'email', 'name']"
+                                                class="form-control col-md-8"
+                                                id="search-field" style="width:100%" required>
+                                        </select>
+                                    </div>-->
+                                    <div class="col-md-12 col-sm-12" ng-if="!isReply">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="message" ng-disabled="messageFilter.filter_type.$invalid" ng-model="msgsearch.input"
+                                                placeholder="Search Name, Email">
+                                            <div class="input-group-btn">
+                                                <button ng-if="!isReply" ng-click="updateSearch2(msgsearch)" class="btn btn-info">Search</button>
+                                            </div>
+                                        </div>
+                                        <p class="help-block text-danger" ng-if="msgError != ''">{{msgError}}</p>
+                                    </div>
+                                    <div class="inbox-header inbox-view-header" ng-if="isReply">
+                                        <h1 class="pull-left ng-binding">
+                                            <a href="{{backUrl}}" class="message-inbox">
+                                                <i class="fa fa-angle-left" aria-hidden="true"
+                                                   style="color:#fff;"></i> Back
+                                            </a>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="table-res" ng-hide="isReply">
+                        <table width="100%" class="table table-bordered table-head-light table-striped" md-table md-row-select="options.rowSelection"
+                            multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise" id="tblTeamMemberList">
+                            <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                                <tr md-row>
+                                    <th md-column style="padding: 14px"><span>User Name</span></th>
+                                    <th md-column style="padding: 14px"><span>Email</span></th>
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr ng-if="userInfo.length > 0" md-row md-select="user" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="user in userInfo | limitTo: query.limit : (query.page -1) * query.limit">
+                                    <td md-cell md-checked style="padding: 14px">
+                                        <p><strong>{{user.name}}</strong></p>
+                                    </td>
+                                    <td md-cell style="padding: 14px">
+                                        <p><strong>{{user.email}}</strong></p>
+                                    </td>
+                                </tr>
+                                <!-- <tr ng-if="userInfo.length > 0" md-row md-select="user" md-on-select="logItem"
+                                md-auto-select="options.autoSelect"
+                                ng-repeat="user in userInfo | filter:$scope.findx | limitTo: query.limit : (query.page -1) * query.limit">
+                                <td md-cell md-checked><p><strong>{{user.name}}</strong></p></td>
+                                <td md-cell><p><strong>{{user.email}}</strong></p></td>
+                            </tr> -->
+                                <tr ng-if="userInfo.length == 0" md-row>
+                                    <td md-cell colspan="2">
+                                        <p class="text-center"><strong>No member found</strong></p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--<md-table-pagination md-limit="query.limit" md-limit-options="[limit]" md-page="query.page" md-total="{{totalusers}}" md-page-select="options.pageSelect"
+                          md-boundary-links="options.boundaryLinks" md-on-paginate="onPaginationChange"></md-table-pagination>-->
+                    </div>
+                    <br><br>
+                    <div class="col-md-12" ng-if="!isSponsorMessage && !isReply">
+                        <div class="tile-basic tile-basic-icon-top tile-basic-shadow">
+                            <div class="tile-icon">
+                                <span class="icon-warning"></span>
+                            </div>
+                            <div class="tile-content text-center" style="min-height: 50px !important;">
+                                <h3 class="tile-title">Note : Note Please keep in mind that you can send only one message in 24 hrs</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="inbox-compose form-horizontal" name="forms.form" ng-submit="sendMessage()" novalidate>
+                        <div class="inbox-form-group col-md-11" ng-hide="!isReply">
+                            <label class="control-label">To:</label>
+                            <div class="controls" ng-if="replyof[3]==0">
+                                <input type="text" class="form-control" required name="to" value="{{replyof[0]}} <{{replyof[1]}}>" readonly/>
+                                <input type="hidden" ng-model="userid" value="{{replyof[2]}}" />
+                            </div>
+                            <div class="controls" ng-if="replyof[3]==1">
+                                <input type="text" class="form-control" required name="to" value="{{replyof[4]}} <{{replyof[5]}}>" readonly/>
+                                <input type="hidden" ng-model="userid" value="{{replyof[6]}}" />
+                            </div>
+                        </div>
+                        <div class="inbox-form-group col-md-11" style="font-size:1.1em;" ng-if="!isReply">
+                            <div class="controls" style="min-height:30px;overflow:hidden;">
+                                <strong class="pull-left" style="padding-right:15px;">To: </strong>
+                                <span class="pull-left">
+                          <strong ng-repeat="item in selected track by $index">
+                          {{item.name}} {{selected[$index + 1]? ", " : " "}}
+                          </strong>
+                        </span>
+                            </div>
+                        </div>
+                        <div class="inbox-form-group col-md-11">
+                            <label class="control-label">Subject:</label>
+                            <div class="controls">
+                                <input type="text" class="form-control" ng-model="msg.subject" name="subject" autocomplete="off" required />
+                                <div ng-show="form.$submitted">
+                                    <p class="help-block" ng-show="form.subject.$error.required">subject is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-11">
+                            <label class="control-label">Message: </label>
+                            <text-angular ng-model="msg.htmlVariable"></text-angular>
+                            <p class="help-block text-danger" ng-show="!isVerified"  >Please select any one user to send message.</p>
+                            <p class="help-block  text-danger" ng-show="!isVerifiedForAllUser">Please uncheck selected user to send message to all users.</p>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-11 margin-top-10 text-right">
+                            <button type="submit" class="btn blue" ng-disabled="(!isReply && !canSent) || !forms.form.$valid"><span class="icon-location"></span> Send
+                            </button>
+                            <p class="help-block text-danger" ng-show="!canSent && !isReply">You have already sent a message.</p>&nbsp;
+                            <button type="button" class="btn blue" ng-click="sendMessageToAll()" ng-if="!isReply" ng-disabled="(!isReply && !canSent) || !forms.form.$valid"><span class="fa fa-users"></span>&nbsp; Send To All</button>
+                        </div>
+                        <br><br><br><br>
+                    </form>
+                </div>
+                <div class="col-md-3">
+
+                    <div class="block block-condensed">
+
+                        <div class="block-content">
+                            <div class="row margin-bottom-10 mob-center">
+                                <div class="col-md-6 padding-top-10 text-bold">
+                                    <a ui-sref="message" ng-class="{active: ('/teamcommunication' | isActive)}"> Send
+                                        Message</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="icon-envelope" style="font-size: 35px; color:#50b85d"></span>
+                                </div>
+                            </div>
+                            <div class="row margin-bottom-10 mob-center">
+                                <div class="col-md-6 padding-top-10 text-bold">
+                                    <a ui-sref="MessageList({'listType':'inbox'})" ng-class="{active: ('/teamcommunication/inbox' | isActive)}"> Inbox </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="icon-coffee-cup" style="font-size: 35px;"></span>
+                                </div>
+                            </div>
+                            <div class="row mob-center">
+                                <div class="col-md-6 padding-top-10 text-bold">
+                                    <a ui-sref="MessageList({'listType':'sent'})" ng-class="{active: ('/teamcommunication/sent' | isActive)}"> Sent</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="icon-thumbs-up" style="font-size: 35px; "></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="block block-condensed">
+                        <div class="app-heading app-heading-small">
+                            <div class="title">
+                                <h3>{{userinfo.name}}</h3>
+                                <p>Detailed information</p>
+                            </div>
+                            <div class="heading-elements">
+                                <button class="btn btn-default btn-icon">
+                                    <span class="fa fa-pencil" ui-sref="userprofile" ng-class="{active: ('/userprofile' | isActive)}" style="cursor : pointer"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <table class="table table-bordered margin-bottom-0">
+                            <tbody>
+                                <tr>
+                                    <td width="40%" class="text-bold">Date Of Birth</td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-bold">Address</td>
+                                    <td class="word-break">{{userinfo.address}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">Email</td>
+                                    <td class="word-break">{{userinfo.email}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">Phone</td>
+                                    <td>{{userinfo.mobile}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="block-divider-text margin-top-minus-one margin-bottom-0">
+                            Income Info
+                        </div>
+                        <table class="table table-bordered border-top-0">
+                            <tbody>
+                                <tr>
+                                    <td width="40%" class="text-bold">Wallet</td>
+                                    <td>${{ usd_balance }}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

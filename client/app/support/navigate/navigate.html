@@ -1,0 +1,33 @@
+<div id='mobile-menu' class="app-header-navigation pull-right">
+    <nav>
+        <ul ng-controller="SupportHeaderCtrl">
+            <li ng-click="closeMenu()">
+                <a ui-sref="chatBoard" ng-class="getClass('chatBoard')" style="cursor : pointer;padding: 19px;">Dashboard</a>
+            </li>
+            <li ng-click="closeMenu()">
+                <a ui-sref="signupreport" ng-class="getClass('signupreport')" style="cursor : pointer;padding: 19px;">Sign Up Report</a>
+            </li>            
+            <li ng-click="closeMenu()">
+               <a ng-click="openTimeSettingPopUp()" style="cursor : pointer;padding: 19px;">Time Setting</a>
+            </li>
+            <li ng-if="memberInfo.isSupportAdminManager" ng-click="closeMenu()">
+                <a ui-sref="supportusersreport" ng-class="getClass('supportusersreport')" style="cursor : pointer;padding: 19px;">Support Users Report</a>
+            </li>
+            <li class="visible-mobile" ng-click="closeMenu()">
+                <a ui-sref="userprofile" ng-class="getClass('userprofile')" style="cursor : pointer;padding: 19px;">Profile Setting</a>
+            </li>                  
+            <li class="visible-mobile" ng-click="closeMenu()">
+                <a ng-click="logout()" style="padding: 19px;">Logout</a>
+            </li>
+            <!-- This li elemet should not show in mobile view -->
+            <li class="visible-desktop">
+                <img ng-src="{{memberInfo.avatar ? memberInfo.avatar : 'assets/images/user/no-image.png' }}" width="40" height="40" style="border-radius: 50px; margin: 10px; margin-left: -10px;">
+                <a href="#">Welcome - {{memberInfo.name}}</a>
+                <ul>                  
+                    <li><a ui-sref="userprofile" ng-class="{active: ('/userprofile' | isActive)}" style="cursor : pointer;padding: 8px;">Profile Setting</a></li>                  
+                    <li><a ng-click="logout()" style="padding: 8px;">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</div>

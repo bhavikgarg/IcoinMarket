@@ -1,0 +1,217 @@
+<div class="app">
+    <header class="header header-nav" ng-include="'app/dashboard/header/header.html'" ng-if="isLoggedIn() && userRole == 'user'"></header>
+    <header class="header header-nav" ng-include="'app/admin/header/header.html'" ng-if="isLoggedIn() && (userRole == 'admin'|| userRole==='finance')"></header>
+    <header class="header header-nav" ng-include="'app/support/header/header.html'" ng-if="isLoggedIn() && userRole == 'support'"></header>
+    <header class="header header-nav" ng-include="'app/pm-admin/header/header.html'" ng-if="isLoggedIn() && userRole == 'manager'"></header>
+    <div class="container" >
+        <div class="block block-condensed profile-block" style="margin-bottom: 45px;">           
+            <div class="block-content">
+                <form name="profileForm" class="form" ng-submit="save(profileForm)">                   
+                    <div class="block-content">
+                        <h5 style="font-size: 20px; padding: 10px 0px;"> Personal Information</h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- PROFILE CARD -->
+                                <div class="block block-condensed">
+                                    <div class="block-heading margin-bottom-0">
+
+                                        <div class="app-heading app-heading-small">
+                                            <div class="contact contact-rounded contact-bordered contact-lg margin-bottom-0">
+                                                <img ng-src="{{userinfo.avatar ? userinfo.avatar : 'assets/images/user/no-image.png' }}" style="height: 40px;width: 40px;">
+                                                <div class="contact-container">
+                                                    <a href="#">{{userinfo.name}}</a>
+                                                    <span><b>Join Date : {{userinfo.createdat | date:'MM/dd/yyyy'}}</b></span>
+                                                </div>
+                                            </div>
+                                            <div class="heading-elements hidden-mobile">
+                                                <div class="col-sm-5 form-group">
+                                                    <div class="fileUpload btn brown" ng-show="!showSaveAvatar" ng-click="showImageCrop()" style="margin-bottom: 2%;">
+                                                        <span> <span class="icon-picture"></span> Change Profile Image</span>
+                                                        <input id="fileInput" type="file" class="upload" accept="image/*" image="UserAvatar" resize-max-height="400" resize-max-width="400" resize-quality="0.7" resize-type="image/jpg" ng-image-compress />
+                                                    </div>
+                                                    <div ng-show="showSaveAvatar">
+                                                        <button type="button" class="btn btn-small btn-success" style="margin-top: 6px;" ng-click="saveAvatar()">
+                                                            <i class="fa fa-save" style="color: #fff"></i> &nbsp;
+                                                            Save Profile Image</button>
+                                                    </div>
+                                                    <span class="text-danger">
+                                                    **Note: Only images (i.e. PNG, JPG, JPEG) files are allowed
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="block-content row-table-holder">
+
+                                        <div class="row row-table">
+                                            <div class="col-md-3 col-xs-12">
+                                                <span class="text-bolder text-uppercase text-sm">Sponsor Name:</span>
+                                                <p><input type="text" name="sponser-name" readonly value="{{sponsor.name}}"
+                                                        class="form-control"></p>
+                                            </div>
+                                            <div class="col-md-3 col-xs-12">
+                                                <span class="text-bolder text-uppercase text-sm">Sponsor ID:</span>
+                                                <p><input type="text" name="sponser-name" readonly value="{{sponsor.username}}"
+                                                        class="form-control"></p>
+                                            </div>
+                                            <div class="col-md-3 col-xs-12">
+                                                <span class="text-bolder text-uppercase text-sm">Sponsor Email:</span>
+                                                <p><input type="text" name="sponser-name" readonly value="{{sponsor.email}}"
+                                                        class="form-control"></p>
+                                            </div>
+
+                                            <div class="col-md-3 col-xs-12">
+                                                <span class="text-bolder text-uppercase text-sm">Sponsor Phone:</span>
+                                                <p><input type="text" name="sponser-name" readonly value="{{sponsor.mobile}}"
+                                                        class="form-control"></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row row-table">
+                                            <div class="col-md-6 col-xs-12">
+                                                <span class="text-bolder text-uppercase text-sm">Email:</span>
+                                                <p>
+                                                    <input type="text" name="sponser-name" readonly value="{{userinfo.email}}" class="form-control">
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6 col-xs-12">
+                                                <span class="text-bolder text-uppercase text-sm">Username:</span>
+                                                <p>
+                                                    <input type="text" name="sponser-name" readonly value="{{userinfo.username}}" class="form-control">
+                                                </p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row row-table">
+                                            <div class="col-md-6 col-xs-12" style="border-right: 0px solid #DBE0E4;">
+                                                <span class="text-bolder text-uppercase text-sm">Name:</span>
+                                                <p><input type="text" name="name" ng-model="userinfo.name" value="{{userinfo.name}}"
+                                                        class="form-control"></p>
+                                            </div>
+                                            <div class="col-md-6 col-xs-12" style="border-left: 1px solid #DBE0E4;">
+                                                <span class="text-bolder text-uppercase text-sm">Primary Mobile Number: </span>
+                                                <span ng-if="callStatus=='Answering'" style="color: green;">
+                                                    <i class="fa fa-check-circle-o" aria-hidden="true"></i> Verified 
+                                                </span>
+                                                <div class="row">
+                                                    <div class="col-md-2" style="margin-right:0px; padding-right:0px;">
+                                                        <select name="phstdcode" ng-model="userinfo.stdcode" ng-init="userinfo.stdcode = isdCodes[0].dial_code" class="std-input form-control"
+                                                            id="isdcodes" required ng-disabled="callStatus=='Answering'">
+                                                                <option ng-repeat="isd in isdCodes" value="{{isd.dial_code}}">{{isd.dial_code}}</option>
+                                                            </select>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <input type="text" name="mobilenumber" ng-model="userinfo.mobileNo" value="{{userinfo.mobileNo}}" class="form-control" ng-disabled="callStatus=='Answering'">
+                                                    </div>
+                                                </div>
+                                                <div style="padding-left: 10px; padding-right: 10px">
+                                                    <p class="error-block" ng-if="callStatus=='Not Answering'">
+                                                        The contact you provided was unavailable. Kindly provide us with your reachable contact to get started soon.
+                                                    </p>
+                                                    <p class="error-block" ng-if="callStatus=='Wrong Number'">
+                                                        The contact you provided was wrong number . Kindly provide us with your reachable contact to get started .
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row row-table">
+                                            <div class="col-md-6 col-xs-12" style="border-right: 0px solid #DBE0E4;">
+                                                <span class="text-bolder text-uppercase text-sm">Skype Name :</span>
+                                                <p><input type="text" name="skypeName" ng-model="userinfo.skypeName" value="{{userinfo.skypeName}}"
+                                                        class="form-control"></p>
+                                            </div>
+                                            <div class="col-md-6 col-xs-12" style="border-left: 1px solid #DBE0E4;">
+                                                <span class="text-bolder text-uppercase text-sm">Secondary Mobile Number: </span>
+                                                <span ng-if="callStatus=='Answering'" style="color: green;">
+                                                    <i class="fa fa-check-circle-o" aria-hidden="true"></i> Verified 
+                                                </span>
+                                                <div class="row">
+                                                    <div class="col-md-2" style="margin-right:0px; padding-right:0px;">
+                                                        <select name="phstdcode" ng-model="userinfo.stdcode2" ng-init="userinfo.stdcode2 = isdCodes[0].dial_code" class="std-input form-control"
+                                                            id="isdcodes" ng-disabled="callStatus=='Answering'">
+                                                                <option ng-repeat="isd in isdCodes" value="{{isd.dial_code}}">{{isd.dial_code}}</option>
+                                                            </select>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <input type="text" name="mobilenumber" ng-model="userinfo.secondaryMobileNo" value="{{userinfo.secondaryMobileNo}}" class="form-control" ng-disabled="callStatus=='Answering'">
+                                                    </div>
+                                                </div>
+                                                <div style="padding-left: 10px; padding-right: 10px">
+                                                    <p class="error-block" ng-if="callStatus=='Not Answering'">
+                                                        The contact you provided was unavailable. Kindly provide us with your reachable contact to get started soon.
+                                                    </p>
+                                                    <p class="error-block" ng-if="callStatus=='Wrong Number'">
+                                                        The contact you provided was wrong number . Kindly provide us with your reachable contact to get started .
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row row-table">
+                                            <div class="col-md-12 col-xs-12">
+                                                <span class="text-bolder text-uppercase text-sm">Address:</span>
+                                                <p><textarea name="address" ng-model="userinfo.address" class="form-control">{{userinfo.city}}, {{userinfo.state}}, {{userinfo.countryName}}</textarea>                                                    </p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row row-table">
+                                            <div class="col-md-4 col-xs-12">
+                                                <span class="text-bolder text-uppercase text-sm">Country:</span>
+                                                <p>
+                                                    <select class="form-control" name="country" ng-model="userinfo.country" ng-change="setCountryCode()">
+                                                    <option ng-repeat="country in countries"  value="{{country.name}}">{{country.name}}</option>
+                                                    </select>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-4 col-xs-12">
+                                                <span class="text-bolder text-uppercase text-sm">State:</span>
+                                                <p><input type="text" name="state" ng-model="userinfo.state" class="form-control"></p>
+                                            </div>
+
+                                            <div class="col-md-4 col-xs-12">
+                                                <span class="text-bolder text-uppercase text-sm">City:</span>
+                                                <p><input type="text" name="city" ng-model="userinfo.city" class="form-control">
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row row-table">
+                                            <div class="col-md-6 col-xs-12">
+                                                <span class="text-bolder text-uppercase text-sm">Pincode/Postal Code:</span>
+                                                <p>
+                                                    <input type="text" name="postal-code" ng-model="userinfo.pincode" value="{{userinfo.pincode}}" class="form-control">
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="row row-table">
+                                            <div class="col-xs-12">
+                                                <button style="margin-left: 10px" class="btn btn-danger btn-icon-fixed pull-right" type="submit" ng-disabled="uploadDisable || profileForm.paypalInfo.$error.pattern"><span class="icon-pencil"></span>Save</button>
+                                                <button class="btn btn-info pull-right" ng-click="cancel()">Cancel</button>
+                                                <!--<button style="margin-left: 10px" class="btn btn-danger btn-icon-fixed pull-right"><span class="icon-pencil"></span> Save</button>-->
+                                                <!--<button class="btn btn-info pull-right ">Cancel</button>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>            
+        </div>        
+    </div>
+    <div class="clearfix"></div>
+    <div class="app" style="position: absolute;bottom: 0px;min-height:initial;">
+        <footer ng-include="'app/dashboard/footer/footer.html'"></footer>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+</div>

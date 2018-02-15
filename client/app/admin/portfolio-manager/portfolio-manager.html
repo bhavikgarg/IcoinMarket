@@ -1,0 +1,218 @@
+<div class="block block-condensed">
+    <div class="app-heading app-heading-small">
+        <div class="title">
+            <h5 style="font-size: 20px; padding: 10px 0px;"> Admin Users </h5>
+        </div>
+    </div>
+    <div class="block-content">
+        <ul class="nav nav-tabs navbar-right">
+            <li class="active"><a data-toggle="tab" href="#users-list">Users List</a></li>
+            <li><a data-toggle="tab" href="#register-user">Add New User</a></li>
+        </ul>
+        <div class="tab-content clearfix">
+            <div class="tab-pane active" id="users-list">
+                <div class="row>">
+                    <div class="col-md-12">
+                        <h2> Users List</h2>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:10px">
+                        <div class="form-group">
+                            <label for="role">User Type</label>
+                            <select name="role" class="form-control" ng-model="role" ng-change="loadPage()">
+                                <option selected value="manager">Portfolio Manager</option>
+                                <option value="support">Support Admin</option>
+                                <option value="finance">Finance Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 pull-right">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" ng-model="filter.data" name="filterdate" placeholder="Search Filter (Name, Username, And Email) "
+                                    style="line-height : 30px; width : 100%" />
+                                <span style="margin-top: 0px;display: block;font-size: 0.85em;margin-bottom: 25px;">Filter based on name and email</span>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn brown" style="height : 42px" ng-click="loadPage()" ng-if="!isRefreshCall">Search</button>
+                                <button class="btn brown" style="height : 42px" ng-click="loadBySearch()" ng-if="isRefreshCall">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <br>
+                <div class="row" style="overflow-x: auto;">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <table class="table table-stripped table-hover table-bordered">
+                            <thead style="border-top : 3px solid #d0d0d0">
+                                <tr>
+                                    <th>Email /<br>System Id</th>
+                                    <th>Full Name</th>
+                                    <th>Country</th>
+                                    <th>Mobile</th>
+                                    <th ng-if="role === 'manager'">Investment</th>
+                                    <th ng-if="role === 'manager'">Return</th>
+                                    <th ng-if="role === 'manager'">Max Earning Source</th>
+                                    <th ng-if="role === 'manager'">Total Commission</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="(key, user) in users" ng-class="(key%2==0 ? 'even' : 'odd')">
+                                    <td>{{user.email}}<br>{{user._id}}</td>
+                                    <td>{{user.name}}</td>
+                                    <td>{{user.countryName}}</td>
+                                    <td>{{user.mobile}}</td>
+                                    <td ng-if="role === 'manager'">{{user.totalInvestment}}</td>
+                                    <td ng-if="role === 'manager'">{{user.totalReturn}}</td>
+                                    <td ng-if="role === 'manager'">{{user.maximumEarningSource}}</td>
+                                    <td ng-if="role === 'manager'">{{user.totalCommission}}</td>
+                                    <td><span ng-if="user.verified" class="text-success">Verified</span><span ng-if="!user.verified"
+                                            class="text-danger">Unverified</span></td>
+                                    <td>
+                                        <table cellpadding="0" cellspacing="5" border="0">
+                                            <tr>
+                                                <td ng-if="!isFinanceAdmin() && !isSoloAddAdmin() && !isWatchUserAdmin()">
+                                                    <a ng-if="!user.isBlocked" ng-click="blockUser(user)" confirm="Are you sure, you want to block '{{user.name}}' ?" confirm-settings="{windowClass: 'ci-confirm-window'}"
+                                                        class="trash" uib-tooltip="Block User"><span class="fa fa-check text-success" style="padding : 0px 5px 0px 5px"></span></a>
+                                                    <a ng-if="user.isBlocked" ng-click="unblockUser(user)" confirm="Are you sure, you want to enable '{{user.name}}' ?" confirm-settings="{windowClass: 'ci-confirm-window'}"
+                                                        class="trash" uib-tooltip="Unblock User"><span class="fa fa-times text-danger" style="padding : 0px 5px 0px 5px"></span></a>
+                                                    <a ng-click="viewUserDoc(user)" uib-tooltip="View Document"><span class="fa fa-file" style="padding : 0px 5px 0px 5px"></span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td ng-if="!isSoloAddAdmin() && !canSeeUserBackOffice()" colspan="11">
+                                        <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                                            ng-change="loadPage()"></ul>
+                                    </td>
+
+                                    <td ng-if="!(!isSoloAddAdmin() && !canSeeUserBackOffice())" colspan="10">
+                                        <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                                            ng-change="loadPage()"></ul>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="register-user">
+                <div class="row">
+
+                    <form name="form" ng-submit="registerPortfolioManager(form)" role="form" method="post">
+                        <div class="col-md-12">
+                            <h2>Register</h2>
+                        </div>
+                        <div class="col-md-6 col-md-offset-1">
+                            <div class="form-group" ng-class="{ 'has-error': form.role.$dirty && form.role.$error.required }">
+                                <label for="role">Admin Type<span style="color:red">*</span></label>
+                                    <select name="role" id="role" class="form-control" ng-model="user.role">
+                                           <option selected value="manager">Portfolio Manager</option>
+                                           <option value="support">Support Admin</option>
+                                           <option value="finance">Finance Admin</option>
+                                    </select>
+                                <span ng-show="form.role.$dirty && form.role.$error.required" class="help-block">User Type is required</span>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }">
+                                <label for="firstName">First name</label>
+                                <input type="text" name="firstName" id="firstName" class="form-control" ng-model="user.firstName" required />
+                                <span ng-show="form.firstName.$dirty && form.firstName.$error.required" class="help-block">First name is required</span>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }">
+                                <label for="lastName">Last name</label>
+                                <input type="text" name="lastName" id="lastName" class="form-control" ng-model="user.lastName" required />
+                                <span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">Last name is required</span>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" class="form-control" ng-model="user.email" ng-pattern="/^[a-z]+([a-z0-9._-](\+{0,1}))+@[a-z0-9]+\.[a-z.]{2,6}$/i"
+                                    required mongoose-error />
+                                <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
+                                <span ng-show="form.email.$error.pattern || form.email.$error.email" class="help-block text-danger">Please enter a valid email</span>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error': form.country.$dirty && form.country.$error.required }">
+                                <label for="country">Country</label>
+                                <select name="country" id="country" class="form-control" ng-model="user.country" ng-change="setCountryCode()">
+                                            <option ng-repeat="country in countries" ng-value="country.name">{{country.name}}</option>
+                                        </select>
+                                <span ng-show="form.country.$dirty && form.country.$error.required" class="help-block">Country is required</span>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error': form.mobile.$dirty && form.mobile.$error.required }">
+                                <label for="isdcodes">Mobile</label>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <select name="phstdcode" ng-model="user.stdcode" class="std-input form-control" id="isdcodes" ng-change="setCountry()" required>
+                                                    <option ng-repeat="isd in isdCodes" value="{{isd.dial_code}}">{{isd.dial_code}}</option>
+                                                </select>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="number" name="mobile" id="mobile" class="form-control" ng-model="user.mobile" required />
+                                    </div>
+                                </div>
+                                <span ng-show="form.mobile.$dirty && form.mobile.$error.required" class="help-block">Mobile no. is required</span>
+                            </div>
+                            <div class="form-group" ng-if="form.role == 'manager'" ng-class="{ 'has-error': form.totalInvestment.$dirty && form.totalInvestment.$error.required }">
+                                <label for="totalInvestment">Total Investment</label>
+                                <input type="number" name="totalInvestment" id="totalInvestment" class="form-control" ng-model="user.totalInvestment" min="0"
+                                    step="1" required />
+                                <span ng-show="form.totalInvestment.$dirty && form.totalInvestment.$error.required" class="help-block">Total investment is required</span>
+                                <span ng-show="form.totalInvestment.$error.min" class="help-block text-danger">Total investment should be greater than 0.</span>
+                            </div>
+                            <div class="form-group" ng-if="form.role == 'manager'" ng-class="{ 'has-error': form.totalReturn.$dirty && form.totalReturn.$error.required }">
+                                <label for="totalReturn">Total Return</label>
+                                <input type="number" name="totalReturn" id="totalReturn" class="form-control" ng-model="user.totalReturn" min="0" step="1"
+                                    required />
+                                <span ng-show="form.totalReturn.$dirty && form.totalReturn.$error.required" class="help-block">Total return is required</span>
+                                <span ng-show="form.totalReturn.$error.min" class="help-block text-danger">Total return should be greater than 0.</span>
+                            </div>
+                            <div class="form-group" ng-if="form.role == 'manager'" ng-class="{ 'has-error': form.maxEarningSource.$dirty && form.maxEarningSource.$error.required }">
+                                <label for="maxEarningSource">Maximum Earning Source</label>
+                                <input type="text" name="maxEarningSource" id="maxEarningSource" class="form-control" ng-model="user.maxEarningSource" required
+                                />
+                                <span ng-show="form.maxEarningSource.$dirty && form.maxEarningSource.$error.required" class="help-block">Maximum earning source is required</span>
+                            </div>
+                            <div class="form-group" ng-if="form.role == 'manager'" ng-class="{ 'has-error': form.totalCommission.$dirty && form.totalCommission.$error.required }">
+                                <label for="totalCommission">Total Commission</label>
+                                <input type="number" name="totalCommission" id="totalCommission" class="form-control" ng-model="user.totalCommission" min="0"
+                                    step="1" required />
+                                <span ng-show="form.totalCommission.$dirty && form.totalCommission.$error.required" class="help-block">Total commission is required</span>
+                                <span ng-show="form.totalCommission.$error.min" class="help-block text-danger">Total commission should be greater than 0.</span>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" ng-disabled="form.$invalid || loading" class="btn brown">Register</button>
+                                <a href="/admin"><button type='button' class="btn btn-warning">Cancel</button></a>
+                                <span class="help-block" ng-if="saveError" style="color : red">{{saveError}}</span>
+                                <span class="help-block" ng-if="saveSuccess" style="color : green">{{saveSuccess}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-5" ng-if="form.role == 'manager'">
+                            <div class="row" style="margin-top: 10px">
+                                <div class="col-md-12">
+                                    <div class="fileUpload btn btn-sm brown" style="margin-bottom: 2%;">
+                                        <span ng-if="!changeImage">Upload Scanned Document</span>
+                                        <span ng-if="changeImage">Change Uploaded Document</span>
+                                        <input id="fileInput" type="file" class="upload" accept="image/*" />
+                                    </div>
+                                    <br>
+                                    <span class="text-danger">
+                                                **Note: Only images (i.e. PNG, JPG, JPEG) files are allowed
+                                            </span>
+                                </div>
+                                <br><br>
+                                <div class="col-md-12" ng-if="user.uploadDoc" style="margin-top: 20px">
+                                    <img ng-src="{{user.uploadDoc}}" class="img-responsive thumbnail" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

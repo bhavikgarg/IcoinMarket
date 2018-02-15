@@ -1,0 +1,58 @@
+<div class="block block-condensed">
+  <!-- START HEADING -->
+  <div class="app-heading app-heading-small">
+    <div class="title">
+      <p><a href="/dashboard">Dashboard</a> / Marketing Tools / Referral Campaign Report</p>
+    </div>
+  </div>
+  <!-- END HEADING -->
+  <div class="block-content">
+    <h5 style="font-size: 20px; padding: 10px 0px;"> Referral Campaign Report </h5>
+    <br><br>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr>
+                <th width="8%">Created At</th>
+                <th width="40%">Campaign Name</th>
+                <th width="8%" class="text-center">Visits</th>
+                <th width="8%" class="text-center">Sign Ups</th>
+                <!--<th width="15%">ADS.Cash Coins</th>-->
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="(key, row) in affiliates" ng-class="(key%2==0 ? 'even' : 'odd')">
+                <td>{{row.createdat | date}}</td>
+                <td class="text-capitalize">{{row.linkname}}</td>
+                <td class="text-center">{{row.visitcount}}</td>
+                <td class="text-center">{{row.registercount}}</td>
+                <!--<td class="text-center">0</td>-->
+              </tr>
+              <tr ng-if="loadingText!=''">
+                <td colspan="6" class="text-center"><strong>{{loadingText}}</strong></td>
+              </tr>
+            </tbody>
+            <tfoot style="margin-top : 20px">
+              <tr>
+                <td colspan="6">
+                  <ul uib-pagination class="pull-left" items-per-page="viewLimit" ng-model="currentPage" total-items="totalPages" max-size="5"
+                    boundary-links="true" ng-change="loadPage()"></ul>
+                  <form>
+                    <ul class="pull-left" style="line-height:2.5;margin:10px 0;text-align: right">
+                      <button type="submit" class="btn brown btn-sm pull-right" ng-click="updatePage()" style="height:33px;text-transform:capitalize;margin: 0 0 0 5px;">Go</button> 
+                      Go to page: &nbsp; <input type="number" min="1" ng-model="getPage" class="form-control pull-right" style="width:60px;margin:0;height:36px;"><br
+                      />
+                      <span class="text-right help-block pull-right" ng-show="error" style="margin:0">{{error}}</span>
+                    </ul>
+                  </form>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

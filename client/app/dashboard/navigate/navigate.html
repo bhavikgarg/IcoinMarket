@@ -1,0 +1,60 @@
+<div id='mobile-menu' class="app-header-navigation pull-right">
+    <nav>
+        <ul ng-controller="NavigationCtrl">
+            <li ng-click="closeMenu()">
+                <a ui-sref="dashboard"  ng-class="getClass('dashboard')">Dashboard</a>
+            </li>
+
+            <li ng-click="closeMenu()">
+                <a ui-sref="leaderboard" ng-class="getClass('leaderboard')">Leaderboard</a>
+            </li>
+            <li>
+                <a href="#" ng-class="getClass('genealogy') || getClass('genealogyList') || getClass('genealogyFront')">My Team</a>
+                <ul>
+                    <li  ng-click="closeMenu()"><a ui-sref="genealogy" ng-class="getClass('genealogy')">Genealogy</a></li>
+                    <li ng-click="closeMenu()"><a ui-sref="genealogyList" ng-class="getClass('genealogyList')">List View</a></li>
+                    <li ng-click="closeMenu()"><a ui-sref="genealogyFront" ng-class="getClass('genealogyFront')">Frontline</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#" ng-class="getClass('message') || getClass('MessageList') || getClass('messageView')"> Team Communication</a>
+                <ul>
+                    <li ng-click="closeMenu()"> <a ui-sref="message" ng-class="getClass('message')">Send Message</a> </li>
+                    <li ng-click="closeMenu()"> <a ui-sref="MessageList({'listType':'inbox'})" ng-class="getClass1('/teamcommunication/inbox')">Inbox</a></li>
+                    <li ng-click="closeMenu()"> <a ui-sref="MessageList({'listType':'sent'})" ng-class="getClass1('/teamcommunication/sent')">Sent</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#" ng-class="getClass('affilateBanner') || getClass('affilateBannerReport') || getClass('affilateDefaultPage')
+                || getClass('affiliates') || getClass('affilateReferralReport') || getClass('emailSamples') || getClass('smsBlast')"> Marketing Tools</a>
+                <ul>
+                    <li ng-click="closeMenu()"> <a ui-sref="affilateBanner" ng-class="getClass('affilateBanner')">Banner</a> </li>
+                    <li ng-click="closeMenu()"> <a ui-sref="affilateBannerReport" ng-class="getClass('affilateBannerReport')">Banner Report</a> </li>
+                    <li ng-click="closeMenu()"><a ui-sref="affilateDefaultPage" ng-class="getClass('affilateDefaultPage')" disabled>My Referral Links</a></li>
+                    <li ng-click="closeMenu()"> <a ui-sref="affiliates" ng-class="getClass('affiliates')">Referral Campaign</a> </li>
+                    <li ng-click="closeMenu()"> <a ui-sref="affilateReferralReport" ng-class="getClass('affilateReferralReport')">Referral Campaign Report</a> </li>
+                    <!--<li> <a href="#" ng-class="getClass('affilateDefaultPage')" disabled>My Referral Links</a></li>-->
+                    <!--<li> <a href="#" ng-class="getClass('affiliates')" disabled>Referral Campaign</a> </li>-->
+                    <!--<li> <a href="#" ng-class="getClass('affilateReferralReport')" disabled>Referral Campaign Report</a> </li>-->
+                    <li ng-click="closeMenu()"> <a ui-sref="emailSamples" ng-class="getClass('emailSamples')">Email Samples</a> </li>
+                    <li ng-click="closeMenu()"> <a ui-sref="smsBlast" ng-class="getClass('smsBlast')">SMS Blast</a> </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" id="btn-5" ng-class="getClass('wallet') || getClass('purchaseHistory')">Wallet</a>
+                <ul>
+                    <li ng-click="closeMenu()"> <a ui-sref="wallet" ng-class="getClass('wallet')">My Wallet</a> </li>
+                    <li ng-click="closeMenu()"> <a ui-sref="purchaseHistory" ng-class="getClass('purchaseHistory')">Purchase History</a> </li>
+                </ul>
+            </li>
+            <li ng-click="closeMenu()">
+                <a href="/support" target="_blank">Support </a>
+            </li>
+            <li ng-click="closeMenu()">
+                <a ui-sref="portfoliomanager" ng-class="getClass('portfoliomanager')">Portfolio Managers</a>
+            </li>
+        </ul>
+    </nav>
+</div>

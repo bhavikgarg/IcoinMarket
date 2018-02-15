@@ -1,0 +1,98 @@
+<!-- SoloEmail Content Modal Window -->
+
+    <div class="modal-content">
+      <div class="modal-header model-header-color">
+        <h3>SoloEmail Content</h2>
+        <button type="button" class="close close-button" ng-click="closeAllDialogs()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-group" ng-submit="updateSoloEmailContent()" ng-if="allowEdit">
+          <div class="col-sm-12 no-padding">
+            <div class="form-group">
+              <div class="col-sm-5">
+                <label class="control-label">Reply To Email Id:</label>
+              </div>
+              <div class="col-sm-7">
+                <input type="email" class="control-label" name="cost" placeholder="Reply to email id" ng-model="soloemail.replyto" required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-5">
+                <label class="control-label">Email Subject:</label>
+              </div>
+              <div class="col-sm-7">
+                <input type="text" class="control-label" name="cost" placeholder="Email Subject" ng-model="soloemail.subject" required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-5">
+                <label class="control-label">Comment For Admin:</label>
+              </div>
+              <div class="col-sm-7">
+                <textarea rows="5" cols="35" ng-model="soloemail.comments"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <label class="control-label">Email Body:</label>
+              </div>
+              <div class="col-sm-12">
+                <text-angular ng-model="soloemail.content" required></text-angular>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <button type="submit" class="btn brown" style="margin-top:15px;">Save Content</button>
+                <p class="text-danger" ng-if="errorMessage != ''">
+                  {{errorMessage}}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </form>
+
+        <div class="form-group" ng-submit="updateSoloEmailContent()" ng-if="!allowEdit">
+          <div class="col-sm-12 no-padding">
+            <div class="form-group">
+              <div class="col-sm-5">
+                <label class="control-label">Reply To Email Id:</label>
+              </div>
+              <div class="col-sm-7">
+                <p>{{soloemail.replyto}}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-5">
+                <label class="control-label">Email Subject:</label>
+              </div>
+              <div class="col-sm-7">
+                <p>{{soloemail.subject}}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-5">
+                <label class="control-label">Comment For Admin:</label>
+              </div>
+              <div class="col-sm-7">
+                <p>{{soloemail.comments}}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <label class="control-label">Email Body:</label>
+              </div>
+              <div class="col-sm-12">
+                <div style="border:1px solid #ccc;padding:15px;margin-top:10px;height:400px;overflow:scroll;" ng-bind-html="soloemail.content"></div>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+<!-- SoloEmail Content Modal Ends -->

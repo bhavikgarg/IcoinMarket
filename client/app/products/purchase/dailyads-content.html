@@ -1,0 +1,66 @@
+<!-- Daily Login Ads Modal Window -->
+
+    <div class="modal-content">
+      <div class="modal-header model-header-color">
+        <h3>Daily Login Ads Content</h2>
+        <button type="button" class="close close-button" ng-click="closeAllDialogs()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-group" ng-submit="updateDailyAdContent()" ng-if="allowEdit">
+          <div class="col-sm-12 no-padding">
+            <div class="form-group">
+              <div class="col-sm-5">
+                <label class="control-label">Daily Login Ad URL:</label>
+              </div>
+              <div class="col-sm-7">
+                <input type="url" class="control-label" name="cost" placeholder="Please provide your Ad URL" ng-model="dailyads.pageurl" required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-5">
+                <label class="control-label">Comment For Admin:</label>
+              </div>
+              <div class="col-sm-7">
+                <textarea rows="5" cols="35" ng-model="dailyads.comments"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <button type="submit" class="btn brown" style="margin-top:15px;">Save Content</button>
+                <p class="text-danger" ng-if="errorMessage != ''">
+                  {{errorMessage}}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </form>
+
+        <div class="form-group" ng-if="!allowEdit">
+          <div class="col-sm-12 no-padding">
+            <div class="form-group">
+              <div class="col-sm-5">
+                <label class="control-label">Daily Login Ad URL:</label>
+              </div>
+              <div class="col-sm-7">
+                <p>{{dailyads.pageurl}}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-5">
+                <label class="control-label">Comment For Admin:</label>
+              </div>
+              <div class="col-sm-7">
+                <p>{{dailyads.comments}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+<!-- Daily Login Ads Modal Ends -->

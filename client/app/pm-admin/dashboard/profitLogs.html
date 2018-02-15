@@ -1,0 +1,49 @@
+<div class="modal-content">
+  <div class="modal-header model-header-color" style="background-color: #fff;text-align: left ">
+   <!--  <button type="button" class="close" data-dismiss="modal" ng-click="closeModal()" style="padding: 10px;margin-top: 10px;">&times;</button> -->
+    <div class="modal-title" align="center" style="font-family: 'Times New Roman', Times, serif;font-size: 16px;color: #000;text-align: left">
+     Profit Update logs
+    </div>
+  </div>
+  <div class="modal-body">
+    <div style="padding-bottom: 15px; height :280px;overflow-y: auto">
+      <table class="table-responsive table-scrollable table table-stripped table-hover table-bordered no-footer dataTable product_details">
+        <thead>
+          <tr>
+            <th class="text-center" style="background-color: cadetblue;color:#fff">Portfolio Manager</th>
+            <th class="text-center" style="background-color: cadetblue;color:#fff">Date</th>
+            <th class="text-center" style="background-color: cadetblue;color:#fff">Aggressive</th>
+            <th class="text-center" style="background-color: cadetblue;color:#fff">Distributive</th>
+            <th class="text-center" style="background-color: cadetblue;color:#fff">Safe</th>
+            <th class="text-center" style="background-color: cadetblue;color:#fff">Stable</th>
+            <th class="text-center" style="background-color: cadetblue;color:#fff">Fixed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(key,packagelog) in packagelogList">
+            <td class="text-center">{{ packagelog.updatedby.name}}</td>
+            <td class="text-center">{{ packagelog.createdat | date : 'medium' }}</td>
+            <td class="text-center"  ng-repeat="(keyinner,package) in packagelogList[key].packages">
+              {{package.profitpercent}}
+            </td>
+          </tr>
+        </tbody>
+        <!--<tfoot>
+          <tr>
+            <td colspan="11">
+              <span ng-if="pageWait!=''" class="text-danger">{{pageWait}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="5">
+              <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                ng-change="loadPage()"></ul>
+            </td>
+          </tr>
+        </tfoot>-->
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>

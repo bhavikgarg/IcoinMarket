@@ -1,0 +1,41 @@
+.messages {
+  height:               475px !important;
+  list-style-type:      none;
+  padding:              00px;
+  overflow-x:           hidden;
+  li {
+    border-bottom:      solid 1px #eee;
+    padding:            15px 5px 15px 5px;
+    a {
+      color:            #8896a0;
+      .subject {
+        display:        block;
+        margin-left:    70px;
+        margin-top:     -45px;
+        .from {
+          color: $theme-color;
+          font-weight:  600;
+        }
+      }
+      .message {
+        display:        block;
+        margin-left:    70px;
+      }
+      .time {
+        background-color:  #485762;
+        border-radius:     5%;
+        color:             #fff;
+        font-weight:       200;
+        margin-right:      10px;
+        margin-top:        -5px;
+        padding:           5px 10px 5px 12px;
+      }
+    }
+  }
+  li:hover {
+    background-color:   #f9fafc;
+  }
+  .img-circle {
+    height:   45px;
+  }
+}

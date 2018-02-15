@@ -1,0 +1,93 @@
+<div class="block block-condensed">
+    <div class="app-heading app-heading-small">
+        <div class="title">
+            <p><a href="/dashboard">Dashboard</a> / Leaderboard</p>
+        </div>
+    </div>
+    <h5 style="font-size: 20px; padding: 10px 20px;">MAX DIRECTS</h5>
+    <div class="block-content">
+        <div class="table-responsive">
+            <table ng-if="directsLoading">
+                <thead>
+                    <tr>
+                        <th width="20%">Last 7 Days</th>
+                        <th width="40%">Last 30 Days</th>
+                        <th width="40%">All Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center" colspan="3"><strong>Loading ... </strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-responsive">
+            <table ng-if="!directsLoading" class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th width="20%">Last 7 Days</th>
+                        <th width="40%">Last 30 Days</th>
+                        <th width="40%">All Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key, row) in directs" ng-class="(key%2==0 ? 'even' : 'odd')">
+                        <td class="text-capitalize">
+                            <img ng-src="{{row.last7Days.country}}" width="16" ng-hide="!row.last7Days.showFlag" /> {{row.last7Days.name}}
+                        </td>
+                        <td class="text-capitalize">
+                            <img ng-src="{{row.last30Days.country}}" width="16" ng-hide="!row.last30Days.showFlag" />                                {{row.last30Days.name}}
+                        </td>
+                        <td class="text-capitalize">
+                            <img ng-src="{{row.allTime.country}}" width="16" ng-hide="!row.allTime.showFlag" /> {{row.allTime.name}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <h5 style="font-size: 20px; padding: 10px 20px;">MAX TEAM SIZE</h5>
+    <div class="block-content">
+        <div class="table-responsive">
+            <table ng-if="maxTeamLoading">
+                <thead>
+                    <tr>
+                        <th width="20%">Last 7 Days</th>
+                        <th width="40%">Last 30 Days</th>
+                        <th width="40%">All Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center" colspan="3"><strong>Loading ... </strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-responsive">
+            <table ng-if="!maxTeamLoading" class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th width="20%">Last 7 Days</th>
+                        <th width="40%">Last 30 Days</th>
+                        <th width="40%">All Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key, row) in maxTeam" ng-class="(key%2==0 ? 'even' : 'odd')">
+                        <td class="text-capitalize">
+                            <img ng-src="{{row.last7Days.country}}" width="16" ng-hide="!row.last7Days.showFlag" /> {{row.last7Days.name}}
+                        </td>
+                        <td class="text-capitalize">
+                            <img ng-src="{{row.last30Days.country}}" width="16" ng-hide="!row.last30Days.showFlag" />                                {{row.last30Days.name}}
+                        </td>
+                        <td class="text-capitalize">
+                            <img ng-src="{{row.allTime.country}}" width="16" ng-hide="!row.allTime.showFlag" /> {{row.allTime.name}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

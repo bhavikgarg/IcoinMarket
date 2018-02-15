@@ -1,0 +1,135 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- First column for navbar -->
+    <div class="col-md-12 col-sm-12 col-xs-12" style="margin:0px !important; padding:0px !important;">
+      <!-- Second column for content -->
+      <div class="container-fluid" style="margin-top : 10px">
+        <div class="page-content">
+          <h1><i class="fa fa-google-wallet leadertitle-icon-lrg"></i>Revenue Share</h1>
+          <div class="portlet light margin-top-10">
+            <div class="portlet-title">
+              <div class="caption">
+                <span class="caption-subject font-green-sharp bold uppercase">Your Shares</span>
+              </div>
+            </div>
+            <div class="portlet-body">
+              <div class="col-sm-12">
+                <div class="col-sm-6">
+                  <div class="panel" style="border: solid 1px #3980C3;">
+                    <div class="panel-heading" style="background-color: #3980C3; text-align: center;">
+                      <strong align="center" style="color: #D2DDEF; font-size: 16px; font-weight: 600;">Total Purchases</strong>
+                    </div>
+                    <div class="panel-body text-center">
+                      <img src="../assets/images/pur-icon.jpg" height="100px;" />
+                      <span class="task-timer pur-icon" style="font-weight: bold; color: #5A5B5C;">${{revenue.investment}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="panel" style="border: solid 1px #3980C3;">
+                    <div class="panel-heading" style="background-color: #3980C3; text-align: center;">
+                      <strong align="center" style="color: #D2DDEF; font-size: 16px; font-weight: 600;">Total Earned</strong>
+                    </div>
+                    <div class="panel-body text-center">
+                      <img src="../assets/images/ear-icon.png" height="100px;" />
+                      <span class="task-timer ear-icon" style="font-weight: bold; color: #03C400;">$ {{(totalActiveEarnings + totalExEarnings) | number:2}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+
+              <!--div class="col-sm-12" role="tablist">
+                <div class="col-sm-2">
+                  <div class="panel btn-primary" style="padding: 10px 15px; border: solid 1px #E1E1E1;cursor:pointer;" role="presentation" class="active" href="#activesilver" aria-controls="activeSilver" role="tab" data-toggle="tab">Active Silver Pack(s)</div>
+                </div>
+                <div class="col-sm-2"><div class="panel" style="padding: 10px 15px; border: solid 1px #E1E1E1;cursor:pointer;" role="presentation" href="#fulfilled" aria-controls="fulfilledSilver" role="tab" data-toggle="tab">Fulfilled Silver Pack(s)</div></div>
+              </div-->
+
+              <div class="col-sm-12" role="tablist" style="padding:0 30px;">
+                <ul class="nav nav-tabs nav-justified wallet-tabs">
+                  <li class="active">
+                    <a data-toggle="tab" href="#activesilver">Active Silver Pack(s)</a>
+                  </li>
+                  <li>
+                    <a data-toggle="tab" href="#fulfilled">Fulfilled Silver Pack(s)</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="clearfix"></div><br />
+
+              <div class="tab-content feature-content">
+                <div role="tabpanel" class="tab-pane active" id="activesilver">
+                  <div class="col-sm-12" style="padding:0 30px;">
+                    <div class="table-responsive">
+                      <table class="table table-hover table-condensed table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th class="col-lg-2">Date of Purchase</th>
+                            <th class="col-lg-2">Purchase Amount</th>
+                            <th>Packs</th>
+                            <th class="col-lg-6">Fullfilled %</th>
+                            <th class="col-lg-6">Fullfilled Amount</th>
+                            <th class="col-lg-2">Expriry Amount</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="pack in revenue.silverpacks" ng-if="pack.isactive == true">
+                            <td>{{pack.createdat | date:'medium'}}</td>
+                            <td>
+                              <span style="background-color: #397FC3; color: #E8EDF6; padding: 2px 5px; border-radius: 4px;">{{pack.totalpacks * 25}}</span>
+                            </td>
+                            <td class="text-center">{{pack.totalpacks}}</td>
+                            <td>
+                              <div class="progress text-center" style="margin-bottom:0.5rem;border:1px solid #eaeaea;border-radius:1em;overflow:hidden;">
+                                <div class="progress-bar gradient-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="{{pack.maxLen}}" ng-style="{'width':pack.progress+'%'}">
+                                  <span style="color:#333;">{{pack.progress | number:2}} %</span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span style="background-color: #03C400;color: #E8EDF6; padding: 2px 5px; border-radius: 4px;">{{pack.earnUSD | number:5}}</span></td>
+                            <td class="text-center text-danger"><span style="background-color:#F04B50;color:#E8EDF6;padding:2px 5px;border-radius:4px;">{{pack.totalpacks * 30}}</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="fulfilled">
+                  <div class="col-sm-12" style="padding:0 30px;">
+                    <div class="table-responsive">
+                      <table class="table table-hover table-condensed table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th class="col-lg-4">Date of Purchase</th>
+                            <th class="col-lg-2">Amount</th>
+                            <th class="col-lg-4">Expiry Date</th>
+                            <th class="col-lg-2">Fullfilled Amount</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="pack in exrevenue.silverpacks">
+                            <td>{{pack.createdat | date:'medium'}}</td>
+                            <td>
+                              <span style="background-color:#397FC3;color:#E8EDF6;padding:2px 5px;border-radius:4px;">{{pack.totalpacks * 25}}</span>
+                            </td>
+                            <td>{{pack.expirydate | date:'medium'}}</td>
+                            <td>
+                              <span style="background-color:#F04B50;color:#E8EDF6;padding:2px 5px;border-radius:4px;">{{pack.totalpacks * 30}}</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

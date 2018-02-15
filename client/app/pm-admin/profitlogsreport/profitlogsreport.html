@@ -1,0 +1,96 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="page-content">
+        <div class="portlet light margin-top-10" style="overflow: visible;">
+          <div class="portlet-title">
+            <div class="caption">
+              Profit Update Log Report
+            </div>
+          </div>
+          <div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group margin-bottom-10 from-datepicker">
+                  <label for="role">From</label>
+                  <div class="input-group">
+                    <div ng-click="OpenfromDate()" class="input-group-addon"><span class="icon-calendar-full"></span></div>
+                    <div style="position: relative;">
+                      <input ng-click="OpenfromDate()" type="text" class="form-control from-date calandar-dates" uib-datepicker-popup="dd/MM/yyyy"
+                        ng-model="fromDate" name="fromDate" is-open="fromDatePopup.opened" datepicker-options="fromDateOptions"
+                        ng-required="true" close-text="Close" placeholder="From Date" readonly />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group to-datepicker">
+                  <label for="role">To</label>
+                  <div class="input-group">
+                    <div ng-click="OpentillDate()" class="input-group-addon"><span class="icon-calendar-full"></span></div>
+                    <input ng-click="OpentillDate()" type="text" class="form-control to-date calandar-dates" uib-datepicker-popup="dd/MM/yyyy"
+                      ng-model="tillDate" name="tillDate" is-open="tillDatePopup.opened" datepicker-options="tillDateOptions"
+                      ng-required="true" close-text="Close" ng-change="ChangeExpiryMinDate(tillDate)" placeholder="Till Date"
+                      readonly />
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="role">Portfolio Manager</label>
+                  <select class="form-control" ng-model="portfolioManager">
+                   <option value="">Select</option>
+                   <option ng-repeat="portfolioManager in portfolioManagersList" value="{{portfolioManager._id}}">{{portfolioManager.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group" style="margin-top :5px">
+                  <button class="btn brown" style="height:42px ; margin-top:15px;" ng-click="loadPage()">Filter</button>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="table-responsive">
+              <table class="table-responsive table-scrollable table table-stripped table-hover table-bordered no-footer dataTable product_details">
+                <thead>
+                  <tr>
+                    <th class="text-center" style="background-color: cadetblue;color:#fff">Portfolio Manager</th>
+                    <th class="text-center" style="background-color: cadetblue;color:#fff">Date</th>
+                    <th class="text-center" style="background-color: cadetblue;color:#fff">Aggressive</th>
+                    <th class="text-center" style="background-color: cadetblue;color:#fff">Distributive</th>
+                    <th class="text-center" style="background-color: cadetblue;color:#fff">Safe</th>
+                    <th class="text-center" style="background-color: cadetblue;color:#fff">Stable</th>
+                    <th class="text-center" style="background-color: cadetblue;color:#fff">Fixed</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="(key,packagelog) in profitLogsList">
+                    <td class="text-center">{{ packagelog.updatedby.name}}</td>
+                    <td class="text-center">{{ packagelog.createdat | date : 'medium' }}</td>
+                    <td class="text-center" ng-repeat="(keyinner,package) in profitLogsList[key].packages">
+                      {{package.profitpercent}}
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td ng-if="!isSoloAddAdmin() && !canSeeUserBackOffice()" colspan="10">
+                      <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                        ng-change="loadPage(currentPage)"></ul>
+                    </td>
+                    <td ng-if="!(!isSoloAddAdmin() && !canSeeUserBackOffice())" colspan="9">
+                      <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                        ng-change="loadPage(currentPage)"></ul>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

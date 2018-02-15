@@ -1,0 +1,80 @@
+<div class="block block-condensed">
+  <!-- START HEADING -->
+  <div class="app-heading app-heading-small">
+    <div class="title">
+      <p><a href="/dashboard">Dashboard</a> / Marketing Tools / Referral Campaigns</p>
+    </div>
+  </div>
+  <!-- END HEADING -->
+  <div class="block-content">
+    <h5 style="font-size: 20px; padding: 10px 0px;"> Referral Campaigns </h5>
+    <p align="center"></p>
+    <hr>
+    <div class="col-md-12">
+      <div class="tile-basic tile-basic-icon-top tile-basic-shadow">
+        <div class="tile-icon">
+          <span class="icon-link"></span>
+        </div>
+        <div class="tile-content text-center" style="min-height: 50px !important;">
+          <h3 class="tile-title" ng-if="affiliates._main.linkurl && affiliates._main.defaultLink" style="word-wrap:break-word;
+            ">{{linkURI}}</h3>
+          <h3 class="tile-title" ng-if="affiliates._main.linkurl && !affiliates._main.defaultLink" style=" word-wrap:break-word;
+            ">{{signupURI}}</h3>
+          <span ng-if="!affiliates._main.linkurl">Loading..</span>
+          <br/><br/>
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">GET REFERRAL LINK</button>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="clearfix"></div>
+    <div class="table-res">
+      <table class="table table-striped table-bordered datatable-basic" id="sortable-data">
+        <thead>
+          <tr>
+            <th width="5%">S.no</th>
+            <th width="20%">Name</th>
+            <th width="60%">Referral Link </th>
+            <th width="5%">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(key, row) in affiliates.others">
+            <td>{{key + 1}}</td>
+            <td class="text-capitalize">{{row.linkname}}</td>
+            <td ng-if="row.defaultLink">{{row.linkurl}}</td>
+            <td ng-if="!row.defaultLink">{{row.signupURI}}</td>
+            <td>
+              <a ng-click="deleteAffilation(key)" class="trash" uib-tooltip="Delete"><span class="fa fa-trash text-danger" style="padding : 0px 5px"></span></a>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6">
+              <ul uib-pagination class="pull-left" items-per-page="viewLimit" ng-model="currentPage" total-items="totalPages" max-size="5"
+                boundary-links="true" ng-change="loadAffiliates()"></ul>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+        <h4 class="modal-title" id="myModalLabel">Create Referral Campaign</h4>
+      </div>
+      <div class="modal-body" style="padding : 20px; position : relative">
+        <form name="referral" ng-include="referralFormUrl" class="pull-right" ng-submit="createReferral(referral)"></form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,230 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- First column for navbar -->
+    <div class="col-md-12 col-sm-12 col-xs-12" style="margin:0px !important; padding:0px !important;">
+      <!-- Second column for content -->
+      <div class="container-fluid" style="margin-top : 10px">
+        <div class="page-content">
+          <h1><i class="fa fa-google-wallet leadertitle-icon-lrg"></i>Silver Wallet</h1>
+          <div class="portlet light margin-top-10">
+            <div class="portlet-title">
+              <div class="caption">
+                <span class="caption-subject font-green-sharp bold uppercase">Silver Coins Details</span>
+              </div>
+            </div>
+            <div class="portlet-body">
+              <div class="col-sm-12">
+                <ul class="nav nav-tabs nav-justified wallet-tabs">
+                  <li class="active">
+                    <a data-toggle="tab" href="#purchase">Purchased Packs</a>
+                  </li>
+                  <li><a data-toggle="tab" href="#earned-coins">Earned Coins (Text Ads)</a></li>
+                  <li><a data-toggle="tab" href="#text-ads">Create Text Ads</a></li>
+                </ul>
+                <br>
+                <div class="tab-content feature-content">
+                  <div id="purchase" class="table-responsive tab-pane fade in active">
+                    <table class="table table-hover table-condensed  table-striped  table-bordered">
+                      <thead>
+                        <tr>
+                          <th width="10%" ng-click="sortType = 'createdAt'; sortReverse = !sortReverse; dateFilter=false; coinFilter=true">
+                            Created At
+                            <span ng-show="dateFilter" class="sorting fa fa-sort"></span>
+                            <span ng-show="sortType == 'createdAt' && !sortReverse && !dateFilter" class="sorting fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'createdAt' && sortReverse && !dateFilter" class="sorting fa fa-caret-up"></span>
+                          </th>
+                          <th>Description</th>
+                          <th>Payment Mode</th>
+                          <th>Status</th>
+                          <th class="text-right" ng-click="sortType = 'coins'; sortReverse = !sortReverse; coinFilter=false;">
+                            Coins &nbsp;
+                            <span ng-show="coinFilter" class="sorting fa fa-sort"></span>
+                            <span ng-show="sortType == 'coins' && !sortReverse && !coinFilter" class="sorting fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'coins' && sortReverse && !coinFilter" class="sorting fa fa-caret-up"></span>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-class="key%2==0?'even':'odd'" ng-repeat="(key, history) in purchaseRows | orderBy:sortType:sortReverse">
+                          <td width="10%">
+                            <span class="details">{{history.createdAt | date:'medium'}}</span>
+                          </td>
+                          <td>
+                            <span class="details text-capitalize">{{history.description}}</span>
+                          </td>
+                          <td>
+                            <span class="details paymode text-capitalize">{{history.cointype}}</span>
+                          </td>
+                          <td>
+                            <span class="details paymode paystatus label" ng-class="{'label-success':history.status=='COMPLETED', 'label-warning':history.status=='PENDING', 'label-danger':history.status=='CANCELLED'}">{{history.status}}</span>
+                          </td>
+                          <td class="text-right">
+                            <span class="details">{{history.coins}}</span>
+                          </td>
+                        </tr>
+                        <tr ng-if="loadPurchasePageText!=''">
+                          <td class="text-center" colspan="5"><strong>{{loadPurchasePageText}}</strong></td>
+                        </tr>
+                        <tr ng-if="loadPurchasePageText=='' && purchaseTotalPages == 0">
+                          <td class="text-center" colspan="5"><strong>No Purchase Details Found (Silver Pack)</strong></td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr ng-if="loadPurchasePageText=='' && purchaseTotalPages != 0">
+                          <td colspan="5">
+                            <ul uib-pagination class="pull-left" items-per-page="silverViewLimit" ng-model="currentPage" total-items="purchaseTotalPages"
+                              max-size="5" boundary-links="true" ng-change="loadPurchasePage(this)"></ul>
+                            <form>
+                              <ul class="pull-left" style="line-height:2.5;margin:10px 0;text-align: right">
+                                <button type="submit" class="btn brown btn-sm pull-right" ng-click="updatePage(this, 'purchase')" style="height:33px;text-transform:capitalize;margin: 0 0 0 5px;">Go</button>                                Go to page: &nbsp;<input type="number" min="1" ng-model="getPurchasedPage" class="form-control pull-right"
+                                  style="width:60px;margin:0;height:25px;"><br />
+                                <span class="text-right help-block pull-right" ng-show="errorPurchased" style="margin:0">{{errorPurchased}}</span>
+                              </ul>
+                            </form>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                  <!-- Earned Coins -->
+                  <div id="earned-coins" class="table-responsive tab-pane fade">
+                    <table class="table table-hover table-condensed  table-striped  table-bordered">
+                      <thead>
+                        <tr>
+                          <th width="10%" ng-click="sortType = 'createdAt'; earnSortReverse = !earnSortReverse; earnDateFilter=false; earnCoinFilter=true">
+                            Created At
+                            <span ng-show="earnDateFilter" class="sorting fa fa-sort"></span>
+                            <span ng-show="sortType == 'createdAt' && !earnSortReverse && !earnDateFilter" class="sorting fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'createdAt' && earnSortReverse && !earnDateFilter" class="sorting fa fa-caret-up"></span>
+                          </th>
+                          <th>Description</th>
+                          <th>Payment Mode</th>
+                          <th>Status</th>
+                          <th class="text-right" ng-click="sortType = 'coins'; earnSortReverse = !earnSortReverse; earnCoinFilter=false; earnDateFilter=true">
+                            Coins &nbsp;
+                            <span ng-show="earnCoinFilter" class="sorting fa fa-sort"></span>
+                            <span ng-show="sortType == 'coins' && !earnSortReverse && !earnCoinFilter" class="sorting fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'coins' && earnSortReverse && !earnCoinFilter" class="sorting fa fa-caret-up"></span>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-class="key%2==0?'even':'odd'" ng-repeat="(key, history) in earnedRows | orderBy:sortType:earnSortReverse">
+                          <td width="10%">
+                            <span class="details">{{history.createdAt | date:'medium'}}</span>
+                          </td>
+                          <td>
+                            <span class="details text-capitalize">{{history.description}}</span>
+                          </td>
+                          <td>
+                            <span class="details paymode text-capitalize">{{history.cointype}}</span>
+                          </td>
+                          <td>
+                            <span class="details paymode paystatus label" ng-class="{'label-success':history.status=='COMPLETED', 'label-warning':history.status=='PENDING', 'label-danger':history.status=='CANCELLED'}">{{history.status}}</span>
+                          </td>
+                          <td class="text-right">
+                            <span class="details">{{history.coins}}</span>
+                          </td>
+                        </tr>
+                        <tr ng-if="loadEarnedPageText!=''">
+                          <td class="text-center" colspan="5"><strong>{{loadEarnedPageText}}</strong></td>
+                        </tr>
+                        <tr ng-if="loadEarnedPageText=='' && earnedTotalPages == 0">
+                          <td class="text-center" colspan="5"><strong>No Silver Coins Earned</strong></td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr ng-if="loadEarnedPageText=='' && earnedTotalPages != 0">
+                          <td colspan="5">
+                            <ul uib-pagination class="pull-left" items-per-page="silverEarnViewLimit" ng-model="earnedCurrentPage" total-items="earnedTotalPages"
+                              max-size="5" boundary-links="true" ng-change="loadEarnedPage(this)"></ul>
+                            <form>
+                              <ul class="pull-left" style="line-height:2.5;margin:10px 0;text-align: right">
+                                <button type="submit" class="btn brown btn-sm pull-right" ng-click="updatePage(this, 'earned')" style="height:33px;text-transform:capitalize;margin: 0 0 0 5px;">Go</button>                                Go to page: &nbsp;<input type="number" ng-model="getEarnedPage" class="form-control pull-right"
+                                  style="width:60px;margin:0;height:25px;"><br />
+                                <span class="col-md-12 text-right help-block" ng-show="errorEarned" style="margin:0">{{errorEarned}}</span>
+                              </ul>
+                            </form>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                  <!-- Create Text Ads-->
+                  <div id="text-ads" class="table-responsive tab-pane fade">
+                    <table class="table table-hover table-condensed  table-striped  table-bordered">
+                      <thead>
+                        <tr>
+                          <th width="10%" ng-click="sortType = 'createdAt'; adSortReverse = !adSortReverse; adDateFilter=false; adCoinFilter=true">
+                            Created At
+                            <span ng-show="adDateFilter" class="sorting fa fa-sort"></span>
+                            <span ng-show="sortType == 'createdAt' && !adSortReverse && !adDateFilter" class="sorting fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'createdAt' && adSortReverse && !adDateFilter" class="sorting fa fa-caret-up"></span>
+                          </th>
+                          <th>Name (Title)</th>
+                          <th>Description</th>
+                          <th>Payment Mode</th>
+                          <th>Status</th>
+                          <th class="text-right" ng-click="sortType = 'coins'; adSortReverse = !adSortReverse; adCoinFilter=false; adDateFilter=true">
+                            Coins &nbsp;
+                            <span ng-show="adCoinFilter" class="sorting fa fa-sort"></span>
+                            <span ng-show="sortType == 'coins' && !adSortReverse && !adCoinFilter" class="sorting fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'coins' && adSortReverse && !adCoinFilter" class="sorting fa fa-caret-up"></span>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-class="key%2==0?'even':'odd'" ng-repeat="(key, history) in silverTextAdsRows | orderBy:sortType:adSortReverse">
+                          <td width="10%">
+                            <span class="details">{{history.createdAt | date:'medium'}}</span>
+                          </td>
+                          <td width="10%">
+                            <span class="details">{{history.name}}</span>
+                          </td>
+                          <td>
+                            <span class="details text-capitalize">{{history.description}}</span>
+                          </td>
+                          <td>
+                            <span class="details paymode text-capitalize">{{history.cointype}}</span>
+                          </td>
+                          <td>
+                            <span class="details paymode paystatus label" ng-class="{'label-success':history.status=='Active', 'label-danger':history.status=='Non Active'}">{{history.status}}</span>
+                          </td>
+                          <td class="text-right">
+                            <span class="details">{{history.coins}}</span>
+                          </td>
+                        </tr>
+
+                        <tr ng-if="loadExpensePageMessage!=''">
+                          <td class="text-center" colspan="6"><strong>{{loadExpensePageMessage}}</strong></td>
+                        </tr>
+                        <tr ng-if="loadExpensePageMessage=='' && silverTextAdsTotalPages == 0">
+                          <td class="text-center" colspan="6"><strong>No Text Ads Details Found</strong></td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr ng-if="loadExpensePageMessage=='' && silverTextAdsTotalPages != 0">
+                          <td colspan="6">
+                            <ul uib-pagination class="pull-left" items-per-page="silverTextAdsViewLimit" ng-model="silverTextAdsCurrentPage" total-items="silverTextAdsTotalPages"
+                              max-size="5" boundary-links="true" ng-change="loadExpensePage(this)"></ul>
+                            <form>
+                              <ul class="pull-left" style="line-height:2.5;margin:10px 0;text-align: right">
+                                <button type="submit" class="btn brown btn-sm pull-right" ng-click="updatePage(this, 'ad')" style="height:33px;text-transform:capitalize;margin: 0 0 0 5px;">Go</button>                                Go to page: &nbsp;<input type="number" ng-model="getAdPage" class="form-control pull-right"
+                                  style="width:60px;margin:0;height:25px;"><br />
+                                <span class="text-right help-block pull-right" ng-show="errorAd" style="margin:0">{{errorAd}}</span>
+                              </ul>
+                            </form>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

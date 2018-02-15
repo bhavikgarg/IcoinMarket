@@ -1,0 +1,84 @@
+<style>.text-campaign input.form-control, .banner-campaign input.form-control{ width:92%;}</style>
+<div class="col-md-12 col-sm-12 solo_ads_product" style="margin-top: 16px;">
+  <div class="form-group">
+    <div class="col-md-4 col-sm-12" style="display:inline; margin-left:0px; padding-left:0px;">
+      <input ng-pattern="/^[a-zA-Z0-9\s]*$/" title="Special characters are not allowed" style="width:90%" type="text" class="form-control" ng-model="campaign.title" placeholder="Title" maxlength="50" required/>
+      <span style="color:Red;right: 0;margin-top: -53px;float: right;">*</span>
+    </div>
+    <div class="col-md-4 col-sm-12 campaign-url" style="display:inline;">
+      <!-- <input style="width:90%" id="fb-like-campaign-url" type="url" class="form-control" ng-model="campaign.url" placeholder="https://facebook.com/pages/{page_name}/{id}" title="**https://facebook.com/pages/{page_name}/{id}"  style="margin-bottom:0px;" ng-class="{'has-error': showErrorUrl}" ng-blur="validateIframeLoading()" required/> -->
+      <input style="width:90%" id="fb-like-campaign-url" ng-pattern = "/^(https?:\/\/)?((w{3}\.)?)facebook.com\/(([a-z\d.]{5,})?)$/" type="url" class="form-control" ng-model="campaign.url" placeholder="https://facebook.com/pages/{page_name}" title="**https://facebook.com/pages/{page_name}"  style="margin-bottom:0px;" ng-class="{'has-error': showErrorUrl}" ng-blur="validateIframeLoading()" required/>
+    	<p  style="position: absolute;
+    z-index: 999;
+    height: auto;
+    margin: 0 auto;
+        margin-top: -14px;" class="alert alert-danger" ng-show="showErrorUrl">{{errorMessageUrl}}</p>
+         <span style="color:Red;right: 0;margin-top: -52px;float: right;">*</span>
+    </div>
+    <div class="col-md-4 col-sm-12 campaign-url" style="margin-top:-10px;">
+      <h3 style="font-size:15px;" class="pull-left"><strong>Total : <i class="fa fa-database fa-gold" style="font-size:15px;"></i></strong></h3>
+      <div class="col-md-8 col-sm-6 col-xs-7 form-group" style="margin-top:8px;">
+        <input valid-number style="width:85%" name="creditcoins"  ng-min="0" class="form-control" ng-max="{{credits.goldCoins}}" ng-model="campaign.credits" ng-disabled="!canEditCredits" ng-class="{'has-error': showErrorCoins}" placeholder="Coins" ng-blur="validateCoins()"  required/>
+        <p style="position: absolute;z-index: 999;" class="help-block clearfix col-sm-12"
+           ng-show="(setfblikecampaign.creditcoins.$error.max)" ng-if="setfblikecampaign.creditcoins.$touched">
+          Allowed maximum coins is {{credits.goldCoins}}.
+        </p>
+         <span style="color:Red;right: 0;margin-top: -52px;float: right;">*</span>
+        <p style="position: absolute;
+    z-index: 999;"  class="alert alert-danger" ng-show="showErrorCoins">{{errorMessageCoins}}</p>
+      </div>
+    </div>
+<div class="clearfix"></div>
+<hr style="margin-top:10px;">
+  </div>
+  <div class="col-sm-12 no-margin no-padding" style="display:inline;">
+      <textarea style="resize:none;width:85%"  type="text" class="form-control col-sm-12" ng-model="campaign.description" placeholder="Description" maxlength="200" required></textarea>
+      &nbsp;&nbsp;
+       <span style="color:Red;right: 0;margin-top: -52px;">*</span>
+    </div> <div class="clearfix"></div><hr>
+  <div class="form-group ">
+    <h3 style="font-size:15px;"><strong>Cost</strong></h3>
+    <div class="col-md-4 col-sm-12 no-margin no-padding " style="display:inline;padding-right:7px;">
+      <select class="form-control" ng-model="campaign.priority" style="margin-left:0px;width:100%;"  ng-change="validateCoins()">
+        <!-- <option selected="selected" value="">Select Priority</option> -->
+        <option ng-repeat="option in priorityOptions" value="{{option.key}}">{{option.name}}</option>
+      </select>
+            <label style="font-size:0.8em;"><sup>**</sup>Your current priority is gold Coins x {{campaign.priority}} (Default priority is gold Coins x 40)</label></br>
+    </div>
+    <!--div class="col-md-4 col-sm-12" style="display:inline;">
+      <input type="number" min="0" max="60" step="10" class="form-control" ng-model="campaign.quality" placeholder="Campaign Quality"/>
+    </div-->
+    <!--<div class="col-md-4 col-sm-12" style="display:inline;margin-bottom:0px;" flow-init="{singleFile:true}" flow-file-added="imageFileInfo($file, $event, $flow)">
+      <span class="btn btn-default" flow-btn><i class="fa fa-upload"></i> Upload Image</span>
+      <a ng-if="campaign.imagepath && campaign.imagepath != ''" target="_blank" href="{{campaign.imagepath}}">View Image</a>
+      <p ng-if="purchaseReceipt!='' && updateKey==key">{{purchaseReceipt}}</p>
+    </div>-->
+  </div>
+
+  <div class="clearfix"></div><hr>
+  <div class="form-group">
+	<div class="col-md-12 col-sm-12 col-xs-12 no-margin no-padding">
+	  <button style="padding:5px 10px 10px 10px;" type="button" class="btn btn-default btn-primary btn-lg" ng-click="preview()" ng-disabled="(setfblikecampaign.creditcoins.$error.max || setfblikecampaign.$invalid || showErrorUrl || showErrorCoins)" > Preview </button>
+	 <!--  <span style="margin-left:20px;" class="alert alert-danger" ng-if="showError">
+	    {{errorMessage}}
+	  </span> -->
+	  <!--button class="gold-button-sm ">
+	    <i class="fa fa-database" style="color:#999 !important;"></i> Buy Now
+	  </button-->
+	</div>
+</div>
+</div>
+<style>
+  @media only screen and (min-width:770px) and (max-width: 992px) {
+    .campaign-url {
+    margin-left: 0px;
+    padding-left: 0px;
+    }
+  }
+  @media only screen and (min-width:280px) and (max-width: 762px) {
+    .campaign-url {
+    margin-left: 0px;
+    padding-left: 0px;
+    }
+  }
+</style>

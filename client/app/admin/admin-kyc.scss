@@ -1,0 +1,82 @@
+.user-kyc{
+  .bor-yellow{
+    padding: 10px 20px;
+    background-color: #f90;
+    color: #fff;
+    font-size: 16px;
+    .fa {
+      padding-right: 10px;
+      color: #fff !important;
+    }
+    .user-id{
+      margin-left: 40px;
+    }
+  }
+  .customer-details {
+    padding: 30px;
+  }
+}
+.kyc_status_select{
+  display: block !important;
+  margin-top: 27px;
+  height: 50px;
+  border-color: black;
+  padding: 5px;
+}
+
+.moderation-status{
+  color: #fff !important;
+  font-size: 12px !important;
+  width: 85px;
+  .fa {
+    color: #fff !important;
+  }
+}
+
+.status{
+  color: #fff !important;
+}
+
+
+.PENDING{
+  margin: 5px;
+  background-color: #dfba49 !important;
+  border-color: #dbb233 !important;
+}
+.ONHOLD{
+  margin: 5px;
+  background-color: #ccc !important;
+  border-color: #ccc !important;
+}
+.APPROVED{
+  margin: 5px;
+  background-color: #00897B !important;
+  border-color: #00897B !important;
+}
+.VERIFIED{
+  margin: 5px;
+  background-color: #45B6AF !important;
+  border-color: #45B6AF !important;
+}
+.UNVERIFIED{
+  margin: 5px;
+  background-color: #F3565D !important;
+  border-color: #F3565D !important;
+}
+.REJECTED{
+  margin: 5px;
+  background-color: red !important;
+  border-color: red !important;
+}
+.VIEWED{
+  background-color: #00897B !important;
+  border-color: #00897B !important;
+}
+.NOT-VIEWED{
+  background-color: #F3565D !important;
+  border-color: #F3565D !important;
+}
+
+.label.status{
+  font-size: 13px !important;
+}

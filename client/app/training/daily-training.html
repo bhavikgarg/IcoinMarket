@@ -1,0 +1,48 @@
+<div class="app" style="margin-bottom:40px">
+  <header class="header header-nav" ng-include="'app/dashboard/header/header.html'" ng-if="isLoggedIn() && userRole == 'user'"></header>
+  <header class="header header-nav" ng-include="'app/admin/header/header.html'" ng-if="isLoggedIn() && (userRole == 'admin'|| userRole==='finance')"></header>
+  <div class="container" style="margin-top: -30px">
+    <div class="block block-condensed">
+      <!-- <div class="app-heading app-heading-small">
+        <div class="title">
+          <p><a href="/dashboard">Dashboard</a> / Training</p>
+        </div>
+      </div> -->
+      <div class="block-content">
+        <h5 style="font-size: 20px; padding: 10px 0px;">Training</h5>
+        <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="info in saveMediaList">
+          <h5>
+            {{info.videotitle}} - <a ng-href={{info.videotitlelinkurl}} target='_blank' data-saferedirecturl='https://www.google.com/url?hl=en&amp;q=http://clicks.aweber.com/y/ct/?l%3DCY5JQ%26m%3D3mhuj5REUK_ukdv%26b%3D06S6SkBF7v5FM3FBQyZrTg&amp;source=gmail&amp;ust=1490157393948000&amp;usg=AFQjCNEej-AugmnCWlnD0F0j-xRVUBTyNA'>Website Url</a>
+          </h5>
+          <div class="panel panel-default">
+            <a ng-click="openmodal(info.title,info.fileurl)" style="text-decoration: none">
+              <div align="center" class="panel-body" style="background:#0187ce; height: 125px">
+                <i class="fa fa-video-camera fa-3x walk-video-icon"></i>
+                <br>
+                <h2 class="walk-h2" ng-bind-html="info.title"></h2>
+              </div>
+            </a>
+            <div class="panel-footer">
+              <a ng-click="openmodal(info.title,info.fileurl)" style="text-decoration: none">Watch This Video <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <!--<div class="col-md-6 col-sm-6 col-xs-12" ng-repeat="uploadmedia in saveMediaList">
+          <div class="panel panel-default">
+               <div class="caption" style="padding: 10px;text-align:center">
+                    <span class="caption-subjectbold uppercase" style="font-size:16px !important;">{{uploadmedia.title}}</span>
+                </div>
+                <youtube-video class="youtube-player" type="text/html" video-url="uploadmedia.fileurl" player-width="'100%'" player-height="'515'"></youtube-video>
+          </div>
+        </div>-->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+<div class="app" style="position: absolute;bottom: 0px;min-height:initial;height:40px">
+  <footer ng-include="'app/dashboard/footer/footer.html'"></footer>
+  <div class="clearfix"></div>
+</div>
+<div class="clearfix">
+</div>

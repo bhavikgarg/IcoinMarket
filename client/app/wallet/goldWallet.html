@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- First column for navbar -->
+    <div class="col-md-12 col-sm-12 col-xs-12" style="margin:0px !important; padding:0px !important;">
+      <!-- Second column for content -->
+      <div class="container-fluid" style="margin-top : 10px">
+        <div class="page-content">
+          <h1><i class="fa fa-google-wallet leadertitle-icon-lrg"></i>Gold Wallet</h1>
+          <div class="portlet light margin-top-10">
+            <div class="portlet-title">
+              <div class="caption">
+                <span class="caption-subject font-green-sharp bold uppercase">Your Orders</span>
+              </div>
+            </div>
+            <div class="portlet-body">
+              <div class="col-sm-12">
+                <div class="table-responsive list-purchase-history" ng-scrollbars ng-scrollbars-config="config">
+                  <table class="table table-hover table-condensed  table-striped  table-bordered">
+                    <thead>
+                      <tr>
+                        <th class="col-lg-1 text-center">Created At</th>
+                        <th style="padding:8px;" class="col-lg-1 text-center" width="10%">Transaction Id</th>
+                        <th class="col-lg-2 text-center" width="30%">Product Name</th>
+                        <th class="col-lg-1 text-center" width="10%">Payment Mode</th>
+                        <th class="col-lg-1 text-center" width="5%">Quantity</th>
+                        <th class="col-lg-1 text-center" width="5%">Coins</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-class="key%2==0?'even':'odd'">
+                        <td class="text-center">
+                          <span class="details">{{history.createdAt | date:'dd/MM/yyyy'}}</span>
+                        </td>
+                        <td style="padding:8px;" class="text-center">
+                          <span class="details">{{history._id}}</span>
+                        </td>
+                        <td class="text-center">
+                          <span class="details text-capitalize">{{history.productname}}</span>
+                        </td>
+                        <td class="text-center">
+                          <span class="details paymode">{{history.paymode}}</span>
+                        </td>
+                        <td class="text-center">
+                          <span class="details">{{history.quantity}}</span>
+                        </td>
+                        <td class="text-center">
+                          <span class="details">{{history.coins}}</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

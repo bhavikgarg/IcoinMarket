@@ -1,0 +1,96 @@
+<div class="block block-condensed">
+   <div class="app-heading app-heading-small">
+      <div class="title">
+         <h5 style="font-size: 20px; padding: 10px 0px;"> Users</h5>
+      </div>
+   </div>
+   <div class="block-content">
+      <div class="row">
+         <div class="col-md-6">
+            <p ng-if="!isSoloAddAdmin() && !isWatchUserAdmin()">The delete user and user index api routes are restricted to users with the 'admin' role.</p>
+         </div>
+         <div ng-if="isWatchUserAdmin()">
+            <h1>View User's</h1>
+         </div>
+         <div class="col-md-6 pull-right">
+            <div class="row">
+               <div class="col-md-8">
+                  <input type="text" ng-model="filter.data" name="filterdate" placeholder="Search Filter (Name, Username, And Email) " style="line-height : 30px; width : 100%" />
+                  <span style="margin-top: 0px;display: block;font-size: 0.85em;margin-bottom: 25px;">Filter based on username, name, email and unique transaction id</span>
+               </div>
+               <div class="col-md-4">
+                  <button class="btn blue" style="height : 42px" ng-click="searchUsers();" ng-if="!isRefreshCall">Search</button>
+                  <button class="btn blue" style="height : 42px" ng-click="loadBySearch()" ng-if="isRefreshCall">Search</button>
+               </div>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+      <br>
+      <div class="row">
+         <div class="col-md-12" style="overflow-x: auto;">
+            <table class="table table-stripped table-hover table-bordered table-responsive table-scrollable">
+               <thead style="border-top : 3px solid #d0d0d0">
+                  <tr>
+                     <th>ID</th>
+                     <th>Username /<br>System Id</th>
+                     <th>Full Name</th>
+                     <th>Email</th>
+                     <th>Country</th>
+                     <th>DOJ</th>
+                     <th ng-if="!isSoloAddAdmin() && !canSeeUserBackOffice()">Time</th>
+                     <th>Mobile</th>
+                     <th>Actions</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr ng-repeat="(key, user) in users" ng-class="(key%2==0 ? 'even' : 'odd')">
+                     <td>{{user.userProfileId}}</td>
+                     <td>{{user.username}}<br>{{user._id}}</td>
+                     <td>{{user.name}}</td>
+                     <td>{{user.email}}</td>
+                     <td>{{user.countryName}}</td>
+                     <td>{{user.createdat | date}}</td>
+                     <td ng-if="!isSoloAddAdmin() && !canSeeUserBackOffice()">
+                        <span am-time-ago="user.createdat"></span>
+                     </td>
+                     <td>{{user.mobile}}</td>
+                     <td>
+                        <table cellpadding="0" cellspacing="5" border="0">
+                           <tr>
+                              <td ng-if="!isFinanceAdmin() && !isSoloAddAdmin() && !isWatchUserAdmin()">
+                                 <a uib-tooltip="Block User" ng-if="!user.isBlocked" ng-click="blockUser(user)" confirm="Are you sure, you want to block ' {{user.name}} ' ?" confirm-settings="{windowClass: 'ci-confirm-window'}" class="trash"><span class="fa fa-times" style="padding : 0px 5px 0px 5px"></span></a>
+                                 <a uib-tooltip="Unblock User" ng-if="user.isBlocked" ng-click="unblockUser(user)" confirm="Are you sure, you want to enable ' {{user.name}} ' ?" confirm-settings="{windowClass: 'ci-confirm-window'}" class="trash"><span class="fa fa-check" style="padding : 0px 5px 0px 5px"></span></a>
+                              </td>
+                              <td ng-if="!isFinanceAdmin() && !isSoloAddAdmin() && !isWatchUserAdmin() && user.verified && !user.isBlocked">
+                                 <a uib-tooltip="Edit" ng-href="/admin/user/{{user._id}}" class="pencil"><span class="fa fa-pencil" style="padding : 0px 5px 0px 5px"></span></a>
+                              </td>
+                              <td ng-if="!isFinanceAdmin() && !isSoloAddAdmin() && !isWatchUserAdmin()">
+                                 <a uib-tooltip="Resend Activation Link" ng-click="resendActivationLink(user)" class="email"><span class="fa fa-envelope-o" style="padding : 0px 5px 0px 5px"></span></a>
+                              </td>
+                              <td ng-if="!isSoloAddAdmin() && canSeeUserBackOffice()">
+                                 <a uib-tooltip="User View" ng-click="showUserPages(user)" class="eye"><span class="fa fa-eye" style="padding : 0px 5px 0px 5px"></span></a>
+                              </td>
+                              <td ng-if="!isSoloAddAdmin() && !canSeeUserBackOffice()">
+                                 <a ng-click="showSponsorInfo(user)" class="btn brown" style="padding : 0px 5px 0px 5px">Sponsor Info</a>
+                              </td>
+                           </tr>
+                        </table>
+                     </td>
+                  </tr>
+               </tbody>
+               <tfoot>
+                  <tr>
+                     <td ng-if="!isSoloAddAdmin() && !canSeeUserBackOffice()" colspan="10">
+                        <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true" ng-change="loadPage(currentPage)"></ul>
+                     </td>
+                     <td ng-if="!(!isSoloAddAdmin() && !canSeeUserBackOffice())" colspan="9">
+                        <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true" ng-change="loadPage(currentPage)"></ul>
+                     </td>
+                  </tr>
+               </tfoot>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="clearfix"></div>

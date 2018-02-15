@@ -1,0 +1,224 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="page-content">
+        <div class="portlet light margin-top-10">
+          <div class="portlet-title">
+            <div class="caption">
+              Withdrawal Requests ({{status | uppercase}})
+            </div>
+          </div>
+          <div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group margin-bottom-10 from-datepicker">
+                  <label for="role">From</label>
+                  <div class="input-group">
+                    <div ng-click="OpenfromDate()" class="input-group-addon"><span class="icon-calendar-full"></span></div>
+                    <div style="position: relative;">
+                      <input ng-click="OpenfromDate()" type="text" class="form-control from-date calandar-dates" uib-datepicker-popup="dd/MM/yyyy"
+                        ng-model="fromDate" name="fromDate" is-open="fromDatePopup.opened" datepicker-options="fromDateOptions"
+                        ng-required="true" close-text="Close" placeholder="From Date" readonly />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group to-datepicker">
+                  <label for="role">To</label>
+                  <div class="input-group">
+                    <div ng-click="OpentillDate()" class="input-group-addon"><span class="icon-calendar-full"></span></div>
+                    <input ng-click="OpentillDate()" type="text" class="form-control to-date calandar-dates" uib-datepicker-popup="dd/MM/yyyy"
+                      ng-model="tillDate" name="tillDate" is-open="tillDatePopup.opened" datepicker-options="tillDateOptions"
+                      ng-required="true" close-text="Close" ng-change="ChangeExpiryMinDate(tillDate)" placeholder="Till Date"
+                      readonly />
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="role">Status</label>
+                  <select class="form-control" ng-model="status">
+                        <option selected value="pending">PENDING</option>
+                        <option value="completed">COMPLETED</option>
+                        <option value="returned">RETURNED</option>
+                        <option value="cancelled">CANCELLED</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4" style="margin-top:20px">
+                <div class="col-md-8">
+                  <input type="text" ng-model="filter.data" name="filterdate" placeholder="Search Filter (Name, Username, And Email) " style="line-height : 30px; width : 100%"
+                  />
+                  <span style="margin-top: 0px;display: block;font-size: 0.85em;margin-bottom: 25px;">Filter based on name, user id and email</span>
+                </div>
+                <div class="col-md-4">
+                  <button class="btn brown" style="height : 42px" ng-click="search()">Search</button>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-stripped table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th class="text-center">Date</th>
+                    <th class="text-center">Withdrawal Id <span ng-if="status == 'completed'">/ Credit LogId</span></th>
+                    <th class="text-center">Username/System Id</th>
+                    <th class="text-center">Name/Email Id</th>
+                    <th class="text-center">Withdrawal Amount (USD)</th>
+                    <th class="text-right">Remaining Amount (BTC)</th>
+                    <th class="text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="(key,wire) in withdrawals">
+                    <td class="text-center">{{wire.createdat | date:'medium'}}</td>
+                    <td class="text-center">{{wire._id}} <span ng-if="status == 'completed'">/<br> {{wire.creditlogid}}</span></td>
+                    <td class="text-center">{{wire.username}} ({{wire.userid}})</td>
+                    <td class="text-center">{{wire.userfullname}} ({{wire.useremail}})</td>
+                    <td class="text-right">{{wire.requestedusd | currency}}</td>
+                    <td class="text-right text-capitalize">{{wire.btcamount}} BTC</td>
+                    <td>
+                      <button ng-if="wire.status == 'PENDING'" type="button" ng-click="withdrawalDetails(key)" class="btn btn-success btn-sm"><i class="fa fa-check-square skyblueicon" aria-hidden="true"></i> Approve</button>
+                      <button type="button" ng-if="wire.status != 'PENDING'" ng-click="withdrawalDetails(key)" class="btn btn-success btn-sm"><i class="fa fa-info skyblueicon" aria-hidden="true"></i> Details</button>
+                      <button ng-if="wire.status == 'PENDING'" style="margin-top:3px;" type="button" ng-click="returnWithdrawal(key, 'return')"
+                        class="btn btn-warning btn-sm"><i class="fa fa-undo skyblueicon" aria-hidden="true"></i> Return</button>
+                      <button ng-if="wire.status == 'PENDING'" style="margin-top:3px;" type="button" ng-click="returnWithdrawal(key, 'cancel')"
+                        class="btn btn-danger btn-sm"><i class="fa fa-ban skyblueicon" aria-hidden="true"></i> Cancel</button>
+                    </td>
+                  </tr>
+                  <tr ng-if="loadingContent != ''">
+                    <td colspan="9" class="text-center">
+                      <strong>{{loadingContent}}</strong>
+                    </td>
+                  </tr>
+                  <tr ng-if="withdrawals.length == 0 && loadingContent == ''">
+                    <td colspan="9" class="text-center">
+                      <strong>No data found</strong>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="9">
+                      <ul uib-pagination items-per-page="pageLimit" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                        ng-change="passlevel(this)" class="pull-left"></ul>
+                      <form name="pagegoto" ng-submit="jumpToPage()">
+                        <ul class="pull-left" style="line-height:2.5;margin:10px 0;list-style-type:none">
+                          <li>
+                            <span class="pull-right" style="padding-left:10px;display:block;">Total Records: {{totalPages}}</span>
+                            <input type="number" min="1" name="jumptopage" ng-model="jumpOnPage" class="form-control pull-right" style="width:60px;margin:0;height:35px;"
+                            />
+                          </li>
+                        </ul>
+                      </form>
+                    </td>
+                  </tr>
+                </tfoot>
+
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- View Details Popup -->
+<div class="modal fade" id="viewDetails" tabindex="-1" role="dialog" aria-labelledby="myBankWireLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal modal-header">
+        <h3>Withdrawal Details</h3>
+        <button type="button" class="close close-button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="bank-modal">
+          <h3><i class="fa fa-university"></i>Withdrawal Details</h3>
+        </div>
+        <div class="form-group bankwireform">
+          <!--form name="wdform" method="post" ng-submit="updateWithdrawl(wdform)"-->
+          <div class="col-sm-12">
+            <div class="form-group" style="overflow:hidden;">
+              <div class="col-lg-5">
+                <label class="control-label"><strong>Request Coins</strong></label><br>
+              </div>
+              <div class="col-lg-7">
+                <label class="control-label">{{wdeditinfo.requestcoins}}</label><br>
+              </div>
+            </div>
+            <div class="form-group" style="overflow:hidden;">
+              <div class="col-lg-5">
+                <label class="control-label"><strong>Requester Name</strong></label><br>
+              </div>
+              <div class="col-lg-7">
+                <label class="control-label">{{wdeditinfo.username}} ({{wdeditinfo.userfullname}})</label><br>
+              </div>
+            </div>
+            <div class="form-group" style="overflow:hidden;">
+              <div class="col-lg-5">
+                <label class="control-label"><strong>Request Amount (USD)</strong></label><br>
+              </div>
+              <div class="col-lg-7">
+                <label class="control-label">{{wdeditinfo.requestamount}}</label><br>
+              </div>
+            </div>
+            <div class="form-group" style="overflow:hidden;">
+              <div class="col-lg-5">
+                <label class="control-label"><strong>Fee Amount</strong></label><br>
+              </div>
+              <div class="col-lg-7">
+                <label class="control-label">{{wdeditinfo.feeamount}}</label><br>
+              </div>
+            </div>
+            <div class="form-group" style="overflow:hidden;">
+              <div class="col-lg-5">
+                <label class="control-label"><strong>Paid Amount</strong></label><br>
+              </div>
+              <div class="col-lg-7">
+                <label class="control-label">{{wdeditinfo.paidamount}}</label><br>
+              </div>
+            </div>
+            <div class="form-group" style="overflow:hidden;">
+              <div class="col-lg-5">
+                <label class="control-label"><strong>Transfer Through</strong></label><br>
+              </div>
+              <div class="col-lg-7">
+                <label class="control-label text-capatilize">{{wdeditinfo.transferthrough}}</label><br>
+              </div>
+            </div>
+            <div class="form-group" style="overflow:hidden;">
+              <div class="col-lg-5">
+                <label class="control-label"><strong>Requester Key Info</strong></label>
+              </div>
+              <div class="col-lg-7">
+                <label class="control-label" ng-if="wdeditinfo.transferthrough=='advcash'">{{userinfo.advcash}}</label>
+                <label class="control-label" ng-if="wdeditinfo.transferthrough=='bitcoin'">{{userinfo.bitcoin}}</label>
+                <a ng-if="userinfo.bitcoinscreenshot && userinfo.bitcoinscreenshot != ''" target="_blank" href="/{{userinfo.bitcoinscreenshot}}">View Bitcoin Uploaded File</a>
+              </div>
+            </div>
+            <div class="form-group" style="overflow:hidden;">
+              <div class="col-lg-5"><label class="control-label"><strong>Current Status</strong></label></div>
+              <div class="col-lg-7">
+                <label class="control-label text-capatilize">{{wdeditinfo.status}}</label>
+              </div>
+            </div>
+            <div class="form-group" style="overflow:hidden;" ng-if="wdeditinfo.status != 'COMPLETED' && wdeditinfo.status != 'CANCELLED' && !wdeditinfo.btcinfo">
+              <div class="col-lg-5">&nbsp;</div>
+              <div class="col-lg-7">
+                <button class="btn btn-warning" confirm="Are you sure to do 'Instant Transfer' ?" confirm-settings="{windowClass: 'ci-confirm-window'}"
+                  ng-click="doInstantTransfer()" ng-disabled="inProgress">Instant Transfer</button>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <!--/form-->
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--View Wire Details Ends -->

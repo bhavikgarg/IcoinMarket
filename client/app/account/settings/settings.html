@@ -1,0 +1,99 @@
+<style>
+  .pass{
+    display: none;
+  }
+  .top-space{
+    top:0 !important;
+  }
+</style>
+<header class="header header-nav " ng-include="'app/dashboard/header/header.html'"></header>
+<section>
+  <div class="page-head main-top-space" >
+    <div class="col-sm-12">
+
+
+      <div class="col-md-10 page-content">
+
+
+        <div class="row">
+          <div class="col-md-6 col-md-offset-4">
+
+
+            <div class="portlet box">
+						<div class="portlet-body">
+
+      <h1>Change Password </h1><br>
+      <p class="help-block text-center"> {{message}} </p>
+<div class="alert alert-warning" role="alert">
+
+<form class="form " name="form" ng-submit="changePassword(form)" novalidate>
+            <div class="form-group">
+              <label>Current Password</label>
+              <input type="password" name="password" class="form-control" ng-model="user.oldPassword"
+                     mongoose-error/>
+              <p class="help-block" ng-show="form.password.$error.mongoose">
+                  {{ errors.other }}
+              </p>
+            </div>
+            <div class="form-group">
+              <label>New Password</label>
+              <input type="password" name="newPassword" class="form-control" ng-model="user.newPassword" ng-keyup="passStrength(user.newPassword)" ng-blur="verifyPassAndConfirmPass(); showMatchError();" required/>
+              <p class="help-block" ng-show="strengthBar">
+                <span ng-style="{'color':(minLength?'green':'red')}">
+                  <i class="fa" ng-class="{'fa-check-circle':minLength,'fa-times-circle-o':!minLength}" aria-hidden="true" ng-style="{'color':(minLength?'green':'red')}"></i>
+                  Min 8 characters.</span><br />
+                <span ng-style="{'color':(alphaNum?'green':'red')}"style="color:{{alphaNum?'green':'red'}}">
+                  <i class="fa" ng-class="{'fa-check-circle':alphaNum,'fa-times-circle-o':!alphaNum}" aria-hidden="true" ng-style="{'color':(alphaNum?'green':'red')}"></i>
+                  Must be alphanumeric.</span>
+              </p>
+              <div class="row" ng-show="strengthBar">
+                <div class="col-md-6">
+                  <div class="progress" style="height:10px;">
+                    <div class="progress-bar progress-bar-striped" ng-class="colorClass" role="progressbar" aria-valuenow="{{passwordLength}}" aria-valuemin="0" aria-valuemax="100" ng-style="{'width':passwordLength+'%'}">
+                      <span class="sr-only">40% Complete (success)</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <span class="pass-strength" style="font-weight:bold;">Strength :
+                    <span class="{{textColor}}">{{strength}} </span>
+                  </span>
+                </div>
+              </div>
+              <!-- <p class="help-block"
+                 ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)">
+                Password must be at least 8 characters.
+              </p>
+              <p class="help-block" ng-show="(form.newPassword.$error.pattern || form.newPassword.$error.newPassword) && !form.newPassword.$error.minlength">
+                Please enter a alphanumeric password
+              </p> -->
+            </div>
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <input type="password" name="confirmPassword" class="form-control" ng-model="user.confirmPassword"
+                     ng-keyup="verifyPassAndConfirmPass(); showMatchError()"
+                     required/>
+               <p class="help-block" ng-show="(form.confirmPassword.$error.required && submitted) || showMissmatchError">
+                 Password does not match.
+               </p>
+               <!-- <p class="help-block"
+                  ng-show="(form.confirmPassword.$error.minlength) && confirmerror && !showMissmatchError">
+                 Confirm Password must be at least 8 characters.
+               </p> -->
+            </div>
+            <button class="btn brown" type="submit" ng-disabled="form.confirmPassword.$error.required || showMissmatchError || passError">Save changes</button>
+          </form>
+         </div>
+        </div>
+</div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</section>
+
+</div> <div class="clearfix"></div> <div class="app" style="position: absolute;bottom: 0px;min-height:initial;height:40px">     <footer ng-include="'app/dashboard/footer/footer.html'"></footer>     <div class="clearfix"></div> </div> <div class="clearfix">

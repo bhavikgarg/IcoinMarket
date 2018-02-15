@@ -1,0 +1,37 @@
+<style>
+    .brand-logo {
+        display: none !important;
+    }
+
+    body {
+        margin-bottom: 50px;
+    }
+
+    .footer-bottom {
+        height: 70px !important;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        margin-bottom: 0px;
+    }
+</style>
+<div class="app-footer app-footer-default darken" id="footer">
+    <div class="app-footer-line darken row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">      
+            <div class="copyright wide text-center">© {{year}} icoinmarket. All right reserved.
+                <a ui-sref="TermsOfService" title="Terms of Serivce"> <b>Terms of Serivce</b></a> |
+                <a ui-sref="PrivacyPolicy" title="Privacy Policy"> <b>Privacy Policy</b></a> |
+                <a ui-sref="ContactUs" title="Contact"><b>Contact</b></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<!--<script>
+  $( function () {
+    var height_diff = $( window ).height() - $( 'body' ).height()-695;
+    if ( height_diff > 0 ) {
+        $( '#footer' ).css( 'margin-top', height_diff );
+    }
+});
+</script>-->

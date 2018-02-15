@@ -1,0 +1,122 @@
+.form {
+  .fileUpload {
+    margin-top:  2%;
+    overflow:    hidden;
+    position:    relative;
+    input.upload {
+      cursor:    pointer;
+      filter:    alpha(opacity=0);
+      font-size: 20px;
+      margin:    0;
+      opacity:   0;
+      padding:   0;
+      position:  absolute;
+      right:     0;
+      top:       0;
+    }
+  }
+}
+
+
+
+.useravatar {
+  height:      150px;
+  max-height:  200px;
+  max-width:   200px;
+  width:       160px;
+}
+
+.social-lrg{
+font-size:75px !important;
+padding:60px 40px;
+}
+
+.changeavatar {
+  display:     block;
+  margin-top:  2%;
+  width:       39.3%;
+}
+
+.label {
+  color:       $theme-color;
+  font-size:   20px;
+  font-weight: 400;
+}
+
+.top    {margin-top: 15px;}
+.bottom {margin-bottom: 10px;}
+
+.form-group label {
+  color:        $label-color;
+  display:      inline;
+  font-weight:  400;
+}
+
+.userinfo {
+  display:       flex;
+  margin-bottom: 1.5%;
+  .edit {
+    color:        $theme-color;
+    font-size:    1.2em;
+    padding-left: 30%;
+    padding-top:  45%;
+  }
+}
+
+.changes {
+  margin-right: 2%;
+  margin-top:   2%;
+  text-align:   right;
+}
+
+.growl {
+  position: fixed;
+  top:      10%;
+  right:    10px;
+  float:    right;
+  width:    250px;
+  z-index:  9999;
+  .alert-error-icon {
+    background-color: #f8b2b2;
+    border-radius:    00px;
+    border-color:     #f8b2b2;
+  }
+  .alert-success-icon {
+    background:     rgba(124, 221, 167, 0.95);
+    border-radius:  00px;
+    border-color:   rgba(124, 221, 167, 0.95);
+  }
+  .alert-warning.icon {
+    background:    #ffead0;
+    border-radius: 00px;
+    border-color:  #ffead0;
+  }
+}
+
+.image_loader {
+    cursor: wait;
+    opacity: 0.75;
+    position: absolute;
+    z-index: 999;
+    content: "Please wait ... ";
+    background: #ffffff url("../assets/images/loading.gif") no-repeat center center;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.image_loader:before {
+    content: "Please wait ... ";
+    top: 55%;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+.social-media-pass-change {
+  line-height: 34px;
+  padding-left: 10px;
+}

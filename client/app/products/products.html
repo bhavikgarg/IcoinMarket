@@ -1,0 +1,113 @@
+<header class="header header-nav " ng-include="'app/dashboard/header/header.html'"></header>
+<section>
+  <div class="page-head main-top-space">
+
+    <div class="col-sm-12">
+      <div class="page-sidebar-wrapper col-md-2 col-xs-12 col-sm-12 no-padding no-margin">
+        <div class="page-sidebar md-shadow-z-2-i navbar-collapse collapse" ng-include="'app/dashboard/navigate/navigate.html'"></div>
+      </div>
+      <div class="col-md-10 page-content">
+        <div class="page-title col-sm-12">
+          <div class="page-title">
+            <h1>
+              Welcome {{username.name}}
+            </h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-xs-12">
+            <div class="portlet light">
+              <div class="portlet-body">
+                <br/>
+                <table class="table-responsive table-scrollable solo_ads">
+                  <thead>
+                    <tr>
+                      <th class="col-lg-2"># of Clicks</th>
+                      <th class="col-lg-2">CPC</th>
+                      <th class="col-lg-2">Your Fee</th>
+                      <th class="col-lg-4">Place Clicks Order</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>100</td>
+                      <td>$2.00</td>
+                      <td>$200.00</td>
+                      <td><button data-toggle="modal" data-target="#myModal">BUY 100 CLICK PROMISES</button></td>
+                    </tr>
+                    <tr>
+                      <td>250</td>
+                      <td>$1.90</td>
+                      <td>$475.00</td>
+                      <td><button>BUY 250 CLICK PROMISES</button></td>
+                    </tr>
+                    <tr>
+                      <td>500</td>
+                      <td>$1.80</td>
+                      <td>$900.00</td>
+                      <td><button>BUY 500 CLICK PROMISES</button></td>
+                    </tr>
+                    <tr>
+                      <td>750</td>
+                      <td>$1.70</td>
+                      <td>$1,275.00</td>
+                      <td><button>BUY 750 CLICK PROMISES</button></td>
+                    </tr>
+                    <tr>
+                      <td>1000</td>
+                      <td>$1.60</td>
+                      <td>$1600.00</td>
+                      <td><button>BUY 1000 CLICK PROMISES</button></td>
+                    </tr>
+                    <tr>
+                      <td>2500</td>
+                      <td>$1.50</td>
+                      <td>$3750.00</td>
+                      <td><button>BUY 2500 CLICK PROMISES</button></td>
+                    </tr>
+                    <tr>
+                      <td>5000</td>
+                      <td>$1.40</td>
+                      <td>$7000.00</td>
+                      <td><button>BUY 5000 CLICK PROMISES</button></td>
+                    </tr>
+                    <tr>
+                      <td>7500</td>
+                      <td>$1.30</td>
+                      <td>$9750.00</td>
+                      <td><button>BUY 7500 CLICK PROMISES</button></td>
+                    </tr>
+                    <tr>
+                      <td>10000</td>
+                      <td>$1.20</td>
+                      <td>$12,000.00</td>
+                      <td><button>BUY 10000 CLICK PROMISES</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="modal fade solo_ads_popup" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="AffiliatesCtrl">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header model-header-color">
+                        <h3>Create Referral Campaign</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      </div>
+                      <div class="modal-body">
+                       <form name="referral" ng-include="'app/affiliates/referalform.html'" class="pull-right" ng-submit="createReferral(referral)"></form>
+                       <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</div> <div class="clearfix"></div> <div class="app" style="position: absolute;bottom: 0px;min-height:initial;height:40px">     <footer ng-include="'app/dashboard/footer/footer.html'"></footer>     <div class="clearfix"></div> </div> <div class="clearfix">

@@ -1,0 +1,80 @@
+{
+  "PDF Presentations": [{
+   "title": "Compensation plan",
+   "subTitle": "(Compensation plan)",
+   "imagePath": "https://icoindevelop.com:9000/pdf/img/pdf11.png",
+   "viewPath": "https://icoindevelop.com:9000/pdf/Compensation-plan-ac.pdf",
+   "downloadPath": "https://icoindevelop.com:9000/pdf/Compensation-plan-ac.pdf"
+  }, 
+  {
+    "title": "Adscash Lifecycle",
+    "subTitle": "(English)",
+    "imagePath": "https://icoindevelop.com:9000/pdf/img/pdf02.png",
+    "viewPath": "https://icoindevelop.com:9000/pdf/AdsCashCoinEthereumSmartContractbasedCryptocurrencyforAdWorld-2.pdf",
+    "downloadPath": "https://icoindevelop.com:9000/pdf/AdsCashCoinEthereumSmartContractbasedCryptocurrencyforAdWorld-2.pdf"
+  },
+  {
+    "title": "Adscash Prelaunch Presentation",
+    "subTitle": "(English)",
+    "imagePath": "https://icoindevelop.com:9000/pdf/img/pdf01.png",
+    "viewPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation.pdf",
+    "downloadPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation.pdf"
+  },
+  {
+    "title": "Adscash Prelaunch Presentation",
+    "subTitle": "(Italian)",
+    "imagePath": "https://icoindevelop.com:9000/pdf/img/pdf03.png",
+    "viewPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-IT.pdf",
+    "downloadPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-IT.pdf"
+  },
+  {
+    "title": "Adscash Prelaunch Presentation",
+    "subTitle": "(CH)",
+    "imagePath": "https://icoindevelop.com:9000/pdf/img/pdf04.png",
+    "viewPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-CH.pdf",
+    "downloadPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-CH.pdf"
+  },
+  {
+    "title": "Adscash Prelaunch Presentation",
+    "subTitle": "(French)",
+    "imagePath": "https://icoindevelop.com:9000/pdf/img/pdf05.png",
+    "viewPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-FR.pdf",
+    "downloadPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-FR.pdf"
+  },
+  {
+    "title": "Adscash Prelaunch Presentation",
+    "subTitle": "(German)",
+    "imagePath": "https://icoindevelop.com:9000/pdf/img/pdf06.png",
+    "viewPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-GER.pdf",
+    "downloadPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-GER.pdf"
+  },
+  {
+    "title": "Adscash Prelaunch Presentation",
+    "subTitle": "(Italian)",
+    "imagePath": "https://icoindevelop.com:9000/pdf/img/pdf07.png",
+    "viewPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-IT-1.pdf",
+    "downloadPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-IT-1.pdf"
+  },
+  {
+    "title": "Adscash Prelaunch Presentation",
+    "subTitle": "(Russian)",
+    "imagePath": "https://icoindevelop.com:9000/pdf/img/pdf08.png",
+    "viewPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-RUS.pdf",
+    "downloadPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-RUS.pdf"
+  },
+  {
+    "title": "Adscash Prelaunch Presentation",
+    "subTitle": "(Spanish)",
+    "imagePath": "https://icoindevelop.com:9000/pdf/img/pdf09.png",
+    "viewPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-SP.pdf",
+    "downloadPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-SP.pdf"
+  },
+  {
+    "title": "Adscash Prelaunch Presentation",
+    "subTitle": "(Tagalog)",
+    "imagePath": "https://icoindevelop.com:9000/pdf/img/pdf10.png",
+    "viewPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-TAG.pdf",
+    "downloadPath": "https://icoindevelop.com:9000/pdf/Adscash-presentation-TAG.pdf"
+  }]
+}
+

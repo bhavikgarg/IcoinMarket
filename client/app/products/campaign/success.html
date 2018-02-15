@@ -1,0 +1,194 @@
+
+
+<style >
+   .campaign-cards .priority-20 .text-campaign-preview {
+   background-color: #4DB4A3;
+   border-color: #0275d8;
+   height: 222px !important;}
+   .campaign-cards .priority-30 .text-campaign-preview {
+   background-color: #5bc0de;
+   border-color: #5bc0de;
+   height: 222px !important;}
+   .campaign-cards .priority-40 .text-campaign-preview {
+   background-color: #f0ad4e;
+   border-color: #f0ad4e;
+   height: 222px !important; }
+   .campaign-cards .priority-5 .text-campaign-preview {
+   background-color: #4DB4A3;
+   border-color: #0275d8;
+   height: 222px !important;}
+   .campaign-cards .priority-10 .text-campaign-preview {
+   background-color: #5bc0de;
+   border-color: #5bc0de;
+   height: 222px !important;}
+   .campaign-cards .priority-15 .text-campaign-preview {
+   background-color: #f0ad4e;
+   border-color: #f0ad4e;
+   height: 222px !important; }
+   .border-20
+   {
+   border-left: thick solid #247869 !important;
+   }
+   .border-30
+   {
+   border-left: thick solid #2A80B3 !important;
+   }
+   .border-40
+   {
+   border-left: thick solid #DF7311 !important;
+   }
+   .border-5
+   {
+   border-left: thick solid #247869 !important;
+   }
+   .border-10
+   {
+   border-left: thick solid #2A80B3 !important;
+   }
+   .border-15
+   {
+   border-left: thick solid #DF7311 !important;
+   }
+   .coindisplay {
+   position: absolute;
+   /* top: 12px; */
+   /* right: 12px; */
+   font-size: 12px;
+   color: #ffff;
+   /* z-index: 10; */
+   margin-top: -1px;
+   /* margin-right: 8px; */
+   }
+   .white-cirle-div {
+     background: none repeat scroll 0 0 white;
+     border-radius: 100px;
+     display: block;
+     height: 50px;
+     left: 13%;
+     margin: 0 auto;
+     position: absolute;
+     text-align: center;
+     top: 6%;
+     vertical-align: text-bottom;
+     width: 50px;
+   }
+
+   .coinIcon {
+     margin : 14px -12px -4px 14px !important;
+
+   }
+   .singleCoinIcon {
+     margin : 14px -4px -4px 14px !important;
+   }
+   .coindisplay {
+     position: absolute;
+     top: 12px;
+     right: 23px !important;
+     font-size: 20px;
+     color: black;
+     z-index: 55;
+     margin-top: -2px;
+   }
+
+   .singleCoinDisplay {
+     position: absolute;
+     top: 11px;
+     right: 29px !important;
+     font-size: 20px;
+     color: black;
+     z-index: 55;
+     margin-top: -2px;
+   }
+
+   .shareButton {
+     background: #4c69ba;
+     background: linear-gradient(#4c69ba, #3b55a0);
+     background: rgba(0, 0, 0, 0) url("../../assets/images/social/fb-share.jpg") no-repeat scroll center center / 110% auto;
+     border-radius: 6px;
+     height: 37px;
+     white-space: nowrap;
+     width: 100px;
+     margin:0 auto;
+   }
+   .campaign-cards .text-campaign-preview h4 {
+   margin-bottom:25px;
+   font-weight:bold;}
+   .campaign-cards .text-campaign-preview p {
+   margin-top: 20px;
+   text-align: center;
+   height: inherit !important;
+   }
+   .col-lg-4 {
+
+     width : 45% !important;
+   margin: 0 auto;
+   float: none !important;
+   }
+
+   .fb-title-lg {
+      height: 35px !important;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left;
+      padding-left: 25%;
+      padding-top: 8px;
+   }
+   .fb-title-sm {
+     height: 35px !important;
+     width: 100%;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     text-align: center;
+     padding-left: 0;
+     padding-top: 8px;
+   }
+</style>
+<div class="col-md-12">
+   <div id="fb_wrapper" class="top campaign-cards">
+      <div  style='pointer-events: none !important;"' class="col-lg-4 col-md-4 col-sm-4 col-xs-12 priority-{{campaign.priority}}" ng-init="url=campaign.url;"
+         >
+         <div  class="text-campaign-preview border-{{campaign.priority}}">
+            <div class='white-cirle-div' data-ng-if="campaignType == 'fbshare'">
+               <span ng-class = "{'singleCoinDisplay' : {{priorityOptions[2].key*25/100}} < 10, 'coindisplay':{{priorityOptions[2].key*25/100}} > 10}"><strong>{{priorityOptions[2].key*25/100}}</strong></span>
+               <span><img ng-class = "{'singleCoinIcon' : {{priorityOptions[2].key*25/100}} < 10, 'coinIcon':{{priorityOptions[2].key*25/100}} > 10}" src = '../assets/images/gold-coin-icon.png'></span>
+            </div>
+            <div class='white-cirle-div' data-ng-if="campaignType == 'fblike'" >
+               <span ng-class = "{'singleCoinDisplay' : {{priorityOptions[2].key*25/100}} < 10, 'coindisplay':{{priorityOptions[2].key*25/100}} > 10}"><strong>{{priorityOptions[2].key*25/100}}</strong></span>
+               <span><img ng-class = "{'singleCoinIcon' : {{priorityOptions[2].key*25/100}} < 10, 'coinIcon':{{priorityOptions[2].key*25/100}} > 10}" src = '../assets/images/gold-coin-icon.png'></span>
+            </div>
+
+            <h4 ng-class = '{"fb-title-lg" : {{campaign.title.length}} >= 10 && (campaignType == "fbshare" || campaignType == "fblike") , "fb-title-sm" : {{campaign.title.length}} < 10 && (campaignType == "fbshare" || campaignType == "fblike")}'>{{campaign.title}}</h4>
+
+            <div data-ng-if="campaignType == 'fblike'" style="pointer-events:all;pointer-events: none !important;opacity: 0.5;">
+               <div fb-like="campaign.url" >loading...</div>
+            </div>
+            <div  style="pointer-events:all" data-ng-if="campaignType == 'fbshare'" data-ng-controller="CampaignTextViewCtrl">
+               <div fb-share data-ng-click="shareButton('preview',url,10);$event.stopImmediatePropagation();" >Loading...</div>
+            </div>
+            <p style="word-wrap: break-word;">{{campaign.description}}</p>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="clearfix">
+<hr>
+<div class="clearfix">
+   <label class="control-label" style="color:#444;"><strong>Select At Least 3 Campaign Categories</strong></label>
+   <br>
+   <div class="clearfix">
+      <div class="col-sm-4" ng-repeat="genre in genres">
+         <input type="checkbox" id="genre-{{genre.key}}" checklist-model="categories" checklist-value="genre.key" ng-click="applyValidation()" ng-disabled="genre.genreDisable" />
+         <label for="genre-{{genre.key}}" class="control-label" style="color:#444; font-size:1em;">{{genre.name}}</label>
+      </div>
+      <div class="clearfix"></div>
+   </div>
+</div>
+<div class="col-sm-12 set" style="margin-top:20px; margin-bottom:30px;">
+   <button type="button" class="btn brown" ng-click="edit()">Edit</button>
+   <button type="button" class="btn brown" ng-click="save()">Save</button>
+   <span style="margin-left:20px;" ng-if="saveError != ''" class="text-danger">{{saveError}}</span>
+</div>
+<div class="clearfix"></div>

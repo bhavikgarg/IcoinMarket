@@ -1,0 +1,182 @@
+<div class="col-md-12">
+  <div class="portlet light" >
+    <div class="portlet-body" style="margin-right:10px;"><br><br>
+      <div class="panel panel-default">
+        <div class="panel-body silver-adv-too-box">
+          <div class="container">
+            <div class="row">
+            <div class="col-md-2 col-sm-6 col-xs-12">
+                <img src="../assets/images/silver01.png" class="img-responsive" width="220">
+              </div>
+              <div class="col-md-5 col-sm-6 col-xs-12">
+                <h1 style="color:#666">Silver Advertising</h1>
+                <p style="color:#666; font-size:14px; text-transform:capitalize; text-align:justify;">
+                  Silver Pack of $25 fetches 1000 silver coins. These coins are your currency for basic level advertising products such as ad exchange, text ads etc. Silver coins are system coins that will run in the system and can not be withdrawn. Thus, you can make the best use of these coins by purchasing basic advertising products, auto surf, social advertising and much more.<br><br>
+                </p>
+                <p>
+                  <strong>Silver Packs (Active): <span>{{productPurchaseInfo.packs}}</span></strong>
+                </p>
+                <p>
+                  <strong>Silver Coins: <span>{{productPurchaseInfo.acoins | number:1}}</span></strong>
+                </p>
+              </div>
+
+              <div align="left" class="col-md-5 col-sm-6 col-xs-12">
+                <form name="silverpacks" method="post" ng-submit="purchasePacks(silverpacks)">
+                 <span style="font-size:20px;">Packs</span>
+                  <input type="number" class="gold-texbox" name="quantity" ng-change="updateBuyCost()" ng-model="buyInfo.packs" min="1" max="4000" required>
+                  <h2 style="font-size:23px; color:#000;">
+                    Coins <i class="fa fa-database" style="font-size:23px; color:#000"></i>
+                    {{packInformation.coins * (buyInfo.packs > 0 ? buyInfo.packs : 0)}}
+                  </h2>
+                  <h2 style="font-size:23px; color:#000">
+                    <strong>Total : <i class="fa fa-usd" style="font-size:23px; color:#000"></i>
+                      {{packInformation.price * (buyInfo.packs > 0 ? buyInfo.packs : 0)}}
+                    </strong>
+                  </h2><br>
+
+                  <button type="button" class="silver-button" ng-disabled="silverpacks.quantity.$error.required || silverpacks.quantity.$error.min || silverpacks.quantity.$error.max" data-toggle="modal" data-target="#payoptions">
+                    Buy Silver Pack
+                  </button>
+
+                  <div class="modal fade" id="payoptions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header model-header-color">
+                          <h3>Payment Options</h2>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="form-group" ng-repeat="(key, gateway) in gateways">
+                            <div class="col-sm-12" ng-if="key=='ic'">
+                              <input type="radio" id="paymode-{{key}}" ng-model="paymode.name" value="{{key}}" />
+                              <label for="paymode-{{key}}" class="gateway-labels">{{gateway}}</label>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="form-group" style="margin-top:10px;" ng-class="{'has-error': silverPackPurchaseErrorMessage!=''}">
+                            <div class="col-sm-12">
+                              <button type="submit" class="btn brown" ng-disabled="waitMessage!=''">
+                                Pay Now
+                              </button>
+                              <span style="padding-left: 20px;"><strong>{{waitMessage}}</strong></span>
+                              <span class="help-block">{{silverPackPurchaseErrorMessage}}</span>
+                              <p ng-if="silverPackPurchaseErrorMessage!=''">Click outside anywhere to close me.</p>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div align="center" class="panel-footer"></div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="silver-adv-top-heading"> <h2>Products</h2></div>
+      <form action="" name="buy-prodcts" method="post">
+        <div class="panel panel-default">
+          <div class="panel-body" style="height:235px; padding-bottom:0px;">
+            <div class="row">
+              <div class="col-md-3 col-sm-6"><img src="../assets/images/pr01.png" class="img-responsive"></div>
+              <div class="col-md-9 col-sm-6"><h1 style="color: #999;">Product Title here....</h1>
+                <p>
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.<br><br>
+                </p>
+                <div class="row" style="border-top:1px solid #e2e2e2;">
+
+                  <div class="col-md-6 col-sm-12 solo_ads_product" style="margin-top: 16px;">
+                    <!-- <label>Select Product</label> -->
+                    <button  type="button" class="btn btn-small" ng-click="ads=!ads">Select Product</button>
+                    <table class="table-responsive table-scrollable solo_ads" ng-show="ads">
+                      <thead>
+                        <tr>
+                          <th class="col-lg-3"># of Clicks</th>
+                          <th class="col-lg-3">CPC</th>
+                          <th class="col-lg-4">Your Fee</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>100</td>
+                          <td>$2.00</td>
+                          <td>$200.00</td>
+                        </tr>
+                        <tr>
+                          <td>250</td>
+                          <td>$1.90</td>
+                          <td>$475.00</td>
+                        </tr>
+                        <tr>
+                          <td>500</td>
+                          <td>$1.80</td>
+                          <td>$900.00</td>
+                        </tr>
+                        <tr>
+                          <td>750</td>
+                          <td>$1.70</td>
+                          <td>$1,275.00</td>
+                        </tr>
+                        <tr>
+                          <td>1000</td>
+                          <td>$1.60</td>
+                          <td>$1600.00</td>
+                        </tr>
+                        <tr>
+                          <td>2500</td>
+                          <td>$1.50</td>
+                          <td>$3750.00</td>
+                        </tr>
+                        <tr>
+                          <td>5000</td>
+                          <td>$1.40</td>
+                          <td>$7000.00</td>
+                        </tr>
+                        <tr>
+                          <td>7500</td>
+                          <td>$1.30</td>
+                          <td>$9750.00</td>
+                        </tr>
+                        <tr>
+                          <td>10000</td>
+                          <td>$1.20</td>
+                          <td>$12,000.00</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- <select class="form-control">
+                      <option selected="select">Select Product</option>
+                      <option></option>
+                    </select> -->
+                  </div>
+
+                  <!-- <div class="col-md-3 col-sm-12">
+                    <h3><strong>Cost : <i class="fa fa-database" style="font-size:25px;"></i> 400</strong></h3>
+                  </div>
+                  <div class="col-md-3 col-sm-12">
+                    <br>Quantity <input type="text" class="gold-texbox" name="quantity">
+                  </div> -->
+
+                  <div class="col-md-3 col-sm-12">
+                    <h3 style="font-size:15px;"><strong>Total : <i class="fa fa-database" style="font-size:15px;"></i> 1200</strong></h3>
+                  </div>
+                  <div class="col-md-3 col-sm-12">
+                    <button class="silver-button-sm ">
+                      <i class="fa fa-database" style="color:#999 !important;"></i> Buy Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

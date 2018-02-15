@@ -1,0 +1,40 @@
+<div class="block block-condensed">
+    <div class="app-heading app-heading-small">
+        <div class="title">
+            <h5 style="font-size: 20px; padding: 10px 0px;"> Agent Log </h5>
+        </div>
+    </div>
+    <div class="block-content">
+        <div class="row" style="overflow-x: auto;">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table class="table-responsive table-scrollable table table-stripped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-lg-1 text-center">S.No.</th>
+                            <th class="col-lg-2 text-center">User Id</th>
+                            <th class="col-lg-2 text-center">Username</th>
+                            <th class="col-lg-2 text-center">Email</th>
+                            <th class="col-lg-1 text-center">View Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="(key,info) in agentlogInfo">
+                            <td class="text-center">{{info._id}}</td>
+                            <td class="text-center">{{info.userid}}</td>
+                            <td class="text-center">{{info.username}}</td>
+                            <td class="text-center">{{info.useremail}}</td>
+                            <td class="text-center">{{info.createdat | date:'medium'}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">
+                                <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true" ng-change="loadPage()"></ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

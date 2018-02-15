@@ -1,0 +1,59 @@
+<div class="block block-condensed">
+  <!-- START HEADING -->
+  <div class="app-heading app-heading-small">
+    <div class="title">
+      <p><a href="/dashboard">Dashboard</a> / Marketing Tools / Banner</p>
+    </div>
+  </div>
+  <!-- END HEADING -->
+  <div class="block-content">
+    <h5 style="font-size: 20px; padding: 10px 0px;"> Banner
+    </h5>
+    <div class="row  pad50" ng-repeat="(key, banner) in banners">
+      <div class="block block-arrow-top">
+        <div class="app-heading">
+          <div class="icon">
+            <span class="icon-bubble-dots"></span>
+          </div>
+          <div class="title">
+            <h2>Banner Name: {{banner.name}}
+            </h2>
+            <p><b>Banner Size :({{banner.height}} x {{banner.width}})</b></p>
+          </div>
+        </div>
+        <div class="messages messages-comments">
+          <div class="messages-item inbox">
+            <div class="user">
+              <img src="assets/images/banner.png" />
+            </div>
+            <div class="text" style="word-wrap: break-word;">
+              <img class="img-responsive" src={{banner.image}} width="{{banner.width}}" height="{{banner.height}}" style="padding : 10px">
+              <br/><br/>
+              <strong>Example Link:</strong> {{banner.viewscript}}
+            </div>
+            <hr /> Note !!! Please don't share above link, it is an example link.</div>
+        </div>
+        <div class="block block-arrow-top banner-img-upload">
+          <form name="bannerfrm" ng-submit="createBannerCampaign(key)" class="banner-form">
+            <div class="alert alert-danger" ng-if="showError">
+              {{errorMessage}}
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-12">
+                  <label>Please generate your own banner referral link by typing its name and click on "Get Your Banner Referral Link" button shown below</label>
+                  <input type="text" name="name" class="form-control" ng-model="banner.userTitle" placeholder="Enter your Banner Name" required/>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" ng-disabled="(bannerfrm.$invalid || showError)" class="btn btn-block btn-info" name="submit">Get Your Banner Referral Link</button>
+            </div>
+          </form>
+          <b>Your Banner Referral Link :</b>
+          <span class="defaultLinks"><strong>{{banner.userViewScript}}</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

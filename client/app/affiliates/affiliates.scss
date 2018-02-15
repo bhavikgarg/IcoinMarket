@@ -1,0 +1,94 @@
+.referal.caption {
+  width : 100%;
+}
+
+.def-ref-link {
+  font-size   : 100%;
+  font-weight : 600;
+  margin-top  : 10px;
+  padding     : 15px;
+}
+
+.referral-form {
+  form {
+    border        : 1px solid #ccc;
+    border-radius : 5px;
+    box-shadow    : 0 0 5px #aaa;
+    padding-top   : 15px;
+  }
+
+  .banner-form {
+    padding : 15px 15px 0;
+  }
+
+  textarea {
+    height     : 150px;
+    margin-top : 15px;
+    width      : 100%;
+  }
+
+  .banner-group {
+    border-bottom  : 1px solid #ccc;
+    padding-bottom : 15px;
+  }
+
+  .banner-group + .banner-group {
+    margin-top : 15px;
+  }
+
+  .banner-name {
+    .label {
+      border-radius : 0px;
+      color         : #fff;
+      font-size     : 1em;
+    }
+  }
+
+  label.lead-page-title {
+    font-size : 1em;
+  }
+}
+
+.modal-dialog {margin-top : 100px !important;}
+
+.table > thead > tr > th {
+  vertical-align : middle !important;
+}
+
+.referral-default {
+  .table > tbody > tr > td,
+  .table > tbody > tr > th,
+  .table > tfoot > tr > td,
+  .table > tfoot > tr > th,
+  .table > thead > tr > td,
+  .table > thead > tr > th {
+    font-size : 13px !important;
+  }
+
+  .portlet-title {
+    border-bottom : 0px  !important;
+  }
+
+  .tabbable-custom > .tab-content{ border : 0px !important;}
+  .btn,
+  .label,
+  .panel {
+    box-shadow : 2px 2px 2px 0 #e2e2e2 !important;
+  }
+  .page-sidebar .page-sidebar-menu > li > a > .title,
+  .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > .title {
+    font-size : 13px !important
+  }
+  strong {color : #09F;}
+  h2 {
+    background    : #f5f5f5;
+    border-bottom : 1px solid #ccc;
+    padding       : 10px;
+  }
+}
+
+@media(min-width:320px) and (max-width:480px) {
+  .sms-blast h2 {
+    font-size: 16px;
+  }
+}

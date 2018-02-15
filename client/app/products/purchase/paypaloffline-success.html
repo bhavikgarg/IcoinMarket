@@ -1,0 +1,22 @@
+<!-- Paypal Content Modal Window -->
+
+    <div class="modal-content">
+      <div class="modal-header model-header-color">
+        <h3>Purchase Status</h2>
+        <button type="button" class="close close-button" ng-click="closeAllDialogs()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="col-sm-12 no-padding">
+            Please initiate a transfer of {{ buyInfo.cost }} to 'info@quickreaches.com', and upload a screenshot of this transfer. Paypal will provide you a unique transfer ID, please mention it in the capture box below to help us track your payments. Contact us at finance@adscash.us for any further assistance.
+          </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-12 no-padding text-center">
+          <button type="button" class="btn brown" ng-click="closeAllDialogs();">Ok</button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+<!-- Paypal Content Modal Ends -->

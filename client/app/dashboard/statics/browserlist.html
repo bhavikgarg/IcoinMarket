@@ -1,0 +1,53 @@
+<header class="header header-nav " ng-include="'app/dashboard/header/header.html'"></header>
+<section>
+  <div class="page-head main-top-space" >
+    <div class="col-sm-12">
+    <div class="page-sidebar-wrapper col-md-2 col-xs-12 col-sm-12 no-padding no-margin ">
+    <div class="page-sidebar md-shadow-z-2-i navbar-collapse  collapse" ng-include="'app/dashboard/navigate/navigate.html'"></div>
+      </div>
+
+      <div class="col-md-10 col-xs-12 col-sm-12 page-content terms-of-service">
+
+        <!-- html for page title -->
+        <div class="page-title col-sm-12"></div>
+        <div class="clearfix"></div>
+
+        <!-- html for dashboard -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="portlet light">
+              <h1 class="text-center">Supported Browsers List</h1>
+              <p class="text-center">Please upgrade your browser to the lastest version.</p>
+              <br />
+              <div class="table-responsive" ng-controller="browserCtrl">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Browsers</th>
+                      <th>Versions</th>
+                      <th>Download</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="(key, val) in latestVersion" ng-if="(key !== 'msEdge')">
+                      <td class="text-capitalize align-middle">
+                        <img src="{{val.image}}" width="100px">
+                        <span class="column-padding">{{(key=="msEdge" || key=="msie")?"IE":key}}</span>
+                      </td>
+                      <td class="column-padding align-middle">{{val.versions}}</td>
+                      <td class="column-padding align-middle"><a href="{{val.url}}" target="_blank" class="btn brown">Download</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</section>
+
+</div> <div class="clearfix"></div> <div class="app" style="position: absolute;bottom: 0px;min-height:initial;height:40px">     <footer ng-include="'app/dashboard/footer/footer.html'"></footer>     <div class="clearfix"></div> </div> <div class="clearfix">

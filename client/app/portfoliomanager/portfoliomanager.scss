@@ -1,0 +1,34 @@
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+  font-size : 13px !important;
+}
+
+.portlet-title {
+  border-bottom : 0px !important;
+}
+
+.tabbable-custom > .tab-content {
+  border : 0px !important;
+}
+
+.btn, .label, .panel {
+  box-shadow : 2px 2px 2px 0 #e2e2e2 !important;
+}
+
+.leadertitle-icon-lrg {
+  font-size : 25px;
+}
+
+.page-sidebar .page-sidebar-menu > li > a > .title,
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > .title {
+  font-size : 13px !important
+}
+
+.dropdown:hover .dropdown-menu {
+  display    : block;
+  margin-top : 0;
+}

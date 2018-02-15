@@ -1,0 +1,105 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="page-content">
+                <div class="portlet light margin-top-10" style="overflow: visible;">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            Support User Report
+                        </div>
+                    </div>
+                    <div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group margin-bottom-10 from-datepicker">
+                                    <label for="role">From</label>
+                                    <div class="input-group">
+                                        <div ng-click="OpenfromDate()" class="input-group-addon"><span class="icon-calendar-full"></span></div>
+                                        <div style="position: relative;">
+                                            <input ng-click="OpenfromDate()" type="text" class="form-control from-date calandar-dates" uib-datepicker-popup="dd/MM/yyyy"
+                                                ng-model="fromDate" name="fromDate" is-open="fromDatePopup.opened" datepicker-options="fromDateOptions"
+                                                ng-required="true" close-text="Close" placeholder="From Date" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group to-datepicker">
+                                    <label for="role">To</label>
+                                    <div class="input-group">
+                                        <div ng-click="OpentillDate()" class="input-group-addon"><span class="icon-calendar-full"></span></div>
+                                        <input ng-click="OpentillDate()" type="text" class="form-control to-date calandar-dates" uib-datepicker-popup="dd/MM/yyyy"
+                                            ng-model="tillDate" name="tillDate" is-open="tillDatePopup.opened" datepicker-options="tillDateOptions"
+                                            ng-required="true" close-text="Close" ng-change="ChangeExpiryMinDate(tillDate)" placeholder="Till Date"
+                                            readonly />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="role">Call Status</label>
+                                    <select class="form-control" ng-model="callStatus">
+                                           <option selected value="Not Answering">Not Answering</option>
+                                           <option value="Wrong Number">Wrong Number</option>
+                                           <option value="Answering">Answering</option>
+                                </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="role">Callers</label>                                   
+                                    <select class="form-control" ng-model="callerId">
+                                           <option value="">Select</option>
+                                           <option ng-repeat="supportUsers in supportUsersList" value="{{supportUsers._id}}">{{supportUsers.name}}</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group" style="margin-top :5px">
+                                    <button class="btn brown" style="height:42px ; margin-top:15px;" ng-click="loadPage()">Filter</button>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table-responsive table-scrollable table table-stripped table-hover table-bordered no-footer dataTable product_details">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Caller</th>
+                                        <th class="text-center">User Name</th>
+                                        <th class="text-center">User Email</th>
+                                        <th class="text-center">Status Updated</th>
+                                        <th class="text-center">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="(key,callerslog) in callerslogsList">
+                                        <td class="text-center">{{callerslog.callername}}</td>
+                                        <td class="text-center">{{callerslog.username}}</td>
+                                        <td class="text-center"> {{callerslog.useremail}} </td>
+                                        <td class="text-center"> {{callerslog.callStatus}} </td>
+                                        <td class="text-center">{{callerslog.createdat | date:'medium'}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td ng-if="!isSoloAddAdmin() && !canSeeUserBackOffice()" colspan="10">
+                                            <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                                                ng-change="loadPage(currentPage)"></ul>
+                                        </td>
+                                        <td ng-if="!(!isSoloAddAdmin() && !canSeeUserBackOffice())" colspan="9">
+                                            <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                                                ng-change="loadPage(currentPage)"></ul>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

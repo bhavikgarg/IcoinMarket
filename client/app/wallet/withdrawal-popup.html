@@ -1,0 +1,168 @@
+    <div class="modal-content">
+      <div class="modal-header model-header-color">
+        <h3>WithDrawal Request</h3>
+        <button type="button" class="close close-button" data-dismiss="modal" aria-label="Close" ng-click="closeModal();"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <form name="withdrawal" ng-submit="saveWithdrawalInfo(withdrawal)">
+            <div class="col-sm-12 row">
+              <div class="clearfix"></div>
+              <div class="form-group" style="margin-bottom:15px;overflow:hidden;">
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                  <label class="control-label"><string>Balance (Gold Coins)</string></label>
+                </div>
+                <div class="col-lg-8 col-sm-8 col-md-8 col-xs-8">
+                  <label class="control-label"><strong>{{goldCoins}}</strong></label>
+                </div>
+              </div>
+
+              <div class="form-group margin-top withdrawal-payment">
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                  <p><strong>Instant Transfer</strong></p>
+                  <label class="control-label">Withdrawal Method</label>
+                </div>
+                <div class="col-lg-8 col-sm-8 col-md-8 col-xs-8 space-from-right">
+                  <div ng-if="true">
+                    <!--Bitcoin-->
+                    <input class="form-control" name="wdmethod" type="radio" id="bitcoin" value="bitcoin" ng-model="wdeditinfo.method" required/>
+                    <label for="bitcoin">Bitcoins (Minimum 4000 Coins, Transaction Fee = Admin Fee 2% + Blockchain Fee 0.0001 BTC)</label>
+                  </div>
+
+                  <!-- Payza -->
+                  <input class="form-control" name="wdmethod" type="radio" id="payza" value="payza" ng-model="wdeditinfo.method" ng-if="showIntantTransfer" required/>
+                  <label for="payza" ng-if="showIntantTransfer">Payza (Transaction Fee = 1%)</label>
+
+                  <!--AdvCash-->
+                  <input class="form-control" name="wdmethod" type="radio" id="advcash" value="advcash" ng-model="wdeditinfo.method" required/>
+                  <label for="advcash">Advcash (Transaction Fee = 2%)</label>
+
+                  <!--STP-->
+                  <!-- <input class="form-control" name="wdmethod" type="radio" id="stp-out" value="stp" ng-model="wdeditinfo.method" required/>
+                  <label for="stp-out">Solid Trust Pay (STP Fee + Transaction Fee = 2%)</label> -->
+                </div>
+
+                <div class="clearfix"></div>
+                <!--p style="margin-top:20px;"><strong>Manual Transfer (Takes 24 Working Hours, Minimum 4000 Coins)</strong></p>
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                  <label class="control-label">Withdrawal Method</label>
+                </div>
+                <div class="col-lg-8 col-sm-8 col-md-8 col-xs-8 space-from-right" style="margin-bottom:20px;">
+                  <input class="form-control" name="wdmethod" type="radio" id="bitcoin" value="bitcoin" ng-model="wdeditinfo.method" required/>
+                  <label for="bitcoin">Bitcoins (Transaction Fee = 2%)</label>
+                </div-->
+              </div>
+
+              <!-- User's Payza Info setting value -->
+              <div class="form-group clearfix" style="margin-bottom:15px;overflow:hidden;" ng-if="wdeditinfo.method=='payza'">
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                  <label class="control-label"><string>Payza Account Info</string></label>
+                </div>
+                <div class="col-lg-8 col-sm-8 col-md-8 col-xs-8">
+                  <label ng-if="userinfo.payza && userinfo.payza!= ''" class="control-label">
+                    <strong>{{userinfo.payza}}</strong>
+                  </label>
+                  <input ng-if="!(userinfo.payza && userinfo.payza!= '')" name="payzainfo" class="form-control" type="text" ng-model="wdeditinfo.payzainfo" required />
+                  <span ng-if="!(userinfo.payza && userinfo.payza!= '')">Please enter your Payza account email address here</span>
+                </div>
+              </div>
+
+              <!-- User's AdvCash Info setting value -->
+              <div class="form-group clearfix" style="margin-bottom:15px;overflow:hidden;" ng-if="wdeditinfo.method=='advcash'">
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                  <label class="control-label"><string>AdvCash Account Info</string></label>
+                </div>
+                <div class="col-lg-8 col-sm-8 col-md-8 col-xs-8">
+                  <label ng-if="userinfo.advcash && userinfo.advcash!= ''" class="control-label">
+                    <strong>{{userinfo.advcash}}</strong>
+                  </label>
+                  <input ng-if="!(userinfo.advcash && userinfo.advcash!= '')" name="advcashinfo" class="form-control" type="text" ng-model="wdeditinfo.advcashinfo" ng-pattern="/^([a-z0-9._-](\+{0,1}))+@[a-z]+\.[a-z.]{2,6}$/i" required />
+                  <span ng-if="!(userinfo.advcash && userinfo.advcash!= '') && !withdrawal.advcashinfo.$error.pattern">Please enter your AdvCash account email address here</span>
+                  <span ng-if="withdrawal.advcashinfo.$error.pattern" class="text-danger">Invalid AdvCash account email address</span>
+                </div>
+              </div>
+
+              <!-- User's STP Info setting value -->
+              <div class="form-group clearfix" style="margin-bottom:15px;overflow:hidden;" ng-if="wdeditinfo.method=='stp'">
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                  <label class="control-label"><string>SolidTrust Pay Account Info</string></label>
+                </div>
+                <div class="col-lg-8 col-sm-8 col-md-8 col-xs-8">
+                  <label ng-if="userinfo.stp && userinfo.stp!= ''" class="control-label">
+                    <strong>{{userinfo.stp}}</strong>
+                  </label>
+                  <input ng-if="!(userinfo.stp && userinfo.stp!= '')" name="stpinfo" class="form-control" type="text" ng-model="wdeditinfo.stpinfo" required />
+                  <span ng-if="!(userinfo.stp && userinfo.stp!= '')">Please enter your SolidTrust Pay account username here</span>
+                </div>
+              </div>
+
+              <!-- User's Bitcoin Info setting value -->
+              <div class="form-group clearfix" style="margin-bottom:15px;overflow:hidden;" ng-if="wdeditinfo.method=='bitcoin'">
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                  <label class="control-label"><string>Bitcoin Account Info</string></label>
+                </div>
+                <div class="col-lg-8 col-sm-8 col-md-8 col-xs-8">
+                  <label ng-if="userinfo.bitcoin && userinfo.bitcoin!= ''" class="control-label">
+                    <strong>{{userinfo.bitcoin}}</strong>
+                  </label>
+                  <input ng-if="!(userinfo.bitcoin && userinfo.bitcoin!= '')" name="bitcoininfo" class="form-control" name="bitcoininfo" type="text" ng-model="wdeditinfo.bitcoininfo" required />
+                </div>
+              </div>
+
+              <div class="form-group clearfix" style="overflow:hidden;margin-bottom:0px;">
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                  <label class="control-label">Withdrawal Amount (Coins)</label>
+                </div>
+                <div class="col-lg-8 col-sm-8 col-md-8 col-xs-8">
+                  <input ng-if="wdeditinfo.method=='advcash'" type="number" name="amount" class="form-control" ng-model="wdeditinfo.amount" min="1000" max="{{goldCoins}}" ng-change="calculateInfo()" required/>
+
+                  <input ng-if="wdeditinfo.method=='payza'" type="number" name="amount" class="form-control" ng-model="wdeditinfo.amount" min="1000" max="{{goldCoins}}" ng-change="calculateInfo()" required/>
+
+                  <input ng-if="wdeditinfo.method=='bitcoin'" type="number" name="amount" class="form-control" ng-model="wdeditinfo.amount" min="4000" max="{{goldCoins}}" ng-change="calculateInfo()" required/>
+
+                  <input ng-if="wdeditinfo.method=='stp'" type="number" name="amount" class="form-control" ng-model="wdeditinfo.amount" min="1000" max="{{goldCoins}}" ng-change="calculateInfo()" required/>
+
+                  <span ng-if="withdrawal.amount.$invalid.min && (wdeditinfo.method=='advcash' || wdeditinfo.method=='payza' || wdeditinfo.method=='stp')">Min quantity allowed is 1000</span>
+
+                  <span ng-if="withdrawal.amount.$invalid.min && wdeditinfo.method=='bitcoin'">Min quantity allowed is 4000</span>
+
+                  <span ng-if="withdrawal.amount.$invalid.max">You have only {{goldCoins}} Gold Coins to withdraw</span>
+                </div>
+              </div>
+
+              <div class="form-group clearfix" style="margin-bottom:15px;overflow:hidden;">
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                  <label class="control-label"><string>Withdrawal Amount (USD)</string></label>
+                </div>
+                <div class="col-lg-8 col-sm-8 col-md-8 col-xs-8">
+                  <label class="control-label"><strong>$ {{withdrawalAmt}}</strong></label>
+                </div>
+              </div>
+
+              <div class="form-group clearfix" style="margin-bottom:15px;overflow:hidden;">
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                  <label class="control-label"><string>Transfer Amount (USD)</string></label>
+                </div>
+                <div class="col-lg-8 col-sm-8 col-md-8 col-xs-8">
+                  <label class="control-label">
+                    <strong ng-if="wdeditinfo.method=='advcash'">$ {{advWithdrawalAmount}}</strong>
+                    <strong ng-if="wdeditinfo.method=='bitcoin'">$ {{bitcoinTransferAmount}}</strong>
+                    <strong ng-if="wdeditinfo.method=='payza'">$ {{payzaWithdrawalAmount}}</strong>
+                    <strong ng-if="wdeditinfo.method=='stp'">$ {{stpWithdrawalAmount}}</strong>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <button type="submit" class="btn brown btn-small waves-effect" ng-disabled="withdrawal.$invalid || disableButton">Process Transaction</button>
+                  <button type="button" class="btn btn-warning btn-small waves-effect" data-dismiss="modal" aria-label="Close" ng-disabled="disableButton" ng-click="closeModal()">Cancel</button>
+                  <p class="text-danger" style="padding:10px 0;" ng-if="errorMessage!=''">{{errorMessage}}</p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>

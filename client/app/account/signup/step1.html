@@ -1,0 +1,190 @@
+<style>
+    .help-block {
+        color: red !important;
+    }
+</style>
+<div class="app app-fh">
+    <div class="app-container" style="    background: url(assets/images/background/bg-1.jpg) no-repeat center center fixed;-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;">
+        <div class="app-login-box">
+            <div class="app-login-box-title padding-top-30">
+                <div class="title">Sign Up</div>
+                <div class="subtitle">Join iCoinMarket</div>
+            </div>
+            <div class="app-login-box-container margin-top-20">
+                <form ng-submit="register(form)" name="form">
+                    <div class="form-group" ng-class="{ 'has-success': form.id.$valid && submitted,'has-error': form.id.$invalid && submitted }">
+                        <label for="spomsorId">Sponsor Id</label>
+                        <input type="text" class="form-control" name="id" ng-blur="validateSponsor(this)" ng-model="customSponsor" readonly>
+                        <p class="help-block" ng-show="form.id.$error.required && submitted">
+                            A sponsor id is required
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <label for="spomsorId">Sponsor Name</label>
+                        <input type="text" name="sponsorname" class="form-control" value="{{sponsor.name}}" readonly />
+                        <p class="help-block" ng-show="form.sponsorname.$error.required && submitted">
+                            A sponsor name is required
+                        </p>
+                    </div>
+                    <div class="form-group" ng-class="{'has-success': form.firstName.$valid && submitted,'has-error': (form.firstName.$invalid && submitted) || (form.firstName.$invalid && !form.firstName.$pristine) }">
+                        <input type="text" name="firstName" class="form-control" ng-model="user.firstName" required mongoose-error ng-maxlength="19" placeholder="First Name" ng-pattern="/^[a-zA-Z\s]*$/" />
+                        <p class="help-block" ng-show="form.firstName.$error.required && (submitted || !form.firstName.$pristine)">
+                            First Name is required
+                        </p>
+                        <p class="help-block" ng-show="form.firstName.$error.maxlength">
+                            First Name must be less than 20 characters.
+                        </p>
+                        <p class="help-block" ng-show="form.firstName.$error.pattern">
+                            Only characters allowed.
+                        </p>
+                    </div>
+                    <div class="form-group" ng-class="{'has-success': form.lastname.$valid && submitted,'has-error': (form.lastname.$invalid && submitted) || (form.lastname.$invalid && !form.lastname.$pristine) }">
+                        <input type="text" name="lastname" class="form-control" ng-model="user.lastname" required mongoose-error ng-maxlength="19" placeholder="Last Name" ng-pattern="/^[a-zA-Z\s]*$/" />
+                        <p class="help-block" ng-show="form.lastname.$error.required && (submitted || !form.lastname.$pristine)">
+                            Last Name is required
+                        </p>
+                        <p class="help-block" ng-show="form.lastname.$error.maxlength">
+                            Lastname must be less than 20 characters.
+                        </p>
+                        <p class="help-block" ng-show="form.lastname.$error.pattern">
+                            Only characters allowed.
+                        </p>
+                    </div>
+                    <div class="form-group" ng-class="{'has-success': form.country.$valid && submitted, 'has-error': form.country.$invalid && submitted}">
+                        <select name="country" class="form-control" ng-model="user.country" mongoose-error ng-change="setCountryCode()">
+                            <option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}</option>
+                        </select>
+                        <p class="help-block" ng-show="form.country.$error.required && submitted">
+                            Please correct the value
+                        </p>
+                    </div>
+                    <div class="form-group" ng-class="{'has-success': form.contact.$valid && submitted, 'has-error': form.contact.$invalid && submitted}">
+                        <div class="row">
+                            <div class="col-md-4" style="margin-right:0px; padding-right:0px;">
+                                <select name="phstdcode" ng-model="user.stdcode" class="std-input form-control"
+                                    id="isdcodes" ng-change="setCountry()" required>
+                                    <option ng-repeat="isd in isdCodes" value="{{isd.dial_code}}">{{isd.dial_code}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-8" ng-class="{'has-success': form.contact.$valid && submitted,'has-error': (form.contact.$invalid && submitted) || (form.contact.$invalid && !form.contact.$pristine) }">
+                                <input type="number" name="contact" class="form-control small-phone-input margin-input" ng-model="user.contact" required
+                                    mongoose-error placeholder="Mobile No." ng-pattern="/^[0-9]*$/" ng-minlength="5" ng-maxlength="10" />
+                            </div>
+                            <p class="help-block" ng-show="form.contact.$error.required && (submitted || !form.contact.$pristine)">
+                                Mobile Number is required
+                            </p>
+                            <p class="help-block" ng-show="!form.contact.$error.required && form.phstdcode.$error.required && (submitted)">
+                                Please select country code
+                            </p>
+                            <p class="help-block" ng-show="form.contact.$error.required && !form.phstdcode.$error.required && submitted">
+                                Please enter your mobile number
+                            </p>
+                            <p class="help-block" ng-if="(errors.mobile && errors.mobile != '')">{{errors.mobile}}</p>
+                            <p class="help-block" ng-show="(form.contact.$error.minlength || form.contact.$error.maxlength) && (!form.contact.$error.pattern)">
+                                Mobile Number must be more than 5 digits/numbers and up to 10 digits/numbers.
+                            </p>
+                             <p class="help-block" ng-show="(form.contact.$error.pattern)">
+                                Mobile Number is not valid.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-success': form.email.$valid && submitted && !errors.email,'has-error': (form.email.$invalid && submitted) || (form.email.$invalid && !form.email.$pristine) && emailerrorToken }">
+                        <input type="email" name="email" placeholder="Email address" class="form-control" ng-model="user.email" ng-pattern="/^[a-z]+([a-z0-9._-](\+{0,1}))+@[a-z0-9]+\.[a-z.]{2,6}$/i"
+                            required mongoose-error ng-blur="emailerrorToken=true" />
+                        <p class="help-block" ng-show="form.email.$error.required && (submitted || !form.email.$pristine)">
+                            Email is required
+                        </p>
+                        <p class="help-block" ng-show="(form.email.$error.pattern || form.email.$error.email) && emailerrorToken">
+                            Please enter a valid email
+                        </p>
+                        <p class="help-block" ng-if="(errors.email && errors.email != '' && form.email.$valid == true)">{{errors.email}}</p>
+                    </div>
+                    <div class="form-group username-field" ng-class="{'has-success': form.username.$valid && validUserName && validUserName != -1 && submitted, 'has-error': (form.username.$invalid && submitted) || (!validUserName && validUserName != -1) || (form.username.$invalid && !form.username.$pristine) && usererrorToken}">
+                        <input type="text" name="username" placeholder="User Name" class="form-control" ng-model="user.username" required mongoose-error
+                            ng-minlength="6" ng-pattern="/^[A-Za-z0-9\_\@\.\-\u00C0-\u1FFF\u2C00-\uD7FF]*$/" ng-maxlength="19"
+                            ng-blur="usererrorToken=true" />
+                        <span ng-if="validUserName && validUserName != -1 && !form.username.$error.maxlength && !form.username.$error.minlength && !(form.username.$error.pattern || form.username.$error.username)"
+                            class="valid-username"><i class="fa fa-check"></i></span>
+                        <span ng-if="!validUserName && validUserName != -1 && !form.username.$error.maxlength && !form.username.$error.minlength  && form.username.$error.pattern"
+                            class="invalid-username"><i class="fa fa-times"></i></span>
+                        <p class="help-block" ng-if="!validUserName && validUserName != -1 && !form.username.$error.required && !form.username.$error.maxlength && !form.username.$error.minlength">
+                            Username is already exist.
+                        </p>
+                        <p class="help-block" ng-show="(form.username.$error.pattern || form.username.$error.username) && !form.username.$error.minlength && !form.username.$error.maxlength">
+                            Only letters, numbers and these characters (i.e. @ , _ , - , . ) are allowed (**Important: Space is also not allowed)
+                        </p>
+                        <p class="help-block" ng-show="form.username.$error.required && (submitted || !form.username.$pristine) && usererrorToken">
+                            Username is required
+                        </p>
+                        <p class="help-block" ng-show="(form.username.$error.minlength || form.username.$error.maxlength)">
+                            Username must be more than 5 characters and less than 20 characters.
+                        </p>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-success': form.password.$valid && submitted,'has-error': form.password.$invalid && submitted }">
+                        <input type="password" placeholder="Password" name="password" class="form-control" ng-model="user.password" ng-keyup="passStrength(user.password)"
+                            ng-blur="verifyPassAndConfirmPass(); showMatchError(); passLengthError()" required mongoose-error
+                        />
+                        <p class="help-block" ng-show="strengthBar">
+                            <span ng-style="{'color':(minLength?'green':'red')}">
+                                <i class="fa" ng-class="{'fa-check-circle':minLength,'fa-times-circle-o':!minLength}" aria-hidden="true" ng-style="{'color':(minLength?'green':'red')}"></i>
+                                Min 8 characters.
+                            </span><br />
+                            <span ng-style="{'color':(alphaNum?'green':'red')}" style="color:{{alphaNum?'green':'red'}}">
+                                <i class="fa" ng-class="{'fa-check-circle':alphaNum,'fa-times-circle-o':!alphaNum}" aria-hidden="true" ng-style="{'color':(alphaNum?'green':'red')}"></i>
+                                Must be alphanumeric.
+                            </span>
+                        </p>
+                        <p class="help-block" ng-show="form.password.$error.mongoose">
+                            {{ errors.password }}
+                        </p>
+                    </div>
+                    <div class="row" ng-show="strengthBar">
+                        <div class="col-md-6">
+                            <div class="progress" style="height:10px;">
+                                <div class="progress-bar progress-bar-striped" ng-class="colorClass" role="progressbar" aria-valuenow="{{passwordLength}}"
+                                    aria-valuemin="0" aria-valuemax="100" ng-style="{'width':passwordLength+'%'}">
+                                    <span class="sr-only">40% Complete (success)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="pass-strength" style="font-weight:bold;">
+                                Strength :
+                                <span class="{{textColor}}">{{strength}} </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-success':form.confirmPassword.$valid && submitted, 'has-error':form.confirmPassword.$invalid && submitted}">
+                        <input type="password" name="confirmPassword" placeholder="Confirm Password" class="form-control" ng-model="user.confirmpassword"
+                            ng-keyup="verifyPassAndConfirmPass(); showMatchError()" required mongoose-error />
+                        <p class="help-block" ng-show="(form.confirmPassword.$error.required && submitted) || showMissmatchError">
+                            Password does not match.
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <div vc-recaptcha theme="'light'" key="model.key" on-create="setWidgetId(widgetId)" on-success="setResponse(response)" on-expire="cbExpiration()" style="transform:scale(0.85);-webkit-transform:scale(0.85);transform-origin:0 0;-webkit-transform-origin:0 0;">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-success': !errors.error && submitted, 'has-error': errors.error && submitted}">
+                        <p class="help-block" ng-if="(errors.error && errors.error != '')">{{errors.error}}</p>
+                    </div>
+                    <button style="border:1px solid #999;" class="btn btn-success btn-block" type="submit" ng-disabled="invalidSponsor 
+                    || (form.password.$error.minlength || form.password.$error.required) || (form.confirmPassword.$error.minlength 
+                    || form.confirmPassword.$error.required) || !passwordMatch || showMissmatchError || (form.email.$error.required 
+                    || form.email.$error.email) || passError || (form.contact.$error.minlength || form.contact.$error.maxlength)
+                    || form.firstName.$error.pattern || form.firstName.$error.maxlength || form.firstName.$error.required
+                    || form.lastname.$error.pattern || form.lastname.$error.maxlength || form.lastname.$error.required
+                    || (form.username.$error.pattern || form.username.$error.username) && !form.username.$error.minlength && !form.username.$error.maxlength 
+                    || (form.email.$error.pattern || form.email.$error.email) || form.username.$error.required || (form.username.$error.minlength || form.username.$error.maxlength)">
+                        Create Account
+                    </button>
+                    <p align="center">Already a member? <a href="index.html"><strong>Login here</strong></a></p>
+                </form>
+            </div>
+        </div>
+        <div class="login-footer"> 2017 © iCoinMarket</div>
+    </div>
+</div>

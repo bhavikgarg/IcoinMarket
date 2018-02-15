@@ -1,0 +1,48 @@
+<div class="modal-content">
+  <div class="modal-header model-header-color">
+    <!-- <button type="button" class="close" data-dismiss="modal" ng-click="closeModal()" style="padding: 10px;margin-top: 10px;">&times;</button> -->
+    <div class="modal-title" align="center" style="font-family: 'Times New Roman', Times, serif">
+      Set Support Team Timings
+    </div>
+  </div>
+     <form ng-submit="updateSupportTime()" name="form">
+          <div class="modal-body">
+         
+              <div class="row" style="padding-bottom: 15px;">
+                <div class="col-sm-12">
+                  <label> Time-zone </label>
+                </div>
+                <div class="col-md-6">
+                  <select name="country" class="form-control" ng-model="supportUser.timeZoneCountry" ng-change="getTimeZones()"
+                    required>
+                        <option ng-repeat="country in countryList" value="{{country.code}}" >{{country.name}}</option>
+                      </select>
+                </div>
+                <div class="col-md-6">
+                  <select name="timeZone" class="form-control" ng-model="supportUser.timezone" required>
+                        <option ng-repeat="timezone in timezones" value="{{timezone}}">{{timezone}}</option>
+                      </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <label> Time Preferred</label>
+                </div>
+                <div class="col-sm-6">
+                  <label>From</label>
+                  <input type="time" name="inputstartTime" ng-model="supportUser.startHour" placeholder="HH:mm" min="00:00:00" max="24:00:00"
+                    required />
+                </div>
+                <div class="col-sm-6">
+                  <label>To</label>
+                  <input type="time" name="inputendTime" ng-model="supportUser.endHour" placeholder="HH:mm" min="00:00:00" max="24:00:00" required/>
+                </div>
+              </div>
+          
+          </div>
+          <div class="modal-footer">
+            <button class="btn-lg btn btn-warning pull-right" type="submit" data-dismiss="modal" ng-click="closeModal()" style="margin-left: 10px;">Close</button>
+            <button class="btn-lg btn btn-success pull-right" type="submit" ng-disabled="form.timezone.$error.required">Save</button>            
+          </div>
+    </form>
+</div>

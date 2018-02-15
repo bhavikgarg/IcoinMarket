@@ -1,0 +1,209 @@
+<style>
+    .container-margin-top-30 {
+        margin-top: -30px !important;
+    }
+</style>
+<div class="app" style="margin-bottom: 40px;">
+    <header class="header header-nav" ng-include="'app/dashboard/header/header.html'" ng-if="isLoggedIn() && userRole == 'user'"></header>
+    <header class="header header-nav" ng-include="'app/admin/header/header.html'" ng-if="isLoggedIn() && (userRole == 'admin'|| userRole==='finance')"></header>
+    <header class="header header-nav" ng-include="'app/support/header/header.html'" ng-if="isLoggedIn() && userRole == 'support'"></header>
+    <header class="header header-nav" ng-include="'app/pm-admin/header/header.html'" ng-if="isLoggedIn() && userRole == 'manager'" style="margin-bottom:112px"></header>
+    <div class="container" ng-class="{'container-margin-top-30': !isPublicAccess}">
+        <div class="block block-condensed">
+            <div class="block-content">
+                <h5 style="font-size: 20px; padding: 10px 0px;"> TERMS & CONDITIONS</h5>
+                <p><strong>We reserve the right to  modify these terms at any time. You should check these terms of service  periodically for changes.</strong><strong> </strong><br
+                    /> Please read the following <strong>terms and conditions</strong> carefully as it sets out the terms
+                    of a legally binding <strong>agreement </strong>between <strong>You</strong> <strong>the user </strong>and
+                    <strong>iCoinMarket!</strong></p>
+                <p>By accessing and using our website www.iCoinMarket.com or any affiliated website of iCoinMarket, Hong Kong
+                    or associated entity (referred to as &ldquo;we&rdquo;, &ldquo;us&rdquo;, &rdquo;the Operator&ldquo;,
+                    &ldquo;the website&rdquo;, &ldquo;www.iCoinMarket.com&rdquo; or &ldquo;the company&rdquo;), and YOU,
+                    USER, INDIVIDUAL mentioned here are the Website Visitor, User, and Member. You agree to be bound by and
+                    abide by the following terms and conditions. Your access to and use of the website is also subject to
+                    our Privacy Policy. <br /> By making an investment in any form with us you automatically state that you
+                    have read, fully understood, accept and agree to abide by our Terms and Conditions when using our services.
+                    These terms and conditions (&ldquo;T&amp;C&rdquo;) apply to all transactions carried out on this and
+                    affiliated websites. Do not use the website or any services if you do not agree with any of these T&amp;C.
+                    <br />
+                    <br />
+                    <strong>Terminating  This Agreement</strong><br /> We reserve the right to terminate this Agreement without
+                    notice and/or refuse to sell to anyone who We believe, in Our sole discretion, (i) has violated any of
+                    the terms of this Agreement, (ii) is abusing the Products or the services we provide, or (iii) is unable
+                    to provide us with sufficient information to allow us to properly identify the customer&rsquo;s, independent
+                    distributor or club member real name, address, telephone number, legal identification card, passport
+                    or other information. </p>
+                <p><strong>PLEASE  NOTE: - VERY IMPORTANT</strong> <br /> &quot;When investing in iCoinMarket through the website
+                    the Buyer agrees that he or she is over 18 years of age.&quot; <br /> &quot;You must check your local
+                    jurisdiction laws applicable before Investing the iCoinMarket &amp; only invest &nbsp;if you are allowed
+                    to do so!&quot; <br />
+                    <br />
+                    <strong>LICENSE  TO USE THIS SITE</strong> <br /> As the time you hit &ldquo;I agree&rdquo;, you get
+                    non-exclusive, nontransferable limited license to use this site. Provide us your authentic details so
+                    that you don&rsquo;t get trapped in fraudulent activities. The more you are true, the better you coordinate
+                    with us. All the property of this site belongs to iCoinMarket. You acknowledge and agree with them. They
+                    are protected by copyrights, trademarks, service marks, patents and trade secrets. They are also protected
+                    by other proprietary rights and laws, in the Hong Kong and internationally. All rights not expressly
+                    granted herein are fully reserved by the Company, its advertisers and licensors. You agree to pay for
+                    any and all purchases and services using your name and payment information through this Site, not to
+                    challenge any such charges and to pay for all collections and/or attorney&rsquo;s fees resulting from
+                    any non-payment. </p>
+                <p><strong>LICENSE  RESTRICTIONS</strong> <br />
+                    <strong>Use</strong> <br /> Unless explicitly permitted, please don&rsquo;t reproduce the contents of
+                    the website. You agree not to save, download, snip, sell license, rent, and lease, modify, distribute,
+                    copy, publicly display, adapt, or create derivative works from material of this site. Systematic retrieval
+                    of data or other content from this site to create or compile, directly or indirectly, a collection, database
+                    or directory without written permission from the Company is prohibited. </p>
+                <p><strong>Security</strong> <br /> You are provided a username and password. You can change it as many times
+                    you feel. Make sure that the username and password are not common or easy to trace. You are the owner
+                    of them and you need to keep them in safe custody. We also recommend you to logout after every session
+                    so that no one can use your profile to create nuisance. Don&rsquo;t share your password with anyone.
+                    <br /> In case, your password is lost, inform us ASAP so that we can reset from here and provide you
+                    a new one. Make best efforts to prevent others to access this website from your id and password. <br
+                    /> You agree that you shall not try to reverse assemble, reverse compile, decompile, disassemble, translate
+                    or otherwise alter any executable code, contents or materials on or received via this site. You understand
+                    that such actions are likely to subject you to serious civil and criminal legal penalties and that the
+                    Company shall pursue such penalties to the full extent of the law to protect its rights and the rights
+                    of its other licensors. </p>
+                <p><strong>Force-majeure</strong> <br /> In case of origin of some circumstances impedimental to complete or
+                    partial implementation of any of parties of its obligations under this Contract, namely, natural calamities,
+                    war, military operations of any character, blockade, loss by a person carrying out the transactions of
+                    considerable part of capital, the decline of course of exchange of one currency, closing of exchange
+                    or other circumstances, being beyond control outside, each of parties has a right to annul further implementation
+                    of obligations following from this Agreement, and in this case none of parties has no authority to claim
+                    compensation from other party.. Confirmation about the offensive of these circumstances as notification
+                    passed by means of electronic connection will be the sufficient founding of offensive of the indicated
+                    circumstances and their duration. </p>
+                <p><strong>Live  Market Data</strong> <br /> While virtual currency market values as publicly displayed on the
+                    Site may be delayed, we may offer access to live market value data via technical measures such as the
+                    FIX (Financial Information exchange) protocol. This live market value data is valuable to us, and we
+                    take proprietary measures to keep all live market value data confidential and inaccessible to the public.
+                    To the extent that you receive access to such live data, you hereby agree that you will not redistribute,
+                    retransmit, duplicate, or otherwise make such data available in any way, either through automated, manual,
+                    or any other means. Any distribution or transmission of our live market values feed is a material breach
+                    of this Agreement as well as a violation of our trade secrets. You agree that we are not responsible
+                    for any failure or outage in the live market value data provided by us. <br />
+                    <br />
+                    <strong>Agreement  To Receive Notifications And Other Communications</strong> <br /> We reserve the right
+                    to send electronic mail or other messages to you and to other Members. The purpose of these communications
+                    may include, but is not limited to: <br /> (i) Providing you with information concerning your Account;
+                    <br /> (ii) Providing information to you regarding products or services offered by our affiliates or
+                    partners; <br /> (iii) Informing you about any of our related products or services; or <br /> (iv) Providing
+                    you with information about any item that we think, in our sole discretion, may be of interest to you.
+                </p>
+                <p>I<strong>NTELLECTUAL  PROPERTY RIGHTS &nbsp;</strong>&nbsp;&nbsp; <br />
+                    <br />
+                    <strong>Copyright </strong>             <br /> From design to content, all the website property is protected
+                    under applicable copyright laws, <strong>ALL RIGHTS RESERVED. </strong>You are not eligible or required
+                    to acquire ownership rights of elements viewed through this site. Prior to this, none of the elements
+                    may be copied, used, reproduced, downloaded, posted, displayed, transmitted, mechanical, photocopying,
+                    recording, or otherwise without Company&rsquo;s prior written permission. <br />
+                    <strong>Trademark</strong> <br /> The name, logo of the company, product, website or any is the trademark
+                    or trade dress of the company. It is expressly prohibited to misuse any mark or any property contained
+                    in the site. </p>
+                <p><strong>LINKS  TO OTHER WEBSITES</strong> <br /> You may find links to other websites too. We recommend you
+                    to go through their terms and policies. There can be merchants, service partners, shopping sites, stores
+                    etc. and their terms and privacy policies need to be taken care of before accessing them. This Privacy
+                    Statement does not cover the information practices of those websites nor do we control their content
+                    or privacy policies. </p>
+                <p><strong>THIRD  PARTY SITES</strong> <br /> You may be transferred to online merchants or other third party
+                    sites through this site. You are expected to read the terms and conditions of other sites too. We do
+                    not guarantee the content and usage of other sites as they are not monitored by us. If they are found
+                    offensive or unreasonable, we cannot be held liable for that. You agree that the company and the licensers
+                    have no liability from such party sites and your usage of them. <br />
+                    <strong><br />
+    DISCLAIMER OF WARRANTIES</strong></p>
+                <p>Information And Documents, Including Product Specifications, Provided On This Web Site Are Provided &ldquo;As
+                    Is.&rdquo; Specifically, But Without Limitation, iCoinMarket Does Not Warrant That: <br /> (I) The Information
+                    On This Website Is Correct, Accurate, Reliable Or Complete. <br /> (Ii) The Functions Contained On This
+                    Web Site Will Be Uninterrupted Or Error-Free. <br /> (Iii) Defects Will Be Corrected, Or <br /> (Iv)
+                    This Web Site Or The Server(S) That Makes It Available Are Free Of Viruses Or Other Harmful Components.
+                    <br /> The Company, Its Advertisers And Licensors Make No Representation Or Warranties About This Site,
+                    The Suitability Of The Information Contained On Or Received Through Use Of This Site, Or Any Service
+                    Or Products Received Through This Site. All Information And Use Of This Site Are Provided &ldquo;As Is&rdquo;
+                    Without Warranty Of Any Kind. The Company, Advertisers And/Or Its Licensors Hereby Disclaim All Warranties
+                    Without Regards To This Site, The Information Contained Or Received Through Use Of This Site, And Any
+                    Services Or Products Received Through This Site, Including All Express, Statutory, And Implied Warranties
+                    Of Merchantability, Fitness For A Particular Purpose, Title And Non-Infringement. iCoinMarket Specifically
+                    Disclaims All Representations, Warranties And Conditions, Either Express, Implied, Statutory, By Usage
+                    Of Trade Or Otherwise Including But Not Limited To Any Implied Warranties Of Merchantability, Non-Infringement,
+                    Title, Satisfactory Quality Or Fitness For A Particular Purpose. <br /> Limitation Of Liability <br />                    Under No Circumstances Shall iCoinMarket Or Its Licensors Be Liable For Any Incidental, Special, Consequential,
+                    Exemplary Or Other Indirect Damages That Result From The Use Of, Or The Inability To Use, This Web Site
+                    Or The Information Contained On This Web Site, Even If iCoinMarket Has Been Advised Of The Possibility
+                    Of Such Damages. In No Event Shall iCoinMarket Or Its Licensor's&rsquo; Total Liability To You For All
+                    Damages, Losses, And Causes Of Action Resulting From Your Use Of This Web Site, Whether In Contract,
+                    Tort (Including, But Not Limited To, Negligence) Or Otherwise, Exceed The Amounts You Paid To Entrust
+                    During The Most Recent Three-Month Period In Connection With Amounts Which You Paid For Using This Web
+                    Site.
+                    <br />
+                    <br />
+                    <strong>INDEMNIFICATION</strong> <br /> You agree to defend, indemnify, and hold harmless the Company,
+                    its advertisers, licensors, subsidiaries and other affiliated companies, and their employees, contractors,
+                    officers, agents and directors from all liabilities, claim, and expenses, including attorney&rsquo;s
+                    fees, that arise from your use of this site, or any services, information or products from this site,
+                    or any violation of this Agreement. The Company reserves the right, at its own expense, to assume the
+                    exclusive defense and control of any matter otherwise subject to indemnification by you, in which event
+                    you shall cooperate with the Company in asserting any available defenses. </p>
+                <p><strong>TERMINATION  OR SUSPENSION</strong><br /> These terms may be terminated by either party without reason
+                    at any point of time but with prior notice. However, we may immediately terminate this agreement if the
+                    user breaches any of the clauses mentioned in our terms and conditions. In addition we reserve the right
+                    to take legal action against the user and suspend access to the website and our services. Therefore,
+                    we may block computers using user&rsquo;s IP address from accessing our website. In addition we may contact
+                    your Internet service provider and do such measures to block you from accessing our website and services.
+                    In addition, we may perform legal action against you and recover the costs from you. Especially if you
+                    try to use the website for illegal activities, violate any of these terms or fail to pay for your transaction
+                    or any fraud related to that. We also reserve the right to cancel transactions that are not paid for
+                    or not confirmed. <br /> We may suspend or terminate this agreement or User&rsquo;s use immediately if
+                    the user is found in any activity, related with the use and operations of the website, and violates any
+                    law of all nations, including but not limited to the posting of information that may violate third party
+                    rights, that may defame a third party, that may be obscene or pornographic, that may harass or assault
+                    other, that may violate hacking or other criminal regulations of its agent, officers, directors, contractors
+                    or employees. <br /> We can stop supplying our service at any time without notice to you, and we reserve
+                    the right to refuse to supply the service to any person for any reason, especially if the user registers
+                    or submits a purchase under false identity or with wrong personal information, including email address,
+                    interferes with any of the company&rsquo;s operations or uses language that we consider is unacceptable
+                    including vulgar, racist, sexual or offensive language. We will disclose your identity to government
+                    of any country of any legal authority asks or requests for any such disclosure. <br /> No refunds are
+                    provided if the user decides to terminate its contract<br /> . <br />
+                    <strong>AMENDMENT,  ASSIGNMENT, AND GOVERNING LAW</strong><br /> This agreement constitutes entire agreement
+                    between user and the company. If any provision of this Agreement is prohibited by law are held to be
+                    unenforceable, the remaining provisions hereof shall not be affected, and this Agreement as much as possible
+                    under applicable law shall continue in full force and effect as if such unenforceable provision had never
+                    constituted a part hereof and the unenforceable provision shall be automatically amended so as to best
+                    accomplish the objectives of such unenforceable provision within the limits of applicable law. This Agreement
+                    incorporates by reference the Site Submission Rules if this site allows posting and posts such Rules.
+                    This Agreement constitutes the entire agreement between the parties related to the subject matter thereof,
+                    supersedes any prior or contemporaneous (oral, written or electronic) agreement between the parties and
+                    shall not be changed except by written agreement signed by an officer of the Company. This site reserves
+                    the right to revise these provisions at its discretion, so check back from time to time to be sure you
+                    are complying with the current version. <br />
+                    <br />
+                    <strong>GOVERNMENT  USE</strong><br /> These terms shall be governed by and construed in accordance with
+                    the law of the <strong>Hong  Kong</strong>. By using this Website you agree that any disputes arising
+                    in connection with this Website are subject to the exclusive jurisdiction of the Hong Kong. <br /> We
+                    can assign our various rights under this agreement to any other person without asking your permission.
+                    Your rights are personal and not assignable. <br /> The laws of Hong Kong govern these terms and conditions,
+                    without regard to its conflict of law provisions, and you irrevocably and unconditionally submit to the
+                    non-exclusive jurisdiction of the courts of Hong Kong to resolve any dispute that arises as a result
+                    of or in connection with this agreement. <br /> These T&amp;C are to be interpreted so that they comply
+                    with all applicable laws and if any provision does not comply then it must be read down so as to give
+                    it as much effect as possible however, if it is not possible to give that provision any effect at all
+                    then it is to be severed from this agreement in which case the remainder of this agreement will continue
+                    to have full force and effect. <br /> These T&amp;C and our Privacy Policy are the entire agreement between
+                    the parties as to their subject matter and supersede all prior or inconsistent statements or representations
+                    as to that subject matter.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>
+<div class="app" style="position: absolute;bottom: 0px;min-height:initial;height:40px">
+    <footer ng-include="'app/dashboard/footer/footer.html'"></footer>
+    <div class="clearfix"></div>
+</div>
+<div class="clearfix">
+</div>

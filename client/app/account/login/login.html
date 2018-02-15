@@ -1,0 +1,203 @@
+<style type="text/css">
+    body {
+        background: url(../../../assets/images/background/bg03.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    a {
+        color: #960;
+    }
+
+    a:hover {
+        color: #960;
+    }
+
+    .login-bor-bot {
+        margin-top: 20px;
+    }
+
+    .help-block {
+        color: red !important;
+    }
+</style>
+<span class="browser_notification" ng-show="vm.olderVersion" style="margin-left:0;top:0;">You are using an older version of {{vm.data.browser=='ms-edge'?'Internet Explorer':vm.data.browser}} which is not supported with our website. Some function may not work correctly. Please <a ui-sref="browserlist">click here</a> to upgrade your browser.</span>
+<!-- APP WRAPPER -->
+<div class="app app-fh">
+    <!-- START APP CONTAINER -->
+    <div class="app-container" style="background: url(assets/images/background/bg03.jpg) center center no-repeat fixed;">
+        <div class="app-login-box">
+            <div class="row">
+                <div class="app-login-box-user col-sm-12">
+                    <img src="assets/images/icmAvatar.png">
+                </div>
+            </div>
+            <div class="app-login-box-title">
+                <div class="title">Already a member?</div>
+                <div class="subtitle">Sign in to your account</div>
+            </div>
+            <div class="app-login-box-container" style="padding: 0px 30px 0px;">
+                <form name="loginform" class="form create-product" ng-submit="login(loginform)" novalidate>
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-control" placeholder="Email Address" id="email" ng-disabled="loginButton || submitted && !loginform.$error"
+                            ng-model="user.email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" ng-disabled="loginButton || submitted && !loginform.$error"
+                            ng-model="user.password" required>
+                    </div>
+                    <div class="form-group">
+                        <div vc-recaptcha theme="'light'" key="model.key" on-create="setWidgetId(widgetId)" on-success="setResponse(response)" on-expire="cbExpiration()">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: -10px;margin-bottom: 0px;">
+                        <p class="help-block" style="color:red;">{{captcha_error}}</p>
+                        <p class="help-block" ng-show="loginform.email.$error.required && loginform.password.$error.required && submitted">
+                            Please enter your email and password.
+                        </p>
+                        <p class="help-block" ng-show="loginform.email.$error.email && submitted">
+                            Please enter a valid email.
+                        </p>
+                        <p class="help-block">{{errors.other}} </p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <div class="">
+                                <label><a href="#" data-toggle="modal" data-target="#forgetPasswordModal">Lost Your Password?</a></label>
+                            </div>
+                            <!--<div class="app-checkbox">
+                                <md-checkbox class="gray" ng-model="data.cb4" name="app-checkbox-1" value="0" type="checkbox">Remember me</md-checkbox>
+                            </div>-->
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <button class="btn btn-success btn-block" type="submit" ng-disabled="loginButton || loginform.$invalid || submitted && !loginform.$error">Sign In</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="app-login-box-or" style="padding: 20px 0px 20px !important;">
+                    <div class="or">OR</div>
+                </div>
+            </div>
+            <div class="app-login-box-container">
+                <!--<div class="row">
+                    <div class="col-md-6 col-sm-12 text-center">
+                        <a class="facebook" ng-click="loginOauth('facebook')">Facebook</a>
+                     </div>
+                        <div class="col-md-6 col-sm-12 text-center">
+                            <a class="google" ng-click="loginOauth('google')">Google+</a>
+                        </div>
+                 </div>-->
+                <!--<div class="row">
+                    <div class="col-md-6">-->
+                <button class="btn btn-facebook btn-block" ng-click="loginOauth('facebook')">Connect With Facebook</button>
+                <!--</div>
+                    <div class="col-md-6">-->
+                <button class="btn btn-danger  btn-block" ng-click="loginOauth('google')" style="margin-left: 0px !important;">Connect With Google+</button>
+                <!--</div>
+                </div>-->
+            </div>
+            <p align="center">Don't have an account? <a href="/signup">Sign Up</a></p>
+            <!--<div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <p align="center">
+                        <strong>
+                            <a href="#" data-toggle="modal" data-target="#forgetPasswordModal">Lost Your Password?</a>
+                        </strong>
+                    </p>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <p align="center">
+                        <strong>
+                            <a href="#" data-toggle="modal" data-target="#resendVerification">Resend verfication email?</a>
+                        </strong>
+                    </p>
+                </div>
+            </div>--> 
+            <p align="center">
+                 <a href="#" class="label label-default" style="border:1px solid #ccc;" data-toggle="modal" data-target="#resendVerification">Resend Email Verification</a>
+            </p>
+            <div class="app-login-box-footer">
+                <!--&copy; icoinmarket 2017. All rights reserved.-->
+                ©2017 iCoinMarket
+            </div>
+        </div>
+
+    </div>
+    <!-- END APP CONTAINER -->
+
+</div>
+<!-- END APP WRAPPER -->
+
+
+<div class="clearfix"></div>
+
+<!-- Lost your Password -->
+<div class="modal fade" id="forgetPasswordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="false">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Forgot Your Password? Really</h4>
+            </div>
+            <form class="form" name="form" ng-submit="forgetPassword(form)" novalidate>
+                <div class="modal-body">
+                    <p>Enter your email address below and we′ll send you instructions on how to change your password</p>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" name="fpemail" class="form-control" ng-model="fpemail" required id="exampleInputEmail1" placeholder="Email">
+                        <p class="help-block" ng-show="form.fpemail.$dirty && form.fpemail.$error.required">
+                            Email address is required
+                        </p>
+                        <p class="help-block" ng-show="form.fpemail.$dirty && form.fpemail.$error.email">
+                            Enter valid email address
+                        </p>
+                    </div>
+                </div>
+                <p style="margin-left : 20px"> {{ message }} </p>
+                <div class="modal-footer">
+                    <button type="submit" class="btn brown" ng-disabled="form.$invalid">Get Reset Email</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--  Resend Verification -->
+<div class="modal fade" id="resendVerification" tabindex="-1" role="dialog" aria-labelledby="resendVerification">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel"> Resend Verification </h4>
+            </div>
+            <form name="formtwo" class="form create-product" ng-submit="resend(formtwo)" novalidate>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" id="exampleInputEmail1" name="email" class="form-control" ng-model="email" required>
+                    </div>
+                    <div class="form-group has-error">
+                        <p class="help-block" ng-show="formtwo.email.$error.required && submitted">
+                            Please enter your email.
+                        </p>
+                        <p class="help-block" ng-show="formtwo.email.$error.email && submitted">
+                            Please enter a valid email.
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn brown"> Resend Verification</button>
+                    <div ng-show="resendverficationsent" class="help-block">Verification email sent again!</div>
+                    <div ng-show="resenderror" class="help-block has-error">{{resenderror}}</div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--  Resend Verification -->
+<!--<div class="login-footer"> 2017 © iCoinMarket (Powered by Clickintensity) </div>-->

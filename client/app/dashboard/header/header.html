@@ -1,0 +1,93 @@
+<div ng-controller="HeaderCtrl">
+    <div class="app-header">
+        <ul class="app-header-buttons visible-mobile">
+            <li><a href="#" class="btn btn-link btn-icon" data-header-navigation-toggle="true"><span
+                    class="icon-menu"></span></a></li>
+        </ul>
+        <a ui-sref="dashboard"  ng-class="getClass('dashboard')" class=" pull-left"><img src="assets/images/icmlogo.png" width="160" style="padding: 10px;"></a>
+        <div ng-include="'app/dashboard/navigate/navigate.html'"></div>
+    </div>
+    <div class="app-container">
+        <div align="center">
+            <div class="container" style="padding: 0px; margin: 0px;">
+                <div class="col-md-12 col-sm-12 top-txt-dashboard">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: left;">
+                            Welcome to <b>iCoinMarket,</b> world's first done for you cryptocurrency platform! Trading has never been so easy.
+                        </div>
+                        <div class="col-md-4" style="color: black;font-weight: bold;font-size: 14px; padding-top: 10px;" ng-if="showtime">
+                            <marquee text-direction="right" scrollamount="5"> Remaining time for accepting investments in iCoinMarket.</marquee>
+                        </div>
+                        <div class="col-md-4" ng-if="showtime" style="padding-top: 10px;">
+                            <div align="center" id="counter" class="counter-btn" style="  display:block;">
+                                    <strong class='date'>{{days}}</strong>&nbsp;&nbsp;<strong>{{days == 1  ? 'day' : 'Days'}}</strong>&nbsp;&nbsp;
+                                    <strong class='date'>{{hours}}</strong>&nbsp;&nbsp;<strong>{{hours == 1 ? 'hour' : 'Hours'}}</strong>&nbsp;&nbsp;
+                                    <strong class='date'>{{mins}}</strong>&nbsp;&nbsp;<strong>{{mins == 1 ? 'min' : 'Mins'}}</strong>&nbsp;&nbsp;&nbsp;
+                                    <strong class='date'>{{secs}}</strong>&nbsp;&nbsp;<strong>{{secs == 1 ? 'sec' : 'Secs'}}</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-8" style="color: black;font-weight: bold;font-size: 14px; padding-top: 10px;" ng-if="!showtime">
+                            <marquee text-direction="right" scrollamount="5">iCoinMarket has successfully closed the funding. ICM team thanks you for showing full faith and believing in us. Now you will see your trading profits on your investments. Initial Coin Offering (ICO), the next big thing in Digital Gold rush, the new era of crowd funding is here. Maximize your profits by investing in ICO's. Stay Tuned for more Details.
+                            </marquee>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="container">
+        <div class="row" style="height: 100%;padding-left: 15px;padding-right: 15px;">
+            <div class=" col-md-4 dashboard-profile">
+                    <div class="col-md-3 col-sm-2 col-xs-12" style="margin: 0px; padding: 0px;">
+                        <img ng-src="{{memberInfo.avatar ? memberInfo.avatar : 'assets/images/user/no-image.png' }}" width="100" style="border-radius: 50%" height="100">
+                    </div>
+                    <div class="c992 col-md-9 col-sm-10 col-xs-12" align="left">
+                        <h2><b>Welcome {{memberInfo.name}}</b></h2>
+                        <span class="label label-success" ui-sref="affilateDefaultPage" ng-class="{active: ('/affiliates' | isActive)}" style="cursor : pointer">My Referral Link</span>
+                        <span class="label label-warning" ng-click="showSponsorInfo(memberInfo)">My Sponsor</span>
+                        <div style="height: 5px"></div>
+                        <!--<span class="label label-danger">{{username.email}}</span>-->
+                        <span class="label label-danger" ui-sref="userprofile" ng-class="{active: ('/userprofile' | isActive)}" style="cursor : pointer">Profile Setting</span>
+                        <span class="label label-primary" ng-click="logout()">Logout</span>
+                    </div>
+            </div>
+            <div class="col-md-8 col-sm-12 header-cryptoData">
+                <div class="row" style="padding: 11px 10px 18px;min-height: 162px; text-align: center;">
+                    <div style="height: 70px;">
+                        <div ng-repeat="data in cryptoCurrencydata | limitTo:headerLimit">
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6" ng-style="{'border-right':(!$last ?'1px solid #999;height: 70px;':'height: 70px;')}">
+                                <div class="app-widget-informer">
+                                    <div class="title">
+                                        <span ng-if="data.percent_change_24h" title="24h Change">
+                                            <span ng-class="{'icon-arrow-down text-danger': (data.percent_change_24h<0) , 'icon-arrow-up text-success': (data.percent_change_24h>0)}"> </span>
+                                            <span class="label label-white" style="color: #5b9bd1;">{{data.percent_change_24h | abs}}</span>
+                                        </span>
+                                        <span ng-if="!data.percent_change_24h && data.percent_change_1h" title="1h Change">
+                                            <span ng-class="{'icon-arrow-down text-danger': (data.percent_change_1h<0) , 'icon-arrow-up text-success': (data.percent_change_1h>0)}"></span>
+                                            <span class="label label-white" style="color: #5b9bd1;">{{data.percent_change_1h | abs }}</span>
+                                        </span>
+                                        <span ng-if="!data.percent_change_24h && !data.percent_change_1h" title="7D Change">
+                                            <span ng-class="{'icon-arrow-down text-danger': (data.percent_change_7d<0) , 'icon-arrow-up text-success': (data.percent_change_7d>0)}"></span>
+                                            <span class="label label-white" style="color: #5b9bd1;">{{data.percent_change_7d | abs }}</span>
+                                        </span>
+                                    </div>
+                                    <div class="intval" ng-style="{'color':({{$index==0}} ?'#999': ({{$index==1}} ?'#999':({{$index==2}} ?'#999':({{$index==3}} ?'#999':({{$index==4}} ?'#999':({{$index==5}} ?'#999':'#999'))))))}"
+                                        ;><b>{{data.symbol}}</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="menu-main" style="width: 100%;">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12 menu01 menuTxt"><img src="assets/images/pre.png" width="40"> <a href="/marketpresentations" title="iCoinMarket Presentations"><b >ICoinMarket Presentations </b></a></div>
+                            <div class="col-md-4 col-sm-12 col-xs-12 menu02 menuTxt"><img src="assets/images/fb-icon.png" width="35"> &nbsp;<a href="https://www.facebook.com/groups/icoinmarket/" title="Join Corporate FACEBOOK Group" target="_blank"><b>Join Corporate FACEBOOK Group</b></a></div>
+                            <div class="col-md-4 col-sm-12 col-xs-12 menu03 menuTxt"><img src="assets/images/video-icon.png" width="40"> &nbsp;<a href="/daily-training" title="Training Videos"><b>Training Videos</b></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

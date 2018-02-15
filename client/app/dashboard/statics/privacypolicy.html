@@ -1,0 +1,144 @@
+<style>
+    .container-margin-top-30 {
+        margin-top: -30px !important;
+    }
+</style>
+<div class="app" style="margin-bottom: 40px;">
+    <header class="header header-nav" ng-include="'app/dashboard/header/header.html'" ng-if="isLoggedIn() && userRole == 'user'"></header>
+    <header class="header header-nav" ng-include="'app/admin/header/header.html'" ng-if="isLoggedIn() && (userRole == 'admin'|| userRole==='finance')"></header>
+    <header class="header header-nav" ng-include="'app/support/header/header.html'" ng-if="isLoggedIn() && userRole == 'support'"></header>
+    <header class="header header-nav" ng-include="'app/pm-admin/header/header.html'" ng-if="isLoggedIn() && userRole == 'manager'" style="margin-bottom:112px"></header>
+    <div class="container" ng-class="{'container-margin-top-30': !isPublicAccess}">
+        <div class="block block-condensed">
+            <div class="block-content">
+                <h5 style="font-size: 20px; padding: 10px 0px;"> PRIVACY POLICY
+                </h5>
+
+                <p dir="ltr">We collect your active individual information that you share with us. Active individual information is the
+                    information you share with us containing your personal details and identifications. We also save your
+                    passive information that can be location or other information that mark your presence at our site.</p>
+                <p dir="ltr">You are also advised to provide authentic true details. We ensure your information by the id proofs you provide
+                    us and those ids are secured by our servers. You can anytime update your information in case you feel
+                    the requirement. The information we save is best used at the time of interaction with the user. The user
+                    will be communicated with the information we store. For any kind of customer support, we use your personal
+                    details so that it is easy to identify when you approach us.</p>
+                <p dir="ltr">While registration, we accept your information that may reveal your identity which includes name, address,
+                    contact number, email, account details and much more. This Personally Identifiable Information is securely
+                    stored with us and you can find it at your account. You also make payments to merchants which allow you
+                    to use your billing details such as account details, credit card details etc. are sensitive information
+                    are stored safely to communicate the order history and status of your order and balances. If the billing
+                    is done via credit card, we keep do not keep the info and we erase from our server as soon as your order
+                    is successfully placed. However, we provide an option of saving multiple credit cards.</p>
+                <p dir="ltr">We may collect, compile, store, publish, promote, report, or otherwise disclose or use any Aggregate Information,
+                    provided that such information does not personally identify you. The information can be in the form of
+                    IP or URL that you are accessing. Information may also be shared with third parties too as per the interests
+                    of your activities. The parties who serve us will also carry your information. Information can be related
+                    to Internet, Billing details etc.</p>
+                <p dir="ltr">We use secure socket layer (SSL) encryption to protect the transmission of the information you submit to
+                    us when you use our secure online forms. The information you provide to us is stored securely.</p>
+                <p dir="ltr"> </p>
+                <p dir="ltr"><strong>Active Collection</strong><br /> We collect information from you when You register for an account
+                    to use the Services or iCoinMarket Platform and when You use such Services.</p>
+                <p dir="ltr"> </p>
+                <p dir="ltr"><strong>PERSONAL INFORMATION THAT WE COLLECT</strong><br /> Visitors to Our Site, and users of Our Services,
+                    will have multiple manners of interactivity with us. Depending upon Your level of interaction, we will
+                    collect different information about you. The type of information collected is as follows:</p>
+                <p dir="ltr"><strong>1. Members</strong><br /> Members are those Users who interact with Our services in a way which requires
+                    registration, for example, participating in the iCoinMarket Platform. As a Member, You may be prompted
+                    to provide Your name, Your residence address and mailing address (if different), Your telephone number,
+                    a valid email address, Your date and place of birth, a copy of a valid photo ID or passport, proof of
+                    residence, Your government issued identification number, other personal information necessary to verify
+                    your Identity, and Your Bitcoin addresses and related information (&ldquo;personal information&rdquo;)
+                    which may lead to Your identification.</p>
+                <p dir="ltr"><strong>2. Browsers<br />
+</strong> Browsers are visitors to the Site who never enter into any active data collection pages or use the Services or
+                    iCoinMarket Platform. Browsers may, however, view content posted by Members. Any information gathered
+                    from Browsers is also gathered from Members. This information is restricted to cookies, IP Addresses
+                    and Referral URLs, and other passive information gathering devices. Browsers are also considered Users
+                    of the Site.</p>
+                <p dir="ltr"> </p>
+                <p dir="ltr"><strong>Passive Collection</strong><br /> We use cookies to collect information about you in order to enhance
+                    your experience on the Site. The information collected in our cookies includes, but is not limited to,
+                    Your User IP address, geographic location and other session data. Cookies are small text files that are
+                    stored in your local browser cache. Such cookies enable the recognition of your browser in order to optimize
+                    the Site and simplify its use. Most browsers are set-up to accept these cookies automatically. We use
+                    cookies to improve our knowledge of your use of the Site and hence the efficiency of your individual
+                    use of this Website.</p>
+                <p dir="ltr"> </p>
+                <p><strong>How Do We Secure Active Information And Passive  Information?</strong><br /> We secure your personal
+                    information submitted by you by using reasonable efforts to prevent unauthorized access or disclosure,
+                    or accidental loss of Active and Passive Information. Individual postings on this site and other communications
+                    to our office via email or standard mail may not be secure unless we advise you that security measures
+                    are in place prior to your submission of information. Therefore, if you choose to communicate with us
+                    through these means, you are assuming the risk of doing so and we respectfully request that you do not
+                    send or post sensitive information through these means. </p>
+                <p dir="ltr"> </p>
+                <p dir="ltr"><strong>COOKIE POLICY</strong><br /> iCoinMarket may set and access basic cookies on your computer as a site
+                    user. These cookies are used purely to enhance your user experience and are kept to a minimum. Most cookies
+                    are session cookies that expire and are removed when your session ends. This cookie is used to serve
+                    ads specific to you and your interests (&ldquo;interest based targeting&rdquo;). The ads served will
+                    be targeted based on your previous browsing history. You are free to turn cookies off using your browser
+                    settings but certain sections of the site will no longer work without cookies enabled. However, it does
+                    NOT track personal information about you, such as your name, email address, physical address, telephone
+                    number, social security numbers, bank account numbers or credit card numbers.<br />
+                    <br />
+                    <strong>CHILDREN'S PRIVACY</strong><br /> It is strictly advised that our website is not implemented
+                    for children below 18 years. We insist the parents to keep an eye on your kid&rsquo;s online activities.
+                    We will not accept their details and will eliminate their information too.</p>
+                <p dir="ltr"> </p>
+                <p dir="ltr"><strong>HOW WE USE YOUR INFORMATION</strong><br /> Primary uses for Your information are to provide You with
+                    services You have requested and/or paid for, to conduct customer identification and anti-money laundering
+                    reviews and compliance and to comply with applicable law. We may also use your information to deliver
+                    customized services to you. Member personal information, login information and e-mail addresses may be
+                    disclosed to third parties for the purpose of providing certain features or third-party services associated
+                    with the Exchange, including Our Anti-Money Laundering client verification providers for the purpose
+                    of complying with applicable laws. The Site may contain links to other third party websites, which are
+                    regulated by their own privacy policies. We are not responsible for the privacy policies of these other
+                    third party websites even if You accessed them using links from the Site or were linked to the Site from
+                    a third party website. We are not responsible for how third parties use your information, and you should
+                    become familiar with such third parties&rsquo; privacy policies prior to requesting their services.</p>
+                <p dir="ltr"> </p>
+                <p dir="ltr"><strong>TRANSMITTALS FROM US</strong><br /> We may send You periodic announcements including the details
+                    of Our existing and new programs. If You opt-out of these marketing emails, You may still receive system
+                    notices and other information that is specifically related to Your account. If you provide your information
+                    to us, use the Site, or subscribe to any of Our Services, You will have created a commercial relationship
+                    with Us. In having done so, You understand that even unsolicited commercial email sent from Us or Our
+                    affiliates is not SPAM as that term is defined under applicable law.</p>
+                <p dir="ltr"> </p>
+                <p dir="ltr"><strong>PROTECTING YOUR INFORMATION</strong><br /> We respect your personal identity and thus, we securely
+                    keep your information at our servers and for that, we have employed technical equipment and managerial
+                    personals to keep your data safely. We also recommend to change your password every now and then for
+                    safety reasons. If in case you forget your password, do let us know. Our team will help you with a new
+                    one.
+                </p>
+                <p dir="ltr"> </p>
+                <p dir="ltr"><strong>OUR COMMITMENT TO SATA SECURITY</strong><br /> We will retain control of and responsibility for the
+                    use of any personal information you disclose to us. We take measures to protect the transmission of all
+                    sensitive User information. We make all reasonable efforts to ensure the integrity and security of our
+                    network and systems by utilizing encrypted software and protective firewalls. All User information is
+                    retained in-house for the life of the account and is secured via administrative password protection.
+                    Nevertheless, we cannot guarantee that our security measures will prevent third-party &lsquo;hackers&rsquo;
+                    from illegally obtaining this information. We take all reasonable measures to prevent such breaches of
+                    security, but you however acknowledge and agree that communications through the Internet is not entirely
+                    secure and hence, we are unable to guarantee that our security is one hundred percent (100%) breach-proof.
+                    You assume the risk of such breaches to the extent that they occur despite our reasonable security measures.
+                    Our security procedures shall nevertheless continuously be revised based on new technological developments.
+                    Whilst we have security measures in place to protect your personal information, please do not send any
+                    other confidential or proprietary information through the Site. You should exercise extreme caution when
+                    disclosing such confidential or proprietary information in this way. We will not be responsible for any
+                    loss or damage arising from disclosure of such confidential or proprietary information that is sent through
+                    the Site.</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>
+<div class="app" style="position: absolute;bottom: 0px;min-height:initial;height:40px">
+    <footer ng-include="'app/dashboard/footer/footer.html'"></footer>
+    <div class="clearfix"></div>
+</div>
+<div class="clearfix">
+</div>

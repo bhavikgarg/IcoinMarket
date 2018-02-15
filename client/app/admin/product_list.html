@@ -1,0 +1,60 @@
+  <section>
+    <div class="page-head">
+      <div class="col-lg-12 col-md-12 col-xs-12">
+
+        <div class="page-sidebar-wrapper col-lg-2 col-xs-2 col-md-2 clearfix">
+          <div class="page-sidebar navbar-collapse collapse" ng-include="'app/admin/navigate/navigation.html'"></div>
+        </div>
+
+        <div class="col-md-10 list-admin">
+          <p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>
+          <table class="table-responsive table-scrollable table table-stripped table-hover table-bordered no-footer dataTable product_details">
+            <thead>
+              <tr>
+                <th class="col-lg-2">Provided Link</th>
+                <th class="col-lg-2">UID</th>
+                <th class="col-lg-2">Package Details</th>
+                <th class="col-lg-2">Tracking Link</th>
+                <th class="col-lg-2">Accept Order</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a>provided_link</a></td>
+                <td>3472647021392</td>
+                <td>package_details</td>
+                <td><a>tracking_details</a></td>
+                <td><button class="btn btn-small waves-effect" data-toggle="modal" data-target="#acceptOrder" type="button">Accept Order</button></td>
+              </tr>
+              <tr>
+                <td><a>provided_link</a></td>
+                <td>3472647021392</td>
+                <td>package_details</td>
+                <td><a>tracking_details</a></td>
+                <td><button class="btn btn-small waves-effect" data-toggle="modal" data-target="#acceptOrder" type="button">Accept Order</button></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="modal fade" id="acceptOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header model-header-color">
+                  <h3>User Advertising</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  Tracking URL
+                  <input class="form-control" type="text" ng-model="tracking_link"/>
+                  <button class="btn btn-small waves-effect" type="button">SAVE</button>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>

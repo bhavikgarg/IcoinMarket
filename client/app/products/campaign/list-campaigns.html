@@ -1,0 +1,126 @@
+<style>.pagination li {padding:0}</style>
+<header class="header header-nav " ng-include="'app/dashboard/header/header.html'"></header>
+<section>
+
+<div class="modal fade" id="CampaignCreditsmodel" tabindex="-1" role="dialog" aria-labelledby="CampaignCreditsmodelLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div>
+        <i class="fa fa-close close-btn pull-right" data-dismiss="modal"></i>
+        <h4 class="modal-title" id="CampaignCreditsmodelLabel"><strong><i class="fa fa-user"></i> View History (</strong>{{model_campaign_id}}<strong>)</strong></h4>
+      </div>
+      <div class="modal-body">
+       <div  ng-animate="animate">
+      <div class="table-scrollable">
+            <table class="table table-striped table-hover table-bordered dataTable">
+              <thead>
+                <tr ng-if="views.length>0">
+                  <th>#</th>
+                  <th>User Name</th>
+                  <th>Created At</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td ng-if="views.length==0" colspan="3">
+                  No records found !
+                  </td>
+                <tr ng-repeat="view in views">
+                  <td>{{$index +1}}</td>
+                  <td>{{view.username}}</td>
+                  <td>{{view.createdAt | date}}</td>
+                </tr>
+              </tbody>
+
+            </table></div>
+    </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+  <div class="page-head main-top-space" >
+  <div class="col-sm-12">
+    <div class="page-sidebar-wrapper col-md-2 col-xs-12 col-sm-12 no-padding no-margin ">
+      <div class="page-sidebar md-shadow-z-2-i navbar-collapse  collapse" ng-include="'app/dashboard/navigate/navigate.html'"></div>
+    </div>
+    <div class="col-md-10 col-sm-12 col-xs-12 page-content">
+      <!-- html for page title -->
+      <div class="page-title col-sm-12">
+        <h1><i class="fa fa-money leadertitle-icon-lrg"></i>
+          Text Campaigns
+        </h1>
+      </div>
+      <div class="clearfix"></div>
+      <!-- html for dashboard -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="portlet light" >
+            <div class="portlet-body">
+              <br/>
+              <br/>
+              <div class="caption">
+                <i class="fa fa-money font-green-sharp"></i>
+                <span class="caption-subject font-green-sharp bold uppercase" style="font-size:16px !important;">View Campaigns </span>
+              </div>
+              <br/>
+              <div class="table-scrollable">
+                <table class="table table-striped table-hover table-bordered dataTable">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name / Title</th>
+                      <th>Campaign Type</th>
+                      <th>Created At</th>
+                      <th># of hits</th>
+                      <th class="text-right">Coins / Amount</th>
+                      <th>Active</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="campaign in campaigns">
+                      <td>{{campaign.id}}</td>
+                      <td>{{campaign.title}}</td>
+                      <td><span class="text-capitalize">{{campaign.type}}</span></td>
+                      <td>{{campaign.createdat | date}}</td>
+                      <td>
+   	                    <div  data-ng-click="CompaignCreditsHistory(campaign)">
+   		                    <small><a href="#" id="campaigncredits" style="font-size:11px;">
+   		                    {{campaign.expirecredits | divide:campaign.viewTime}}
+   		                     </a></small>
+   	                   </div>
+                      </td>
+                      <td ng-if="campaign.amount" class="text-right">{{campaign.amount}}</td>
+                      <td ng-if="!campaign.amount" class="text-right">{{campaign.credits}}</td>
+                      <td>
+                        <span ng-if="campaign.active == true">Yes</span>
+                        <span ng-if="campaign.active == false">No</span>
+                      </td>
+                      <td>
+                        <a ng-if="campaign.allowEdit" href="/campaign/edit/{{campaign.id}}">Edit</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <ul uib-pagination class="pull-left" items-per-page="viewLimit" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true" ng-change="loadPage()"></ul>
+              <form>
+                <ul class="pull-left" style="line-height:2.5;margin:10px 0;text-align: right">
+                  <button type="submit" class="btn brown btn-sm pull-right" ng-click="updatePage()" style="height:33px;text-transform:capitalize;margin: 0 0 0 5px;">Go</button>
+                  Go to page: &nbsp; <input type="number" min="1" ng-model="getPage" class="form-control pull-right" style="width:60px;margin:0;height:25px;"><br />
+                  <span class="text-right help-block pull-right" ng-show="error" style="margin:0">{{error}}</span>
+                </ul>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="clearfix"></div>
+</section>
+</div> <div class="clearfix"></div> <div class="app" style="position: absolute;bottom: 0px;min-height:initial;height:40px">     <footer ng-include="'app/dashboard/footer/footer.html'"></footer>     <div class="clearfix"></div> </div> <div class="clearfix">

@@ -1,0 +1,688 @@
+<!-- START PAGE CONTENT -->
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                <!-- START PRODUCT SALES HISTORY -->
+                <div class="block block-condensed">
+                    <div class="app-heading">
+                        <div class="title">
+                            <h2>What is iCoinMarket?</h2>
+                        </div>
+                        <iframe width="100%" height="420" src="https://www.youtube.com/embed/Yyl9rfew8tU?rel=0" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <!-- END PRODUCT SALES HISTORY -->
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                <!-- START LATEST TRANSACTIONS -->
+                <div class="block block-condensed">
+                    <div class="app-heading">
+                        <div class="title">
+                            <h2>Latest Signups</h2>
+                        </div>
+                        <div class="title pull-right" style="font-size: 16px;font-weight: 600">
+                           Total Signups ({{totalsignups}})
+                        </div>
+                          <!--<button type="button" class="btn btn-default btn-block" ng-click="notifyPopup1()">Confirm</button>-->
+                        <br />
+                    </div>
+                    <!--<p align="center" style="background:#f04e51; color: #fff; font-size: 16px; padding: 5px; border-left: 10px solid #fff; border-right: 10px solid #fff; border-radius:20px;"><b>Total Signups ({{totalsignups}}) </b></p>-->
+                    <div class="block-content" style="height:410px;overflow-y: auto;margin-top:0px">
+                        <div class="table-responsive">
+                            <table class="table table-clean-paddings margin-bottom-0">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th width="150">Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="signup in latestSignup">
+                                        <td>
+                                            <!--<div class="contact contact-rounded contact-bordered contact-lg">-->
+                                            <!--<img src="assets/images/user/no-image.png">-->
+                                            <div class="contact-container">
+                                                <img ng-src="{{signup.flag}}" width="16" height="16"> {{signup.name}}
+                                                <!--<span>on {{ signup.signupDate | date : 'MMM dd yyyy'}}</span>-->
+                                            </div>
+                                            <!--</div>-->
+                                        </td>
+                                        <td>
+                                            <span am-time-ago="signup.signupDate"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- END LATEST TRANSACTIONS -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" style="padding-bottom:20px">
+                <div class="block block-condensed">
+                    <!-- START HEADING -->
+                    <div class="app-heading app-heading-small" style="height: 105px">
+                        <div class="title">
+                            <h2>Market Price</h2>
+                            <p>
+                                Unique price at which buyers and sellers agree to trade in an open market
+                                at a particular time
+                            </p>
+                        </div>
+                    </div>
+                    <!-- END HEADING -->
+                    <div class=" clearfix"></div>
+                    <!-- ORIGINAL -->
+                    <div class=" clearfix"></div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-xs-3"> Coin </th>
+                                <th class="col-xs-3"> Buy Price </th>
+                                <th class="col-xs-3" ng-if="cryptoCurrencydata[0].percent_change_24h"> Change (24h) </th>
+                                <th class="col-xs-3" ng-if="!cryptoCurrencydata[0].percent_change_24h && cryptoCurrencydata[0].percent_change_1h"> Change (1h) </th>
+                                <th class="col-xs-3" ng-if="!cryptoCurrencydata[0].percent_change_24h && !cryptoCurrencydata[0].percent_change_1h"> Change (7D)</th>
+                                <th class="col-xs-3"> Name </th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="marketPrice" style="/*height: 297px; margin-top: -20px;*/ overflow: auto;">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr ng-repeat="data in cryptoCurrencydata" ng-click="loadChart(data.id, data.name)">
+                                    <td class="col-xs-3">{{data.symbol}}</td>
+                                    <td class="col-xs-3">{{data.price_usd}}</td>
+                                    <td class="col-xs-3">
+                                        <span ng-if="data.percent_change_24h">
+                                            <span ng-class="{'icon-arrow-down text-danger': data.percent_change_24h<0,'icon-arrow-up text-success': data.percent_change_24h >0}"></span>
+                                            <span>{{data.percent_change_24h | abs }}</span>
+                                        </span>
+                                        <span ng-if="!data.percent_change_24h && data.percent_change_1h">
+                                            <span ng-class="{'icon-arrow-down text-danger': data.percent_change_1h<0,'icon-arrow-up text-success': data.percent_change_1h >0}" ></span>
+                                            <span>{{data.percent_change_1h | abs }} </span>
+                                        </span>
+                                        <span ng-if="!data.percent_change_24h && !data.percent_change_1h">
+                                            <span ng-class="{'icon-arrow-down text-danger': data.percent_change_7d<0,'icon-arrow-up text-success': data.percent_change_7d >0}"></span>
+                                            <span>{{data.percent_change_7d | abs }}</span>
+                                        </span>
+                                    </td>
+                                    <td class="col-xs-3">{{data.name}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" style="padding-bottom:20px">
+                <div class="block block-condensed daily-market-chart" >
+                    <div class="row">
+                        <div class="app-heading">
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="title">
+                                    <h2>Daily Market Price ({{currentCryptocurrencyName}})</h2>
+                                    <p>Choose your date and comparison </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="heading-elements">
+                                    <button type="button" class="btn btn-default btn-icon-fixed dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        <span class="icon-calendar-full"></span> {{fromDate | date}} - {{tillDate | date}}
+                                    </button>
+                                    <ul class="datepicker-container dropdown-menu dropdown-form dropdown-menu-right">
+                                        <li class="li-date-dropdown">
+                                            <div class="row" ng-click="preventClose($event)">
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="form-group margin-bottom-10 from-datepicker">
+                                                        <label>From:</label>
+                                                        <div class="input-group" >
+                                                            <div ng-click="OpenfromDate()" class="input-group-addon"><span class="icon-calendar-full"></span></div>
+                                                            <div style="position: relative;">
+                                                                <input ng-click="OpenfromDate()" type="text" class="form-control from-date calandar-dates" uib-datepicker-popup="dd/MM/yyyy"
+                                                                       ng-model="fromDate" name="fromDate" is-open="fromDatePopup.opened"
+                                                                       datepicker-options="fromDateOptions"
+                                                                       ng-required="true"
+                                                                       close-text="Close"
+
+                                                                       placeholder="From Date"
+                                                                       readonly />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="form-group to-datepicker">
+                                                        <label>To:</label>
+                                                        <div class="input-group">
+                                                            <div ng-click="OpentillDate()" class="input-group-addon"><span class="icon-calendar-full"></span></div>
+                                                            <input ng-click="OpentillDate()" type="text" class="form-control to-date calandar-dates" uib-datepicker-popup="dd/MM/yyyy" ng-model="tillDate" name="tillDate" is-open="tillDatePopup.opened"
+                                                                   datepicker-options="tillDateOptions"
+                                                                   ng-required="true" close-text="Close"
+                                                                   ng-change="ChangeExpiryMinDate(tillDate)"
+                                                                   placeholder="Till Date"
+                                                                   readonly
+                                                                    />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-default btn-block" ng-click="filterChartBydate(fromDate, tillDate)">Confirm</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-content">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="app-chart-wrapper app-chart-with-axis" style="padding-left: 0px">
+                                    <div id="cryptoChart" ng-hide="loading" style="width: 100% !important"></div>
+                                    <loading></loading>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <span>Last updated : {{cryptoDataLastUpdatedOn | date : "medium"}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-lg-6 col-sm-12 col-sm-12 col-xs-12">
+                <div class="tile-basic tile-basic-icon-top">
+                    <div class="tile-icon">
+                        <span class="icon-license"></span>
+                    </div>
+                    <div class="tile-content text-center">
+                        <h3 class="tile-title" style="font-size: 270% !important;">USD Wallet/ <b>${{usdWallet.balance | number : 1}}</b> </h3>
+                        <br />
+                        <br />
+                        <a href="#" class="btn btn-sm btn-default" ui-sref="wallet"> Add Funds </a>
+                        <a href="#" class="btn btn-sm btn-default" ui-sref="wallet">  Withdrawals</a>
+                        <a href="#" class="btn btn-sm btn-default" ui-sref="purchaseHistory"> Transaction History</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <div class="tile-basic tile-basic-icon-top">
+                    <div class="tile-icon">
+                        <span class="icon-user"></span>
+                    </div>
+                    <div class="tile-content text-center">
+                        <h3 class="tile-title">
+                            <b>Place your New Committed Amount</b>
+                        </h3>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-2 col-sm-12" align="right">
+                                <div class="input-group  input-group-lg">
+                                    <span class="input-group-addon">$</span>
+                                    <input type="text" class="form-control" ng-model="committedAmount" numbers-only>
+                                    <span class="input-group-addon">.00</span>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-3 col-sm-12" align="left" style="margin: 0px; padding: 0px;">
+                                <a ng-click="openAlertPopup()" class="btn brown btn-lg">Duration</a>
+                            </div> -->
+                             <div class="col-md-3 col-sm-12" align="left" style="margin: 0px; padding: 0px;">
+                                <a ng-click="openDurationPopup()" data-target="#myModal" class="btn brown btn-lg">Duration</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="commitments-block" class="row">
+            <div class="col-lg-12">
+                <div class="block block-condensed">
+                    <div class="app-heading app-heading-small margin-bottom-0">
+                        <div class="title">
+                            <h2 class="font40">Committed Amount - <span style="color: #f90;"><b>${{totalCommitedAmount}}.00</b></span> | Maturity Amount -<span style="color: #4ca809"><b> ${{maturityAmount}}</b></span></h2>
+                        </div>
+                    </div>
+                    <div class="list-group list-group-inline list-group-adapt-side hidden-mobile">
+                        <div class="list-group-item col-md-2 text-bold">Portfolio Manager</div>
+                        <div class="list-group-item col-md-2 text-bold">Status</div>
+                        <div class="list-group-item col-md-2 text-bold">Date</div>
+                        <div class="list-group-item col-md-6 text-bold">Maturity %&nbsp;
+                            <span class="label label-success">0-3 Months</span>
+                            <span class="label label-warning">0-6 Months</span>
+                            <span class="label label-danger">0-12 Months</span>
+                            <span class="label label-primary">0-18 Months</span>
+                            <span class="label label-primary" style="background: #3abdf4 !important">0-24 Months</span>
+                        </div>
+                    </div>
+                    <div class="block-divider-text margin-top-minus-one">
+                        <div class="row">
+                            <div class="col-md-3">
+                                Icoinmarket Commission
+                            </div>
+                            <div class="col-md-9">
+                                <span style="color: #84bf43;">Aggressive: 60% (0-3 Months)</span> | <span style="color: #f69f00;">Distributed: 40% (0-6 Months) </span>  | <span style="color: #f04e51">Safe: 30% (0-12 Months)</span> | <span>Stable: 20% (0-18 Months) </span> | <span style="color: #3abdf4 !important">Fixed: 10% (0- 24 Months) </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="commitments-list-block">
+                        <div ng-repeat="data in commitmentsData">
+                            <div class="block-content" style="padding: 0px 20px;float: left;width: 100%;" ng-class="{'disabled': data.status == 'WITHDRAWN' || data.status === 'CANCELLED' || data.status === 'MATURED_WITHDRAWN'}">
+                                <div class="row margin-top-15 margin-bottom-15">
+                                    <div class="col-md-2">
+                                        <div class="contact contact-rounded contact-bordered contact-lg status-offline margin-bottom-0">
+                                            <img src="assets/images/user/no-image.png">
+                                            <div class="contact-container">
+                                                <a href="#">{{data.portfoliomanager}}</a>
+                                                <span>Offline</span>
+                                            </div>
+                                            <div class="contact-controls">
+                                                <button class="btn btn-default btn-icon disabled"><span class="fa fa-comment-o"></span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="btn btn-warning btn-clean btn-block" disabled="disabled" ng-if="data.status === 'COMMITTED' || data.status === 'ON TRADE'"> on Trade $ {{data.amount}}</button>
+                                        <button class="btn btn-success btn-clean btn-block" disabled="disabled" ng-if="data.status === 'MATURED_PROFIT_WITHDRAWN' ||  data.status === 'MATURED'"> MATURED $ {{data.amount}}</button>
+                                        <button class="btn btn-default btn-clean btn-block disabled" ng-if="data.status == 'WITHDRAWN'">Pre Mature Withdrawal $ {{data.amount}}</button>
+                                        <button class="btn btn-success btn-clean btn-block disabled" ng-if="data.status == 'MATURED_WITHDRAWN'">Mature Withdrawal $ {{data.amount}}</button>
+                                        <button class="btn btn-danger btn-clean btn-block" disabled="disabled" ng-if="data.status === 'CANCELLED'"> Cancelled By Admin $ {{data.amount}}</button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <strong>Maturity / {{data.maturitydate | date:'yyyy-MM-dd'}}</strong><br><i>Start / {{data.startdate | date:'yyyy-MM-dd'}}</i>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="progress margin-top-10">
+                                            <div ng-if="data.status =='COMMITTED' ||  data.status === 'MATURED_PROFIT_WITHDRAWN' ||  data.status === 'MATURED'" class="progress-bar progress-bar-success month{{data.maturityPeriod}}" data-toggle="tooltip" data-placement="top" title=""
+                                                role="progressbar" aria-valuenow="{{data.maturityTimeCompleted}}%" aria-valuemin="0"
+                                                aria-valuemax="100" ng-style="{ 'width' : {{data.maturityTimeCompleted}} + '%'}"
+                                                uib-tooltip="Maturity {{data.maturityTimeCompleted}}%, Profit {{data.profitpercent | number : 2 }}%"> {{data.maturityTimeCompleted}}%
+                                            </div>
+                                            <div ng-if="data.status =='CANCELLED' || data.status =='WITHDRAWN'" class="progress-bar progress-bar-success month{{data.maturityPeriod}}" data-toggle="tooltip" data-placement="top" title=""
+                                                role="progressbar" aria-valuenow="{{data.maturityTimeCompleted}}%" aria-valuemin="0"
+                                                aria-valuemax="100" ng-style="{ 'width' : {{data.maturityTimeCompleted}} + '%'}"
+                                                > {{data.maturityTimeCompleted}}%
+                                            </div>
+                                             <div ng-if="data.status == 'MATURED_WITHDRAWN'" class="progress-bar progress-bar-success month{{data.maturityPeriod}}" data-toggle="tooltip" data-placement="top" title=""
+                                                role="progressbar" aria-valuenow="100%" aria-valuemin="0"
+                                                aria-valuemax="100" ng-style="{ 'width' : {{100}} + '%'}"> 100%
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1" style="margin: 0px; padding: 0px;">
+                                        <button class="btn btn-default btn-sm" ng-click="showCommitmentWithdrawalPopup(data.amount, data.id, data.status, data.packagename,data.maturityTimeCompleted)" style="border: 2px solid #000;"
+                                            ng-if="data.status === 'COMMITTED' || data.status === 'ON TRADE' ||  data.status === 'MATURED_PROFIT_WITHDRAWN'  ||  data.status === 'MATURED'">Withdraw</button>
+                                        <button class="btn btn-default btn-sm disabled" style="border: 2px solid #000;" ng-if="data.status == 'WITHDRAWN' || data.status ==='CANCELLED' || data.status == 'MATURED_WITHDRAWN'">Withdraw</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-divider margin-top-0 margin-bottom-0"></div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+<div class="row">
+    <!-- Income calculator starts -->
+    <div class="col-md-7 col-sm-12">
+        <div class="block block-condensed">
+            <h2 align="center" style="padding: 10px; margin:0px; font-size:30px; padding-bottom: 0px; color: #f90; font-weight: bold;"> Virtual Income Calculator  Considering You </h2>
+            <!--<p align="center" style="border-bottom: 2px solid #ccc; padding-bottom: 10px;"><small> - Estimated Commission Based On Prospective Purchase Of Your Team - </small></p>-->
+            <p align="center" style="border-bottom: 2px solid #ccc; font-size: 20px; padding-bottom: 10px;">Estimated Commission Based </p>
+            <div class="table-res">
+
+                <table class="table">
+                    <thead>
+                       <tr>
+                         <td style="margin: 0px !important; padding: 0px !important;"></td>
+                         <td style="margin: 0px !important; padding: 0px !important;"></td>
+                         <td colspan="5" align="center" style="margin: 0px !important; padding: 0px !important;">
+                         <p style="background: #f90; border-radius: 30px; color: #fff; margin-left: -20px !important; margin-bottom: 10px; ">Prospective Purchase of your Team</p></td></tr>
+                      <tr>
+                        <td style="width: 25%;"><b>Generation
+                            Level</b></td>
+                        <td class="text-center" style="width: 25%;"><b>Current Recruits</b></td>
+                         <td><b><img src="https://image.flaticon.com/icons/svg/261/261778.svg" class="red-tooltip"  width="30" tooltip-placement="bottom" uib-tooltip="Above mentioned estimated income figures are calculated on behalf of estimated purchases of your current downlines, considering each your downline have invested $100. It represents the income potential of this marketing system.">100$</b></td>
+                         <td><b><img src="https://image.flaticon.com/icons/svg/261/261778.svg" width="30" tooltip-placement="bottom" uib-tooltip="Above mentioned estimated income figures are calculated on behalf of estimated purchases of your current downlines, considering each your downline have invested $1000. It represents the income potential of this marketing system.">1000$</b></td>
+                         <td><b><img src="https://image.flaticon.com/icons/svg/261/261778.svg" width="30" tooltip-placement="bottom" uib-tooltip="Above mentioned estimated income figures are calculated on behalf of estimated purchases of your current downlines, considering each your downline have invested $10000. It represents the income potential of this marketing system."s>10000$</b></td>
+                    </tr></thead>
+
+                    <tbody>
+                    <tr ng-repeat="row in virtualCalculatorInfo">
+                        <td  ng-style="row.GenerationLevel== 1 ? {'background':'#999', 'color': '#fff', 'font-size': '15px', 'font-weight': 'bold'} :  row.GenerationLevel== 2 ? {'background':'#ccc', 'color': '#fff', 'font-size': '15px', 'font-weight': 'bold'}: {'background':'#666', 'color': '#fff', 'font-size': '15px', 'font-weight': 'bold'}">
+                            <strong class="circle-text gen{{row.GenerationLevel}}" ng-if="row.GenerationLevel==1"><img src="assets/images/1st.png" width="85"></strong>
+                            <strong class="circle-text gen{{row.GenerationLevel}}" ng-if="row.GenerationLevel==2"><img src="assets/images/2nd.png" width="85"></strong>
+                            <strong class="circle-text gen{{row.GenerationLevel}}" ng-if="row.GenerationLevel==3"><img src="assets/images/3rd.png" width="85"></strong>
+                            <strong class="circle-text gen{{row.GenerationLevel}}" ng-if="row.GenerationLevel>3">{{row.GenerationLevel}}th</strong>
+                            <!--<span class="text-gen{{row.GenerationLevel}}">Generation</span>-->
+                        </td>
+                        <td  class="text-center">{{row.CurrentRecruits}}</td>
+                        <td class="text-center bor-bot">{{row.Lock100 | number:2}}</td>
+                        <td class="text-center bor-bot">{{row.Lock1000 | number:2}}</td>
+                        <td class="text-center bor-bot bor-rgt">{{row.Lock10000 | number:2}}</td>
+                    </tr>
+                    <tr style="border-top: 5px solid #f90;">
+                        <td colspan="2"><h4 style="margin: 0px; padding: 0px;"><b>Total Estimated Income on Prelaunch</b></h4></td>
+                        <td class="text-center"><strong>{{virtualCalculatorSum.Lock100 | number:2}}</strong></td>
+                        <td class="text-center"><strong>{{virtualCalculatorSum.Lock1000 | number:2}}</strong></td>
+                        <td class="text-center"><strong>{{virtualCalculatorSum.Lock10000 | number:2}}</strong></td>
+                    </tr>
+                    </tbody>
+                </table></div></div>
+    </div>
+    <div class="col-md-5 col-sm-12 ">
+        <div class="block block-condensed" style="padding:10px 20px;">
+            <h2 style="border-bottom: 2px solid #ccc; font-size: 30px; padding-bottom: 10px; margin-bottom: 35px;"> <b>Business Statistics</b></h2>
+            <div>
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation">
+                        <a  ng-click = "getStatsInfo('24H')" role="tab" data-toggle="tab">24 Hours</a></li>
+                    <li role="presentation">
+                        <a h ng-click = "getStatsInfo('7D')" role="tab" data-toggle="tab">Week</a>
+                    </li>
+                    <li role="presentation">
+                        <a  ng-click = "getStatsInfo('1M')" role="tab" data-toggle="tab">Month</a>
+                    </li>
+                    <li  class="active" role="presentation">
+                        <a  ng-click = "getStatsInfo('all')" role="tab" data-toggle="tab">All Time</a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div ng-if='timeView' class="tab-content">
+                    <div ng-if='timeView=="24H"' role="tabpanel" class="tab-pane active" id="24-hours">
+                        <div class="btn-bussiness1">
+                            Hits / {{stats['24H'].totalHits}}
+                            <span class="pull-right">
+                                <img src="assets/images/hits.png" width="30">
+                            </span>
+                        </div>
+                        <div class="btn-bussiness1">
+                            Signups / {{stats['24H'].totalFirstLevelSignups}}<span class="pull-right">
+                                <img src="assets/images/user-signup.png" width="30">
+                            </span>
+                        </div>
+                        <div class="btn-bussiness1">
+                            Team Signups / {{stats['24H'].totalSignups}}
+                            <span class="pull-right">
+                                <img src="assets/images/team-signups.png" width="40">
+                            </span>
+                        </div>
+                    </div>
+
+                    <div ng-if='timeView=="7D"' role="tabpanel" class="tab-pane active" id="week">
+                        <div class="btn-bussiness1">
+                            Hits /{{stats['7D'].totalHits}}
+                            <span class="pull-right">
+                                <img src="assets/images/hits.png" width="30">
+                            </span>
+                        </div>
+                        <div class="btn-bussiness1">
+                            Signups / {{stats['7D'].totalFirstLevelSignups}}
+                            <span class="pull-right">
+                                <img src="assets/images/user-signup.png" width="30">
+                            </span>
+                        </div>
+                        <div class="btn-bussiness1">
+                            Team Signups / {{stats['7D'].totalSignups}}
+                            <span class="pull-right">
+                                <img src="assets/images/team-signups.png" width="40">
+                            </span>
+                        </div>
+                    </div>
+
+                    <div ng-if='timeView=="1M"' role="tabpanel" class="tab-pane active" id="month">
+                        <div class="btn-bussiness1">
+                            Hits /{{stats['1M'].totalHits}}
+                            <span class="pull-right">
+                                <img src="assets/images/hits.png" width="30">
+                            </span>
+                        </div>
+                        <div class="btn-bussiness1">
+                            Signups / {{stats['1M'].totalFirstLevelSignups}}
+                            <span class="pull-right">
+                                <img src="assets/images/user-signup.png" width="30">
+                            </span>
+                        </div>
+                        <div class="btn-bussiness1">
+                            Team Signups / {{stats['1M'].totalSignups}}
+                            <span class="pull-right">
+                                <img src="assets/images/team-signups.png" width="40">
+                            </span>
+                        </div>
+                    </div>
+
+                    <div ng-if='timeView=="all"' role="tabpanel" class="tab-pane active" id="all-time">
+                        <div class="btn-bussiness1">
+                            Hits /{{stats['all'].totalHits}}
+                            <span class="pull-right">
+                                <img src="assets/images/hits.png" width="30">
+                            </span>
+                        </div>
+                        <div class="btn-bussiness1">
+                            Signups / {{stats['all'].totalFirstLevelSignups}}
+                            <span class="pull-right">
+                                <img src="assets/images/user-signup.png" width="30">
+                            </span>
+                        </div>
+                        <div class="btn-bussiness1">
+                            Team Signups / {{stats['all'].totalSignups}}
+                            <span class="pull-right">
+                                <img src="assets/images/team-signups.png" width="40">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!--<div class="row" style="opacity: 0.5;">
+
+    </div>
+    <!-- Income calculator ends -->
+
+    </div>
+<div class="row padding15">
+    <div class="container block block-condensed" style="padding: 20px !important;">
+        <div class="row">
+            <div style="font-size:25px !important; padding: 5px 20px 5px 10px !important; width: 100%; border-bottom: 1px solid #f2f2f2 !important;">Statistical</div>
+            <div class="clearfix"></div><br />
+            <div class="col-md-9 col-sm-12">
+              <div google-chart chart="chart"></div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <h3>{{countries.length}} Countries</h3><br />
+                <!--,{{cities.length}} Cities-->
+                <table align="left" class="table tabbable-custom" style=" text-align:left !important;">
+                    <thead>
+                        <tr class="active">
+                            <th colspan="2"><i class="fa fa-map-marker"></i> Location</th>
+                            <th><i class="fa fa-user"></i> Users</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="(key, list) in countries | limitTo:10" ng-class="(key%2==0 ? 'success1' : 'warning1')">
+                            <td class="cw">
+                                <img ng-src="{{list.flag}}" width="22" height="22" class="rounded-img" />
+                            </td>
+                            <td class="text-capitalize">{{list.name}}</td>
+                            <td>
+                                <strong>{{list.users}}</strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PAGE CONTENT -->
+<!-- START APP SIDEPANEL -->
+<div class="app-sidepanel scroll" data-overlay="show">
+    <div class="container">
+        <div class="app-heading app-heading-condensed app-heading-small">
+            <div class="icon icon-lg">
+                <span class="icon-alarm"></span>
+            </div>
+            <div class="title">
+                <h2>Notifications</h2>
+                <p><strong>7 new</strong>, latest: July 19, 2016 at 10:14:32.</p>
+            </div>
+        </div>
+        <div class="listing margin-bottom-10">
+            <div class="listing-item margin-bottom-10">
+                <strong>Product Delivered</strong> <span class="label label-success pull-right">delivered</span>
+                <p class="margin-0 margin-top-5">#SPW-955-18 to st. StreetName SA, USA.</p>
+                <p class="text-muted">
+                    <span class="fa fa-truck margin-right-5"></span> 19/07/2016 10:14:32 AM
+                </p>
+            </div>
+            <div class="listing-item margin-bottom-10">
+                <strong>Successful Payment</strong> <span class="label label-success pull-right">success</span>
+                <p class="margin-0 margin-top-5">Payment for order #SPW-955-17: <strong>$145.44</strong>.</p>
+                <p class="text-muted">
+                    <span class="fa fa-bank margin-right-5"></span> 19/07/2016 09:55:12 AM
+                </p>
+            </div>
+            <div class="listing-item margin-bottom-10">
+                <strong>New Order #SPW-955-17</strong> <span class="label label-warning pull-right">waiting</span>
+                <p class="margin-0 margin-top-5">Added new order, waiting for payment. <a href="#">Order details</a>.</p>
+                <p class="text-muted">
+                    <span class="fa fa-bank margin-right-5"></span> 19/07/2016 09:51:55 AM
+                </p>
+            </div>
+            <div class="listing-item margin-bottom-10">
+                <strong>Money Back Request</strong> <span class="label label-primary pull-right">return</span>
+                <p class="margin-0 margin-top-5">#SPW-955-17 return requested. <a href="#">Request details</a>.</p>
+                <p class="text-muted">
+                    <span class="fa fa-bank margin-right-5"></span> 19/07/2016 08:44:51 AM
+                </p>
+            </div>
+            <div class="listing-item margin-bottom-10">
+                <strong>The critical amount of product</strong> <span class="label label-danger pull-right">important</span>
+                <p class="margin-0 margin-top-5">
+                    Product: <a href="#">Extra Awesome Product</a> (amount: <span class="text-danger">2</span>).
+                    <a href="#">Storehouse</a>.
+                </p>
+                <p class="text-muted">
+                    <span class="fa fa-cube margin-right-5"></span> 19/07/2016 08:30:00 AM
+                </p>
+            </div>
+            <div class="listing-item margin-bottom-10">
+                <strong>Product Delivery Start</strong> <span class="label label-warning pull-right">delivering</span>
+                <p class="margin-0 margin-top-5">#SPW-955-18 to st. StreetName SA, USA.</p>
+                <p class="text-muted">
+                    <span class="fa fa-truck margin-right-5"></span> 18/07/2016 06:14:32 PM
+                </p>
+            </div>
+            <div class="listing-item margin-bottom-10">
+                <strong>Critical Server Load</strong> <span class="label label-danger pull-right">server</span>
+                <p class="margin-0 margin-top-5">Disk space: 248.1Gb/250Gb. <a href="#">Control panel</a>.</p>
+                <p class="text-muted">
+                    <span class="fa fa-truck margin-right-5"></span> 18/07/2016 06:14:32 PM
+                </p>
+            </div>
+        </div>
+        <div class="row margin-bottom-30">
+            <div class="col-xs-6 col-xs-offset-3">
+                <button class="btn btn-default btn-block">All Notification</button>
+            </div>
+        </div>
+        <div class="app-heading app-heading-condensed app-heading-small margin-bottom-20">
+            <div class="icon icon-lg">
+                <span class="icon-cog"></span>
+            </div>
+            <div class="title">
+                <h2>Settings</h2>
+                <p>Notification Settings</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-2">
+                    <label class="switch switch-sm margin-0">
+                        <input type="checkbox" name="app_settings_1" checked="" value="0">
+                    </label>
+                </div>
+                <div class="col-xs-10">
+                    <label>Delivery Information</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-2">
+                    <label class="switch switch-sm margin-0">
+                        <input type="checkbox" name="app_settings_2" checked="" value="0">
+                    </label>
+                </div>
+                <div class="col-xs-10">
+                    <label>Product Amount Information</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-2">
+                    <label class="switch switch-sm margin-0">
+                        <input type="checkbox" name="app_settings_3" checked="" value="0">
+                    </label>
+                </div>
+                <div class="col-xs-10">
+                    <label>Order Information</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-2">
+                    <label class="switch switch-sm margin-0">
+                        <input type="checkbox" name="app_settings_4" checked="" value="0">
+                    </label>
+                </div>
+                <div class="col-xs-10">
+                    <label>Server Load</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-2">
+                    <label class="switch switch-sm margin-0">
+                        <input type="checkbox" name="app_settings_5" value="0">
+                    </label>
+                </div>
+                <div class="col-xs-10">
+                    <label>User Registrations</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-2">
+                    <label class="switch switch-sm margin-0">
+                        <input type="checkbox" name="app_settings_6" value="0">
+                    </label>
+                </div>
+                <div class="col-xs-10">
+                    <label>Purchase Information</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END APP SIDEPANEL -->
+<!-- APP OVERLAY -->
+<div class="app-overlay"></div>
+<!-- END APP OVERLAY -->
+<div class="clearfix"></div>
+<div class="app" style="position: absolute;bottom: 0px;min-height:initial;height:40px">
+</div>
+<div class="clearfix"></div>
+<!-- END APP WRAPPER -->

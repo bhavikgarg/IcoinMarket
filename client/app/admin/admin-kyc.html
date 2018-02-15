@@ -1,0 +1,93 @@
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="page-content">
+                <!-- <h4 class="no-margin"><a href="/dashboard">Dashboard</a> / </h4> -->
+                <div class="portlet light margin-top-10">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <!-- <span class="caption-subject font-green-sharp bold uppercase"><i class="fa fa-users" style="font-size:20px"></i>&nbsp;  </span> -->
+                            Verify users based on there submitted ids
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <button ng-if="isSuperAdmin() || isModeratorAdmin()" class="btn  btn-warning PENDING" ng-click="changeStatus( 'PENDING' )"> PENDING VERIFICATION </button>
+                                <button ng-if="isSuperAdmin() || isModeratorAdmin() || isSupervisorAdmin()" class="btn btn-warning ONHOLD" ng-click="changeStatus( 'ONHOLD' )" style="background-color: #ccc"> ON HOLD </button>
+                                <button ng-if="isSuperAdmin() || isSupervisorAdmin()" class="btn btn-success APPROVED" ng-click="changeStatus( 'APPROVED' )"> APPROVED </button>
+                                <button ng-if="isSuperAdmin() || isSupervisorAdmin() || isModeratorAdmin()" class="btn btn-danger VERIFIED" ng-click="changeStatus( 'VERIFIED' )"> VERIFIED </button>
+                                <button ng-if="isSuperAdmin()" class="btn btn-danger UNVERIFIED" ng-click="changeStatus( 'UNVERIFIED' )"> UNVERIFIED </button>
+                                <button ng-if="isSuperAdmin() || isModeratorAdmin() || isSupervisorAdmin()" class="btn btn-danger REJECTED" ng-click="changeStatus( 'REJECTED' )"> REJECTED </button>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="col-md-8">
+                                    <input type="text" ng-model="filter.data" name="filterdate" placeholder="Search Filter (Name, Username, And Email) " style="line-height : 30px; width : 100%" />
+                                    <span style="margin-top: 0px;display: block;font-size: 0.85em;margin-bottom: 25px;">Filter based on name, user id and email</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn brown" style = "height : 42px" ng-click="search()">Search</button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                          <table class="table table-stripped table-hover table-bordered">
+                              <thead>
+                                  <tr>
+                                      <th>Sr. #</th>
+                                      <th>Data Uploaded At</th>
+                                      <th>System Id</th>
+                                      <th>Full Name</th>
+                                      <th>Email</th>
+                                      <th>Mobile</th>
+                                      <th>Status</th>
+                                      <th style="width : 180px">Reviewed by Moderator</th>
+                                      <th>Actions</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr ng-repeat="(key, usermeta) in usermetas" ng-class="(key%2==0 ? 'even' : 'odd')">
+                                      <td>
+                                          <span ng-if="(usermeta.uniqueKycId) <= 9">{{'KYC-00' + usermeta.uniqueKycId}}</span>
+                                          <span ng-if="(usermeta.uniqueKycId) > 9 && (usermeta.uniqueKycId) <= 99">{{'KYC-0' + usermeta.uniqueKycId}}</span>
+                                          <span ng-if="(usermeta.uniqueKycId) >= 100">{{'KYC-' + usermeta.uniqueKycId}}</span>
+                                      </td>
+                                      <td>{{uSearchsermeta.updatedAt | date:'medium'}}</td>
+                                      <td>{{usermeta.user.id}}</td>
+                                      <td>{{usermeta.user.name}}</td>
+                                      <td>{{usermeta.user.email}}</td>
+                                      <td>{{usermeta.user.mobile}}</td>
+                                      <td><span class="label status {{usermeta.kyc_flag}}">{{usermeta.kyc_flag}} </span></td>
+                                      <td ng-if="usermeta.moderator.viewed == true"> <span class="moderation-status center-block label label-success VIEWED"> <i class="fa fa-check"></i> Reviewed </span></td>
+                                      <td ng-if="usermeta.moderator.viewed == false"><span class="moderation-status center-block label label-danger NOT-VIEWED"> <i class="fa fa-close"></i> NO</span></td>
+                                      <td>
+                                          <a ng-click="showUserPages(usermeta.user.id)" class="eye"><span title = "View" class="glyphicon glyphicon-eye-open"></span></a>
+                                      </td>
+                                  </tr>
+                              </tbody>
+
+                              <tfoot>
+                                  <tr>
+                                      <td colspan="9">
+                                          <ul uib-pagination items-per-page="pageLimit" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true" ng-change="passlevel(this)" class="pull-left"></ul>
+                                          <form name="pagegoto" ng-submit="jumpToPage()">
+                                              <ul class="pull-left" style="line-height:2.5;margin:10px 0;list-style-type:none">
+                                                  <li>
+                                                      <span class="pull-right" style="padding-left:10px;display:block;">Total Records: {{totalPages}}</span>
+                                                      <input type="submit" class="btn brown btn-sm pull-right" value="go" style="height:33px;text-transform:capitalize;margin: 0 0 0 5px;" /> Go to Page : &nbsp;<input type="number" min="1" name="jumptopage"
+                                                          ng-model="jumpOnPage" class="form-control pull-right" style="width:60px;margin:0;height:35px;" />
+                                                  </li>
+                                              </ul>
+                                          </form>
+                                      </td>
+                                  </tr>
+                              </tfoot>
+
+                          </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>

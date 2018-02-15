@@ -1,0 +1,47 @@
+<div class="block block-condensed">
+    <div class="app-heading app-heading-small">
+        <div class="title">
+            <p>Upload Banner</p>
+        </div>
+    </div>
+    <div class="block-content">
+        <form name="createAffilateBanner" role="form" class="create-affilate-banner">
+            <div class="form-group">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 add-right-padd">
+                    <label class="control-label">Banner Name</label>
+                    <input type="text" class="form-control" placeholder="Banner Name" ng-model="banner.name" />
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 add-right-padd">
+                    <br>
+                    <label class="control-label">Banner Width</label>
+                    <input type="number" min="1" class="form-control" placeholder="Banner Width" ng-model="banner.width" />
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 add-left-padd">
+                    <br>
+                    <label class="control-label">Banner Height</label>
+                    <input type="number" min="1" class="form-control" placeholder="Banner Height" ng-model="banner.height" />
+                </div>
+            </div>
+            <br>
+            <div class="form-group" ng-hide="(banner.width == 0 || banner.height == 0)">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 add-right-padd">
+                    <br>
+                    <label class="control-label">Banner Image</label>
+                    <div flow-init="{singleFile:true}" flow-file-added="imageFileInfo($file, $event, $flow)">
+                        <span class="btn blue" flow-btn>Upload File</span>
+                        <div class="banner-preview">
+                            <img flow-img="$flow.files[0]" width="{{banner.width}}" height="{{banner.height}}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-hide="(banner.image == '')">
+                <button type="button" class="btn btn-default btn-primary" ng-click="createBanner()">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,163 @@
+<div class="block block-condensed">
+  <div class="app-heading app-heading-small">
+    <div class="title">
+      <h5 style="font-size: 20px; padding: 10px 0px;"> Transfer Fee Register </h5>
+    </div>
+  </div>
+  <div class="block-content">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="col-md-6 pull-right">
+            <div class="col-md-8">
+              <input type="text" ng-model="filter.data" name="filterdate" placeholder="Search Filter (Name, Email) " style="line-height : 30px; width : 100%"
+              />
+              <span style="margin-top: 0px;display: block;font-size: 0.85em;margin-bottom: 25px;">Filter based on Transfer by username, Transfer by name, Transfer by email, Transfer to username, Transfer to name and Transfer to email</span>
+            </div>
+            <div class="col-md-4">
+              <button class="btn blue" style="height:42px" ng-click="filterRecords()">Search</button>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+
+          <div class="col-md-6 pull-left">
+            <p class="btn btn-info">
+              <i style="color:#000;"><strong>Total Transfer Fee Received Till Date: <br>
+                        <span style="color:#fff;font-size:1.2em;">{{transferInfoFee}} (USD)</span></strong></i>
+            </p>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <div class="" style="overflow-x: auto;">
+            <table class="table-responsive table-scrollable table table-stripped table-hover table-bordered no-footer dataTable product_details">
+              <thead>
+                <tr>
+                  <th class="text-left">Unique Transaction ID</th>
+                  <th class="text-center">By Username</th>
+                  <th class="text-center">By User Email</th>
+                  <th class="text-center">To Username</th>
+                  <th class="text-center">To User Email</th>
+                  <th class="text-center">Transfer At</th>
+                  <th class="text-center">USD Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="wire in transferInfo">
+                  <td class="text-left">{{wire._id}}</td>
+                  <td class="text-left">{{wire.fusername}} ({{wire.fuserfullname}})</td>
+                  <td class="text-left">{{wire.femail}}</td>
+                  <td class="text-left">{{wire.tusername}} ({{wire.tuserfullname}})</td>
+                  <td class="text-left">{{wire.tuseremail}}</td>
+                  <td class="text-left">{{wire.createdat | date}}</td>
+                  <td class="text-right">{{wire.coins}}</td>
+                </tr>
+                <tr ng-if="!(transferInfo.length)">
+                  <td colspan="7">
+                    <center>No records found</center>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="7">
+                    <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                      ng-change="loadPage()"></ul>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+
+          </div>
+
+          <!-- View Details Popup -->
+          <div class="modal fade" id="acceptDetails" tabindex="-1" role="dialog" aria-labelledby="myBankWireLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal modal-header">
+                  <h3>Bank Wire Details</h3>
+                  <button type="button" class="close close-button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  <div class="bank-modal">
+                    <h3>Bank Wire Details</h3>
+                  </div>
+                  <div class="form-group">
+                    <form name="bankwirefrm" method="post" ng-submit="updatePurchasePacks(bankwirefrm)">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <div class="col-lg-7">
+                            <label class="control-label"><strong>Request Packs</strong></label><br>
+                            <label class="control-label"><strong>Depositor Name</strong></label><br>
+                            <label class="control-label"><strong>Name On Bank Account</strong></label><br>
+                            <label class="control-label"><strong>Bank Branch Address</strong></label><br>
+                            <label class="control-label"><strong>Sort Code/Swift Code/Other Branc IDs</strong></label><br>
+                            <label class="control-label"><strong>Bank Account Number</strong></label><br>
+                            <label class="control-label"><strong>Uploaded Receipt</strong></label>
+                          </div>
+                          <div class="col-lg-5">
+                            <label class="control-label">{{modelInfo.payamount / 25}}</label><br>
+                            <label class="control-label">{{modelInfo.depositorname}}</label><br>
+                            <label class="control-label">{{modelInfo.bankname}}</label><br>
+                            <label class="control-label">{{modelInfo.bankaddress}}</label><br>
+                            <label class="control-label">{{modelInfo.sortcode}}</label><br>
+                            <label class="control-label">{{modelInfo.accountnumber}}</label><br>
+                            <label class="control-label">
+                                        <a href="/{{modelInfo.receiptpath}}" target="_blank" ng-if="modelInfo.receiptpath && modelInfo.receiptpath!=''">View Uploaded Receipt</a>
+                                      </label>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-lg-7">
+                            <label class="control-label">Please provide swift/transaction ID</label>
+                          </div>
+                          <div class="col-lg-5">
+                            <input type="text" class="control-label" ng-model="bankwire.swiftid" placeholder="swift ID / transaction ID" required/>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-sm-7">
+                            <label class="control-label">No. gold packs to be credited</label>
+                          </div>
+                          <div class="col-sm-5">
+                            <input type="text" class="control-label" ng-model="bankwire.goldpacks" placeholder="Gold Packs" required/>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-sm-7">
+                            <label class="control-label">Bank Account</label>
+                          </div>
+                          <div class="col-sm-5">
+                            <input type="number" class="control-label" ng-model="bankwire.adminbankaccount" placeholder="Account No." required/>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-sm-7">
+                            <label class="control-label">Admins Comment</label>
+                          </div>
+                          <div class="col-sm-5">
+                            <textarea class="form-control" ng-model="bankwire.admincomments" placeholder="Your Comments"></textarea>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-sm-12">
+                            <button type="submit" class="btn blue" ng-disabled="bankwirefrm.$invalid">Save Details</button>
+                            <p ng-class="{'has-error': bankwireError!=''}">
+                              <span class="help-block">{{bankwireError}}</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--View Wire Details Ends -->
+
+      </div>
+    </div>
+  </div>
+</div>

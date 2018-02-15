@@ -1,0 +1,82 @@
+{
+  "name": "icoin-market",
+  "version": "0.0.0",
+  "dependencies": {
+    "jquery": ">=1.9.*",
+    "angular": ">=1.5.*",
+    "json3": "~3.3.1",
+    "es5-shim": "~4.5.9",
+    "bootstrap-sass-official": "~3.3.6",
+    "bootstrap": "~3.3.6",
+    "angular-resource": ">=1.5.*",
+    "angular-cookies": ">=1.5.*",
+    "angular-sanitize": ">=1.5.*",
+    "angular-socket-io": "~0.3.0",
+    "angular-bootstrap": "~1.3.3",
+    "font-awesome": ">=4.6.3",
+    "lodash": "~4.13.1",
+    "angular-ui-router": "~0.3.1",
+    "simple-line-icons": "^2.3.2",
+    "angular-google-chart": "~0.1.0",
+    "jquery-sparkline": "~2.1.3",
+    "angular-moment": "~0.10.3",
+    "ng-img-crop": "ngImgCrop#~0.3.2",
+    "ng-scrollbars": "~0.0.5",
+    "ng-onload": "~0.2.1",
+    "angular-growl": "~0.4.0",
+    "checklist-model": "~0.9.0",
+    "angular-confirm-modal": "1.2.5",
+    "textAngular": "~1.5.1",
+    "angular-timer": "~1.3.3",
+    "moment": "~2.13.0",
+    "angular-bootstrap-nav-tree": "*",
+    "ng-flow": "~2.7.4",
+    "angular-morris-chart": "~1.2.0",
+    "ng-confirm": "angular-confirm#~1.1.0",
+    "jStorage": "~0.4.12",
+    "angular-datatables": "~0.5.3",
+    "angular-filter": "~0.5.8",
+    "underscore": "~1.8.3",
+    "angular-youtube-mb": "^1.1.1",
+    "angular-live-helper-chat": "^0.1.0",
+    "angulike": "~1.2.0",
+    "bootstrap-ui-treeview": "^3.0.1",
+    "ng-device-detector": "^3.0.1",
+    "angular-file-saver": "^1.1.1",
+    "angular-material-data-table": "0.10.9",
+    "angular-recaptcha": "^4.0.4",
+    "angular-qr": "^0.2.0",
+    "datatables": "^1.10.15",
+    "c3": "^0.4.12",
+    "angular-ui-bootstrap-datepicker": "^0.1.0",
+    "angular-drag-and-drop-lists": "^2.1.0",
+    "angular-image-compress": "^0.1.5",
+    "crypto-js": "^3.1.9",
+    "angular-notify": "^2.5.1",
+    "ngclipboard": "^1.1.1",
+    "moment-timezone": "^0.5.13",
+    "angular-confirm": "angular1-confirm#^1.1.0"
+  },
+  "devDependencies": {
+    "angular-mocks": ">=1.5.*",
+    "angular-scenario": ">=1.5.*"
+  },
+  "resolutions": {
+    "angular": ">=1.5.*",
+    "moment": "~2.13.0",
+    "jquery": ">=1.9.*"
+  },
+  "overrides": {
+    "angular-bootstrap-datetimepicker": {
+      "main": [
+        "src/js/datetimepicker.js",
+        "src/js/datetimepicker.templates.js",
+        "src/css/datetimepicker.css"
+      ],
+      "dependencies": {
+        "angular": "^1.x",
+        "moment": "^2.x"
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+<div class="block block-condensed">
+  <div class="app-heading app-heading-small">
+    <div class="title">
+      <p><a href="/dashboard">Dashboard</a> / Purchase History</p>
+    </div>
+  </div>
+  <div class="block-content">
+    <h5 style="font-size: 20px; padding: 10px 0px;">Your Orders</h5>
+    <div class="col-sm-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered" id="">
+          <thead>
+            <tr>
+              <th ng-click="sortType = 'createdAt'; sortReverse = !sortReverse; dateFilter=false; coinFilter=true; amountFilter=true">
+                Date
+                <span ng-show="dateFilter" class="sorting fa fa-sort"></span>
+                <span ng-show="sortType == 'createdAt' && !sortReverse && !dateFilter" class="sorting fa fa-caret-down"></span>
+                <span ng-show="sortType == 'createdAt' && sortReverse && !dateFilter" class="sorting fa fa-caret-up"></span>
+              </th>
+              <th>Transaction Id</th>
+              <th>Product Name</th>
+              <th>Payment Mode</th>
+              <th>Payment Status</th>
+              <th class="text-right" ng-if="isLoggedIn() && userRole() == 'user'">Quantity</th>
+              <th ng-if="isLoggedIn() && userRole() == 'user'" ng-click="sortType = 'coins'; sortReverse = !sortReverse; dateFilter=true; coinFilter=false; amountFilter=true">
+                AdsCash Coins
+                <span ng-show="coinFilter" class="sorting fa fa-sort"></span>
+                <span ng-show="sortType == 'coins' && !sortReverse && !coinFilter" class="sorting fa fa-caret-down"></span>
+                <span ng-show="sortType == 'coins' && sortReverse && !coinFilter" class="sorting fa fa-caret-up"></span>
+              </th>
+              <th ng-if="isLoggedIn() && userRole() == 'user'">CI Coins</th>
+              <th class="text-right">
+                Amount Paid &nbsp;
+              </th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="(key, history) in purchaseHistory | orderBy:sortType:sortReverse" ng-class="key%2==0?'even':'odd'">
+              <td>
+                <span class="details">{{history.createdAt | date:'medium'}}</span>
+              </td>
+              <td>
+                <span class="details">{{history._id}}</span>
+              </td>
+              <td>
+                <span class="details text-capitalize">{{history.productname}}</span>
+              </td>
+              <td>
+                <span class="details paymode" ng-if="history.paymode=='ic'">USD Wallet</span>
+                <span class="details paymode" ng-if="history.paymode=='gc'">Gold Coins and {{history.paymode2 == 'bitcoinBlockIO' ? 'Bitcoin' : 'USD Wallet' }}</span>
+                <span class="details paymode text-capitalize" ng-if="history.paymode=='bitcoinBlockIO'">Bitcoin</span>
+                <span class="details paymode text-capitalize" ng-if="history.paymode=='litecoinBlockIO'">Litecoin</span>
+              </td>
+              <td>
+                <span class="details paystatus label" ng-class="{'label-success':history.status=='COMPLETED', 'label-warning':(history.status=='PENDING' || history.status=='PROCESSING'),  'label-danger':history.status=='CANCELLED'}">{{history.status}}</span>
+              </td>
+              <td class="text-right" ng-if="isLoggedIn() && userRole() == 'user'">
+                <span class="details">{{history.quantity}}</span>
+              </td>
+              <td class="text-right" ng-if="isLoggedIn() && userRole() == 'user'">
+                <span class="details">{{history.coins}}</span>
+              </td>
+              <td class="text-right" ng-if="isLoggedIn() && userRole() == 'user'">
+                <span class="details">{{-history.gcused}}</span>
+              </td>
+              <td class="text-right">
+                <!-- <span class="details" ng-if="history.paymode=='ic'">
+                                                                    <img src="../assets/images/gc.png" height="15" />
+                                                                    {{history.coins}}
+                                                                    </span> -->
+                <span class="details"> {{history.paidamount | currency}} </span>
+              </td>
+              <td class="botton-font col-lg-2">
+                <a uib-tooltip="View Invoice" ng-if="history.status=='COMPLETED'" ui-sref="BankWireInvoice({token: history.paytoken.TOKEN})"
+                  target="ci_bankwire_invoice"><button type="button" class='btn brown btn-sm'><i class="fa fa-file skyblueicon" aria-hidden="true"></i> Invoice</button></a>
+                <a uib-tooltip="View Transaction Details" ng-if="history.status=='PENDING'" ng-click="viewTransactionDetails(key)"><button type="button" class='btn btn-info btn-sm'><i class="fa fa-info-circle skyblueicon" aria-hidden="true"></i> Details</button></a>
+                <a uib-tooltip="I've paid" ng-if="history.status=='PENDING' || history.status=='PROCESSING'" ng-click="verifyPayment(history.paytoken.TOKEN);"><button type="button" class='btn btn-success btn-sm'><i class="fa fa-check-square skyblueicon" aria-hidden="true"></i> I've paid</button></a>
+                <a uib-tooltip="Cancel Transaction Order" ng-if="history.status=='PENDING'" confirm="Are you sure, you want to cancel this transaction ?"
+                  confirm-settings="{windowClass: 'adc-confirm-window'}" ng-click="cancelInvoice(key, history.paymode)"><button type="button" class='btn btn-danger btn-sm'><i class="fa fa-ban skyblueicon" aria-hidden="true"></i> Cancel</button></a>
+              </td>
+            </tr>
+            <tr ng-if="loadingText!=''">
+              <td colspan="10" class="text-center"><strong>{{loadingText}}</strong></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="10">
+                <ul uib-pagination class="pull-left" items-per-page="viewLimit" ng-model="currentPage" total-items="totalPages" max-size="5"
+                  boundary-links="true" ng-change="loadPage()"></ul>
+                <form>
+                  <ul class="pull-left" style="line-height:2.5;margin:10px 0;text-align: right">
+                    <button type="submit" class="btn brown btn-sm pull-right" ng-click="updatePage()" style="height:33px;text-transform:capitalize;margin: 0 0 0 5px;">Go</button>                    Go to page: &nbsp;
+                    <input type="number" min="1" ng-model="getPage" class="form-control pull-right" style="width:60px;margin:0;height:33px;">
+                    <br />
+                    <span class="text-right help-block pull-right" ng-show="error" style="margin:0">{{error}}</span>
+                  </ul>
+                </form>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

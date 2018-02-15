@@ -1,0 +1,94 @@
+<style>
+    div.modal-content {
+        margin-top: 6%;
+    }
+
+    div.modal-dialog {
+        width: 40%;
+        height: 85%;
+        margin-left: 30%;
+        margin-right: 30%;
+        padding: 0px;
+    }
+
+    div.modal-content {
+        height: auto;
+        border-radius: 0px;
+    }
+    .form-control option {
+      text-align: center;
+    }
+</style>
+
+<div class="hidden-xs modal-header model-header-color">
+  <h3>Add user to Premium Users List</h3>
+</div>
+
+<div class="modal-body" style="padding:25px 40px 40px;width:100%">
+  <form name="searchUsers" class="form">
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-12">
+          <label class="control-label">Search User</label>
+        </div>
+        <div class="col-sm-12">
+          <input type="text" class="form-control" ng-model="searchedUser" required/>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="padding-top:15px">
+      <div class="col-sm-12">
+        <button type="button" ng-click="searchUser()" class="btn brown" ng-disabled="searchUsers.$invalid || submitted && !searchUsers.$error">Search</button>
+        <button type="button" ng-click="closeallmodals()" class="btn btn-warning" aria-hidden="true">Cancel</button>
+      </div>
+    </div>
+  </form>
+
+  <p ng-if="userDetailError" style="padding-top:20px; color:red">{{userDetailError}}</p>
+
+  <div class="row" ng-if="userDetail" style="padding-top:20px;">
+    <div class="col-sm-12">
+      <h3><strong>User Details</strong></h3>
+    </div>
+    <div class="col-sm-12">
+      <div class="col-sm-4">
+        <strong>System Id</strong>
+      </div>
+      <div class="col-sm-8">
+        {{userDetail._id}}
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="col-sm-4">
+        <strong>Name</strong>
+      </div>
+      <div class="col-sm-8">
+        {{userDetail.name}}
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="col-sm-4">
+        <strong>Email Id</strong>
+      </div>
+      <div class="col-sm-8">
+        {{userDetail.email}}
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="col-sm-4">
+        <strong>Username</strong>
+      </div>
+      <div class="col-sm-8">
+        {{userDetail.username}}
+      </div>
+    </div>
+    <div class="col-md-12" style="padding-top:20px;">
+      <button class="btn brown" style = "height : 42px" ng-click="addUserToPremiumList()">Add User to Premium List</button>
+    </div>
+</div>
+<div class="row">
+  <div class = "col-sm-12">
+    <p ng-if="addPremiumError" style="padding-top:20px; color:red">{{addPremiumError}}</p>
+    <p ng-if="addPremiumSuccess" style="padding-top: 20px; color: green">{{addPremiumSuccess}}</p>
+  </div>
+</div>

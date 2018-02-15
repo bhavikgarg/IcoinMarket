@@ -1,0 +1,106 @@
+<div class="block block-condensed">
+    <div class="app-heading app-heading-small">
+        <div class="title">
+            <p><a href="/dashboard">Dashboard</a> / My Team</p>
+        </div>
+    </div>
+    <div class="block-content">
+        <h5 style="font-size: 20px; padding: 10px 0px;">Front Line</h5>
+        <div class="row">
+            <form class="form-inline col-xs-12 col-md-12 margin-top-20 search-filter front-view-search">
+                <div class="row">
+                    <!-- <div class="form-group col-xs-6 col-sm-3 col-md-3 pull-right">
+                                <label for="exampleInputName2">Select Rank</label>
+                                <select class="form-control " ng-model="rank"  ng-change="listlevelchange()" ng-options="item as item.label for item in ranksarray">
+                                </select>
+                            </div> -->
+                    <!-- <div class="form-group col-xs-6 col-sm-3 col-md-3 pull-right">
+                                <label for="exampleInputName2">Select Gold Packs</label>
+                                <select class="form-control " ng-model="goldpacks" ng-change="listlevelchange()"  ng-options="item as item.label for item in goldpacksarray">
+                                </select>
+                            </div>
+                            <div class="form-group col-xs-6 col-sm-3 col-md-3 pull-right">
+                                <label for="exampleInputName2">Select Silver Packs</label>
+                                <select class="form-control " ng-model="silverpacks"  ng-change="listlevelchange()" ng-options="item as item.label for item in silverpacksarray">
+                                </select>
+                            </div> -->
+                    <div class="form-group col-xs-6 col-sm-3 col-md-3 pull-left export-section">
+                        <a class="btn btn-default btn-mobile" ng-click="export()" ng-disabled="exportWaitMessage!=''">Export as XLS</a>
+                        <span class="text-danger" style="padding-left:10px">{{exportWaitMessage}}</span>
+                    </div>
+                </div>
+                <!--div class="form-group">
+                          <div class="form-inline pull-right margin-top-20">
+                              <label for="exampleInputName2">Select Max Users</label>
+                              <select class="form-control" ng-change="listlevelchange()" ng-model="users"  ng-options="item as item.label for item in usersarray">
+                              </select>
+                          </div>
+                        </div-->
+            </form>
+        </div>
+    </div>
+    <div class="table-scrollable col-md-12" style="border:0px;">
+        <table class="table table-striped table-hover table-bordered dataTable analytics" style="border:1px solid #ccc;">
+            <thead>
+                <tr>
+                    <th width="4%" valign="top">Sr. No.</th>
+                    <th width="25%" valign="top">Name of the User</th>
+                    <th width="5%" valign="top">User Id</th>
+                    <th width="23%" valign="top">User Email</th>
+                    <th width="23%" valign="top">Mobile Number</th>
+                    <th width="10%" valign="top" class="text-center">Joined At</th>
+                    <th width="10%" valign="top" class="text-center">Directs</th>
+                    <th width="7%" valign="top" class="text-center">Team Size</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="data in analytics">
+                    <td>{{$index+1+viewFrom}}</td>
+                    <td class="text-left">
+                        <img ng-src="{{getFlagUrl(data.memberInfo)}}" width="16" />
+                        <span class="text-capitalize">{{data.memberInfo.name}}</span>
+                    </td>
+                    <td>
+                        {{data.memberInfo.username}}
+                    </td>
+                    <td>
+                        {{data.memberInfo.email}}
+                    </td>
+                    <td>
+                        {{data.memberInfo.mobile}}
+                    </td>
+                    <td class="text-center">{{data.memberInfo.joinAt | date:'medium'}}</td>
+                    <td class="text-center">-</td>
+                    <td class="text-center">
+                        <strong>
+                                    <i class="fa fa-user"></i>
+                                    {{data.memberInfo.users}}
+                                </strong>
+                    </td>
+                </tr>
+                <tr ng-if="!analytics || nextPageLoadMessage">
+                    <td colspan="8" class="text-center"><strong>Please wait, loading content...</strong></td>
+                </tr>
+                <tr ng-if="analytics.length == 0 && !nextPageLoadMessage">
+                    <td colspan="8" class="text-center"><strong>No Data Found</strong></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="9">
+                        <ul uib-pagination class="pull-left" items-per-page="pageLimit" ng-model="currentPage" total-items="totalPages" max-size="5"
+                            boundary-links="true" ng-change="passlevel(this)"></ul>
+                        <form>
+                            <ul class="pull-left" style="line-height:2.5;margin:10px 0;text-align: right">
+                                <button type="submit" class="btn brown btn-sm pull-right" ng-click="updatePage(this)" style="height:33px;text-transform:capitalize;margin: 0 0 0 5px;">Go</button>
+                                Go to page:<input type="number" min="1" ng-model="getPage" class="form-control pull-right" style="width:60px;margin:0;height:25px;">
+                                <br />
+                                <span class="text-right help-block pull-right" ng-show="error" style="margin:0">{{error}}</span>
+                            </ul>
+                        </form>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<style>
+  div.modal-content {
+    margin-top: 150px;
+  }
+</style>
+
+<div class="modal-header model-header-color">
+  <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+    <h3>
+      <i class="fa fa-user-plus" aria-hidden="true" style="color:#fff"></i> Hey! Please verify your Sponsor Details
+    </h3>
+  </div>
+</div>
+  <div class="modal-body" style="padding:25px 0 0;">
+    <div class="col-lg-12" style="display:block;float:none;">
+      <form class="form" name="sponsorinfofrm" ng-submit="confirmSponsor(sponsorData)">
+          <table class="table table-responsive sponsor-table">
+            <thead></thead>
+            <tbody>
+              <tr class="even">
+                <td>Sponsor's Email ID</td>
+                <td><input type="text" class = "form-control" name="sponsoremail" ng-model="sponsorData.email" ng-change="unsetVerified()" ng-disabled='sponsorData.username' autocomplete="off" /></td>
+              </tr>
+              <tr class="odd">
+                <td colspan="2" class="text-center"><strong>OR</strong></td>
+              </tr>
+              <tr class="even">
+                <td>Sponsor's Id <div class="notify fa fa-question-circle">
+                  <div class="tooltip">
+                    You can find your Sponsor ID from your signup page. Please see the screenshot.<br />
+                    <img src="assets/images/adscash-sponsor-id-screenshot.png" style="margin-top:10px">
+                  </div>
+                </div></td>
+                <td><input type="text" class = "form-control" name="sponsorid" ng-model="sponsorData.username" ng-change="unsetVerified()" ng-disabled='sponsorData.email' autocomplete="off" /></td>
+              </tr>
+              <tr class="even" ng-if="isVerified">
+                <td>Sponsor's Full Name</td>
+                <td>{{sponsorInfo.name}}</td>
+              </tr>
+              <tr class="even" ng-if="isVerified">
+                <td>Sponsor's Id</td>
+                <td>{{sponsorInfo.username}}</td>
+              </tr>
+              <tr class="even" ng-if="isVerified">
+                <td>Sponsor's Email</td>
+                <td>{{sponsorInfo.email}}</td>
+              </tr>
+              <tr class="odd">
+                <td><button type="button" class="btn btn-warning" ng-click="getSponsorInfo(sponsorData)" ng-disabled="isVerified">Verify Sponsor Info</button></td>
+                <td>
+                  <button type="submit" class="btn brown" ng-disabled="!isVerified || confirmClicked">Confirm</button>
+                  <button type="button" class="btn btn-danger" ng-click="validateSponsor()">Back</button>
+                </td>
+              </tr>
+              <tr ng-if="showMessage!=''">
+                <td class="text-center text-danger" colspan="2">{{showMessage}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="clearfix"></div>
+        </form>
+    </div>
+  </div>

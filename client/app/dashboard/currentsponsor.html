@@ -1,0 +1,59 @@
+<style>
+  div.modal-content {
+    margin-top: 150px;
+  }
+</style>
+
+      <div class="modal-header model-header-color">
+        <div class="{{userInfo.confirmSponsor == false?'col-md-12':'col-md-6'}}">
+          <h3>
+            <i class="fa fa-user-plus" aria-hidden="true" style="font-size:18px;"></i> {{userInfo.confirmSponsor == true ? 'My' : 'Current'}} Sponsor Details
+            <!--button type="button" class="btn btn-small waves-effect contact_sponsor pull-right">Contact {{sponsor.username}}</button-->
+          </h3>
+        </div>
+        <div class="col-md-6 pull-right" ng-if="!canSeeUserBackOffice && canSeeUserBackOffice !== false">
+          <a class="btn brown pull-right" ng-if="userInfo.confirmSponsor == true" ng-click="closeallmodals()" style="margin-bottom:10px;margin-top: -7px;">Send Message</a>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+      </div>
+    <div class="modal-body" style="padding:25px 0 0;">
+      <div class="col-lg-12" style="display:block;float:none;">
+        <table class="table table-responsive">
+          <thead></thead>
+          <tbody>
+            <tr class="even">
+              <td>Username</td>
+              <td>{{sponsor.username}}</td>
+            </tr>
+            <tr class="odd">
+              <td>Full Name</td>
+              <td>{{sponsor.name}}</td>
+            </tr>
+            <tr class="even">
+              <td>Email ID</td>
+              <td>{{sponsor.email}}</td>
+            </tr>
+            <tr class="odd">
+              <td>Contact Number</td>
+              <td>{{sponsor.mobile}}</td>
+            </tr>
+            <tr class="even">
+              <td>Country</td>
+              <td>{{sponsor.country ? sponsor.country : sponsor.countryName}}</td>
+            </tr>
+            <tr class="odd" ng-show="userInfo.confirmSponsor == true">
+              <td>Rank</td>
+              <td>{{sponsor.rank}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row" style="margin-bottom : 20px">
+          <div class="col-md-6" ng-if="userInfo.confirmSponsor == false">
+            <a class="btn brown pull-left" ng-click="verifySponsor(userInfo)">Continue</a>
+          </div>
+          <div class="col-md-6 pull-right" ng-if="userInfo.confirmSponsor == false">
+            <a class="btn brown pull-right" ng-click="changeSponsorId()">Change Sponsor</a>
+          </div>
+        </div>
+      </div>
+    </div>

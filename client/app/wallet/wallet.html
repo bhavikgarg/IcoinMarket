@@ -1,0 +1,634 @@
+<div class="block block-condensed">
+    <div class="app-heading app-heading-small">
+        <div class="title">
+            <p><a href="/dashboard">Dashboard</a> / Wallet</p>
+        </div>
+    </div>
+    <div class="block-content">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="row">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                                <h2><b>AdsCash Wallet</b></h2>
+                        </div>
+                        <div class="panel-body" align="center" style="padding:30px!important">
+                            <div class="row">
+                                <div class="col-md-5 img-wallet">
+                                    <img src="assets/images/coin.png" width="100">
+                                </div>
+                                <div class="col-md-5 value-wallet" style="font-size: 65px; color: #454545; font-weight: bold; padding-top: 36px; padding-bottom: 36px"> {{adsCashWallet.balance | number : 1}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                   <!-- <button class="btn btn-block btn-lg" ng-disabled="true && adcwithdrawal.$invalid" style="margin-top: 20px; border-bottom: 4px solid #ccc !important; cursor: not-allowed;">Withdrawal Request</button> -->
+                                   <p class="text-center" style="font-size:14px"><b>Guideline to set-up ETH Token wallet <a target="_blank" href="https://icoinmarket.com/pdf/setup-eth-wallet.pdf">click here</a></b><br><b style="font-size:14px">Adscash contract address 0xec7954f452a6473c21c4078501f0bcf8b266bc99</b></p>
+                                    <form name="adcwithdrawal">
+                                       <div class="input-group" style="margin-bottom: 0px; margin-top: 25px;">
+                                            <input type="number" ng-model="withdrawadc.amount" class="form-control" min="1" style="height: 60px;" aria-describedby="sizing-addon1" step="1" required/>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-warning" type="button" style="height: 60px;" ng-disabled="adcwithdrawal.$invalid" ng-click="showADCWithdrawalPopup()"><b>ADS Withdrawal</b></button>
+                                            </span>
+                                       </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top: 10px">
+                                <div class="col-md-12" ng-if="withdrawalAdcReqError">
+                                    <span style="color: red">{{withdrawalAdcReqError}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-lr-15">
+                     <div class="col-sm-12 well well-sm totalCommissions-well" style="margin-top: 33px;">
+                        <div style="margin-top: 10px; margin-bottom:10px">
+                            <h4>
+                                <strong class="ng-binding">Total Commission Earned : &nbsp; $ {{totalCommission}}</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">
+                        <h2><b>ICM USD Wallet</b></h2>
+                    </div>
+                    <div class="panel-body row" align="center" style="padding:30px!important">
+                        <div class="col-md-5 img-wallet">
+                            <img src="assets/images/wallet.png" width="100"></div>
+                        <div class="col-md-5 value-wallet" style="font-size: 65px; color: #454545; font-weight: bold; padding-top: 35px;">${{usdWallet.balance | number : 1}}</div>
+                    </div>
+                    <!-- Wallet add funds etc -->
+                    <div class="row icm-wallet">
+                        <div ng-class="(userRole == 'user' && isLoggedIn) ? 'col-lg-12 col-md-12 col-sm-12 col-xs-12' : 'col-lg-6 col-md-6 col-sm-12 col-xs-12'" style="padding-bottom: 20px">
+                            <form name="addfund">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="sizing-addon1"><b style="font-size: 30px;">$</b></span>
+                                    <input type="number" ng-model="buyInfo.usd" placeholder="0.000" style="height: 65px;" aria-describedby="sizing-addon1" class="form-control"
+                                        name="quantity" style="height: 45px" min="{{min_add_fund}}" step="100" max="100000" required />
+                                    <span class="input-group-btn">
+                                     <button class="btn btn-success btn-icm-wallet" style="border-bottom: 4px solid #538e13 !important;height: 65px;" ng-disabled="addfund.$invalid" ng-click="addFund()"><b>Add Fund</b></button>
+                                 </span>
+                                </div>
+                                <div class="row" style="margin-top: 12px" ng-if="addfund.quantity.$error.pattern || addfund.quantity.$error.min || addfund.quantity.$error.max">
+                                    <div class="col-sm-8">
+                                        <span ng-show="addfund.quantity.$error.pattern" class="alert alert-danger error-quantity">USD fund must be a number</span>
+                                        <span ng-show="addfund.quantity.$error.min" class="alert alert-danger error-quantity">USD fund must be greater than ${{min_add_fund}}</span>
+                                        <span ng-show="addfund.quantity.$error.max" class="alert alert-danger error-quantity">USD fund must be lesser than $100000</span>
+                                    </div>
+                                </div>
+                            </form>
+                            <form name="usdTransfer">
+                                <div class="input-group ">
+                                    <span class="input-group-addon" id="sizing-addon1"><b style="font-size: 30px;">$</b></span>
+                                    <input ng-if="NO_LIMIT_FUND_TRANSFER_USERS.indexOf(memberInfo._id) < 0" type="number" ng-model="transferCoins.coins" class="form-control" name="usdAmount" style="height: 65px;" min="2" max="500" step="1" placeholder="0.0" aria-describedby="sizing-addon1" required/>
+                                    <input ng-if="NO_LIMIT_FUND_TRANSFER_USERS.indexOf(memberInfo._id) >= 0" type="number" ng-model="transferCoins.coins" class="form-control" name="usdAmount" style="height: 65px;" min="2" step="1" placeholder="0.0" aria-describedby="sizing-addon1" required/>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default btn-icm-wallet" style="height: 65px;" type="button" ng-disabled="usdTransfer.$invalid" ng-click="showTransferPopup();"><b>Fund Transfer</b></button>
+                                    </span>
+                                </div>
+                                <div class="row" style="margin-top: 12px" ng-if="usdTransfer.usdAmount.$error.pattern || usdTransfer.usdAmount.$error.min || usdTransfer.usdAmount.$error.max">
+                                    <div class="col-sm-8">
+                                        <span ng-show="usdTransfer.usdAmount.$error.pattern" class="alert alert-danger error-quantity">USD Amount must be a number</span>
+                                        <span ng-show="usdTransfer.usdAmount.$error.min" class="alert alert-danger error-quantity">USD Amount must be atleast $2</span>
+                                        <span ng-show="usdTransfer.usdAmount.$error.max" class="alert alert-danger error-quantity">USD Amount must be lesser than $500</span>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- <form name="usdWithdrawalForm" style="pointer-events: none;opacity: 0.5;" ng-if="isLoggedIn() && userRole == 'user'"> -->
+                            <form name="usdWithdrawalForm" ng-if="isLoggedIn() && userRole == 'user'">
+                                <div class="input-group" style="margin-bottom: 0px;">
+                                    <span class="input-group-addon" id="sizing-addon1"><b style="font-size: 30px;">$</b></span>
+                                    <input type="number" ng-model="withdraw.amount" class="form-control" name="withdrawAmount" placeholder="0.000" style="height: 65px;"
+                                        aria-describedby="sizing-addon1" min="25" max="500" step="1" required/>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-warning btn-icm-wallet" type="button" style="height: 65px;" ng-disabled="usdWithdrawalForm.$invalid || disableWithdrawal" ng-click="showWithdrawalPopup()"><b>Fund Withdrawal</b></button>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <span class="help-block" style="color : red" ng-if="withdrawalReqError">{{withdrawalReqError}}</span>
+                                <!-- Need To Open this peice of code after prelaunch-->
+                                <div class="row" style="margin-top: 12px" ng-show="usdWithdrawalForm.withdrawAmount.$error.pattern || usdWithdrawalForm.withdrawAmount.$error.min || usdWithdrawalForm.withdrawAmount.$error.max">
+                                    <div class="col-sm-8">
+                                        <span ng-show="usdWithdrawalForm.withdrawAmount.$error.pattern" class="alert alert-danger error-quantity">Amount must be a number</span>
+                                        <span ng-show="usdWithdrawalForm.withdrawAmount.$error.min" class="alert alert-danger error-quantity">Amount must be atleast $25</span>
+                                        <span ng-show="usdWithdrawalForm.withdrawAmount.$error.max" class="alert alert-danger error-quantity">Amount must be less than $500</span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- </div>    -->
+        </div>
+        <p align="center" style="background: #666; color: #fff; border-bottom: 2px solid #ccc; border-radius: 20px; font-size: 20px; padding: 10px; display: inline-block;">Below is the list of Transactions History </p>
+        <!-- Tab panes -->
+        <div>
+        </div>
+        <div class="tab-content">
+           <!-- Nav tabs -->
+                <ul class="nav nav-tabs commissions-nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a ng-click = "getFundTransferList('P')" role="tab" data-toggle="tab">Purchase</a></li>
+                    <li role="presentation">
+                        <a ng-click = "getFundTransferList('W')" role="tab" data-toggle="tab">Withdrawal</a>
+                    </li>
+                     <li role="presentation">
+                        <a ng-click="getFundTransferList('C')" role="tab" data-toggle="tab">Commissions</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                   <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th ng-click="usdTransactionsSortType = 'createdAt'; usdTransactionsSortReverse = !usdTransactionsSortReverse; usdTransactionsDateFilter=false; usdTransactionsCoinFilter=true">
+                                    Date
+                                    <span ng-show="usdTransactionsDateFilter" class="sorting fa fa-sort"></span>
+                                    <span ng-show="usdTransactionsSortType == 'createdAt' && !usdTransactionsSortReverse && !usdTransactionsDateFilter" class="sorting fa fa-caret-down"></span>
+                                    <span ng-show="usdTransactionsSortType == 'createdAt' && usdTransactionsSortReverse && !usdTransactionsDateFilter" class="sorting fa fa-caret-up"></span>
+                                </th>
+                                <th>Description</th>
+                                <th ng-click="usdTransactionsSortType = 'coins'; usdTransactionsSortReverse = !usdTransactionsSortReverse; usdTransactionsCoinFilter=false; usdTransactionsDateFilter=true">
+                                    Balance
+                                    <span ng-show="usdTransactionsCoinFilter" class="sorting fa fa-sort"></span>
+                                    <span ng-show="usdTransactionsSortType == 'coins' && !usdTransactionsSortReverse && !usdTransactionsCoinFilter" class="sorting fa fa-caret-down"></span>
+                                    <span ng-show="usdTransactionsSortType == 'coins' && usdTransactionsSortReverse && !usdTransactionsCoinFilter" class="sorting fa fa-caret-up"></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="(key, row) in usdTransactions | orderBy:usdTransactionsSortType:usdTransactionsSortReverse">
+                                <td>{{row.createdAt | date:'medium'}}</td>
+                                <td>{{row.description}}</td>
+                                <td>{{row.coins}} ({{row.type}})</td>
+                            </tr>
+                            <tr ng-if="loadingText!=''">
+                                <td colspan="5" class="text-center"><strong>{{loadingText}}</strong></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <ul uib-pagination class="pull-left" items-per-page="usdTransactionsLimit" ng-model="currentUsdWalletPage" total-items="totalUsdWalletPages"
+                                        max-size="5" boundary-links="true" ng-change="loadUsdTransactions()"></ul>
+                                    <form>
+                                        <ul class="pull-left" style="line-height:2.5;margin:10px 0;text-align: right">
+                                            <button type="submit" class="btn btn-sm brown pull-right" ng-click="updatePage('usdWallet')" style="height:33px;text-transform:capitalize;margin: 0 0 0 5px;">Go</button>                                            Go to page: &nbsp;
+                                            <input type="number" ng-model="getUsdWalletPage" class="form-control pull-right" style="width:60px;margin:0;height:33px;"><br
+                                            />
+                                            <span class="text-right help-block pull-right" ng-show="errorUsdWallet" style="margin:0">{{errorUsdWallet}}</span>
+                                        </ul>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                </div>
+
+            <!--<div role="tabpanel" class="tab-pane" id="adscash" ng-if="isLoggedIn() && userRole == 'user'">
+                <ul class="nav nav-tabs pull-right" role="tablist">
+                    <li role="presentation" class="active"><a href="#purchased" aria-controls="purchased" role="tab" data-toggle="tab"><strong>Purchased</strong></a></li>
+                    <!-- <li role="presentation"><a href="#commission" aria-controls="commission" role="tab" data-toggle="tab"><strong>Commission</strong></a></li> -->
+                    <!-- <li role="presentation"><a href="#earnedcoins" aria-controls="earnedcoins" role="tab" data-toggle="tab"><strong>Earned Coins</strong></a></li>
+                    <li role="presentation"><a href="#createdads" aria-controls="createdads" role="tab" data-toggle="tab"><strong>Created Ads</strong></a></li> -->
+                    <!--<li role="presentation" ng-if="isLoggedIn() && userRole == 'user'"><a href="#withdrawallist" aria-controls="withdrawallist" role="tab" data-toggle="tab" ng-click="loadWithdrawalPage()"><strong>Withdrawal List</strong></a></li>-->
+                <!--</ul>
+                <div class="clearfix"></div>
+                <div class="tab-content" style="padding:10px;">-->
+                    <!--<div role="tabpanel" class="tab-pane active" id="purchased">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Purchase Method</th>
+                                        <th ng-click="sortType = 'createdAt'; sortReverse = !sortReverse; dateFilter=false; coinFilter=true">
+                                            Date
+                                            <span ng-show="dateFilter" class="sorting fa fa-sort"></span>
+                                            <span ng-show="sortType == 'createdAt' && !sortReverse && !dateFilter" class="sorting fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'createdAt' && sortReverse && !dateFilter" class="sorting fa fa-caret-up"></span>
+                                        </th>
+                                        <th class="text-right" ng-click="sortType = 'coins'; sortReverse = !sortReverse; coinFilter=false; dateFilter=true">
+                                            Txn Amount &nbsp;
+                                            <span ng-show="coinFilter" class="sorting fa fa-sort"></span>
+                                            <span ng-show="sortType == 'coins' && !sortReverse && !coinFilter" class="sorting fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'coins' && sortReverse && !coinFilter" class="sorting fa fa-caret-up"></span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in rows | orderBy:sortType:sortReverse">
+                                        <td>{{row.description}}</td>
+                                        <td class="text-capitalize">{{row.cointype | uppercase}}</td>
+                                        <td>{{row.createdAt | date:'medium'}}</td>
+                                        <td class="text-right">{{row.coins}}</td>
+                                    </tr>
+                                    <tr ng-if="loadingText!=''">
+                                        <td colspan="5" class="text-center"><strong>{{loadingText}}</strong></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5">
+                                            <ul uib-pagination class="pull-left" items-per-page="walletLimit" ng-model="currentPage" total-items="totalPages" max-size="5"
+                                            boundary-links="true" ng-change="loadPage()"></ul>
+                                            <form>
+                                                <ul class="pull-left" style="line-height:2.5;margin:10px 0;text-align: right">
+                                                    <button type="submit" class="btn btn-sm pull-right" ng-click="updatePage('withdrawal')" style="height:33px;text-transform:capitalize;margin: 0 0 0 5px;">Go</button>
+                                                    Go to page: &nbsp;
+                                                    <input type="number" min="1" ng-model="getWithdrawalPage" class="form-control pull-right" style="width:60px;margin:0;height:25px;"><br
+                                                    />
+                                                    <span class="text-right help-block pull-right" ng-show="errorPurchased" style="margin:0">{{errorPurchased}}</span>
+                                                </ul>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>-->
+                    <!--<div role="tabpanel" class="tab-pane" id="commission">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th ng-click="sortType = 'createdAt'; commissionSortReverse = !commissionSortReverse; commissionDateFilter=false; commissionCoinFilter=true">
+                                            Date
+                                            <span ng-show="commissionDateFilter" class="sorting fa fa-sort"></span>
+                                            <span ng-show="commissionSortType == 'createdAt' && !commissionSortReverse && !commissionDateFilter" class="sorting fa fa-caret-down"></span>
+                                            <span ng-show="commissionSortType == 'createdAt' && commissionSortReverse && !commissionDateFilter" class="sorting fa fa-caret-up"></span>
+                                        </th>
+                                        <th class="text-right" ng-click="commissionSortType = 'coins'; commissionSortReverse = !commissionSortReverse; commissionCoinFilter=false; commissionDateFilter=true">
+                                            Coins &nbsp;
+                                            <span ng-show="commissionCoinFilter" class="sorting fa fa-sort"></span>
+                                            <span ng-show="commissionSortType == 'coins' && !commissionSortReverse && !commissionCoinFilter" class="sorting fa fa-caret-down"></span>
+                                            <span ng-show="commissionSortType == 'coins' && commissionSortReverse && !commissionCoinFilter" class="sorting fa fa-caret-up"></span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="(key, row) in commissions | orderBy:commissionSortType:commissionSortReverse">
+                                        <td>{{row.description}}</td>
+                                        <td>{{row.createdAt | date:'medium'}}</td>
+                                        <td class="text-right">{{row.coins}}</td>
+                                    </tr>
+                                    <tr ng-if="loadingText!=''">
+                                        <td colspan="5" class="text-center"><strong>{{loadingText}}</strong></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5">
+                                            <ul uib-pagination class="pull-left" items-per-page="totalCommissionLimit" ng-model="currentCommissionPage" total-items="totalCommissionPages"
+                                            max-size="5" boundary-links="true" ng-change="loadCommissionInfo()"></ul>
+                                            <form>
+                                                <ul class="pull-left" style="line-height:2.5;margin:10px 0;text-align: right">
+                                                    <button type="submit" class="btn brown btn-sm pull-right" ng-click="updatePage('commission')" style="height:33px;text-transform:capitalize;margin: 0 0 0 5px;">Go</button>
+                                                    Go to page: &nbsp;<input type="number" ng-model="getCommissionPage" class="form-control pull-right"
+                                                    style="width:60px;margin:0;height:25px;"><br />
+                                                    <span class="text-right help-block pull-right" ng-show="errorCommission" style="margin:0">{{errorCommission}}</span>
+                                                </ul>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>-->
+                    <!--<div role="tabpanel" class="tab-pane" id="earnedcoins">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Date </th>
+                                        <th>Coins </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Team Sales Commission for 'ADS.CASH Coin Purchase' from level (By: abundance19, Gen:
+                                            1)
+                                        </td>
+                                        <td>Jan 29, 2017 9:22:36 PM</td>
+                                        <td>50</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            <nav class="pull-right">
+                                <ul class="pagination">
+                                    <li>
+                                        <a href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li>
+                                        <a href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <p class="pull-left">Showing 1 to 10 of 12 entries</p>
+                        </div>
+                    </div>-->
+                    <!--<div role="tabpanel" class="tab-pane" id="createdads">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="10%">Created At </th>
+                                        <th>Title</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Payment Mode</th>
+                                        <th>Credits</th>
+                                        <th>#hits</th>
+                                        <th>View URL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="10%">Oct 20, 2016 12:46:17 PM</td>
+                                        <td>Check This Out</td>
+                                        <td>Fbshare</td>
+                                        <td>What Happens In Vegas Stays In Vegas But I Decided To Spill The Beans :)</td>
+                                        <td>ADS Cash</td>
+                                        <td>200000</td>
+                                        <td>4455</td>
+                                        <td>https://www.facebook.com/username/videos/1160935107334303/</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>-->
+                    <!--<div role="tabpanel" class="tab-pane" id="withdrawallist">
+                        <div class="modal fade" id="withdrawalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Withdrawal Details</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row rowSpace">
+                                            <div class="col-md-5 col-md-12"><strong>Requested Date</strong>
+                                            </div>
+                                            <div class="col-md-7 col-md-12">{{withdrawalData.createdAt | date:'medium'}}</div>
+                                        </div>
+                                        <div class="row rowSpace">
+                                            <div class="col-md-5 col-md-12"><strong>Requested USD</strong>
+                                            </div>
+                                            <div class="col-md-7 col-md-12">{{withdrawalData.requestedusd | currency}}</div>
+                                        </div>
+                                        <div class="row rowSpace">
+                                            <div class="col-md-5 col-md-12"><strong>Repurchased Amount</strong>
+                                            </div>
+                                            <div class="col-md-7 col-md-12">{{withdrawalData.repurchasedamount | currency}}</div>
+                                        </div>
+                                        <div class="row rowSpace">
+                                            <div class="col-md-5 col-md-12"><strong>Repurchased AdsCash</strong>
+                                            </div>
+                                            <div class="col-md-7 col-md-12">{{withdrawalData.adscashcoins}} coins</div>
+                                        </div>
+                                        <div class="row rowSpace">
+                                            <div class="col-md-5 col-md-12"><strong>Withdrawal Amount(USD)</strong>
+                                            </div>
+                                            <div class="col-md-7 col-md-12">{{withdrawalData.withdrawAmount | currency}}</div>
+                                        </div>
+                                        <div class="row rowSpace">
+                                            <div class="col-md-5 col-md-12"><strong>Withdrawal Amount(BTC)</strong>
+                                            </div>
+                                            <div class="col-md-7 col-md-12">{{withdrawalData.btcamount}} BTC</div>
+                                        </div>
+                                        <div class="row rowSpace">
+                                            <div class="col-md-5 col-md-12"><strong>Transfer Through</strong>
+                                            </div>
+                                            <div class="col-md-7 col-md-12">{{withdrawalData.transferthrough}}</div>
+                                        </div>
+                                        <div class="row rowSpace" ng-if="withdrawalData.status == 'COMPLETED'">
+                                            <div class="col-md-5 col-md-12"><strong>Transaction Id</strong>
+                                            </div>
+                                            <div class="col-md-7 col-md-12">{{withdrawalData.transactionid}}
+                                            </div>
+                                        </div>
+                                        <div class="row rowSpace">
+                                            <div class="col-md-5 col-md-12"><strong>Current Status</strong>
+                                            </div>
+                                            <div class="col-md-7 col-md-12">{{withdrawalData.status}}
+                                            </div>
+                                        </div>
+                                        <div class="row rowSpace" ng-if="withdrawalData.admincomments">
+                                            <div class="col-md-5 col-md-12"><strong>Admin Comments</strong>
+                                            </div>
+                                            <div class="col-md-7 col-md-12" style="word-wrap: break-word">{{withdrawalData.admincomments}}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th ng-click="sortType = 'createdAt'; sortReverse = !sortReverse; dateFilter=false; coinFilter=true">
+                                            Date
+                                            <span ng-show="dateFilter" class="sorting fa fa-sort"></span>
+                                            <span ng-show="sortType == 'createdAt' && !sortReverse && !dateFilter" class="sorting fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'createdAt' && sortReverse && !dateFilter" class="sorting fa fa-caret-up"></span>
+                                        </th>
+                                        <th>Withdrawal Id</th>
+                                        <th class="text-right" ng-click="sortType = 'coins'; sortReverse = !sortReverse; coinFilter=false; dateFilter=true">
+                                            Withdrawal Amount &nbsp;
+                                            <span ng-show="coinFilter" class="sorting fa fa-sort"></span>
+                                            <span ng-show="sortType == 'coins' && !sortReverse && !coinFilter" class="sorting fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'coins' && sortReverse && !coinFilter" class="sorting fa fa-caret-up"></span>
+                                        </th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in withdrawals | orderBy:sortType:sortReverse">
+                                        <td>{{row.createdAt | date:'medium'}}</td>
+                                        <td class="text-capitalize">{{row._id}}</td>
+                                        <td class="text-right">{{row.withdrawAmount}}</td>
+                                        <td>{{row.status}}</td>
+                                        <td class="text-right"><button class="btn btn-sm brown" data-toggle="modal" data-target="#withdrawalModal"
+                                                ng-click="showWithdrawalDetails(row)">Details</button></td>
+                                    </tr>
+                                    <tr ng-if="loadingText!=''">
+                                        <td colspan="5" class="text-center"><strong>{{loadingText}}</strong></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5">
+                                            <ul uib-pagination class="pull-left" items-per-page="withdrawalLimit" ng-model="currentPage" total-items="totalPages" max-size="5"
+                                                boundary-links="true" ng-change="loadPage()"></ul>
+                                            <form>
+                                                <ul class="pull-left" style="line-height:2.5;margin:10px 0;text-align: right">
+                                                    <button type="submit" class="btn btn-sm pull-right" ng-click="updatePage('withdrawal')" style="height:33px;text-transform:capitalize;margin: 0 0 0 5px;">Go</button>                                                    Go to page: &nbsp;
+                                                    <input type="number" ng-model="getWithdrawalPage" class="form-control pull-right" style="width:60px;margin:0;height:25px;"><br
+                                                    />
+                                                    <span class="text-right help-block pull-right" ng-show="errorWithdrawal" style="margin:0">{{errorWithdrawal}}</span>
+                                                </ul>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <!-- <div role="tabpanel" class="tab-pane active" id="wallet" style="padding:10px;"> -->
+                <!-- <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th ng-click="usdTransactionsSortType = 'createdAt'; usdTransactionsSortReverse = !usdTransactionsSortReverse; usdTransactionsDateFilter=false; usdTransactionsCoinFilter=true">
+                                    Date
+                                    <span ng-show="usdTransactionsDateFilter" class="sorting fa fa-sort"></span>
+                                    <span ng-show="usdTransactionsSortType == 'createdAt' && !usdTransactionsSortReverse && !usdTransactionsDateFilter" class="sorting fa fa-caret-down"></span>
+                                    <span ng-show="usdTransactionsSortType == 'createdAt' && usdTransactionsSortReverse && !usdTransactionsDateFilter" class="sorting fa fa-caret-up"></span>
+                                </th>
+                                <th>Description</th>
+                                <th ng-click="usdTransactionsSortType = 'coins'; usdTransactionsSortReverse = !usdTransactionsSortReverse; usdTransactionsCoinFilter=false; usdTransactionsDateFilter=true">
+                                    USD Balance
+                                    <span ng-show="usdTransactionsCoinFilter" class="sorting fa fa-sort"></span>
+                                    <span ng-show="usdTransactionsSortType == 'coins' && !usdTransactionsSortReverse && !usdTransactionsCoinFilter" class="sorting fa fa-caret-down"></span>
+                                    <span ng-show="usdTransactionsSortType == 'coins' && usdTransactionsSortReverse && !usdTransactionsCoinFilter" class="sorting fa fa-caret-up"></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="(key, row) in usdTransactions | orderBy:usdTransactionsSortType:usdTransactionsSortReverse">
+                                <td>{{row.createdAt | date:'medium'}}</td>
+                                <td>{{row.description}}</td>
+                                <td>{{row.coins}}</td>
+                            </tr>
+                            <tr ng-if="loadingText!=''">
+                                <td colspan="5" class="text-center"><strong>{{loadingText}}</strong></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <ul uib-pagination class="pull-left" items-per-page="usdTransactionsLimit" ng-model="currentUsdWalletPage" total-items="totalUsdWalletPages"
+                                        max-size="5" boundary-links="true" ng-change="loadUsdTransactions()"></ul>
+                                    <form>
+                                        <ul class="pull-left" style="line-height:2.5;margin:10px 0;text-align: right">
+                                            <button type="submit" class="btn btn-sm brown pull-right" ng-click="updatePage('usdWallet')" style="height:33px;text-transform:capitalize;margin: 0 0 0 5px;">Go</button>                                            Go to page: &nbsp;
+                                            <input type="number" ng-model="getUsdWalletPage" class="form-control pull-right" style="width:60px;margin:0;height:33px;"><br
+                                            />
+                                            <span class="text-right help-block pull-right" ng-show="errorUsdWallet" style="margin:0">{{errorUsdWallet}}</span>
+                                        </ul>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div> -->
+            <!-- </div> -->
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="modal fade" id="myModal02" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">WithDrawal Request</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4 col-md-12"><strong>Balance (AdsCash)</strong>
+                    </div>
+                    <div class="col-md-8 col-md-12">
+                        <h3 class="brown-text" style="margin:0px; padding:0px;"><strong>92676.65660002921</strong></h3>
+                    </div>
+
+                </div>
+
+                <div class="row margin-top-10">
+                    <div class="col-md-4 col-md-12"><strong>Account Info
+
+
+                                                </strong>
+                    </div>
+                    <div class="col-md-8 col-md-12"><strong>userr972813@gmail.com</strong></div>
+                </div>
+                <div class="row margin-top-10">
+                    <div class="col-md-4 col-md-12"><strong>Withdrawal AdsCash </strong></div>
+                    <div class="col-md-8 col-md-12"><input type="text" class="form-control"></div>
+                </div>
+                <div class="row margin-top-10">
+                    <div class="col-md-4 col-md-12"><strong>Withdrawal Amount (USD)
+                                            </strong>
+                    </div>
+                    <div class="col-md-8 col-md-12">
+                        <h3 style="margin:0px; padding:0px;">$40</h3>
+                    </div>
+                </div>
+                <div class="row margin-top-10">
+                    <div class="col-md-4 col-md-12"><strong>Transfer Amount (BTC)
+                                        </strong>
+                    </div>
+                    <div class="col-md-8 col-md-12">
+                        <h3 style="margin:0px; padding:0px;">4357439.4399</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn brown1">Process Transactions</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal01" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Payment Options</h4>
+            </div>
+            <div class="modal-body">
+                <form><input name="pay_option" type="radio" value="bitcoin" checked> <img ng-src="assets/images/bitcoin.png" width="200">
+                    <hr/>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn brown" data-dismiss="modal">Pay Now</button>
+            </div>
+        </div>
+    </div>
+</div>

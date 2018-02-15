@@ -1,0 +1,50 @@
+.wallet-info-labels {
+  div {
+    padding: 10px;
+    text-align: center;
+
+    span {
+      padding-left: 15px;
+    }
+  }
+}
+
+#withdrawl-poup label {font-size:1em;}
+
+.pur-icon, .ear-icon {
+  font-family    : inherit;
+  font-size      : 4em;
+  vertical-align : middle;
+}
+
+.wallet-tabs > li{
+  text-decoration: none;
+  background-color: #eeeeee;
+}
+.wallet-tabs > li{
+  text-decoration: none;
+  background-color: #eeeeee;
+}
+.wallet-tabs > li.active > a:hover{
+  text-decoration: none;
+  background-color: #09F;
+  color:#fff;
+}
+.wallet-tabs > li.active > a{
+  text-decoration: none;
+  background-color: #09F;
+  color:#fff;
+}
+
+.withdrawal-payment label {
+  font-size: 12px !important;
+}
+
+.progress-bar.gradient-progress-bar {
+  background: #f8ffe8; /* Old browsers */
+  background: -moz-linear-gradient(left,  #f8ffe8 0%, #abf794 40%, #9df74a 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left,  #f8ffe8 0%,#abf794 40%,#9df74a 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right,  #f8ffe8 0%,#abf794 40%,#9df74a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8ffe8', endColorstr='#9df74a',GradientType=1 ); /* IE6-9 */
+  border-radius: 1em;
+}

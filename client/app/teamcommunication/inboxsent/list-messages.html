@@ -1,0 +1,208 @@
+<div class="block block-condensed">
+    <div class="app-heading app-heading-small">
+        <div class="title">
+            <p><a href="/dashboard">Dashboard</a> / Team Communication</p>
+        </div>
+    </div>
+    <div class="block-content">
+        <div ng-if="!isSponsorMessage">
+            <h5 style="font-size: 20px; padding: 10px 0px;"> Search Messages</h5>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="block block-condensed block-arrow-top">
+                        <div class="block-content padding-top-15">
+                            <h5 style="font-size: 20px; padding: 10px 0px;">{{msgType}}</h5>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group row">
+                                        <a ui-sref="message" class="btn green waves-effect col-xs-12 col-sm-2 col-md-2 col-ls-2"><i class="fa fa-edit"></i>Compose</a>
+
+                                        <form name="messageFilter" class="col-xs-12 col-sm-8 col-md-8 col-ls-8 pull-right messageFilter" ng-submit="getmessages(1, limit, search, false)">
+                                            <div class="row">
+                                                <p class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+                                                    <input type="text" class="form-control" ng-model="search" placeholder="Search Messages" />
+                                                </p>
+                                                 <p class="col-xs-12 col-sm-2 col-md-2 col-lg-2" style="padding-left: 0px;">
+                                                    <button type="submit" class="btn brown">Apply Filter</button>
+                                                </p>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top : 20px">
+                                <div class="col-sm-12">
+                                    <div class="dataTables_wrapper no-footer">
+                                        <table class="table table-striped table-hover table-bordered">
+                                            <thead>
+                                                <tr style="background-color : #ddd !important">
+                                                    <th colspan="4">
+                                                        <div class="checker">
+                                                            <span>
+                                                                <input type="checkbox" class="mail-checkbox mail-group-checkbox"
+                                                                       ng-click="selectUserIds()" ng-model="selectAll" value="1" />
+                                                            </span>
+                                                        </div>
+                                                        <div class="btn-group">
+                                                            <ul class="dropdown-menu" ng-show="more">
+                                                                <li>
+                                                                    <a href="#">
+                                                                        <i class="fa fa-pencil"></i>Mark as
+                                                                        Read
+                                                                    </a>
+                                                                </li>
+                                                                <li class="divider"></li>
+                                                                <li>
+                                                                    <a href="#"><i class="fa fa-trash-o"></i>Delete</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </th>
+                                                    <th class="pagination-control" colspan="3">
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="(key, row) in messages" ng-class="{'unread':(row.isViewed==false), 'readed':(row.isViewed==true)}" ng-click="viewMessage(key, sentType)">
+                                                    <td class="inbox-small-cells">
+                                                        <div class="checker">
+                                                            <span>
+                                                                <input type="checkbox" ng-checked="selectAll" checklist-model="userid"
+                                                                       checklist-value="row.messageId" class="mail-checkbox" />
+                                                            </span>
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="inbox-small-cells">
+                                                        <i class="fa fa-star"></i>
+                                                    </td>
+                                                    <td class="text-capitalize">
+                                                        {{row.receiver.name || row.receiver.username || row.receiver.email }}
+                                                    </td>
+                                                    <td class="view-message hidden-xs text-capitalize">
+                                                        <span>{{row.senderInfo.name}}</span>
+                                                    </td>
+                                                    <td class="view-message" width="60%">
+                                                        <a ng-href="/teamcommunication/view/{{row.messageId}}/{{sentType}}">{{row.subject}}</a>
+                                                    </td>
+                                                    <td class="view-message inbox-small-cells">
+                                                        <i class="fa fa-paperclip"></i>
+                                                    </td>
+
+                                                    <td class="text-right view-message">
+                                                        <span>{{row.msgDate | amCalendar}}</span>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-if="!messages || showLoadingMessage">
+                                                    <td colspan="7" class="text-center">
+                                                        <strong>Please wait, loading content...</strong>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <ul uib-pagination class="pull-left" total-items="total" ng-model="currentPage" max-size="5" ng-change="getmessages(currentPage, limit, search, false)"
+                                        items-per-page="limit" boundary-links="true"></ul>
+                                    <form>
+                                        <ul class="pull-left" style="line-height:2.5;margin:10px 0;text-align: right">
+                                            <button type="submit" class="btn brown btn-sm pull-right" ng-click="updatePage()" style="height:33px;text-transform:capitalize;margin: 0 0 0 5px;">
+                                                Go
+                                            </button>
+                                             Go to page: <input type="number" min="1" ng-model="getPage" class="form-control pull-right" style="width:60px;margin:0px 10px;height:35px;">
+                                            <br />
+                                            <span class="text-right help-block pull-right" ng-show="error" style="margin:0">{{error}}</span>
+                                        </ul>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+
+                    <div class="block block-condensed">
+
+                        <div class="block-content">
+                            <div class="row margin-bottom-10 mob-center">
+                                <div class="col-md-6 padding-top-10 text-bold">
+                                    <a ui-sref="message" ng-class="{active: ('/teamcommunication' | isActive)}">
+                                        Send
+                                        Message
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="icon-envelope" style="font-size: 35px; color:#50b85d"></span>
+                                </div>
+                            </div>
+                            <div class="row margin-bottom-10 mob-center">
+                                <div class="col-md-6 padding-top-10 text-bold">
+                                    <a ui-sref="MessageList({'listType':'inbox'})" ng-class="{active: ('/teamcommunication/inboxsent/inbox' | isActive)}"> Inbox </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="icon-coffee-cup" style="font-size: 35px;"></span>
+                                </div>
+                            </div>
+                            <div class="row mob-center">
+                                <div class="col-md-6 padding-top-10 text-bold">
+                                    <a ui-sref="MessageList({'listType':'sent'})" ng-class="{active: ('/teamcommunication/inboxsent/sent' | isActive)}"> Sent</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="icon-thumbs-up" style="font-size: 35px; "></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="block block-condensed">
+                        <div class="app-heading app-heading-small">
+                            <div class="title">
+                                <h3>{{userinfo.name}}</h3>
+                                <p>Detailed information</p>
+                            </div>
+                            <div class="heading-elements">
+                                <button class="btn btn-default btn-icon">
+                                    <span class="fa fa-pencil"
+                                          ui-sref="userprofile"
+                                          ng-class="{active: ('/userprofile' | isActive)}"
+                                          style="cursor : pointer"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <table class="table table-bordered margin-bottom-0">
+                            <tbody>
+                                <tr>
+                                    <td width="40%" class="text-bold">Date Of Birth</td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-bold">Address</td>
+                                    <td class="word-break">{{userinfo.address}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">Email</td>
+                                    <td class="word-break">{{userinfo.email}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">Phone</td>
+                                    <td>{{userinfo.mobile}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="block-divider-text margin-top-minus-one margin-bottom-0">
+                            Income Info
+                        </div>
+                        <table class="table table-bordered border-top-0">
+                            <tbody>
+                                <tr>
+                                    <td width="40%" class="text-bold">Wallet</td>
+                                    <td>${{ usd_balance }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

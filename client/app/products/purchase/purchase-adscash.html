@@ -1,0 +1,131 @@
+<style>
+    div.portlet-body {
+        padding: 20px;
+    }
+</style>
+<header class="header header-nav " ng-include="'app/dashboard/header/header.html'"></header>
+<div class="container-fluid">
+    <div class="row">
+        <!-- First column for navbar -->
+        <div class="col-md-2 col-sm-12 col-xs-12" style="margin-left:0px !important; float:left; padding-left:0px !important;">
+            <div class="page-sidebar-wrapper">
+                <div ng-include="'app/dashboard/navigate/navigate.html'"></div>
+            </div>
+        </div>
+        <div class="col-md-10 col-sm-12 col-xs-12">
+            <div class="page-content">
+                <div>
+                    <h4 class="no-margin"><a href="/dashboard">Dashboard</a> / Purchase AdsCash</h4>
+                </div>
+                <div class="portlet yellow-lemon box margin-top-20">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i> Purchase AdsCash
+                        </div>
+                    </div>
+                    <div class="portlet-body" style="padding : 20px;">
+                        <div class="row">
+                            <hr/>
+                            <p align="center"><img src="assets/images/adscashlogo2.png" width="300"></p>
+                            <hr/>
+                            <div class="col-md-4 col-sm-12" align="center"><img src="assets/images/coin.png" width="200"><br>
+                                <h2 align="center">
+
+                      <strong style="color:#fff; padding:5px 20px; border-radius:50px; background:#930;">Balance: {{productPurchaseInfo.acoins | number:0}}</strong></h2></div>
+                            <form name="adscashpacks" ng-submit="showPayMethods(adscashpacks);">
+                                <div class="col-md-8 col-sm-12">
+                                    <h2 style="font-size:30px;">Adscash is the future of Advertising Currency!</h2>
+                                    <p style="font-size:16px; line-height:25px; text-align:justify; padding-right:20px;">
+                                        <strong style="color:#FC0">You can grab 1000 Adscash for ${{ singlePackPrice | number : 0}} and keep them as the most convincing investment for the future.</strong> <br>
+                                        <br> Cryptocurrency is rising and more the Adscash is circulated, the better value it will generate.</p>
+
+                                    <div class="row" style="background:#f1f1f1; padding:10px; margin-top:30px; margin-right:10px; border-bottom:2px solid #ccc; border-radius:5px;">
+                                        <div class="col-md-2 col-sm-12" align="left" style="padding-top:7px;">
+                                            <h5 style="margin:0px; padding:0px; font-size:16px;"><strong>Bundle</strong></h5></div>
+                                        <div class="col-md-2 col-sm-12">
+                                          <input type="text" name="quantity" class="form-control" numbersOnly ng-pattern="/^(\d)+$/" ng-change="updateBuyCost()" ng-model="buyInfo.packs" min=1 max=4000>
+                                        </div>
+                                        <div class="col-md-3 col-sm-12" align="left" style="padding-top:7px;">
+                                            <h4 style="margin:0px; padding:0px;"><strong>Coins:{{buyInfo.coins}}</strong></h4>
+                                        </div>
+                                        <div class="col-md-3 col-sm-12">
+                                            <h3 style="margin:0px; padding:0px;"><strong>Total :  ${{buyInfo.cost}}</strong></h3>
+                                        </div>
+                                    </div>
+                                    <span ng-show="adscashpacks.quantity.$error.pattern || adscashpacks.quantity.$error.min || adscashpacks.quantity.$error.max" class="alert alert-danger error-quantity">Adscash bundle quantity must be between 1 to 4000</span>
+                                    <div class="clearfix"></div><br>
+                                    <br>
+                                </div>
+
+                                <div align="center" class="col-md-12 col-sm-12" style="padding:0px; margin-top:20px;">
+                                  <button style="margin:10px 0px; padding:10px 80px; font-size:30px;" class="btn block brown" ng-disabled="adscashpacks.quantity.$error.pattern || adscashpacks.quantity.$error.required || adscashpacks.quantity.$error.min || adscashpacks.quantity.$error.max  || adscashpacks.quantity.$error.number || buyInfo.packs == 0">
+                                    <strong><i class="fa fa-cart-plus" style="font-size:40px;"></i> Buy AdsCash</strong>
+                                  </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="clearfix"></div><br>
+                        <br>
+                        <hr/>
+                        <!-- <div align="center" style="padding-left:30px;">
+                            <h2 style="color:#930;">Purchase of <strong>ADS.CASH</strong> Coins on Launch Day and Beyond Will be using Bitcoins
+                            </h2>
+                            <p align="center"><strong>Some of the sites from where you can pick up bitcoins and get yourself funded so you are ready are :</strong>
+                            </p>
+                        </div> -->
+                        <!-- <hr/>
+                        <ul style="border-left:5px solid #FC0; margin-left:30px;"> -->
+                            <!-- <li>
+                                For USA , Canada , UK - <a href="http://clicks.aweber.com/y/ct/?l=CY5JQ&amp;m=3mhuj5REUK_ukdv&amp;b=06S6SkBF7v5FM3FBQyZrTg" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://clicks.aweber.com/y/ct/?l%3DCY5JQ%26m%3D3mhuj5REUK_ukdv%26b%3D06S6SkBF7v5FM3FBQyZrTg&amp;source=gmail&amp;ust=1490157393948000&amp;usg=AFQjCNEej-AugmnCWlnD0F0j-xRVUBTyNA">coinbase.com</a> <br>
+
+                                <a href="https://www.youtube.com/watch?v=8ReFJILZHZk" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://www.youtube.com/watch?v%3D8ReFJILZHZk&amp;source=gmail&amp;ust=1490157393948000&amp;usg=AFQjCNHVUwwsWOqqi0HLPgccUX-PLE-cHw">How to buy bitcoins from Coinbase?</a></li>
+                            <li>
+                                For Australia,Newzealand - <a href="https://www.cointree.com.au/" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://www.cointree.com.au/&amp;source=gmail&amp;ust=1490157393949000&amp;usg=AFQjCNHU7AVWHXYX8fVxxbU4x3uO5aQZfw">Cointree.Com</a></li>
+                            <li>
+                                For India - <a href="http://clicks.aweber.com/y/ct/?l=CY5JQ&amp;m=3mhuj5REUK_ukdv&amp;b=q.9dcCy.mEOHetFAmDN0ew" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://clicks.aweber.com/y/ct/?l%3DCY5JQ%26m%3D3mhuj5REUK_ukdv%26b%3Dq.9dcCy.mEOHetFAmDN0ew&amp;source=gmail&amp;ust=1490157393949000&amp;usg=AFQjCNEVzxj3wiDzy56dGR2IKrpOUZ2OuQ">zebpay.com</a><br
+                                />
+                                <a href="https://www.youtube.com/watch?v=8ReFJILZHZk" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://www.youtube.com/watch?v%3D8ReFJILZHZk&amp;source=gmail&amp;ust=1490157393949000&amp;usg=AFQjCNHC95ElrhwTReguqQHCtsOMYfaMRA">How to buy bitcoins from Zebpay?</a></li>
+                            <li>
+                                For Philippines - <a href="https://coins.ph/" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://coins.ph/&amp;source=gmail&amp;ust=1490157393949000&amp;usg=AFQjCNF4kJUce5Xqn0EmQQt1k8w9HHcIbQ">Coins.ph</a><br
+                                /><a href="https://www.youtube.com/watch?v=37v8MQMZrsk" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://www.youtube.com/watch?v%3D37v8MQMZrsk&amp;source=gmail&amp;ust=1490157393949000&amp;usg=AFQjCNEYhmV1twQjMtb_EhA3aK-BOSUvqA">How to buy bitcoins from Coins.ph?</a></li>
+                            <li>
+                                For Singapore - <a href="https://www.coinhako.com/" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://www.coinhako.com/&amp;source=gmail&amp;ust=1490157393949000&amp;usg=AFQjCNEi6ZeU9fufEcc3RWhz4AMGRWO94A">Coinhako.com</a><br
+                                /><a href="https://www.youtube.com/watch?v=_I63rUOzsOU" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://www.youtube.com/watch?v%3D_I63rUOzsOU&amp;source=gmail&amp;ust=1490157393949000&amp;usg=AFQjCNE5GIDEC_-KsY_sFCdZuDfZFG3Qeg">How to buy bitcoins from Coinhako?</a></li>
+                            <li>
+                                For Malaysia - <a href="https://coins.my/" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://coins.my/&amp;source=gmail&amp;ust=1490157393949000&amp;usg=AFQjCNGFCD1NCbMRH2EFlHBMSh5-p3RSEQ">Coins.my</a>
+                            </li>
+                            <li>
+                                For Nigeria And Africa - <a href="http://clicks.aweber.com/y/ct/?l=CY5JQ&amp;m=3mhuj5REUK_ukdv&amp;b=Nr800zpt9kYJnMBtxG.heg" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://clicks.aweber.com/y/ct/?l%3DCY5JQ%26m%3D3mhuj5REUK_ukdv%26b%3DNr800zpt9kYJnMBtxG.heg&amp;source=gmail&amp;ust=1490157393949000&amp;usg=AFQjCNG0CTLZPiTzxb8BnZgXKOS5UiVKTg">nairaex.com</a><br
+                                />
+                                <a href="https://www.youtube.com/watch?v=uPzP_qYnoEQ" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://www.youtube.com/watch?v%3DuPzP_qYnoEQ&amp;source=gmail&amp;ust=1490157393949000&amp;usg=AFQjCNGzDOOaKPvIllzTwh8aIEBzodtJJw">How to buy bitcoins from Nairaex?</a></li>
+                            <li>
+                                For Dubai and rest of UAE - <a href="http://clicks.aweber.com/y/ct/?l=CY5JQ&amp;m=3mhuj5REUK_ukdv&amp;b=PLl0eurRHGwQTFtZhn8S3g" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://clicks.aweber.com/y/ct/?l%3DCY5JQ%26m%3D3mhuj5REUK_ukdv%26b%3DPLl0eurRHGwQTFtZhn8S3g&amp;source=gmail&amp;ust=1490157393949000&amp;usg=AFQjCNEXdw6TpJz5L4WZS-hphY_RfufjAQ">bitoasis.net</a></li>
+                            <li>
+                                For Rest of the world - <a href="http://clicks.aweber.com/y/ct/?l=CY5JQ&amp;m=3mhuj5REUK_ukdv&amp;b=UmuC0NPgqrW4E00exndLrQ" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://clicks.aweber.com/y/ct/?l%3DCY5JQ%26m%3D3mhuj5REUK_ukdv%26b%3DUmuC0NPgqrW4E00exndLrQ&amp;source=gmail&amp;ust=1490157393949000&amp;usg=AFQjCNFpZrI6vw7lixVoLu-gwljLZzELRQ">localbitcoins.com</a><br>
+                                <a href="https://www.youtube.com/watch?v=hzHLeeU1tFE" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://www.youtube.com/watch?v%3DhzHLeeU1tFE&amp;source=gmail&amp;ust=1490157393949000&amp;usg=AFQjCNF1x5-5rqPu8SbJj6fsL1WJ8Q-YNw">How to buy bitcoins from localbitcoins.com?</a></li> -->
+                        <!-- </ul> -->
+
+                        <!-- <p style="padding-left:30px;">For Buying Bitcoins Using Credit cards , use <a href="http://cex.io/" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://cex.io&amp;source=gmail&amp;ust=1490157393950000&amp;usg=AFQjCNErTa8rYPaPWW-oTMJLetNAYnewGA">cex.io</a> ,
+                            <a href="http://buy.bitcoin.com/" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://buy.bitcoin.com&amp;source=gmail&amp;ust=1490157393950000&amp;usg=AFQjCNHNflgYn5rh664v9V2NRbFe_zA80w">buy.bitcoin.com</a>
+                        </p> -->
+
+                        <!-- <div class="row" style="padding:20px;">
+                            <div class="col-md-4 col-sm-12"><iframe width="100%" height="200" src="https://www.youtube.com/embed/8ReFJILZHZk" frameborder="0" allowfullscreen></iframe></div>
+                            <div class="col-md-4 col-sm-12"><iframe width="100%" height="200" src="https://www.youtube.com/embed/37v8MQMZrsk" frameborder="0" allowfullscreen></iframe></div>
+                            <div class="col-md-4 col-sm-12"><iframe width="100%" height="200" src="https://www.youtube.com/embed/_I63rUOzsOU" frameborder="0" allowfullscreen></iframe></div>
+                        </div>
+
+                        <div class="row" style="padding:5px 20px;">
+                            <div class="col-md-4 col-sm-12"><iframe width="100%" height="200" src="https://www.youtube.com/embed/0DA3zf18GzY" frameborder="0" allowfullscreen></iframe></div>
+                            <div class="col-md-4 col-sm-12"><iframe width="100%" height="200" src="https://www.youtube.com/embed/uPzP_qYnoEQ" frameborder="0" allowfullscreen></iframe></div>
+                            <div class="col-md-4 col-sm-12"><iframe width="100%" height="200" src="https://www.youtube.com/embed/hzHLeeU1tFE" frameborder="0" allowfullscreen></iframe></div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+  </div>
+  <div class="clearfix"></div>
+
+  </div> <div class="clearfix"></div> <div class="app" style="position: absolute;bottom: 0px;min-height:initial;height:40px">     <footer ng-include="'app/dashboard/footer/footer.html'"></footer>     <div class="clearfix"></div> </div> <div class="clearfix">

@@ -1,0 +1,54 @@
+<section>
+  <div class="page-head main-top-space" >
+    <div class="col-sm-12">
+      <div class="col-md-12 page-content" >
+        <!-- html for page title -->
+        <!--div class="page-title col-sm-12">
+          <h1><i class="fa fa-money leadertitle-icon-lrg"></i>Text Ads</h1>
+       </div-->
+       <div class="clearfix"></div>
+        <!-- html for dashboard -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="caption" style="line-height:35px;">
+              <i class="fa fa-eye font-green-sharp"></i>
+              <span class="caption-subject font-green-sharp bold uppercase" style="font-size:16px !important;">
+                {{headingText}}
+              </span>
+
+              <div ng-show="showNext" class="caption caption-md pull-right">
+                <button class="btn brown" ng-click="showNextCampaign()">
+                  <i class="fa fa-arrow-circle-right"></i> {{buttonText}}
+                </button>
+              </div>
+            </div>
+            <div ng-show="showTimer" class="caption caption-md ">
+              <span style="font-size:16px;">View Time: </span>
+              <span id="view-time-left" data-view-time="{{viewTime}}" style="font-size:16px;">{{viewTime}}</span>
+            </div>
+            <div class="clearfix"></div>
+            <hr>
+            <div class="clearfix"></div>
+            <div class="col-md-12" data-ng-pr-src="{{tkViewUrl}}">
+              <iframe ng-src="{{viewUrl}}" frameBorder="0" width="100%" height="700"></iframe>
+              <script>
+                var frame  = document.getElementsByTagName('iframe')[0];
+                var _frame = angular.element(frame);
+                var timeExceeded=false;
+                setTimeout(function() {timeExceeded=true; }, 1000);
+                _frame.on('load', function() {
+                  if(!timeExceeded) {
+                    _frame.attr('src', _frame.parent().attr('data-ng-pr-src'));
+                  }
+                });
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</section>
+
+<!--footer ng-include="'app/dashboard/footer/footer.html'"></footer-->

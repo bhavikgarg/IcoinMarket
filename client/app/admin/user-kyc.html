@@ -1,0 +1,229 @@
+<style>
+  div.modal-content {
+    margin-top: 6%;
+  }
+  div.modal-dialog {
+    width: 80%;
+    height: 85%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 0px;
+  }
+
+  div.modal-content {
+    height: auto;
+    min-height: 100%;
+    border-radius: 0px;
+  }
+</style>
+
+      <div class="hidden-xs modal-header model-header-color">
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+          <h3>
+            <i class="fa fa-user" aria-hidden="true" style="color:#fff; font-size:18px;"></i> Customer :  {{userDetails.user.name}}
+            <span class="user-id">( USER Id : {{userDetails.user.id}} )</span>
+          </h3>
+          <button type="button" class="close close-button" aria-label="Close" ng-click="closeModal()" style="margin-right:10px;margin-top:-6px;width:auto;height:auto;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+
+    <div class="modal-body" style="padding:25px 40px 40px;width:100%">
+
+      <div class="row">
+        <form name="kycapprovalform" class="pop-form" ng-submit="save()">
+          <div class="col-md-5">
+            <div class="customer-details">
+              <h3> User Details    <span class="btn status {{userDetails.kyc_flag}}" >STATUS :  {{userDetails.kyc_flag}}</span> </h3>
+              <p> <b>Name</b> : {{userDetails.user.name}}</p>
+              <p> <b>Email</b> : {{userDetails.user.email}}</p>
+              <p> <b>Mobile</b> : {{userDetails.user.mobile}}</p>
+              <p> <b>Government Id</b> : {{userDetails.user.govid}}</p>
+              <p> <b>Tax Id</b> : {{userDetails.user.taxid}}</p>
+              <div class="clearfix"></div>
+              <br>
+              <br>
+
+              <h3> Admin Action Details </h3>
+              <p ng-if="userDetails.moderator.viewed == false" > <b>Review Status</b> : No </p>
+              <p ng-if="userDetails.moderator.viewed == true" > <b>Review Status</b> : Yes </p>
+              <p> <b>Status Set by Admin </b> : <span class="label status {{userDetails.admin.flag}} "> {{userDetails.admin.flag}} </span></p>
+                <p> <b>Admin Comments</b> : {{userDetails.admin.comments}}</p>
+              <div ng-if="isSupervisorAdmin() || isSuperAdmin()" class="col-md-12">
+                <div class="row">
+                  <div ng-if="((userDetails.kyc_flag == 'UNVERIFIED' || userDetails.kyc_flag == 'REJECTED' || userDetails.kyc_flag == 'PENDING'  || userDetails.kyc_flag == '') && (userDetails.assetsStatus.selfie != 'ACCEPTED' || userDetails.assetsStatus.id_1 != 'ACCEPTED'))">
+                    <div class="col-md-7">
+                      <p> <b>Reject Reason (Will be displayed to user)</b> : {{userDetails.admin.rejectReason}}</p>
+                      <textarea class="form-control" ng-model="userDetails.admin.rejectReason" required></textarea>
+                    </div>
+                  </div>
+
+                  <div class="col-md-7">
+                    <p> <b>Admin Comments (Displayed internally)</b> : {{userDetails.admin.comments}}</p>
+                    <textarea class="form-control" ng-model="userDetails.admin.comments"></textarea>
+                  </div>
+                  <div class="col-md-5">
+                    <select name="admin_flag" ng-model="userDetails.admin.flag" class="admin_flag kyc_status_select form-control" id="admin_flag" style="margin-top: 65px">
+                      <option ng-if="isSuperAdmin()" value="UNVERIFIED" selected >UNVERIFIED</option>
+                      <option value="ONHOLD" >ONHOLD</option>
+                      <option value="REJECTED" >REJECTED</option>
+                      <option value="VERIFIED" >VERIFIED</option>
+                      <option value="APPROVED" >APPROVED</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2" style="margin-top:10px">
+                    <button type="button" class="btn btn-small brown" ng-click="save()">Save</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+              <br>
+              <br>
+
+              <h3> Moderator Action Details </h3>
+              <p> <b>Moderator Name</b> : {{userDetails.moderator.name}}</p>
+              <p> <b>Status Set by Moderator </b> : <span class="label status {{userDetails.moderator.flag}} "> {{userDetails.moderator.flag}} </span></p>
+              <p> <b>Moderated On </b> : {{userDetails.moderator.timestamp}}</p>
+              <p> <b>Review Status </b> : {{userDetails.moderator.viewed}}</p>
+              <p> <b>Moderator Comments</b> : {{userDetails.moderator.comments}}</p>
+              <div ng-if="isModeratorAdmin()"  class="col-md-12">
+                <div class="row">
+                  <div ng-if="((userDetails.kyc_flag == 'UNVERIFIED' || userDetails.kyc_flag == 'REJECTED' || userDetails.kyc_flag == 'PENDING'  || userDetails.kyc_flag == '') && (userDetails.assetsStatus.selfie != 'ACCEPTED' || userDetails.assetsStatus.id_1 != 'ACCEPTED'))">
+                    <div class="col-md-7">
+                      <p> <b>Reject Reason (Will be displayed to user)</b> : {{userDetails.moderator.rejectReason}}</p>
+                      <textarea class="form-control" ng-model="userDetails.moderator.rejectReason" required></textarea>
+                    </div>
+                  </div>
+
+                  <div class="col-md-7">
+                    <p> <b>Moderator Comments (Displayed internally)</b> :</p>
+                    <textarea class="form-control" ng-model="userDetails.moderator.comments"></textarea>
+                  </div>
+                  <div class="col-md-3">
+                    <select name="moderator_flag" ng-model="userDetails.moderator.flag" class="moderator_flag kyc_status_select" id="moderator_flag">
+                      <!-- <option value="UNVERIFIED" selected >UNVERIFIED</option> -->
+                      <option value="ONHOLD" >ONHOLD</option>
+                      <option value="REJECTED" >REJECTED</option>
+                      <option ng-if="userDetails.assetsStatus.selfie == 'ACCEPTED' && userDetails.assetsStatus.id_1 == 'ACCEPTED'" value="VERIFIED" >VERIFIED</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="submit" class="btn btn-small waves-effect"  style="margin-top: 35px">Save</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-7" style="height:600px;overflow-x:auto;border:5px solid #ccc;width:50%;">
+            <table class="table" style="margin-bottom:0px;">
+              <tbody>
+                <tr>
+                  <td style="width:50%;border-top:0px;">
+                    <a href="{{userSelfie}}" target="_blank" >
+                      <img width="400" src="{{userSelfie}}" alt="User Selfie" class="img-responsive" />
+                    </a>
+                  </td>
+                  <td style="width:50%;border-top:0px;" valign="top">
+                    <p><strong>Title:</strong> Selfie</p>
+                    <p><strong>Uploaded At:</strong> {{userDetails.updatedAt | date:'medium'}}</p>
+                    <p ng-if="userDetails.kyc_flag == 'UNVERIFIED' || userDetails.kyc_flag == 'PENDING' || userDetails.kyc_flag == 'REJECTED'">
+                      <strong>Action:</strong>
+                      <input type="radio" id="selfieaccept" name="selfieaction" value="ACCEPTED" ng-model="userDetails.assetsStatus.selfie" />
+                      <label for="selfieaccept" class="radio-label" style="padding:0 10px 0 26px !important;font-size:1em;color:#444;">Accept</label>
+                      <input type="radio" id="selfiereject" name="selfieaction" value="REJECTED" ng-model="userDetails.assetsStatus.selfie" />
+                      <label for="selfiereject" class="radio-label" style="padding:0 10px 0 26px !important;font-size:1em;color:#444;">Reject</label>
+                    </p>
+                    <p ng-switch on="userDetails">
+                      <span ng-switch-when="userDetails.assetsStatus.selfie != '' && userDetails.assetsStatus.selfie != 'ACCEPTED' && userDetails.kyc_flag != 'UNVERIFIED'">
+                        <span ng-if="userDetails.moderator.name && userDetails.moderator.name != '' && !userDetails.admin.name && userDetails.moderator.name == ''">
+                          <strong>Reject By:</strong> {{userDetails.moderator.name}}
+                        </span>
+                        <span ng-if="userDetails.admin.name && userDetails.admin.name != ''">
+                          <strong>Reject By:</strong> {{userDetails.admin.name}}
+                        </span>
+                        <span ng-if="(!userDetails.moderator.name && !userDetails.admin.name) || (userDetails.admin.name == '' && userDetails.moderator.name == '')">
+                          <strong>Reject By:</strong> admin
+                        </span>
+                      </span>
+                      <span ng-switch-default>
+                        <strong>Status:</strong> {{userDetails.assetsStatus.selfie}}
+                      </span>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:50%">
+                    <a href="{{userGovid}}" target="_blank" >
+                      <img width="400" src="{{userGovid}}" alt="Governament ID ({{userDetails.doctypes.id_1}})" class="img-responsive" />
+                    </a>
+                  </td>
+                  <td style="width:50%" valign="top">
+                    <p><strong>Title:</strong> Government ID ({{userDetails.doctypes.id_1}})</p>
+                    <p><strong>Uploaded At:</strong> {{userDetails.updatedAt | date:'medium'}}</p>
+                    <p ng-if="userDetails.kyc_flag == 'UNVERIFIED' || userDetails.kyc_flag == 'PENDING' || userDetails.kyc_flag == 'REJECTED'">
+                      <strong>Action:</strong>
+                      <input type="radio" id="govidaccept" name="govidaction" value="ACCEPTED" ng-model="userDetails.assetsStatus.id_1" />
+                      <label for="govidaccept" class="radio-label" style="padding:0 10px 0 26px !important;font-size:1em;color:#444;">Accept</label>
+                      <input type="radio" id="govidreject" name="govidaction" value="REJECTED" ng-model="userDetails.assetsStatus.id_1" />
+                      <label for="govidreject" class="radio-label" style="padding:0 10px 0 26px !important;font-size:1em;color:#444;">Reject</label>
+                    </p>
+                    <p ng-switch on="userDetails">
+                      <span ng-switch-when="userDetails.assetsStatus.id_1 != '' && userDetails.assetsStatus.id_1 != 'ACCEPTED' && userDetails.kyc_flag != 'UNVERIFIED'">
+                        <span ng-if="userDetails.moderator.name && userDetails.moderator.name != '' && !userDetails.admin.name && userDetails.moderator.name == ''">
+                          <strong>Reject By:</strong> {{userDetails.moderator.name}}
+                        </span>
+                        <span ng-if="userDetails.admin.name && userDetails.admin.name != ''">
+                          <strong>Reject By:</strong> {{userDetails.admin.name}}
+                        </span>
+                        <span ng-if="(!userDetails.moderator.name && !userDetails.admin.name) || (userDetails.admin.name == '' && userDetails.moderator.name == '')">
+                          <strong>Reject By:</strong> admin
+                        </span>
+                      </span>
+                      <span ng-switch-default>
+                        <strong>Status:</strong> {{userDetails.assetsStatus.id_1}}<br />
+                      </span>
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table ng-if="hasPreviousMeta && displayTable" class="table" style="margin-bottom:0px;" ng-repeat="(key, pmeta) in previousMeta">
+              <tbody>
+                <tr ng-if="pmeta.assetsStatus.selfie == 'REJECTED' && pmeta.s3asset.selfie != userDetails.s3asset.selfie">
+                  <td style="width:50%">
+                    <img id="img-1-{{key}}" width="400" src="" alt="User Selfie" class="img-responsive" style="display:none;" />
+                    <button id="img-btn-1-{{key}}" type="button" class="btn button-primary" ng-click="loadImage(key, 1)">Load Image</button>
+                  </td>
+                  <td style="width:50%" valign="top">
+                    <p><strong>Title:</strong> Selfie</p>
+                    <p><strong>Rejected At:</strong> {{pmeta.rejectedat | date:'medium'}}</p>
+                    <p><strong>Reject By:</strong> {{pmeta.rejectByName}}</p>
+                    <p><strong>Reject Resaon:</strong> {{pmeta.rejectReason}}</p>
+                  </td>
+                </tr>
+                <tr ng-if="pmeta.assetsStatus.id_1 == 'REJECTED' && pmeta.s3asset.id_1 != userDetails.s3asset.id_1">
+                  <td style="width:50%">
+                    <img id="img-2-{{key}}" width="400" src="" alt="User Selfie" class="img-responsive" style="display:none;" />
+                    <button id="img-btn-2-{{key}}" type="button" class="btn button-primary" ng-click="loadImage(key, 2)">Load Image</button>
+                  </td>
+                  <td style="width:50%" valign="top">
+                    <p><strong>Title:</strong> Government ID ({{pmeta.doctypes.id_1}})</p>
+                    <p><strong>Rejected At:</strong> {{pmeta.rejectedat | date:'medium'}}</p>
+                    <p><strong>Reject By:</strong> {{pmeta.rejectByName}}</p>
+                    <p><strong>Reject Resaon:</strong> {{pmeta.rejectReason}}</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <button ng-if="hasPreviousMeta && !displayTable" type="button" class="btn brown pull-right" ng-click="displayPreviousMeta()" style="margin-right:33px;margin-top:10px;">Show Previous Rejections Informations</button>
+        </form>
+      </div>
+
+</div>
+<div class="modal-footer">
+  <button  align="center" type="button" ng-click="closeUserKyc()" class="btn btn-lg brown dashboard-video-button"  data-dismiss="modal" aria-hidden="true">Close User Record</button>
+</div>

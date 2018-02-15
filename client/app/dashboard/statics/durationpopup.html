@@ -1,0 +1,244 @@
+<div class="modal-content">
+    <div class="modal-body" style="padding:0px;">
+        <div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist" style="background:#f2f2f2;">
+                <!-- <li role="presentation" class="active"><a ng-click="changeDurationTab('0to3Months')" role="tab" data-toggle="tab" aria-expanded="true">0 to 3 Months</a></li> -->
+                <li role="presentation" class="active"><a ng-click="changeDurationTab('0to4Months')" role="tab" data-toggle="tab">0 to 4 Months</a></li>
+                <!-- <li role="presentation"><a ng-click="changeDurationTab('0to6Months')" role="tab" data-toggle="tab">0 to 6 Months</a></li>
+                <li role="presentation"><a ng-click="changeDurationTab('0to12Months')" role="tab" data-toggle="tab">0 to 12 Months</a></li>
+                <li role="presentation"><a ng-click="changeDurationTab('0to18Months')" role="tab" data-toggle="tab">0 to 18 Months</a></li>
+                <li role="presentation"><a ng-click="changeDurationTab('0to24Months')" role="tab" data-toggle="tab">0 to 24 Months</a></li> -->
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content" style="padding:20px;">
+                <!-- <div role="tabpanel" class="tab-pane active" ng-show='$parent.tabName=="0to3Months"'>
+                    <h2 class="title-popup"> Aggressive profile </h2>
+                    <table class="table">
+                        <tr class="active">
+                            <td><strong>Duration</strong></td>
+                            <td><input type="checkbox" name="choose-pack" ng-model="$parent.threeMonths" ng-click="checkDuration()"><strong> 0-3 Months</strong></td>
+                        </tr>
+                        <tr class="success">
+                            <td>Portfolio Manager Name</td>
+                            <td>Trader01</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Manager ID</td>
+                            <td>TR01PMG</td>
+                        </tr>
+                        <tr class="success">
+                            <td>Trading Experience</td>
+                            <td>5 Years with 250% profit trading</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Loss %</td>
+                            <td>120%</td>
+                        </tr>
+                        <tr class="success">
+                            <td>Profit %</td>
+                            <td>300%</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Total Portfolio</td>
+                            <td>8 Million</td>
+                        </tr>
+                    </table>
+                    <small class="warning">
+                    <strong>Note : </strong>
+                    The prices of crypto currencies are subject to the risk of market fluctuation. Aggressive period gets matured after 3 months. As the time the amount gets matured, you will be able to withdraw funds by giving back 60% profits to the system. For more details, refer our compensation plan.
+                    </small>
+                </div> -->
+                <div role="tabpanel" class="tab-pane active" ng-show='$parent.tabName=="0to4Months"'>
+                    <h2 class="title-popup"> Agile profile </h2>
+                    <table class="table">
+                        <tr class="active">
+                            <td><strong>Duration</strong></td>
+                            <td><input type="checkbox" name="choose-pack" ng-model="$parent.fourMonths" ng-click="checkDuration()"><strong> 0-4 Months</strong></td>
+                        </tr>
+                        <tr class="success">
+                            <td>Portfolio Manager Name</td>
+                            <td>Trader01</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Manager ID</td>
+                            <td>TR01PMG</td>
+                        </tr>
+                        <tr class="success">
+                            <td>Trading Experience</td>
+                            <td>5 Years with 250% profit trading</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Loss %</td>
+                            <td>0%</td>
+                        </tr>
+                        <tr class="success">
+                            <td>Profit %</td>
+                            <td>140%</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Total Portfolio</td>
+                            <td>8 Million</td>
+                        </tr>
+                    </table>
+                    <small class="warning">
+                    <strong>Note : </strong>
+                    The prices of crypto currencies are subject to the risk of market fluctuation. Agile period gets matured after 4 months. As the time the amount gets matured, you will be able to withdraw funds by giving back 0% profits to the system. For more details, refer our compensation plan.
+                    </small>
+                </div>
+                <!-- <div role="tabpanel" class="tab-pane active" ng-show='$parent.tabName=="0to6Months"'>
+                    <h2 class="title-popup"> Distributive profile</h2>
+                    <table class="table">
+                        <tr class="active">
+                            <td><strong>Duration</strong></td>
+                            <td><input type="checkbox" name="choose-pack" ng-model="$parent.sixMonths" ng-click="checkDuration()"><strong> 0-6 Months</strong></td>
+                        </tr>
+                        <tr class="success">
+                            <td>Portfolio Manager Name</td>
+                            <td>Trader02</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Manager ID</td>
+                            <td>TR02PMA</td>
+                        </tr>
+                        <tr class="success">
+                            <td>Trading Experience</td>
+                            <td>6 Years with 280% profit trading</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Loss %</td>
+                            <td>100%</td>
+                        </tr>
+                        <tr class="success">
+                            <td>Profit %</td>
+                            <td>280%</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Total Portfolio</td>
+                            <td>11 Million</td>
+                        </tr>
+                    </table>
+                    <small class="success">
+                                <strong>Note : </strong>
+                                The prices of crypto currencies are subject to the risk of market fluctuation. Distributive period gets matured after 6 months. As the time the amount gets matured, you will be able to withdraw funds by giving back 40% profits to the system. For more details, refer our compensation plan.
+                            </small>
+                </div>
+                <div role="tabpanel" class="tab-pane active" ng-show='$parent.tabName=="0to12Months"'>
+                    <h2 class="title-popup">Safe Profile</h2>
+                    <table class="table">
+                        <tr class="active">
+                            <td><strong>Duration</strong></td>
+                            <td><input type="checkbox" name="choose-pack" ng-model="$parent.twelveMonths" ng-click="checkDuration()"><strong> 0-12 Months</strong></td>
+                        </tr>
+                        <tr class="success">
+                            <td>Portfolio Manager Name</td>
+                            <td>Trader03</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Manager ID</td>
+                            <td>TR03PMA</td>
+                        </tr>
+                        <tr class="success">
+                            <td>Trading Experience</td>
+                            <td>6 Years with 280% profit trading</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Loss %</td>
+                            <td>120%</td>
+                        </tr>
+                        <tr class="success">
+                            <td>Profit %</td>
+                            <td>270%</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Total Portfolio</td>
+                            <td>13 Million</td>
+                        </tr>
+                    </table>
+                    <small class="success">
+                                <strong>Note : </strong>
+                                 The prices of crypto currencies are subject to the risk of market fluctuation. Safe period gets matured after 12 months. As the time the amount gets matured, you will be able to withdraw funds by giving back 30% profits to the system. For more details, refer our compensation plan.
+                            </small>
+                </div>
+                <div role="tabpanel" class="tab-pane active" ng-show='$parent.tabName=="0to18Months"'>
+                    <h2 class="title-popup">Stable Profile</h2>
+                    <table class="table">
+                        <tr class="active">
+                            <td><strong>Duration</strong></td>
+                            <td><input type="checkbox" name="choose-pack" ng-model="$parent.eighteenMonths" ng-click="checkDuration()"><strong> 0-18 Months</strong></td>
+                        </tr>
+                        <tr class="success">
+                            <td>Portfolio Manager Name</td>
+                            <td>Trader02</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Manager ID</td>
+                            <td>TR02PMA</td>
+                        </tr>
+                        <tr class="success">
+                            <td>Trading Experience</td>
+                            <td>6 Years with 280% profit trading</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Loss %</td>
+                            <td>100%</td>
+                        </tr>
+                        <tr class="success">
+                            <td>Profit %</td>
+                            <td>280%</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Total Portfolio</td>
+                            <td>11 Million</td>
+                        </tr>
+                    </table>
+                    <small class="success">
+                                <strong>Note : </strong>
+                                The prices of crypto currencies are subject to the risk of market fluctuation. Stable period gets matured after 18 months. As the time the amount gets matured, you will be able to withdraw funds by giving back 20% profits to the system. For more details, refer our compensation plan.
+                            </small>
+                </div>
+                <div role="tabpanel" class="tab-pane active" ng-show='$parent.tabName=="0to24Months"'>
+                    <h2 class="title-popup"> Fixed Profile</h2>
+                    <table class="table">
+                        <tr class="active">
+                            <td><strong>Duration</strong></td>
+                            <td><input type="checkbox" name="choose-pack" ng-model="$parent.twentyFourMonths" ng-click="checkDuration()"><strong> 0-24 Months</strong></td>
+                        </tr>
+                        <tr class="success">
+                            <td>Portfolio Manager Name</td>
+                            <td>Trader01</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Manager ID</td>
+                            <td>TR01PMA</td>
+                        </tr>
+                        <tr class="success">
+                            <td>Trading Experience</td>
+                            <td>6 Years with 250% profit trading</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Loss %</td>
+                            <td>120%</td>
+                        </tr>
+                        <tr class="success">
+                            <td>Profit %</td>
+                            <td>300%</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Total Portfolio</td>
+                            <td>8 Million</td>
+                        </tr>
+                    </table>
+                    <small class="success">
+                                <strong>Note : </strong>
+                                The prices of crypto currencies are subject to the risk of market fluctuation. Fixed period gets matured after 24 months. As the time the amount gets matured, you will be able to withdraw funds by giving back 10% profits to the system. For more details, refer our compensation plan.
+                            </small>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="closeDurationPopup()">Cancel</button>
+        <button type="button" class="btn brown" ng-click="placeCommitment()">Confirm</button>
+    </div>
+</div>

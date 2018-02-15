@@ -1,0 +1,155 @@
+<style>
+  .read-only {
+    background-color:#EBEBE4;
+    border:1px solid #ABADB3;
+    padding:2px 1px;
+  }
+
+  .required {
+    color : red;
+  }
+  .success {
+    color : green !important;
+  }
+  .control-label {
+    font-weight: bold;
+  }
+  .modal.fade.adc-confirm-window {z-index: 999999999 !important;}
+</style>
+<!-- Payment Options Modal Window -->
+
+    <div class="modal-content">
+      <div class="modal-header model-header-color">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Payment Options</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" ng-repeat="(key, gatewayImage) in gateways"  ng-if="!showGoldCoinForm && !showPaymentQRCode">
+          <div class="col-sm-12">
+            <input type="radio" id="paymode-{{key}}" ng-model="paymode.name" value="{{key}}"/>
+            <img src="assets/images/{{gatewayImage}}" width="200">
+            <hr/>
+          </div>
+        </div>
+        <div class="clearfix" ng-if="!showGoldCoinForm && !showPaymentQRCode"></div>
+        <div class="form-group" style="margin-top:10px;" ng-if="!showGoldCoinForm && !showPaymentQRCode">
+          <div class="col-sm-12">
+            <button type="button" class="btn brown" ng-disabled="waitMessage!='' || !paymode.name" ng-click="purchasePacks()">Pay Now</button>
+            <button type="button" class="btn btn-warning" ng-disabled="waitMessage!=''" ng-click="closeDialog(); closeAllDialogs();">Back</button>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group"></div>
+        <div class="form-group" ng-form="gold-coin" ng-if="showGoldCoinForm">
+          <div class="col-sm-12 bank-wire no-padding">
+            <div class="form-group">
+                          <div class="col-sm-6">
+                            <label class="control-label">CI gold coins balance</label>
+                          </div>
+                          <div class="col-sm-6 ng-binding">
+                            {{goldCoinsDetails.balance}}
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="form-group">
+                          <div class="col-sm-6">
+                            <label class="control-label">Total adscash</label>
+                          </div>
+                          <div class="col-sm-6 ng-binding">
+                            {{buyInfoGoldCoins.coins}}
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="form-group">
+                          <div class="col-sm-6">
+                            <label class="control-label">Invoice amount</label>
+                          </div>
+                          <div class="col-sm-6 ng-binding">
+                              {{buyInfoGoldCoins.amount | currency}}
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <form name="prevForm">
+                          <div class="form-group">
+                            <div class="col-sm-6">
+                              <label class="control-label">Paid by CI</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="number" class="control-label" name="gcused" placeholder="CI gold coins" numbersOnly ng-pattern="/^(\d)+$/" ng-model="buyInfoGoldCoins.gcused" ng-change="updateBuyCostGoldCoins()" required/>
+                              <span class='help-block' style='color:red' ng-if="prevForm.gcused.$error.pattern">This should be a number</span>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="form-group">
+                            <div class="col-sm-6">
+                              <label class="control-label">Pending Balance</label>
+                            </div>
+                            <div class="col-sm-6 ng-binding">
+                                {{buyInfoGoldCoins.pendingAmount | currency}}
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <br><br>
+                          <p style="font-size:14px;font-weight:bold;">Please select below pay methods for remaing payment.</p>
+                          <div class="form-group" ng-repeat="(key, gatewayImage) in gateways" ng-if="key != 'gc'">
+                            <div class="col-sm-12">
+                              <input type="radio" id="paymode2-{{key}}" ng-model="paymode2.name" value="{{key}}"/>
+                              <img src="assets/images/{{gatewayImage}}" width="200">
+                              <hr/>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="form-group">
+                            <div class="col-sm-12 no-padding margin-bottom">
+                              <div class="form-group">
+                                <div style="padding-top:20px;">
+                                  <button type="button" class="btn brown" ng-click="buyInfoGoldCoins.proceed = true; purchasePacks()" ng-disabled="prevForm.$invalid || waitMessage!='' || paymode2.name == '' || prevForm.gcused.$error.pattern">Proceed</button>
+
+                                  <button type="button" class="btn btn-warning" ng-disabled="prevForm.$invalid || waitMessage!=''" ng-click="closeDialog(); closeAllDialogs();">Cancel</button>
+
+                                  <!-- <p ng-class="{'has-error': waitMessage!=''}">
+                                    <span class="help-block">{{waitMessage}}</span>
+                                  </p> -->
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:10px;" ng-if="showPaymentQRCode">
+          <div class="col-sm-12">
+            <center>
+            <span class="alert alert-danger">Please don't refresh this page until successful payment to the below address.</span>
+            <p style="padding-top:30px;" ng-if="buyInfo.response.coins">{{buyInfo.response.coins}} gold coins have been deducted from your CI account. For remaining amount, deposit <strong>{{buyInfo.response.amount }} BTC</strong> to the below address.</p>
+            <p style="padding-top:30px;" ng-if="!buyInfo.response.coins">Please deposit <strong>{{buyInfo.response.amount }} BTC</strong> to the below address.</p>
+            <p><span style="font-size:16px; font-weight:bold;">{{buyInfo.response.address}}</span><p>
+            <qr size="200" text="buyInfo.response.address" image="true"></qr>
+            <p>
+              <!-- After successful payment, click the verify button to proceed. -->
+              <button class="btn btn-success" ng-click="verifyPayment()" ng-disabled="paymentError">I've paid</button>
+              <button class="btn btn-warning" ng-click="payLater()" ng-disabled="paymentError">I'll pay later</button>
+              <a confirm="Are you sure, you want to cancel this transaction ?" confirm-settings="{windowClass: 'adc-confirm-window'}" title = "Cancel" ng-click="cancelInvoice(buyInfo.response.id, paymode.name)"><button class="btn btn-danger" ng-disabled="paymentError">Cancel Invoice</button></a>
+            </p>
+            <p ng-class="{'has-error': paymentError!=''}">
+              <span class="help-block">{{paymentError}}</span>
+            </p>
+            <p style="color: green">
+              <span class="help-block">{{paymentSuccess}}</span>
+            </p>
+            </center>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="form-group" ng-if="waitMessage">
+          <p ng-class="{'has-error': waitMessage!=''}">
+            <span class="help-block">{{waitMessage}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+<!-- Payment Options Modal Ends -->

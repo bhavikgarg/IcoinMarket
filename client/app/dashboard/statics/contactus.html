@@ -1,0 +1,49 @@
+<style>
+    .container-margin-top-30 {
+        margin-top: -30px !important;
+    }
+</style>
+<div class="app" style="margin-bottom: 40px;">
+    <header class="header header-nav" ng-include="'app/dashboard/header/header.html'" ng-if="isLoggedIn() && userRole == 'user'"></header>
+    <header class="header header-nav" ng-include="'app/admin/header/header.html'" ng-if="isLoggedIn() && (userRole == 'admin'|| userRole==='finance')"></header>
+    <header class="header header-nav" ng-include="'app/support/header/header.html'" ng-if="isLoggedIn() && userRole == 'support'"></header>
+    <header class="header header-nav" ng-include="'app/pm-admin/header/header.html'" ng-if="isLoggedIn() && userRole == 'manager'" style="margin-bottom:112px"></header>
+    <div class="container" ng-class="{'container-margin-top-30': !isPublicAccess}">
+        <div class="block block-condensed">
+            <!-- START HEADING -->
+            <!--<div class="app-heading app-heading-small">
+                <div class="title">
+                    <p><a href="/dashboard">Dashboard</a> / Contact</p>
+                </div>
+            </div>-->
+            <!-- END HEADING -->
+            <div class="block-content">
+                <h5 style="font-size: 20px; padding: 10px 0px;">
+                    Contacts
+                </h5>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12" align="center" style="padding-bottom: 50px;">
+
+                        <div style=" height: 200px; padding:40px;">
+
+                            <img src="assets/images/hong_kong_640.png" class="img-resposive">
+                            <br />
+                            <h3 class="pull-left">
+                                <br />16F , King's Comm CTR <br /> 25 KING'S RD TIN HAU Hong kong<br /><br />
+                                <a href="mailto:info@icoinmarket.com">info@icoinmarket.com</a><br />
+                                <a href="mailto:support@icoinmarket.com">support@icoinmarket.com</a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="app" style="position: absolute;bottom: 0px;min-height:initial;height:40px">
+    <footer ng-include="'app/dashboard/footer/footer.html'"></footer>
+    <div class="clearfix"></div>
+</div>
+<div class="clearfix">
+</div>

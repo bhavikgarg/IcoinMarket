@@ -1,0 +1,87 @@
+<div class="col-md-10 list-admin">
+  <h2>AdvCash Pending Approval</h2>
+  <div class="col-md-6 pull-left">
+    <div class="col-md-8">
+      <input type="text" ng-model="filter.data" name="filterdate" placeholder="Search Filter (Name, Email, Unique Transaction ID) "
+      />
+      <span style="margin-top: -12px;display: block;font-size: 0.85em;margin-bottom: 25px;">Filter based on AdvCash unique transaction id</span>
+    </div>
+    <div class="col-md-4">
+      <button class="btn brown" ng-click="findTransactionInfo()">Search AdvCash Transaction</button>
+
+      <span style="padding-left:20px;">{{advloadingInfoMessage}}</span>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div ng-if="showData">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>AdvCash Transaction Id</th>
+          <th>CI Order Id</th>
+          <th>AdvCash Buyer Email</th>
+          <th>AdvCash Order Date</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{advTransInfo.id}}</td>
+          <td>{{advTransInfo.orderId}}</td>
+          <td>{{advTransInfo.senderEmail}}</td>
+          <td>{{advTransInfo.startTime | date:'medium'}}</td>
+          <td>{{advTransInfo.amount}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="col-md-12" style="margin-top:20px;">
+      <div class="col-md-6">
+        <input type="text" ng-model="filter.userdata" name="filterdate" placeholder="Enter Username or Email To Get Payment Info  (Email, Username) "
+        />
+        <span style="margin-top: -12px;display: block;font-size: 0.85em;margin-bottom: 25px;">Filter based on username, and email</span>
+      </div>
+      <div class="col-md-4">
+        <button class="btn brown" ng-click="getUserInfo()">Search User And Payment Info</button>
+        <span style="padding-left:20px;">{{loadingPaymentInfoMessage}}</span>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+
+    <table class="table" ng-if="showPaymentInfo">
+      <thead>
+        <tr>
+          <th>User Id</th>
+          <th>User Name</th>
+          <th>User Email</th>
+          <th>Order Id</th>
+          <th>Current Status</th>
+          <th>Amount</th>
+          <th>Order Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>{{userInfo.username}}</td>
+          <td>{{userInfo.name}}</td>
+          <td>{{userInfo.email}}</td>
+          <td>{{paymentInfo.orderId}}</td>
+          <td>{{paymentInfo.status}}</td>
+          <td>{{paymentInfo.paidamount}}</td>
+          <td>{{paymentInfo.createdAt | date:'medium'}}</td>
+          <td>
+            <button ng-disabled="paymentInfo.status=='COMPLETED'" class="btn btn-primay" ng-click="markCompleted()">Mark Completed</button>
+            <button ng-disabled="paymentInfo.status=='COMPLETED'" class="btn btn-warning" ng-click="markTransfered()">Mark Transferred</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

@@ -1,0 +1,20 @@
+<div ng-controller="PMHeaderCtrl">
+    <div class="app-header">
+        <ul class="app-header-buttons visible-mobile">
+            <li><a href="#" class="btn btn-link btn-icon" data-header-navigation-toggle="true" ng-click="openMenu"><span
+                    class="icon-menu"></span></a></li>
+        </ul>
+        <a ui-sref="pmAdmin" class=" pull-left"><img src="assets/images/icmlogo.png" width="160" style="padding: 10px;"></a>
+        <div ng-include="'app/pm-admin/navigate/navigate.html'"></div>
+    </div>
+    <div class="visible-mobile">
+        <div class="container">
+            <div class="row" style="height: 100%;padding-left: 15px;padding-right: 15px;">
+                <div class=" col-md-4 support-dashboard">
+                    <img ng-src="{{memberInfo.avatar ? memberInfo.avatar : 'assets/images/user/no-image.png' }}" width="40" height="40" style="border-radius: 50px; margin: 10px; margin-left: -10px;">
+                    <span> Welcome - {{memberInfo.name}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

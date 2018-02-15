@@ -1,0 +1,45 @@
+<div class="modal fade solo_ads_popup" id="campaign-model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-if="purchaseinfo.productid != 'gold' && purchaseinfo.productid != 'silver'">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header model-header-color">
+        <h3>Create Campaign</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <form name="soloadd" class="pull-right" ng-submit="createSoloAdd(soloadd)">
+          <br/>
+            <div class="alert alert-danger" ng-if="showError">
+              {{errorMessage}}
+            </div>
+            <div class="form-group col-sm-12">
+              <input style="margin-left:-5px;" type="text" name="title" class="form-control" placeholder="Campaign Name" ng-model="soloaddObj.title" required/>
+            </div>
+            <div class="form-group col-sm-12">
+              <p>
+                <label><strong>My CI Referral Link</strong></label>
+              </p>
+              <div ng-repeat="landing in leadPages" class="col-lg-6 col-md-12 col-sm-12 col-xs-12" style="height:110px;">
+                <input type="radio" value="{{landing.path}}" id="{{landing.title}}" ng-model="soloaddObj.linkurl" ng-if="landing.path != ''" ng-click="notEdit()"/>
+                <input type="radio" value="" id="{{landing.title}}" ng-model="soloaddObj.linkurl" ng-if="landing.path == ''" ng-click="doEdit()" />
+                <label for="{{landing.title}}" class="lead-page-title" style="font-size:13px !important; line-height:18px !important;"><strong>{{landing.title}}</strong> <br/><span class="small">[{{landing.description}}]<br/> <a href="{{landing.path}}" target="Referral:{{landing.title}}" ng-if="landing.path!=''">View Page</a></span></label>
+              </div>
+            </div>
+            <div class="form-group col-sm-12">
+              <input style="margin-left:-5px;" type="url" name="title" class="form-control" ng-model="soloaddObj.linkurl" placeholder="Your Page URL" ng-disabled="!editable" ng-change="updateOtherInfo()" required/>
+            </div>
+            <div ng-if="editable" class="col-sm-12">
+              <p>**Note: Please add the following script at your page to track the preformance of your campaign</p>
+              <pre style="min-width:100px;max-width:500px;">&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"&gt;&lt;/script&gt;&lt;script&gt;!function(a,b,c){var d=function(){var a="http://localhost:9001/api/affiliates/update-visit/__KEY__";return{getReqPth:function(){return a},getQuery:function(a){var b=a.location.search,c={__KEY__:"",__NAME__:""};if(""!=b){b=b.replace("?","").split("&");for(var d=b.length,e=0;d>e;e++){var f=b[e].split("=");"ref"==f[0].toLowerCase()&&(c.__KEY__=f[1]),"name"==f[0].toLowerCase()&&(c.__NAME__=f[1])}}return c}}};a(c).ready(function(){var c=new d,e=c.getQuery(b),f=c.getReqPth();f=f.replace("__KEY__",e.__KEY__),f=f.replace("__NAME__",e.__NAME__),a.ajax({url:f,jsonp:"callback",dataType:"jsonp",success:function(a){}})})}(jQuery,window,document);&lt;/script&gt;</pre>
+            </div>
+            <div class="form-group col-sm-12 clearfix">
+              <div class="create">
+                <button type="submit" class="btn btn-default btn-primary" ng-disabled="(soloadd.$invalid || showError)">Start Promotions</button>
+              </div>
+            </div>
+          <div class="clearfix"></div>
+        </form>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

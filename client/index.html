@@ -1,0 +1,302 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<base href="https://login.icoinmarket.com/">-->
+    <!-- <base href="http://138.197.103.162/"> -->
+    <base href="http://icoindevelop.com:9000/">
+    <title>iCoinMarket</title>
+    <meta name="description" content="">
+    <!-- <meta name="viewport" content="width=1024,minimum-scale=0.3,maximum-scale=0.8"> -->
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico?v=2" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet" type="text/css" />
+    <!-- <link rel="stylesheet" type="text/css" href="//cloud.github.com/downloads/lafeber/world-flags-sprite/flags16.css"/> -->
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(client) app/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/simple-line-icons/css/simple-line-icons.css" />
+    <link rel="stylesheet" href="bower_components/ng-img-crop/compile/minified/ng-img-crop.css" />
+    <link rel="stylesheet" href="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="bower_components/textAngular/dist/textAngular.css" />
+    <link rel="stylesheet" href="bower_components/angular-bootstrap-nav-tree/dist/abn_tree.css" />
+    <link rel="stylesheet" href="bower_components/morris.js/morris.css" />
+    <link rel="stylesheet" href="bower_components/angular-datatables/dist/css/angular-datatables.css" />
+    <link rel="stylesheet" href="bower_components/angular-datatables/dist/plugins/bootstrap/datatables.bootstrap.min.css" />
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css" />
+    <link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="bower_components/c3/c3.css" />
+    <link rel="stylesheet" href="bower_components/angular-notify/dist/angular-notify.css" />
+    <link rel="stylesheet" href="bower_components/angular-confirm/css/angular-confirm.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,client}) app/app.css -->
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/app.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="components/datetimepicker/datetimepicker.css">
+    <!-- endbuild -->
+</head>
+<body ng-app="iCoinApp" class="page-header-fixed page-sidebar-closed-hide-logo page-sidebar-closed-hide-logo">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+<div id="fb-root"></div>
+<!-- Add your site or application content here -->
+<div growl ng-controller="browserCtrl as vm" class="{{vm.olderVersion?'main-top-space':''}}"></div>
+<div ui-view="" style="min-height: 100vh;" autoscroll="true"></div>
+<script type="text/javascript">
+      function recordSignUpEvents() {
+        ga('send', 'event', {
+          eventCategory: 'Sign Up',
+          eventAction: 'newReferral',
+          eventLabel: navigator.userAgent
+        });
+      }
+      function setGAReferral() {
+        ga('set', 'userId', window.location.pathname.replace('/signup/', ''));
+      }
+    </script>
+    <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['scatter']}]}"></script>
+
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/3.0.2/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
+    <![endif]-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <!-- build:js({client,node_modules}) app/vendor.js -->
+      <!-- bower:js -->
+      <script src="bower_components/jquery/dist/jquery.js"></script>
+      <script src="bower_components/angular/angular.js"></script>
+      <script src="bower_components/angular-resource/angular-resource.js"></script>
+      <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+      <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+      <script src="bower_components/angular-socket-io/socket.js"></script>
+      <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+      <script src="bower_components/lodash/lodash.js"></script>
+      <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+      <script src="bower_components/angular-google-chart/ng-google-chart.js"></script>
+      <script src="bower_components/jquery-sparkline/dist/jquery.sparkline.js"></script>
+      <script src="bower_components/moment/moment.js"></script>
+      <script src="bower_components/angular-moment/angular-moment.js"></script>
+      <script src="bower_components/ng-img-crop/compile/minified/ng-img-crop.js"></script>
+      <script src="bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>
+      <script src="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js"></script>
+      <script src="bower_components/ng-scrollbars/dist/scrollbars.min.js"></script>
+      <script src="bower_components/angular-growl/build/angular-growl.js"></script>
+      <script src="bower_components/checklist-model/checklist-model.js"></script>
+      <script src="bower_components/angular-confirm-modal/angular-confirm.js"></script>
+      <script src="bower_components/rangy/rangy-core.js"></script>
+      <script src="bower_components/rangy/rangy-classapplier.js"></script>
+      <script src="bower_components/rangy/rangy-highlighter.js"></script>
+      <script src="bower_components/rangy/rangy-selectionsaverestore.js"></script>
+      <script src="bower_components/rangy/rangy-serializer.js"></script>
+      <script src="bower_components/rangy/rangy-textrange.js"></script>
+      <script src="bower_components/textAngular/dist/textAngular.js"></script>
+      <script src="bower_components/textAngular/dist/textAngular-sanitize.js"></script>
+      <script src="bower_components/textAngular/dist/textAngularSetup.js"></script>
+      <script src="bower_components/humanize-duration/humanize-duration.js"></script>
+      <script src="bower_components/angular-timer/dist/angular-timer.js"></script>
+      <script src="bower_components/angular-bootstrap-nav-tree/dist/abn_tree_directive.js"></script>
+      <script src="bower_components/flow.js/dist/flow.js"></script>
+      <script src="bower_components/ng-flow/dist/ng-flow.js"></script>
+      <script src="bower_components/eve-raphael/eve.js"></script>
+      <script src="bower_components/raphael/raphael.min.js"></script>
+      <script src="bower_components/mocha/mocha.js"></script>
+      <script src="bower_components/morris.js/morris.js"></script>
+      <script src="bower_components/angular-morris-chart/src/angular-morris-chart.min.js"></script>
+      <script src="bower_components/ng-confirm/dist/ng-confirm.js"></script>
+      <script src="bower_components/jStorage/jstorage.js"></script>
+      <script src="bower_components/datatables.net/js/jquery.dataTables.js"></script>
+      <script src="bower_components/angular-datatables/dist/angular-datatables.js"></script>
+      <script src="bower_components/angular-datatables/dist/plugins/colreorder/angular-datatables.colreorder.js"></script>
+      <script src="bower_components/angular-datatables/dist/plugins/columnfilter/angular-datatables.columnfilter.js"></script>
+      <script src="bower_components/angular-datatables/dist/plugins/light-columnfilter/angular-datatables.light-columnfilter.js"></script>
+      <script src="bower_components/angular-datatables/dist/plugins/colvis/angular-datatables.colvis.js"></script>
+      <script src="bower_components/angular-datatables/dist/plugins/fixedcolumns/angular-datatables.fixedcolumns.js"></script>
+      <script src="bower_components/angular-datatables/dist/plugins/fixedheader/angular-datatables.fixedheader.js"></script>
+      <script src="bower_components/angular-datatables/dist/plugins/scroller/angular-datatables.scroller.js"></script>
+      <script src="bower_components/angular-datatables/dist/plugins/tabletools/angular-datatables.tabletools.js"></script>
+      <script src="bower_components/angular-datatables/dist/plugins/buttons/angular-datatables.buttons.js"></script>
+      <script src="bower_components/angular-datatables/dist/plugins/select/angular-datatables.select.js"></script>
+      <script src="bower_components/angular-filter/dist/angular-filter.js"></script>
+      <script src="bower_components/underscore/underscore.js"></script>
+      <script src="bower_components/angular-youtube-mb/src/angular-youtube-embed.js"></script>
+      <script src="bower_components/angular-live-helper-chat/angular-live-helper-chat.js"></script>
+      <script src="bower_components/angulike/angulike.js"></script>
+      <script src="bower_components/bootstrap-ui-treeview/dist/tree-view.min.js"></script>
+      <script src="bower_components/re-tree/re-tree.js"></script>
+      <script src="bower_components/ng-device-detector/ng-device-detector.js"></script>
+      <script src="bower_components/blob-polyfill/Blob.js"></script>
+      <script src="bower_components/file-saver.js/FileSaver.js"></script>
+      <script src="bower_components/angular-file-saver/dist/angular-file-saver.bundle.js"></script>
+      <script src="bower_components/angular-animate/angular-animate.js"></script>
+      <script src="bower_components/angular-aria/angular-aria.js"></script>
+      <script src="bower_components/angular-messages/angular-messages.js"></script>
+      <script src="bower_components/angular-material/angular-material.js"></script>
+      <script src="bower_components/angular-material-data-table/dist/md-data-table.js"></script>
+      <script src="bower_components/angular-recaptcha/release/angular-recaptcha.js"></script>
+      <script src="bower_components/qrcode/lib/qrcode.js"></script>
+      <script src="bower_components/angular-qr/src/angular-qr.js"></script>
+      <script src="bower_components/datatables/media/js/jquery.dataTables.js"></script>
+      <script src="bower_components/d3/d3.js"></script>
+      <script src="bower_components/c3/c3.js"></script>
+      <script src="bower_components/angular-ui-bootstrap-datepicker/src/datepicker.js"></script>
+      <script src="bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js"></script>
+      <script src="bower_components/angular-image-compress/angular-image-compress.js"></script>
+      <script src="bower_components/crypto-js/index.js"></script>
+      <script src="bower_components/angular-notify/dist/angular-notify.js"></script>
+      <script src="bower_components/clipboard/dist/clipboard.js"></script>
+      <script src="bower_components/ngclipboard/dist/ngclipboard.js"></script>
+      <script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2012-2022.js"></script>
+      <script src="bower_components/angular-confirm/js/angular-confirm.js"></script>
+      <!-- endbower -->
+      <!-- endbuild -->
+
+          <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+
+        <!-- build:js(.tmp) app/app.js -->
+        <script src="app/app.js"></script>
+          <!-- injector:js -->
+          <script src="app/account/account.js"></script>
+          <script src="app/account/login/login.controller.js"></script>
+          <script src="app/account/settings/settings.controller.js"></script>
+          <script src="app/account/signup/signup.controller.js"></script>
+          <script src="app/account/verifyemail/verifyemail.controller.js"></script>
+          <script src="app/admin/admin.controller.js"></script>
+          <script src="app/admin/admin.js"></script>
+          <script src="app/admin/administrations/admin-users/admin-users.controller.js"></script>
+          <script src="app/admin/administrations/administrations.routes.js"></script>
+          <script src="app/admin/administrations/comp-off-users/comp-off-users.controller.js"></script>
+          <script src="app/admin/administrations/top-commission-users/top-commission-users.controller.js"></script>
+          <script src="app/admin/adminkyc.controller.js"></script>
+          <script src="app/admin/affiliates-banners/bannerslist.controller.js"></script>
+          <script src="app/admin/affiliates-banners/createbanner.controller.js"></script>
+          <script src="app/admin/agent-history/agent-history.controller.js"></script>
+          <script src="app/admin/changesponsor/changesponsor.controller.js"></script>
+          <script src="app/admin/dashboard/dashboard.controller.js"></script>
+          <script src="app/admin/header/adminheader.controller.js"></script>
+          <script src="app/admin/portfolio-manager/portfolio-manager.controller.js"></script>
+          <script src="app/admin/transactions/commitments/commitments.controller.js"></script>
+          <script src="app/admin/transactions/purchases/purchase.controller.js"></script>
+          <script src="app/admin/transactions/transactions.route.js"></script>
+          <script src="app/admin/transactions/transfer-fee-register/transfer-fee-register.controller.js"></script>
+          <script src="app/admin/transactions/withdrawals/withdrawals.controller.js"></script>
+          <script src="app/admin/uploadmedia/uploadmedia.controller.js"></script>
+          <script src="app/admin/utilization-statistics/utilization-statistics.controller.js"></script>
+          <script src="app/affiliates/affiliates.js"></script>
+          <script src="app/affiliates/bannerreports/bannerreports.controller.js"></script>
+          <script src="app/affiliates/banners/banners.controller.js"></script>
+          <script src="app/affiliates/myreferrallink/myreferrallink.controller.js"></script>
+          <script src="app/affiliates/referralcampaignreport/referralcampaignreport.controller.js"></script>
+          <script src="app/affiliates/referralcampaigns/referralcampaigns.controller.js"></script>
+          <script src="app/campaign/campaign.controller.js"></script>
+          <script src="app/campaign/campaign.js"></script>
+          <script src="app/dashboard/dashboard.controller.js"></script>
+          <script src="app/dashboard/dashboard.js"></script>
+          <script src="app/dashboard/footer/footer.controller.js"></script>
+          <script src="app/dashboard/header/header.controller.js"></script>
+          <script src="app/dashboard/messages/messages.controller.js"></script>
+          <script src="app/dashboard/notifications/notification.controller.js"></script>
+          <script src="app/leaderboard/leaderboard.controller.js"></script>
+          <script src="app/leaderboard/leaderboard.js"></script>
+          <script src="app/marketpresentations/marketpresentations.controller.js"></script>
+          <script src="app/marketpresentations/marketpresentations.js"></script>
+          <script src="app/myteam/frontview/frontview.controller.js"></script>
+          <script src="app/myteam/genealogy/genealogy.controller.js"></script>
+          <script src="app/myteam/listview/listview.controller.js"></script>
+          <script src="app/myteam/myteam.js"></script>
+          <script src="app/pm-admin/dashboard/dashboard.controller.js"></script>
+          <script src="app/pm-admin/header/header.controller.js"></script>
+          <script src="app/pm-admin/mydashboard/mydashboard.controller.js"></script>
+          <script src="app/pm-admin/navigate/navigate.controller.js"></script>
+          <script src="app/pm-admin/pmadmin.routes.js"></script>
+          <script src="app/pm-admin/profitlogsreport/profitlogsreport.controller.js"></script>
+          <script src="app/portfoliomanager/portfoliomanager.controller.js"></script>
+          <script src="app/portfoliomanager/portfoliomanager.js"></script>
+          <script src="app/products/campaign/campaign.controller.js"></script>
+          <script src="app/products/products.controller.js"></script>
+          <script src="app/products/products.js"></script>
+          <script src="app/products/purchase/purchase.controller.js"></script>
+          <script src="app/referral/referral.controller.js"></script>
+          <script src="app/referral/referral.js"></script>
+          <script src="app/soloadds/soloadds.controller.js"></script>
+          <script src="app/soloadds/soloadds.js"></script>
+          <script src="app/support/dashboard/dashboard.controller.js"></script>
+          <script src="app/support/header/header.controller.js"></script>
+          <script src="app/support/sign-up-report/sign-up-report.controller.js"></script>
+          <script src="app/support/support-users-report/support-users-report.controller.js"></script>
+          <script src="app/support/support.routes.js"></script>
+          <script src="app/teamcommunication/inboxsent/inboxsent.controller.js"></script>
+          <script src="app/teamcommunication/inboxsent/message.controller.js"></script>
+          <script src="app/teamcommunication/message/message.controller.js"></script>
+          <script src="app/teamcommunication/teamcommunication.js"></script>
+          <script src="app/teamcommunication/view/view.controller.js"></script>
+          <script src="app/training/training.controller.js"></script>
+          <script src="app/training/training.js"></script>
+          <script src="app/userprofile/userprofile.controller.js"></script>
+          <script src="app/userprofile/userprofile.js"></script>
+          <script src="app/wallet/wallet.controller.js"></script>
+          <script src="app/wallet/wallet.js"></script>
+          <script src="components/auth/auth.service.js"></script>
+          <script src="components/auth/user.service.js"></script>
+          <script src="components/auth/usermeta.service.js"></script>
+          <script src="components/campaign/compaign.service.js"></script>
+          <script src="components/commitments/commitments.service.js"></script>
+          <script src="components/configuration/configuration.service.js"></script>
+          <script src="components/crypto-js/crypto-js.js"></script>
+          <script src="components/dailyads/dailyads.service.js"></script>
+          <script src="components/datetimepicker/datetimepicker.js"></script>
+          <script src="components/datetimepicker/datetimepicker.templates.js"></script>
+          <script src="components/directive/loader.directive.js"></script>
+          <script src="components/directive/model-show.directive.js"></script>
+          <script src="components/directive/mongoose-error.directive.js"></script>
+          <script src="components/directive/numbers-only.directive.js"></script>
+          <script src="components/directive/tawkTo.directive.js"></script>
+          <script src="components/directive/valid-number.directive.js"></script>
+          <script src="components/factory/affilates.factory.js"></script>
+          <script src="components/factory/auth-interceptor.factory.js"></script>
+          <script src="components/factory/cache.factory.js"></script>
+          <script src="components/factory/crypto-helper.factory.js"></script>
+          <script src="components/factory/referral-helpers.factory.js"></script>
+          <script src="components/factory/socket.factory.js"></script>
+          <script src="components/filters/captalized-world.filter.js"></script>
+          <script src="components/filters/check-negative.filter.js"></script>
+          <script src="components/filters/convert-timezone.filter.js"></script>
+          <script src="components/filters/divide.filter.js"></script>
+          <script src="components/filters/dotted.filter.js"></script>
+          <script src="components/filters/get-absolute-value.filter.js"></script>
+          <script src="components/filters/is-active.filter.js"></script>
+          <script src="components/generalogy/genealogy.service.js"></script>
+          <script src="components/generalogy/generalogyCreate.service.js"></script>
+          <script src="components/generalogy/userip.service.js"></script>
+          <script src="components/messages/message.service.js"></script>
+          <script src="components/modal/modal.service.js"></script>
+          <script src="components/navbar/navbar.controller.js"></script>
+          <script src="components/products/product.service.js"></script>
+          <script src="components/purchase/purchase.service.js"></script>
+          <script src="components/soloadd/soloadd.service.js"></script>
+          <script src="components/soloemail/soloemail.service.js"></script>
+          <script src="components/tasks/tasks.service.js"></script>
+          <script src="components/uploadmedia/uploadmedia.service.js"></script>
+          <script src="components/utilities/cryptomarket.service.js"></script>
+          <script src="components/utilities/utilities.service.js"></script>
+          <script src="components/withdrawal/withdrawal.service.js"></script>
+          <!-- endinjector -->
+        <!-- endbuild -->
+        <div class="clearfix"> </div>
+</body>
+</html>

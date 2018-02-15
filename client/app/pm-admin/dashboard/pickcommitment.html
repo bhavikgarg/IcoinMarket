@@ -1,0 +1,64 @@
+<div class="modal-content">
+  <div class="modal-header model-header-color" style="background-color: #fff;text-align: left ">
+    <button type="button" class="close" data-dismiss="modal" ng-click="closeModal()" style="padding: 10px;margin-top: 10px;">&times;</button>
+    <div class="modal-title" align="center" style="font-family: 'Times New Roman', Times, serif;font-size: 16px;color: #000;text-align: left">
+      Pick Commitment
+    </div>
+  </div>
+  <form ng-submit="pickCommitment()" name="form">
+    <div class="modal-body">
+      <div style="padding-bottom: 15px; height :280px;overflow-y: auto">
+        <table width="100%" class="table table-bordered table-head-light table-striped" md-table md-row-select="options.rowSelection"
+          multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise" id="tblTeamMemberList">
+          <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+            <tr md-row>
+              <th md-column style="padding: 14px"><span>Package</span></th>
+              <th md-column style="padding: 14px"><span>Maturity Period</span></th>
+              <th md-column style="padding: 14px"><span>Amount</span></th>
+              <th md-column style="padding: 14px"><span>Status</span></th>
+              <th md-column style="padding: 14px"><span>Date</span></th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr ng-if="unPickedList.length > 0" md-row md-select="user" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="user in unPickedList">
+              <td md-cell md-checked style="padding: 14px">
+                <p><strong>{{user.packagename}}</strong></p>
+              </td>
+              <td md-cell style="padding: 14px">
+                <p><strong>{{user.maturityPeriod}} Months</strong></p>
+              </td>
+              <td md-cell md-checked style="padding: 14px">
+                <p><strong>{{user.amount}}</strong></p>
+              </td>
+              <td md-cell style="padding: 14px">
+                <p><strong>{{user.status}}</strong></p>
+              </td>
+              <td md-cell style="padding: 14px">
+                <p><strong>{{user.createdat | date 
+                  }}</strong></p>
+              </td>
+            </tr>
+            <tr ng-if="unPickedList.length == 0" md-row>
+              <td md-cell colspan="2">
+                <p class="text-center"><strong>No commitment found</strong></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-md-4 text-left" style="font-size: 14px;text-align: left;font-weight: bold;">
+          Unpicked Amount : ${{totalCommittedAmount}}
+        </div>
+        <div class="col-md-4 text-left" style="font-size: 14px;text-align: left;font-weight: bold;">
+          Selected Amount : ${{selectedAmountTotal()}}
+        </div>
+        <div class="col-md-4 text-right">
+          <button class="btn-lg btn btn-success pull-right" type="submit">Pick Amount</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,51 @@
+
+  <div class="form-group col-sm-12">
+    <label class="control-label col-sm-2">Title</label>
+    <input type="text" class="form-control col-sm-10" placeholder="Campaign Title" ng-model="campaign.title"/>
+  </div>
+  <div class="form-group col-sm-12">
+    <label class="control-label col-sm-2">URL</label>
+    <input type="text" class="form-control col-sm-10" placeholder="Campaign Url" ng-model="campaign.url"/>
+  </div>
+  <div class="form-group col-sm-12">
+    <label class="control-label col-sm-2">Banner</label>
+    <div class="col-sm-10 bannerimg">
+      <img src="" id="avatar" ng-model="banner"/>
+      <div class="fileUpload btn brown">
+        <span>Upload</span>
+        <input id="uploadBtn" type="file" class="upload" onchange="readURL(this);"/>
+      </div>
+    </div>
+  </div>
+  <div class="form-group col-sm-12">
+    <label class="control-label col-sm-2">Priority</label>
+    <div class="col-sm-10 priority">
+      <select class="form-control" ng-model="campaign.priority">
+        <option selected="selected">Select Priority</option>
+        <option>Tappax x 15</option>
+        <option>Tappax x 10</option>
+        <option>Tappax x 5</option>
+        <option>Tappax x 1</option>
+      </select>
+      <label><sup>**</sup>Your default priority is Tappax x 15</label>
+    </div>
+  </div>
+  <div class="form-group col-sm-12">
+    <label class="control-label col-sm-2">Quality</label>
+    <input type="number" min="0" class="form-control col-sm-10" placeholder="Campaign Quality" ng-model="campaign.quality"/>
+  </div>
+  <div class="form-group col-sm-12">
+    <label class="control-label col-sm-2">Credits</label>
+    <fieldset class="col-sm-10">
+      <div class="input-group">
+        <input type="number" min="0" class="form-control" placeholder="Campaign Credits" ng-model="campaign.credits">
+        <div class="input-group-addon">$</div>
+      </div>
+    </fieldset>
+  </div>
+  <div class="form-group col-sm-12">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10 create">
+      <button type="button" class="btn btn-default btn-primary pull-right" ng-click="preview()">Preview</button>
+    </div>
+  </div>

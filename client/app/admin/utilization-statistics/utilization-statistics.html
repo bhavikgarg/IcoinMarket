@@ -1,0 +1,219 @@
+<div class="block block-condensed">
+  <div class="app-heading app-heading-small">
+    <div class="title">
+      <h5 style="font-size: 20px; padding: 10px 0px;"> Total Utilization Statistics</h5>
+    </div>
+  </div>
+  <div class="block-content">
+    <div class="row">
+      <div class="col-md-4">
+        <label class="control-label">From Date: </label>
+        <p class="input-group">
+          <input type="text" class="form-control dateTxt" uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="popup1.opened"
+            datepicker-options="startDateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
+          />
+          <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+      </div>
+      <div class="col-md-4">
+        <label class="control-label">To Date: </label>
+        <p class="input-group">
+          <input type="text" class="form-control dateTxt" uib-datepicker-popup="{{format}}" ng-model="endDate" is-open="popup2.opened"
+            datepicker-options="endDateOptions" ng-required="true" close-text="Close" />
+          <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+        </p>
+      </div>
+      <div class="col-md-4">
+        <button type="button" class="btn btn brown" ng-click="getDetailsByDate()" style="margin-top: 30px;">Get Results</button>
+      </div>
+    </div>
+    <div class="row" style="padding-top: 15px;">
+      <div class="col-md-12">
+        <h2 style="font-size: 27px"> USD Data: </h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <p ng-if='statisticsError' style="color : red; font-size: 14px">{{statisticsError}}</p>
+      </div>
+    </div>
+    <div class="row" style="padding: 15px;">
+      <div class="col-sm-4" style="background-color:#dcffda;">
+        <h1 style="text-align:center; text-decoration:underline">COMPLETED</h1>
+        <div class='panel'><br>
+          <center>
+            <div class="col-sm-8 col-sm-offset-2">
+              <img src='assets/images/wallet.png' class='img-responsive' width='140' height='110' />
+              <br>
+              <h4>Total USD Added</h4>
+              <h3 style='margin-top:21px'><strong>{{totalUSD | number : 0}}</strong></h3>
+            </div>
+          </center>
+        </div>
+      </div>
+      <div class="col-sm-4"style="background-color: #fcfdd0;">
+        <h1 style="text-align:center; text-decoration:underline">PENDING</h1>
+        <div class='panel'><br>
+          <center>
+            <div class="col-sm-8 col-sm-offset-2">
+              <img src='assets/images/wallet.png' class='img-responsive' width='140' height='110' />
+              <br>
+              <h4>Total USD Added</h4>
+              <h3 style='margin-top:21px'><strong>{{pendingUSD | number : 0}}</strong></h3>
+            </div>
+          </center>
+        </div>
+      </div>
+      <div class="col-sm-4" style="background-color: #ffefef;">
+        <h1 style="text-align:center; text-decoration:underline">CANCELLED</h1>
+        <div class='panel'><br>
+          <center>
+            <div class="col-sm-8 col-sm-offset-2">
+              <img src='assets/images/wallet.png' class='img-responsive' width='140' height='110' />
+              <br>
+              <h4>Total USD Added</h4>
+              <h3 style='margin-top:21px'><strong>{{cancelledUSD | number : 0}}</strong></h3>
+            </div>
+          </center>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" style="padding-top: 15px;">
+        <h2 style="font-size: 27px"> Commitments Data: </h2>
+      </div>
+    </div>
+    <div class="row" style="padding: 15px;">
+      <div class="col-sm-4" style="background-color:#dcffda;">
+        <h1 style="text-align:center; text-decoration:underline">COMMITMENTS</h1>
+        <div class='panel'><br>
+          <center>
+            <div class="col-sm-8 col-sm-offset-2">
+              <img src='assets/images/wallet.png' class='img-responsive' width='140' height='110' />
+              <br>
+              <h4>Total Commitments</h4>
+              <h3 style='margin-top:21px'><strong>{{totalCommitments | number : 0}}</strong></h3>
+            </div>
+          </center>
+        </div>
+      </div>
+      <div class="col-sm-4" style="background-color:#fcfdd0;">
+        <h1 style="text-align:center; text-decoration:underline">WITHDRAWLS</h1>
+        <div class='panel'><br>
+          <center>
+            <div class="col-sm-8 col-sm-offset-2">
+              <img src='assets/images/wallet.png' class='img-responsive' width='140' height='110' />
+              <br>
+              <h4>Total Amount Withdrawn</h4>
+              <h3 style='margin-top:21px'><strong>{{totalWithdrawls | number : 0}}</strong></h3>
+            </div>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--<div class="row">
+      <div class="col-sm-4">
+                        <div class='panel'>
+                          <center>
+                            <div class="col-sm-8 col-sm-offset-2">
+                              <img src = 'assets/images/coin.png' class = 'img-responsive' width = '100' height='100' />
+                              <br>
+                              <h4>Total AdsCash Coins Distributed</h4>
+                              <h3><strong>{{totalAdsCashCoins | number : 0}}</strong></h3>
+                            </div>
+                          </center>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class='panel'>
+                          <center>
+                            <div class="col-sm-8 col-sm-offset-2">
+                              <img src = 'assets/images/gc.png' class = 'img-responsive' />
+                              <br>
+                              <h4>Total CI Gold Coins Utilized</h4>
+                              <h3><strong>{{totalCIGoldCoins | number : 0}}</strong></h3>
+                            </div>
+                          </center>
+                        </div>
+                      </div>
+    </div>-->
+<!--<div class="row">
+      <div class="col-sm-12">
+        <h1 style="text-align:center; text-decoration:underline">PENDING</h1>
+      </div>
+    </div>-->
+<!-- <div class="row">
+     <div class="col-sm-4">
+                        <div class='panel'>
+                          <center>
+                            <div class="col-sm-8 col-sm-offset-2">
+                              <img src = 'assets/images/coin.png' class = 'img-responsive' width = '100' height='100' />
+                              <br>
+                              <h4>Total AdsCash Coins Distributed</h4>
+                              <h3><strong>{{pendingAdsCashCoins | number : 0}}</strong></h3>
+                            </div>
+                          </center>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class='panel'>
+                          <center>
+                            <div class="col-sm-8 col-sm-offset-2">
+                              <img src = 'assets/images/gc.png' class = 'img-responsive' />
+                              <br>
+                              <h4>Total CI Gold Coins Utilized</h4>
+                              <h3><strong>{{pendingCIGoldCoins | number : 0}}</strong></h3>
+                            </div>
+                          </center>
+                        </div>
+                      </div>
+    </div>-->
+<!--<div class="row">
+      <div class="col-sm-12">
+        <h1 style="text-align:center; text-decoration:underline">CANCELLED</h1>
+      </div>
+    </div>-->
+<!-- <div class="row">
+      <div class="col-sm-4">
+                        <div class='panel'>
+                          <center>
+                            <div class="col-sm-8 col-sm-offset-2">
+                              <img src = 'assets/images/coin.png' class = 'img-responsive' width = '100' height='100' />
+                              <br>
+                              <h4>Total AdsCash Coins Distributed</h4>
+                              <h3><strong>{{cancelledAdsCashCoins | number : 0}}</strong></h3>
+                            </div>
+                          </center>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class='panel'>
+                          <center>
+                            <div class="col-sm-8 col-sm-offset-2">
+                              <img src = 'assets/images/gc.png' class = 'img-responsive' />
+                              <br>
+                              <h4>Total CI Gold Coins Utilized</h4>
+                              <h3><strong>{{cancelledCIGoldCoins | number : 0}}</strong></h3>
+                            </div>
+                          </center>
+                        </div>
+                      </div>-->
+<!--<div class="col-sm-12">
+        <div class='panel'><br>
+          <center>
+            <div class="col-sm-8 col-sm-offset-2">
+              <img src='assets/images/wallet.png' class='img-responsive' width='140' height='110' />
+              <br>
+              <h4>Total USD Added</h4>
+              <h3 style='margin-top:21px'><strong>{{cancelledUSD | number : 0}}</strong></h3>
+            </div>
+          </center>
+        </div>
+      </div>-->

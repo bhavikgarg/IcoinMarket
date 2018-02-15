@@ -1,0 +1,105 @@
+<div class="col-md-12">
+  <div class="portlet light" >
+    <div class="portlet-body" style="margin-right:10px;"><br><br>
+      <div class="panel panel-default">
+        <div class="panel-body silver-adv-too-box">
+          <div class="col-md-2 col-sm-6 col-xs-12">
+                <img src="../assets/images/silver01.png" class="img-responsive" width="220">
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <h1 style="color:#666">Silver Advertising</h1>
+                <p style="color:#666; font-size:14px; text-transform:capitalize; text-align:justify;">
+                  Silver Pack of $25 fetches 1000 silver coins. These coins are your currency for basic level advertising products such as ad exchange, text ads etc. Silver coins are system coins that will run in the system and can not be withdrawn. Thus, you can make the best use of these coins by purchasing basic advertising products, auto surf, social advertising and much more.<br><br>
+                </p>
+                <p>
+                  <strong>Silver Packs (All Time): <span>{{productPurchaseInfo.packs}}</span></strong>
+                </p>
+                <p>
+                  <strong>Silver Coins: <span>{{productPurchaseInfo.acoins | number:1}}</span></strong>
+                </p>
+              </div>
+
+              <div align="left" class="col-md-4 col-sm-6 col-xs-12" style="padding-right: 0px !important;">
+                <form name="silverpacks" method="post" ng-submit="purchasePacks(silverpacks)">
+                 <span style="font-size:20px;">Packs</span>
+                  <input type="text" class="gold-texbox" name="quantity" numbersOnly ng-pattern="/^(\d)+$/"  ng-change="updateBuyCost()" ng-model="buyInfo.packs" min="1" max="4000" required>
+                   <span ng-show="silverpacks.quantity.$error.pattern || silverpacks.quantity.$error.min || silverpacks.quantity.$error.max || silverpacks.quantity.$error.number" class="alert alert-danger error-quantity">    Silver Pack quantity must be between 1 to 4000</span>
+                  <h2 style="font-size:23px; color:#000;">
+                    Coins <i class="fa fa-database" style="font-size:23px; color:#000"></i>
+                    {{packInformation.coins * (buyInfo.packs > 0 ? buyInfo.packs : 0)}}
+                  </h2>
+                  <h2 style="font-size:23px; color:#000">
+                    <strong>Total : <i class="fa fa-usd" style="font-size:23px; color:#000"></i>
+                      {{packInformation.price * (buyInfo.packs > 0 ? buyInfo.packs : 0)}}
+                    </strong>
+                  </h2><br>
+
+                  <button type="button" class="silver-button" ng-disabled="silverpacks.quantity.$error.pattern || silverpacks.quantity.$error.required || silverpacks.quantity.$error.min || silverpacks.quantity.$error.max || silverpacks.quantity.$error.number || clicked || buyInfo.packs == 0" data-toggle="modal" data-target="#payoptions" ng-click="validatePaypalOption(); showPayMethods();">
+                    Buy Silver Pack
+                  </button>
+                  <div class="modal fade payoptions" id="payoptions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header model-header-color">
+                          <h3>Payment Options</h2>
+                          <button type="button" class="close close-button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                          </h3>
+                        </div>
+                        <div class="modal-body">
+                          <div class="form-group" ng-repeat="(key, gateway) in gateways">
+                            <div class="col-sm-12" ng-if="(key=='ic' || (key=='paypal' && allowPaypalOption))">
+                              <input type="radio" id="paymode-{{key}}" ng-model="paymode.name" value="{{key}}" ng-disabled="(key == 'paypal' && (!allowPaypalOption || paypalLimit.allowAmount < (packInformation.price * (buyInfo.packs > 0 ? buyInfo.packs : 0))))" />
+                              <label for="paymode-{{key}}" class="gateway-labels">{{gateway}}</label>
+                            </div>
+                            <div class="col-sm-12" ng-if="key=='paypal' && !allowPaypalOption" style="padding-bottom:10px;">
+                              <label for="paymode-{{key}}" class="gateway-labels" style="padding-left:35px; color:#ccc;">{{gateway}}</label>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="form-group" style="margin-top:10px;" ng-class="{'has-error': silverPackPurchaseErrorMessage!=''}">
+                            <div class="col-sm-12">
+                              <button type="submit" class="btn brown" ng-disabled="waitMessage!='' || clicked">
+                                Pay Now
+                              </button>
+                              <span style="padding-left: 20px;"><strong>{{waitMessage}}</strong></span>
+                              <span class="help-block">{{silverPackPurchaseErrorMessage}}</span>
+                              <p ng-if="silverPackPurchaseErrorMessage!=''">Click outside anywhere to close me.</p>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+        <div align="center" class="panel-footer"></div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="silver-adv-top-heading"> <h2>Products</h2></div>
+      <form action="" name="settextcampaign" method="post" ng-controller="TextCampaign">
+        <div class="panel panel-default">
+          <div class="panel-body" style="min-height:275px; padding-bottom:0px;">
+            <div class="row">
+              <div class="col-md-3 col-sm-6"><img src="../assets/images/text-ads-logo.png" class="img-responsive"></div>
+
+
+              <div class="col-md-9 col-sm-6"><h1 style="color: #999;">Text Ads</h1>
+                <!-- <p>
+                  Text Ads<br><br>
+                </p> -->
+                <div class="row" style="border-top:1px solid #e2e2e2;" ng-include="templateUrl">
+                  <!-- Create Text Campaign Form Body -->
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

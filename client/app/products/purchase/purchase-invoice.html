@@ -1,0 +1,146 @@
+<table cellpadding="1" cellspacing="0" border="1" style="background:#fff;">
+  <tr>
+    <td colspan="2">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td colspan="2" style="text-align:center; padding-top:20px;">
+            <img src="../assets/images/icmlogo.png" width="150" />
+            <!-- <h2 style="margin-top:10px;"><strong>Ads Cash Ltd.</strong></h2> -->
+            <p style="padding-left:15px;">
+              Email Address: support@icoinmarket.com | Website: <a href="https://www.icoinmarket.com/" target="_blank">https://www.icoinmarket.com/</a>
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td>
+
+    </td>
+  </tr>
+
+  <tr>
+    <td width="50%">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="font-size:15px;padding:15px;">
+            <strong>User Name: </strong>&nbsp;{{user.name}}<br>
+            <strong>Email: </strong>&nbsp;{{user.email}}<br>
+            <strong>Address: </strong>&nbsp;{{user.address}}</br>
+            <strong>Date: </strong>&nbsp;{{purchaseinfo.createdAt | date:'medium' }}<br>
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td width="50%">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="font-size:15px;padding-right:10px; padding-left:15px;">
+            <!-- <span ng-if="purchaseinfo.status == 'COMPLETED'">
+              <strong>Invoice No: </strong>&nbsp;{{invoiceInfo.transactionid}}<br>
+            </span> -->
+            <span ng-if="purchaseinfo.gatewaydata">
+            <strong>Txn. Address: </strong>&nbsp;{{purchaseinfo.gatewaydata.address}}<br>
+            <span  ng-if='purchaseinfo.paymode != "litecoinBlockIO"'>
+                <strong>BTC Amount: </strong>&nbsp;{{purchaseinfo.gatewaydata.amount}}<br>
+            </span>
+            <span  ng-if='purchaseinfo.paymode == "litecoinBlockIO"'>
+                <strong>LTC Amount: </strong>&nbsp;{{purchaseinfo.gatewaydata.amount}}<br>
+            </span>
+          </span>
+            <strong>Status: </strong>&nbsp;{{purchaseinfo.status}}
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="3">
+      <table cellpadding="0" cellspacing="0" border="0" style="width : 100%">
+        <thead>
+          <tr>
+            <th style="padding:10px;border-right:1px solid #ccc;border-top:1px solid #ccc;">Item Name</th>
+            <th ng-if="purchaseinfo.productid != 'usd'" style="text-align:right;padding:10px;border-right:1px solid #ccc;border-top:1px solid #ccc;">Unit Price (USD)</th>
+            <th ng-if="purchaseinfo.productid != 'usd'" style="text-align:center;padding:10px;border-right:1px solid #ccc;border-top:1px solid #ccc;">Quantity</th>
+            <th ng-if="purchaseinfo.productid != 'usd' && purchaseinfo.gcused" style="text-align:center;padding:10px;border-right:1px solid #ccc;border-top:1px solid #ccc;">CI coins used</th>
+            <th style="text-align:right;padding:10px;border-top:1px solid #ccc;border-right:1px solid #ccc;">Amount (USD)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px;border-right:1px solid #ccc;" ng-show="purchaseinfo.paymode == 'bankwire'">Gold Advertising Credits<br/><br/>Paymode:&nbsp;{{purchaseinfo.paymode}}<br/>Transaction id:&nbsp;{{purchaseinfo._id}}<br/>Depositor
+              Name:&nbsp;{{invoiceInfo.depositorname}}<br/>Sort Code:&nbsp;{{invoiceInfo.sortcode}}<br/>Account Number:&nbsp;{{invoiceInfo.accountnumber}}<br/>Bank
+              Branch Address:&nbsp;{{invoiceInfo.bankaddress}}<br/>Name On Bank Account:&nbsp;{{invoiceInfo.bankname}}</td>
+            <td style="padding:10px;border-right:1px solid #ccc;" ng-show="purchaseinfo.paymode == 'bitcoinBlockIO' || purchaseinfo.paymode == 'litecoinBlockIO' || purchaseinfo.paymode == 'ic' || purchaseinfo.paymode == 'gc'">{{purchaseinfo.productname}}</td>
+            <td style="padding:10px;border-right:1px solid #ccc;" ng-show="purchaseinfo.paymode == 'paypalOffline'">Gold Advertising Credits<br/><br/>Paymode:&nbsp;{{purchaseinfo.paymode}}<br/>Transaction id:&nbsp;{{purchaseinfo._id}}<br/></td>
+            <!-- <td style="padding:10px;border-right:1px solid #ccc;">Gold Advertising Credits<br/><br/>Paymode:&nbsp;{{purchaseinfo.paymode}}<br/>Transaction id:&nbsp;{{purchaseinfo._id}}<br/>Depositor Name:&nbsp;{{invoiceInfo.depositorname}}<br/>Sort Code:&nbsp;{{invoiceInfo.sortcode}}<br/>Account Number:&nbsp;{{invoiceInfo.accountnumber}}<br/>Bank Branch Address:&nbsp;{{invoiceInfo.bankaddress}}<br/>Name On Bank Account:&nbsp;{{invoiceInfo.bankname}}</td> -->
+            <td ng-if="purchaseinfo.productid != 'usd'" style="text-align:right;padding:10px;border-right:1px solid #ccc;vertical-align:top; display: block;">
+            {{(purchaseinfo.unitprice) | currency}}</td>
+            <td ng-if="purchaseinfo.productid != 'usd'" style="text-align:center;padding:10px;border-right:1px solid #ccc;vertical-align:top">{{purchaseinfo.clicks}}</td>
+            <td ng-if="purchaseinfo.productid != 'usd' && purchaseinfo.gcused" style="text-align:center;padding:10px;border-right:1px solid #ccc;vertical-align:top">{{purchaseinfo.gcused}}</td>
+            <td style="text-align:right;padding:10px;border-right:1px solid #ccc;vertical-align:top;">{{purchaseinfo.paidamount | currency}}</td>
+          </tr>
+          <tr ng-if="purchaseinfo.commission && purchaseinfo.commission.percent>0">
+            <td style="padding:10px;border-right:1px solid #ccc;">Commission on USD purchase</td>
+            <td style="text-align:right;padding:10px;border-right:1px solid #ccc;vertical-align:top;">{{purchaseinfo.commission.amount | currency}}</td>
+          </tr>
+          <tr ng-repeat="n in [].constructor(3) track by $index">
+            <td style="padding:10px;border-right:1px solid #ccc;">&nbsp;</td>
+            <td ng-if="purchaseinfo.productid != 'usd'" style="text-align:right;padding:10px;border-right:1px solid #ccc;">&nbsp;</td>
+            <td ng-if="purchaseinfo.productid != 'usd'" style="text-align:center;padding:10px;border-right:1px solid #ccc;">&nbsp;</td>
+            <td ng-if="purchaseinfo.gcused && purchaseinfo.productid != 'usd'" style="text-align:center;padding:10px;border-right:1px solid #ccc;">&nbsp;</td>
+            <td style="text-align:right;padding:10px;border-right:1px solid #ccc;">&nbsp;</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td ng-if="purchaseinfo.productid != 'usd' && !purchaseinfo.gcused" colspan="3" style="padding:10px; font-size:14px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;border-right:1px solid #ccc;"><strong>Total Amount (USD)</strong></td>
+            <td ng-if="purchaseinfo.productid != 'usd' && purchaseinfo.gcused" colspan="4" style="padding:10px; font-size:14px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;border-right:1px solid #ccc;"><strong>Total Amount (USD)</strong></td>
+            <td ng-if="purchaseinfo.productid == 'usd'" style="padding:10px; font-size:14px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;border-right:1px solid #ccc;"><strong>Total Amount (USD)</strong></td>
+            <td style="padding:10px;text-align:right;font-size:14px;border-top:1px solid #ccc;border-bottom:1px solid #ccc; border-right:1px solid #ccc;"><strong>{{(purchaseinfo.paidamount + purchaseinfo.commission.amount) | currency}}</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2" style="padding:10px;font-size:14px;">
+      <strong>Your Comments:</strong> {{purchaseinfo.status}}
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2">
+      <br>
+      <h4 style="text-align:center;margin-bottom:10px;">
+        <strong>Thank you for your purchase.</strong>
+        <img src="assets/images/icmlogo.png" style="width:150px; margin:auto; padding-top:10px" class="img-responsive">
+        <!-- <strong>Team Adscash</strong> -->
+      </h4>
+      <!-- <p style="font-size:13px;padding:0 20px 0;">This invoice can be represented as an official proof of purchase in banks etc. <br><i style="color:#444">**Note: Please mention the Invoice number as comments if there's an option for the same in the Wire Transfer/Transaction Form.</i> <br>Our bank details are as follows</p>
+      <p style="font-size:13px;padding:0 20px 5px;">
+        <span><strong>Account Name: </strong> Adscash LTD</span><br>
+        <span><strong>Sort Code: </strong> 090128</span><br>
+        <span><strong>Account Number: </strong> 70167873</span><br>
+        <span><strong>Swift Code: </strong> ABBYGB2LXXX</span><br>
+        <span><strong>IBAN: </strong> GB 24ABBY09012870167873</span><br>
+        <span><strong>Bank Name: </strong> Santander UK Plc</span><br>
+        <span><strong>Registered Office : </strong> 2 Triton Square, Regent's Place, London, NW1 3AN, United Kingdom</span>
+        <span><strong>Account Name: </strong> Adscash (H.K.) Ltd.</span><br>
+        <span><strong>Bank Name: </strong> Bank of China (Hong Kong) Limited</span><br>
+        <span><strong>Bank Code:  </strong> 012</span><br>
+        <span><strong>Bank Address:  </strong> Hong Kong Branch</span><br>
+        <span><strong>Account Number: </strong> 611-0-009648-5 (HKD),  611-0-800912-0 (USD),   611-0-601244-1 (CNY) </span><br>
+        <span><strong>Swift Code: </strong> BKCHHKHH</span><br>
+        <span><strong>IBAN: </strong> GB 24ABBY09012870167873</span><br>
+        <span><strong>Registered Office : </strong> 16F , King's Comm CTR 25 KING'S, RD TIN HAU, Hongkong, HONG KONG</span>
+      </p> -->
+    </td>
+  </tr>
+
+</table>
+
+<script>
+  setTimeout(window.print, 5000);
+</script>

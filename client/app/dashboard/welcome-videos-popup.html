@@ -1,0 +1,50 @@
+<style>
+    div.modal-content {
+        margin-top: 70px;
+    }
+    div.modal-dialog {
+      width: 60%;
+      height: auto;
+      margin-left: 20%;
+      margin-right: 20%;
+      padding: 0px;
+    }
+
+    div.modal-content {
+      height: auto;
+      border-radius: 0px;
+    }
+
+    .large-width{
+      min-width: 80% !important;
+      /*width:50% !important;*/
+      /*max-width:80% !important;*/
+      margin: auto;
+    }
+    .coinImage {
+      width: 200px;
+    }
+</style>
+
+<div class="modal-body" style="padding:29px;">
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="english">
+      <div ng-if="defaultPlayAgain==1">
+        <youtube-video class="dashboard-video-popup youtube-player" type="text/html" video-url="english.url" player="english.player" player-width="'100%'" player-height = "'400px'" player-vars="english.vars"></youtube-video>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="spanish">
+      <div ng-if="getNotPlayAgain()==1">
+        <youtube-video class="dashboard-video-popup youtube-player" type="text/html" video-url="spanish.url" player="spanish.player" player-width="'100%'" player-height = "'400px'"></youtube-video>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="russian">
+      <div ng-if="getNotPlayAgain()==1">
+        <youtube-video class="dashboard-video-popup youtube-player" type="text/html" video-url="russian.url" player="russian.player" player-width="'100%'" player-height = "'400px'"></youtube-video>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button align="center" type="button" style = "padding : 10px;" ng-click="notShowAgain()" class="btn btn-lg brown btn-xs dashboard-video-button" data-dismiss="modal" aria-hidden="true">Click Here To Continue !!!  <i class="fa fa-arrow-right" style="font-size:16px;color:#fff"></i></button>
+</div>

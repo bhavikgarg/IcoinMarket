@@ -1,0 +1,70 @@
+//Sidebar
+.page-sidebar-wrapper {
+  .page-sidebar {
+    @extend .no-padding;
+    background-color : $header-color;
+    border-radius    : 4px;
+    box-shadow       : none;
+    margin-bottom    : 10px;
+    .page-sidebar-menu {
+      border-radius : 4px;
+      list-style    : none;
+      margin        : 10px 0 0 0;
+      padding       : 0;
+      li {
+        //@extend .common;
+        @extend .no-padding;
+        display  : block;
+        a {
+          color           : #485a6a;
+          display         : block;
+          margin          : 1px 0 0 0;
+          padding         : 12px 15px;
+          position        : relative;
+          text-decoration : none;
+          i {
+            color     : #a7bdcd;
+            font-size : 14px;
+            margin-top:2px;
+          }
+        }
+      }
+      li.active > a,
+      .active a.active {
+        background   : #f2f6f9;
+        border       : none;
+        /*border-left  : 3px solid #5C9ACF !important;*/
+        color        : $theme-color;
+        font-size    : 14px;
+        /*margin-left  : -3px;
+        padding-left : 15px;*/
+        text-shadow  : none;
+      }
+      li ul li a {
+          font-weight: normal;
+          padding: 12px 36px;
+      }
+    }
+
+    b.caret {
+      top      : 50%;
+      position : absolute;
+      right    : 3%;
+    }
+
+    li {
+      ul.list {
+        padding-left: 40px !important;
+      }
+    }
+  }
+
+  .page-sidebar.latest-signups {
+    padding : 1px 15px;
+  }
+}
+
+.campaign-options {cursor : pointer;}
+@media(min-width:320px)and(max-width:360px){
+.mob-left-banner{ width:290px !important;}
+}

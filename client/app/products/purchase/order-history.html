@@ -1,0 +1,113 @@
+<div class="container-fluid">
+  <div class="col-md-12 col-sm-12 col-sm-12" style="margin:0px !important; padding:0px !important;">
+    <div class="page-content">
+      <div>
+        <h4 class="no-margin"><a href="/dashboard">Dashboard</a> / Order History
+        </h4>
+      </div>
+      <div class="portlet yellow-lemon box margin-top-20">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="fa fa-new"></i>Your Orders
+          </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade solo_ads_popup" id="trackinfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header model-header-color">
+                <h3>Order Track Performance</h2>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+                <p ng-if="tarckInfo.isaccepted && !showCreateCampaignButton" class="text-center">
+                  <strong>Tracking Link:</strong>
+                  <a href="{{tarckInfo.trackinglink}}">{{tarckInfo.trackinglink}}</a>
+                  <br><br>
+                  <strong>OR</strong>
+                  <br><br>
+                  <a class="btn brown" ng-click="closeModel('/affiliates/referral/report')">Track Campaign</a>
+                </p>
+
+                <p ng-if="!tarckInfo.isaccepted && !showCreateCampaignButton" class="text-center">
+                  <strong>Tracking Link:</strong> Sorry! your campaign is not yet accepted by provider.
+                </p>
+
+                <p ng-if="showCreateCampaignButton" class="text-center">
+                  <a ng-click="closeModel()" class="btn brown">Create Campaign</a>
+                </p>
+
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="portlet-body">
+          <div class="table-responsive">
+            <!-- Button trigger modal -->
+            <!-- Modal -->
+            <table class="table table-striped table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th width="15%">Transaction Id</th>
+                  <th width="30%">Product Name</th>
+                  <th width="10%">Quantity / Clicks</th>
+                  <th width="5%">ADS.Cash Coins</th>
+                  <th>Created At</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="(key, history) in orders" ng-class="key%2==0?'even':'odd'">
+                  <td>
+                    <span class="details">{{history.orderId}}</span>
+                  </td>
+                  <td>
+                    <span class="details text-capitalize">{{history.productname}}</span>
+                  </td>
+                  <td class="text-right">
+                    <span class="details">{{history.quantity}}</span>
+                  </td>
+                  <td class="text-right">
+                    <span class="details">{{history.quantity * history.unitcoins}}</span>
+                  </td>
+                  <td class="text-center">
+                    <span class="details">{{history.createdAt | date:'medium'}}</span>
+                  </td>
+                  <td>
+                    <button ng-if="history.requirecredit == true" type="button" class="btn brown" ng-click="trackOrder(key)" data-toggle="modal"
+                      data-target="#trackinfo">Track Performance</button>
+
+                    <button ng-if="history.requirecredit == false && history.productsubtype != 'dailyads'" type="button" class="btn brown" ng-click="addSoloEmailContent(key)">SoloEmail Content</button>
+
+                    <button ng-if="history.requirecredit == false && history.productsubtype == 'dailyads'" type="button" class="btn brown" ng-click="addDailyLoginAdsContent(key)">Daily Login Ads Content</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- <nav class="pull-right">
+                    <ul class="pagination">
+                      <li>
+                        <a href="#" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="active"><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">4</a></li>
+                      <li><a href="#">5</a></li>
+                      <li>
+                        <a href="#" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                  <p class="pull-left">Showing 1 to 10 of 12 entries</p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

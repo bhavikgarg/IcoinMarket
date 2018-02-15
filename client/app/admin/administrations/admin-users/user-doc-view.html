@@ -1,0 +1,29 @@
+<style>
+    div.modal-content {
+        margin-top: 6%;
+    }
+
+    div.modal-dialog {
+        width: 70%;
+        margin-left: 15%;
+        margin-right: 15%;
+        padding: 0px;
+    }
+
+    div.modal-content {
+        height: auto;
+        border-radius: 0px;
+    }
+</style>
+
+<div class="hidden-xs modal-header model-header-color">
+  <h3>User Document</h3>
+</div>
+
+<div class="modal-body" style="padding:25px 40px 40px;width:100%">
+  <span ng-if="!userDoc" class="help-block text-danger">Document not found!</span>
+  <img ng-src="{{userDoc}}" width="100%" border="0" />
+</div>
+<div class="modal-footer">
+    <button align="center" type="button" ng-click="closeallmodals()" class="btn blue" data-dismiss="modal" aria-hidden="true">Close</button>
+</div>

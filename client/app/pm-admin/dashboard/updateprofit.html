@@ -1,0 +1,46 @@
+<div class="modal-content">
+  <div class="modal-header model-header-color" style="background-color: #fff;text-align: left ">
+    <!-- <button type="button" class="close" data-dismiss="modal" ng-click="closeModal()" style="padding: 10px;margin-top: 10px;">&times;</button> -->
+    <div class="modal-title" align="center" style="font-family: 'Times New Roman', Times, serif;font-size: 16px;color: #000;text-align: left">
+      Update Profit
+    </div>
+  </div>
+  <form ng-submit="updateProfit()" name="form">
+    <div class="modal-body">
+      <div style="padding-bottom: 15px;">
+        <table width="100%" class="table table-bordered table-head-light table-striped" id="tblTeamMemberList">
+          <thead>
+            <tr>
+              <th style="padding: 14px"><span>Package Name</span></th>
+              <th style="padding: 14px"><span>Current profit %</span></th>
+              <th style="padding: 14px"><span>New Profit %</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-if="packagesList.length > 0" ng-repeat="package in packagesList">
+              <td>{{package.packageName}}</td>
+              <td>
+                {{package.profitpercent}} %
+              </td>
+              <td>
+                <input type="text" ng-model="package.newprofitpercent" ng-value="package.profitpercent" />
+              </td>
+            </tr>
+            <tr ng-if="packagesList.length == 0">
+              <td colspan="4">
+                <p class="text-center"><strong>No commitment found</strong></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button class="btn-lg btn btn-success pull-right" type="submit">Update</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

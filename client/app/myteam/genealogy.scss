@@ -1,0 +1,223 @@
+#scatterchart_material {
+  max-height: 755px;
+  overflow: scroll;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  /*li {
+    padding: 4px 5px !important;
+  }
+
+  li:first-child:before {
+    border: 0;
+  }
+
+  li:first-child:after {
+    border: 0;
+  }*/
+}
+
+.tree-pagination {
+  padding-top: 20px;
+  line-height:27px;
+  p {margin-bottom: 0px;}
+}
+@mixin level-color-before($top, $left, $border) {
+  position: absolute;
+  top: $top;
+  bottom: 0;
+  left: $left;
+  display: block;
+  width: 0;
+  border-left: $border;
+  content: "";
+}
+
+@mixin level-color-after($left, $height) {
+  position: absolute;
+  left: $left;
+  height: $height;
+  width: 1em;
+  border-radius: 0;
+  z-index: 99;
+}
+
+/*First Level*/
+/*.first-level > li:before{ @include level-color-before(0, 0, 1px dashed #FF0000); }
+.first-level > li > span:after{ @include level-color-after(0, .8em, 1px dashed #FF0000); }*/
+
+/*Second Level*/
+li.level-1:before{ @include level-color-before(0, 0.6em, 1px dashed #007E97); }
+li.level-1 > span:after{ @include level-color-after(0, .8em); content: url('../assets/images/level-1.png');}
+
+/*Third Level*/
+li.level-2:before{ @include level-color-before(0, 0.6em, 1px dashed #002CD6); }
+li.level-2 > span:after{ @include level-color-after(0, .8em); content: url('../assets/images/level-2.png');}
+
+/*Fourth Level*/
+li.level-3:before{ @include level-color-before(0, 0.6em, 1px dashed #001869); }
+li.level-3 > span:after{ @include level-color-after(0, .8em); content: url('../assets/images/level-3.png'); }
+
+/*Fifth Level*/
+li.level-4:before{ @include level-color-before(0, 0.6em, 1px dashed #78009D); }
+li.level-4 > span:after{ @include level-color-after(0, .8em); content: url('../assets/images/level-4.png'); }
+
+/*Sixth Level*/
+li.level-5:before{ @include level-color-before(0, 0.6em, 1px dashed #E9086D); }
+li.level-5 > span:after{ @include level-color-after(0, .8em); content: url('../assets/images/level-5.png'); }
+
+/*Seventh Level*/
+li.level-6:before{ @include level-color-before(0, 0.6em, 1px dashed #FF6900); }
+li.level-6 > span:after{ @include level-color-after(0, .8em); content: url('../assets/images/level-6.png'); }
+
+li.level-7:before{ @include level-color-before(0, 0.6em, 1px dashed #009A00); }
+li.level-7 > span:after{ @include level-color-after(0, .8em); content: url('../assets/images/level-7.png'); }
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus{
+  color:#999;
+  background: transparent;
+}
+.up-level{ opacity:0.2; }
+
+.invisible-level:before {
+    border-left: 0 !important;
+}
+
+.first-level li i, .first-level li span {
+    cursor: pointer;
+}
+
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
+.selected {
+    font-weight: 600;
+}
+
+#generation-level {
+  position: relative;
+}
+
+.genealogy-tree {
+    position: relative;
+}
+
+.genealogy-tree span {
+    font-size: 14px;
+}
+
+.genealogy-tree li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+    list-style-type: none;
+}
+
+ul ul, ol ul {
+    list-style-type: circle;
+    padding: 0 !important;
+    margin: 0;
+}
+
+ol ol ul, ol ul ul, ul ol ul, ul ul ul {
+    list-style-type: square;
+    padding: 0 !important;
+    margin: 0;
+}
+
+.display-first-level {visibility: visible !important;}
+
+.first-level {
+    margin: 1em;
+    padding: 0;
+    width: 100%;
+}
+
+li.level-1.child-records {
+    padding: 1em 0 0 2em !important;
+}
+
+.child-records.parent {
+    padding: 1em 0 0 2em !important;
+}
+
+.child-records {
+    padding: 1em 0 0 3em !important;
+}
+
+.first-level ul li {
+    padding: 1em 0 0 2em;
+}
+
+.in {visibility: visible !important;}
+
+.expanded span {
+    visibility: visible;
+}
+
+.display-first-level > span {
+    display: block !important;
+}
+
+.invisible-level {
+  visibility: hidden;
+  padding:0 0 0 1em !important;
+}
+
+.load-level-1 {
+  cursor: pointer;
+}
+
+.ajax_loader {
+    cursor: wait;
+    opacity: 0.75;
+    position: absolute;
+    z-index: 999;
+    content: "Loading ";
+    background: #ffffff url("../assets/images/loading.gif") no-repeat center center;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.ajax_loader:before {
+    content: "Loading ";
+    top: 55%;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+.hide {
+    display: none !important;
+}
+
+.no-click-8-gen {
+  cursor: default !important;
+  box-sizing: initial !important;
+  outline: none !important;
+}
+
+@media(min-width:320px) and (max-width:480px) {
+  .select-level {
+    float: left !important;
+    width: 100%;
+  }
+  .first-level ul li {
+      width : 150% !important;
+  }
+}
+@media (min-width: 768px) and (max-width:986px){
+.form-sel{width:64px !important;font-size:12px}
+.form-font{font-size:12px !important;}
+.form-group-padding{padding: 0px !important;}
+}

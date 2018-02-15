@@ -1,0 +1,70 @@
+<style>
+.modal-dialog {
+    margin: 20vh auto 0px auto
+}
+.modal.fade.adc-confirm-window {z-index: 999999999 !important;}
+</style>
+
+<!-- Transfer Coin Modal Starts -->
+<div class="modal-content">
+  <div class="modal-header model-header-color">
+    <h3>Transfer USD Amount</h2>
+    <!-- <button type="button" class="close close-button" ng-click="closeAllDialogs()">
+      <span aria-hidden="true">&times;</span>
+    </button> -->
+  </div>
+  <div class="modal-body">
+    <form name="transfercoins">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-5">
+            <label class="control-label">Transfer To Email Address</label>
+          </div>
+          <div class="col-sm-7">
+            <input type="email" class="form-control" name="email" placeholder="Transfer To Email Address" ng-model="transferCoins.email" required/>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-5">
+            <label class="control-label">USD Amount</label>
+          </div>
+          <div class="col-sm-7">
+            {{transferCoins.coins}}
+          </div>
+        </div>
+      </div>
+      <div class="form-group" ng-if="enterOtp">
+        <p style="color: green; font-size: 16px; padding-bottom: 12px;" ng-if="otpSentSuccess">{{otpSentSuccess}}</p>
+        <p style="color: red; font-size: 16px; padding-bottom: 12px;" ng-if="otpSentError">{{otpSentError}}</p>
+        <div class="row">
+          <div class="col-sm-5">
+            <label class="control-label">OTP</label>
+          </div>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="otp" placeholder="Enter OTP" ng-model="transferCoins.otp" required>
+            <span class="help-block" style='color: blue' ng-click="resendOtp('transfer')">Resend OTP </span>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="form-group" style="margin-top:10px;" ng-if="!showBankWireForm" ng-class="{'has-error': transferCoinError != '', 'has-success': transferCoinSuccess != ''}">
+        <div class="col-sm-12">
+          <button type="submit" ng-if="!enterOtp" ng-click="generateAndSendOtp('transfer')" class="btn brown" ng-disabled="transferCoinLock || transfercoins.$invalid">Send OTP</button>
+          <button type="submit" ng-if="enterOtp" ng-click="transferUSDCoins(transfercoins)" class="btn brown" ng-disabled="transferCoinLock || transfercoins.$invalid" confirm="Once you send this amount to '{{transferCoins.email}}', you will not be able to revert the transaction. Are you sure you want to continue??" confirm-settings="{windowClass: 'adc-confirm-window'}">Transfer Now</button>
+          <button type="button" class="btn btn-default" ng-click="closeModal()">
+            Cancel
+          </button>
+          <p ng-if="transferCoinError != ''" class="help-block">{{transferCoinError}}</p>
+          <p ng-if="transferCoinSuccess != ''" class="help-block">{{transferCoinSuccess}}</p>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </form>
+    <div class="clearfix"></div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>
+<!-- Transfer Coin Modal Ends -->

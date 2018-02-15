@@ -1,0 +1,964 @@
+/* here you can put your own css to customize and override the theme */
+
+/***
+Rounded Portlets
+***/
+/*
+.portlet {
+	border-radius: 4px !important;
+}
+
+.portlet .portlet-title {
+	border-radius: 4px 4px 0px 0px !important;
+}
+
+.portlet .portlet-body,
+.portlet .portlet-body .form-actions  {
+	border-radius: 0px 0px 4px 4px !important;
+}
+*/
+
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 35px;
+}
+
+.zindex {
+    z-index: 99000 !important;
+}
+.uib-datepicker-popup
+{
+    width: 374px;
+}
+
+.uib-datepicker
+{
+	padding-left: 16px;
+}
+
+.app .app-widget-informer .title .fa, .app .app-widget-informer .subtitle .fa, .app .app-widget-informer .title [class^='icon-'], .app .app-widget-informer .subtitle [class^='icon-'] {
+    font-weight: bolder;
+}
+
+
+/*userprofile.css start*/
+.form .fileUpload {
+    margin-top: 2%;
+    overflow: hidden;
+    position: relative;
+}
+
+.form .fileUpload input.upload {
+    cursor: pointer;
+    filter: alpha(opacity=0);
+    font-size: 20px;
+    margin: 0;
+    opacity: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.useravatar {
+    height: 150px;
+    max-height: 200px;
+    max-width: 200px;
+    width: 160px;
+}
+
+.social-lrg {
+    font-size: 75px !important;
+}
+
+.changeavatar {
+    display: block;
+    margin-top: 2%;
+    width: 39.3%;
+}
+
+.label {
+    color: #5b9bd1;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.top {
+    margin-top: 15px;
+}
+
+.bottom {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    color: #777;
+    display: inline;
+    font-weight: 400;
+}
+
+.userinfo {
+    display: flex;
+    margin-bottom: 1.5%;
+}
+
+.userinfo .edit {
+    color: #5b9bd1;
+    font-size: 1.2em;
+    padding-left: 30%;
+    padding-top: 45%;
+}
+
+.changes {
+    margin-right: 2%;
+    margin-top: 2%;
+    text-align: right;
+}
+
+.growl {
+    position: fixed;
+    top: 10%;
+    right: 10px;
+    float: right;
+    width: 250px;
+    z-index: 9999;
+}
+
+.image_loader,
+.image_loader:before {
+    content: "Please wait ... ";
+    position: absolute;
+}
+
+.growl .alert-error-icon {
+    background-color: #f8b2b2;
+    border-radius: 00px;
+    border-color: #f8b2b2;
+}
+
+.growl .alert-success-icon {
+    background: rgba(124, 221, 167, .95);
+    border-radius: 00px;
+    border-color: rgba(124, 221, 167, .95);
+}
+
+.growl .alert-warning.icon {
+    background: #ffead0;
+    border-radius: 00px;
+    border-color: #ffead0;
+}
+
+.image_loader {
+    cursor: wait;
+    opacity: .75;
+    z-index: 999;
+    background: url(../assets/images/a9cc95ed.loading.gif) center center no-repeat #fff;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.image_loader:before {
+    top: 55%;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+.social-media-pass-change {
+    line-height: 34px;
+    padding-left: 10px;
+}
+/*userprofile.css end*/
+
+/*wallet.css start*/
+
+div.portlet-body {
+    padding: 20px;
+}
+.zindex {
+  z-index: 99000 !important;
+}
+.input-group-addon {
+  background-color: white !important;
+}
+.brown2 {
+  background: #963;
+  color: #fff;
+  border-bottom: 2px solid #930;
+}
+.brown1 {
+  background: #C60;
+  color: #fff;
+  border-bottom: 2px solid #930;
+}
+.rowSpace {
+  margin-top: 12px;
+}
+
+/*wallet.css end*/
+
+/*withdrawal-info-popup.css end*/
+
+@media(min-width:320px) and (max-width:767px){
+.modal-content {margin-left: 15px !important;margin-right: 15px !important;}
+}
+/*withdrawal-info-popup.css end*/
+
+/*email-samples.css end*/
+.email-samples div.portlet-body {
+    padding: 20px;
+}
+/*email-samples.css end*/
+
+/*terms-of-service.css end*/
+.terms-of-service div.portlet-body {
+    padding: 20px;
+}
+/*terms-of-service.css end*/
+
+.word-break {
+  word-break: break-all!important;
+}
+
+/* product/purchase gold-advertising.css start*/
+  @media screen and (min-width:1041px) and (max-width:1198px) {
+    .gold-button {padding: 10px 38px;font-size: 12px;}
+    .gold-texbox-h3-font{font-size: 12px;}
+    }
+  .qty-font{font-size: 18px;margin-top: 10px}
+  .qty-input{margin:0px !important;}
+  @media screen and (max-width: 1041px)
+  {
+    .qty-font{font-size: 18px!important;margin-top: 0px !important;}
+    .select-link{font-size:12px !important;}
+  }
+  .dropdown-menu {
+    border: 0px !important;
+    border-radius: 0px !important;
+    box-shadow:none;
+}
+.uib-button-bar > .uib-clear{
+    display: none;
+}
+
+    #tblTeamMemberList .md-checkbox-column,
+    #tblTeamMemberList .md-checkbox-cell {
+        padding: 14px !important;
+    }
+
+    #tblTeamMemberList .md-column {
+        color: white;
+        background:#55c6f3;
+    }
+
+    #tblTeamMemberList .md-table-progress {
+        display: none;
+    }
+
+
+/*Css copied from styles.css*/
+/*css of current date and month in uib-datepicker*/
+.btn-info .ng-binding.text-info{
+      color: #dd4f8c !important;
+}
+/*remove clear button from uib-datepicker*/
+.uib-datepicker-popup .btn-danger.uib-clear{
+  display: none;
+}
+
+/*for readonly calander text-box */
+.calandar-dates{
+  color: #454545 !important;
+  cursor: pointer !important;
+}
+
+/*datepicker pop-up styles*/
+@media (min-width: 461px){
+  .uib-datepicker-popup .btn-group-sm>.btn {
+    padding-top: 5px !important;
+    padding-right: 10px !important;
+    padding-bottom: 5px !important;
+    padding-left: 10px !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    border-radius: 3px !important;
+  }
+}
+
+.uib-datepicker-popup.dropdown-menu{
+    width: 402px;
+  }
+
+@media (max-width: 360px){
+  .uib-datepicker-popup .btn {
+    margin: 0px !important;
+    padding-top: 6px !important;
+    padding-right: 2px !important;
+    padding-bottom: 6px !important;
+    padding-left: 2px !important;
+    font-size: 8px !important;
+    line-height: 1 !important;
+    border-radius: 2px !important;
+  }
+  .uib-datepicker-popup.dropdown-menu{
+    min-width: 0 !important;
+    width: 177px !important;
+  }
+  .uib-datepicker-popup .btn-sm.uib-title{
+    height: 22px;
+  }
+
+  /*.uib-datepicker-popup.dropdown-menu thead small{
+    font-size: 9px !important;
+  }*/
+}
+
+@media (max-width: 460px) and (min-width: 361px){
+  .uib-datepicker-popup .btn {
+    margin: 0px !important;
+    padding-top: 10px !important;
+    padding-right: 5px !important;
+    padding-bottom: 10px !important;
+    padding-left: 5px !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+    border-radius: 2px !important;
+  }
+  .uib-datepicker-popup.dropdown-menu{
+    min-width: 0 !important;
+    /*width: 221px !important;*/
+    /*width: 55% !important;*/
+    width: 88% !important;
+  }
+  .uib-datepicker-popup .btn-sm.uib-title{
+    height: 35px;
+  }
+
+  /*.uib-datepicker-popup.dropdown-menu thead small{
+    font-size: 9px !important;
+  }*/
+}
+
+
+/*Market commison css for mobile view*/
+@media(max-width: 768px){
+  /*padding between market-commision elements*/
+  .icoin-market-commision [class*='col-']{
+    padding-bottom: 3%;
+  }
+  /*padding to Withdrawl button*/
+  .icoin-market-commision .row .col-lg-1.col-md-2.col-sm-2.col-xs-12{
+    padding-left: 2% !important;
+  }
+}
+
+/*Datepiker dropdown menu*/
+@media (max-width: 480px){
+  .dropdown-menu.dropdown-form {
+    padding: 0px;
+    width: 100% !important;
+  }
+}
+@media (min-width: 481px){
+  .dropdown-menu.dropdown-form {
+    padding: 0px;
+    width: 146% !important;
+  }
+}
+
+
+@media (max-width: 918px){
+  .tile-content .tile-title {
+    line-height: 100% !important;
+    padding-bottom:8% !important;
+  }
+}
+
+.block-condensed .row.list-group{
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+
+/*Height of daily market price to adjust the chart*/
+@media (max-width: 459px){
+  .daily-market-chart{
+    height: 592px !important;
+  }
+}
+
+@media (min-width: 459px) and(max-width: 992px){
+  .daily-market-chart{
+    height: 555px !important;
+  }
+}
+
+@media (min-width: 992px){
+  .daily-market-chart{
+    height: 466.32px !important;
+  }
+}
+
+/*Padding to container in mobile view*/
+@media (max-width: 459px){
+  .container{
+    padding:2px !important;
+  }
+}
+
+/*Reducing text Size of Market Presentations, Training Videos in md screen size*/
+@media (max-width:1360px) and (min-width:992px), (max-width: 360px){
+  .menuTxt{
+    font-size: 11px !important;
+    padding-top: 13px !important;
+  }
+
+  .menuTxt img{
+    width:25px !important;
+  }
+}
+/*Normal text size other wise*/
+/*@media (min-width: 1361px) or (max-width: 991px){*/
+@media (min-width: 361px) and (max-width: 991px), (min-width: 1361px){
+  .menuTxt{
+    font-size: 13px !important;
+  }
+}
+
+/*round the corners of Market Presentations etc in header in mobile view*/
+@media (max-width: 991px){
+  .menu01{border-radius: 30px 30px 30px 30px !important;}
+  .menu02{border-radius: 30px 30px 30px 30px !important;}
+  .menu03{border-radius: 30px 30px 30px 30px !important;}
+}
+
+/* do nnot round the corners*/
+@media (min-width: 992px){
+  .menu01{border-radius: 30px 0px 0px 30px !important;}
+  .menu03{border-radius: 0px 30px 30px 0px !important;}
+}
+
+/* adjust the height of dashboard-profile*/
+@media (max-width:334px){
+  .dashboard-profile{
+    height: 264px;
+  }
+}
+
+@media (min-width:334px) and (max-width: 767px){
+  .dashboard-profile{
+    height: 245px;
+  }
+}
+
+@media (min-width: 768px) and (max-width:992px){
+  .dashboard-profile{
+    height: 138px;
+  }
+}
+
+
+
+/*Header css*/
+@media (max-width:767px){
+  /*profile image in center in mobile view*/
+  .dashboard-profile img{
+    display: block;
+    margin: auto;
+  }
+  /*Profile options in center*/
+  .c992{
+    text-align: center;
+  }
+  .header-cryptoData{
+    padding-top: 15px ! important;
+  }
+  .menu-main .row{
+    margin-top: 15px !important;
+  }
+}
+
+
+@media (max-height: 767px){
+    .portlet-body{
+        height: 610px;
+    }
+}
+
+@media (min-width: 768px){
+    .portlet-body{
+        height: 550px;
+    }
+}
+
+@media (max-width: 768px){
+    .messageFilter{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    .messageFilter p{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+}
+/*height of Market Price*/
+@media(max-width: 360px){
+    .marketPrice{
+        height: 281px !important;
+    }
+}
+
+@media(min-width: 361px){
+    .marketPrice{
+        height: 302px !important;
+    }
+}
+
+
+.eamil-sample01{min-height: 429px !important;}
+.eamil-sample02{min-height: 429px !important;}
+.eamil-sample03{min-height: 429px !important;}
+.eamil-sample04{min-height: 429px !important;}
+
+.app .app-widget-informer {
+  margin-bottom: 5px !important;
+}
+
+.cg-notify-message{
+	border-radius: 80px;
+    padding: 0px;
+    background: #fff;
+	}
+  .cg-notify-close{
+    margin-top: 5px;
+    display: block !important;
+    margin-right: 20px;
+  }
+  .modal-backdrop.in {
+  opacity: 0.5 !important;
+}
+
+
+.blue{
+     background-color:#3abdf4 !important;
+}
+
+
+@media(max-width: 550px){
+    .profile-block{
+        margin-bottom: 65px !important;
+    }
+}
+
+@media (max-width: 475px){
+   .app .app-login-box{
+    width: 300px !important;
+    }
+}
+
+
+.change-password-parlet{
+    height: 100%;
+}
+.change-password-parlet-body{
+    height: 100% !important;
+}
+
+@media (max-width: 992px){
+    .main-top-space{
+        margin-top: 90px !important;
+    }
+}
+
+/*Css of Business Statistics begins*/
+.theme-font-color{
+    color: #454545;
+    font-size: 25px!important;
+}
+
+.pull-right {
+    float: right!important;
+}
+
+.f-block-01 {
+    background: #55c6f3;
+    color: #fff;
+    padding: 40px 20px;
+    margin: 0;
+    height: 100px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-left: 8%;
+}
+
+.f-block-01-text {
+    border: 1px solid #ccc;
+    border-left: 5px solid #2d8eb5;
+    box-shadow: 2px 2px #f2f2f2;
+    border-radius: 0 5px 5px 0;
+    height: 100px;
+    padding-top: 10px;
+}
+
+.f-block-01-text strong {
+    font-size: 17px;
+    color: black;
+    padding-top: 20px;
+    font-weight: 600;
+}
+
+.f-block-01-text h1 {
+    margin: 0;
+    padding: 0;
+    padding-top: 3px !important;
+    color: #337399;
+    font-size: 27px;
+    font-family: 'Open Sans',sans-serif;
+}
+
+@media (max-width: 390px){
+    .btn-bussiness1{
+        font-size:19px;
+    }
+}
+
+.col-sm-12 {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+/*Css of Business Statistics ends*/
+
+/*Css for motification*/
+.dashboard-Notify{
+    margin: 0 auto;
+    width: 350px !important;
+    height: 65px;
+    overflow: hidden;
+    position: relative;
+    border-bottom-left-radius: 40px;
+    border-top-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    border-top-right-radius: 40px;
+    background-color: #FFF;
+    box-shadow: 0 0 1px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.05), 0 8px 50px rgba(0,0,0,0.05);
+}
+
+.dashboard-Notify .image{
+    margin-left: -16px;
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 3px;
+    height: 59px;
+    width: 59px;
+}
+    .dashboard-Notify .content {
+    margin-left: 15px;
+    padding-top: 9.28571px;
+}
+
+.dashboard-Notify .content .who {
+    line-height: 16.25px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: "Roboto",helvetica,arial,sans-serif;
+    color: #000;
+}
+
+.dashboard-Notify .content .what {
+    line-height: 16.25px;
+    font-size: 12px;
+    font-family: "Roboto",helvetica,arial,sans-serif;
+    color: #333;
+}
+
+@media(min-width:320px) and (max-width:480px){
+  .dashboard-Notify{
+    width: 320px;
+}
+.dashboard-Notify .image{
+    margin-left: -15px;
+  }
+    .dashboard-Notify .content {
+    margin-left: 0px !important;
+  }
+}
+
+/*Notification css ends*/
+
+/*Counter css for mobile view*/
+@media(max-width: 345px){
+    .date{
+        font-size: 10px !important;
+    }
+
+    .counter-btn strong{
+        font-weight: 600 !important;
+    }
+}
+
+.nav>li>a {
+    padding: 9px 15px !important;
+}
+
+.padding15{
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+}
+
+.tooltip-inner {
+ text-transform: capitalize !important;
+}
+
+
+.datetimepicker-dropdown{
+   /* position: absolute;
+    top: 100%;*/
+    width:280px;
+    left: 0;
+    z-index: 1000;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+}
+
+.datetimepicker-dropdown ul{
+    width: 120%;
+}
+
+.modal-header-contact{
+    background-color: #ffffff !important;
+}
+
+.date1{
+    padding: 5px 6px !important;
+}
+
+.popup-select{
+    width:45% !important;
+}
+.popup-txtbox{
+    width:50% !important;
+}
+
+.error-block{
+    color: red !important;
+}
+
+.datetimepicker .active.active{
+    color: #fff;
+}
+
+/*Css of datetimepicker of chartboard page*/
+.datetimepicker td{
+    border-bottom: 0px !important;
+    padding: 5px !important;
+}
+.datetimepicker th{
+    border-bottom: 0px !important;
+    padding: 5px !important;
+}
+.dropdown-menu-admin{
+    width:330px !important;
+}
+.dropdown-menu-admin.table-responsive{
+    width: 330px !important;
+}
+
+.popup-heading3{
+    background: #8B0000;
+    border-radius: 8px;
+    overflow: hidden;
+    color: #fff;
+}
+
+.popup-heading1{
+    font-size: 30px; color:#C19F3E !important;
+    }
+
+.progress-bar.month3{
+    background-color: #76ab3c !important;
+}
+.progress-bar.month6{
+    background-color: #f69f00 !important;
+}
+.progress-bar.month12{
+    background-color: #f04e51 !important;
+}
+.progress-bar.month18{
+    background-color: #292f43 !important;
+}
+.progress-bar.month24{
+    background-color: #3abdf4 !important;
+}
+.color-bordered-table.info-bordered-table {
+    border: 2px solid #03a9f3
+}
+.color-bordered-table.info-bordered-table thead th {
+    background-color: #03a9f3;
+    color: #ffffff
+}
+.btn-dribbble {
+    color: #ffffff !important;
+    background-color: #ea4c89 !important
+}
+.white-box {
+    background: #ffffff;
+    padding: 25px;
+    margin-bottom: 15px
+}
+.white-box .box-title {
+    margin: 0 0 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 20px;
+    border-bottom: 1px solid #ccc;
+}
+.stat-item {
+    display: inline-block;
+    padding-right: 15px
+}
+.stat-item+.stat-item {
+    padding-left: 15px;
+    border-left: 1px solid #eee
+}
+.bg-primary2 {
+    background-color: #ab8ce4 !important
+}
+.bg-success2 {
+    background-color: #00c292 !important
+}
+.bg-danger2 {
+    background-color: #fb9678 !important
+}
+.ti-user:before {
+    content: "\e602"
+}
+
+/*My wallet designs*/
+@media(max-width: 480px){
+    .btn-icm-wallet b{
+        font-size: 11px !important;
+        word-wrap: break-word;totalCommssions
+    }
+
+  }
+@media(min-width: 481px){
+    .btn-icm-wallet b{
+        font-size: 20px !important;
+    }
+
+}
+
+@media (max-width: 991px){
+  /*uib poup width*/
+  .modal .modal-dialog .modal-content{
+    width: 91% !important;
+  }
+  /*others*/
+  .img-adcwallet{
+    align: center;
+  }
+  .value-adcwallet{
+    align:center;
+  }
+  .totalCommissions-well{
+    min-height: 65px;
+  }
+  .margin-lr-15{
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+  }
+  .totalCommissions-well h4{
+    font-size: 15px !important;
+  }
+  .totalCommissions-well h4 strong{
+    font-weight: 400 !important;
+  }
+}
+
+@media (min-width: 992px){
+  /*others*/
+  .img-wallet{
+    align: left;
+    border-right :1px solid #ccc;
+  }
+  .value-wallet{
+    align:right;
+  }
+  .margin-lr-15{
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+  }
+}
+
+@media(max-width: 360px){
+  .block-content{
+    padding-left: 3px !important;
+    padding-right: 3px !important;
+  }
+}
+
+@media(max-width: 480px){
+  .icm-wallet{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+}
+
+@media(min-width: 481px){
+  .icm-wallet{
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+  }
+}
+
+@media(max-width: 383px){
+  .commissions-nav-tabs>li>a{
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
+
+
+/*Css of Team Communication*/
+@media(max-width:991px){
+  .mob-center{
+    text-align: center;
+  }
+
+/*Css of charts on portfolio-manager dashboard*/
+.commitmentOrderChart svg{
+  height: 120px;
+}
+
+.pagination>li>a{
+  color: #3abdf4 !important;
+}
+.pagination>li>span{
+  color: #3abdf4 !important;
+}
+
+
+.visible-desktop{
+    display: none;
+  }
+
+@media(min-width: 992px){
+  .visible-desktop{
+    display: block;
+  }
+}
+
+.support-dashboard{
+    background: white;
+    border-radius: 31px;
+}

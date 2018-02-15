@@ -1,0 +1,238 @@
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th{ font-size:13px !important;}
+
+.portlet-title {
+border-bottom: 0px  !important;}
+.tabbable-custom > .tab-content{ border:0px !important;}
+.btn{box-shadow: 2px 2px 2px 0 #e2e2e2 !important;}
+.label{box-shadow: 2px 2px 2px 0 #e2e2e2 !important;}
+.panel{box-shadow: 2px 2px 2px 0 #e2e2e2 !important;}
+.page-sidebar .page-sidebar-menu > li > a > .title, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > .title{ font-size:13px !important}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+ }
+ .note {border: 0px !important;}
+
+ .dashboard-stat2 {margin-bottom: 0px;}
+
+ .modal {max-height: none !important;}
+ /*.modal-dialog {margin-left: 50px !important;} */
+
+ .modal .modal-content {padding: 0px !important;}
+
+ .modal-body {padding: 2px;}
+
+ .nav-tabs,.nav-pills {margin-bottom: 0px !important;}
+
+ .dashboard-video-popup {width: 100%;height: 450px;}
+
+ .dashboard-video-button {margin-right: 170px;}
+
+ .modal .modal-footer {margin-top: -4px;}
+
+ .modal-dialog {margin: 0 auto;top: 10%;}
+
+ .nav-tabs {background: #f5f5f5;border-radius: 5px 5px 0px 0px;}
+
+ .nav > li > a {font-weight: bold;color: #999;}
+
+ .notify {
+   text-transform: uppercase;
+   cursor: help;
+   font-size: 16px;
+   margin: 10px;
+   padding: 0;
+   top: 2px;
+   z-index:9999;
+   position: relative;
+   text-align: center;
+  -webkit-transform: translateZ(0); /* webkit flicker fix */
+  -webkit-font-smoothing: antialiased; /* webkit text rendering fix */
+}
+
+.notify .tooltip {
+  background: #1496bb;
+  color: #fff;
+  float: left;
+  left: -50px;
+  opacity: 0;
+  z-index: 999999;
+  top: 30px;
+  padding: 10px 8px;
+  pointer-events: none;
+  position: absolute;
+  font-family: arial;
+  -webkit-transform: translateY(10px);
+     -moz-transform: translateY(10px);
+      -ms-transform: translateY(10px);
+       -o-transform: translateY(10px);
+          transform: translateY(10px);
+  -webkit-transition: all .25s ease-out;
+     -moz-transition: all .25s ease-out;
+      -ms-transition: all .25s ease-out;
+       -o-transition: all .25s ease-out;
+          transition: all .25s ease-out;
+  -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+     -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+      -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+       -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+          box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
+
+/* This bridges the gap so you can mouse into the tooltip without it disappearing */
+.notify .tooltip:before {
+  bottom: -20px;
+  content: " ";
+  display: block;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+/* CSS Triangles - see Trevor's post */
+.notify .tooltip:after {
+  border-left: solid transparent 10px;
+  border-right: solid transparent 10px;
+  border-bottom: solid #1496bb 10px;
+  top: -10px;
+  content: " ";
+  height: 0;
+  left: 10%;
+  position: absolute;
+  width: 0;
+}
+
+.notify:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: translateY(0px);
+     -moz-transform: translateY(0px);
+      -ms-transform: translateY(0px);
+       -o-transform: translateY(0px);
+          transform: translateY(0px);
+}
+
+/* IE can just show/hide with no transition */
+.lte8 .notify .tooltip {
+  display: none;
+}
+
+.lte8 .notify:hover .tooltip {
+  display: block;
+}
+
+.sponsor-popup{
+  margin-left:0 !important;
+  margin: 0 !important;
+  margin-top:0 !important;
+}
+
+ @media(min-width:320px) and (max-width:767px){
+   .top-space-singup-lates{margin-top:30px  !important;}
+   .dashboard-video-popup {width: 100%;height: 200px;}
+   .nav-tabs > li > a{font-size:13px}
+   .dashboard-video-button {margin-right: 0px;font-size: 8px;}
+   .modal-content {margin-top: 300px;margin-right: 50px;}
+   .btn-lg,.btn-group-lg > .btn,.btn-group-lg > .btn {padding: 0px 13px;}
+   .modal {width: 100% !important;}
+ }
+
+ @media(min-width:768px) and (max-width:900px) {
+     .modal-content {margin-left: 15px;}
+     .modal {width: 100% !important;}
+ }
+
+ .dashboard-sales-summery-block{min-height:75px; overflow:hidden; height:auto; border:1px solid #f2f2f2; padding:10px; margin-top:0px; padding-top:0px; color:#999; font-weight:bold; border-bottom:2px solid #e2e2e2; margin-top:15px; box-shadow:2px 2px 2px #f2f2f2; border-radius:10px;}
+.dashboard-sales-summery-block h3{font-size:20px;}
+.dashboard-sales-summery-block1{font-size:14px !important; background:#f36a5a; border-radius:50px; padding:6px 12px; margin-top:20px; color:#fff}
+.dashboard-sales-summery-block2{font-size:14px !important; background:#1f77b4; border-radius:50px; padding:6px 12px; margin-top:20px; color:#fff}
+.dashboard-sales-summery-block3{font-size:14px !important; background:#51d3e6; border-radius:50px; padding:6px 12px; margin-top:20px; color:#fff}
+
+.dashboard-sales-summery-block4{font-size:14px !important; background:#12d16d; border-radius:50px; padding:6px 12px; margin-top:20px; color:#fff}
+
+.dashboard-sales-summery-block5{font-size:14px !important; background:#ffbb05; border-radius:50px; padding:6px 12px; margin-top:20px; color:#fff}
+
+.dashboard-sales-summery-block6{font-size:14px !important; background:#b3becc; border-radius:50px; padding:6px 12px; margin-top:20px; color:#fff}
+
+.business-stats .tab-pane {overflow:hidden;}
+
+.dashboard-video-modal {
+  background: transparent;
+  box-shadow: none;
+}
+a.campaignurl:hover {
+    color: #7FB9EB;
+}
+.terms-of-service {
+  p, li, address {font-size:1.25em;}
+  p,address {padding-left:15px;}
+  li {
+    p {font-size:1em;}
+  }
+  h3, h4 {font-weight:600;margin-top:25px;}
+  h3 {margin-top:30px;}
+}
+
+.ci-ceo-letter {width:900px;}
+.letter-footer {background:url(../../assets/images/letter-footer.jpg) no-repeat;}
+.letter-header {
+  background:url(../../assets/images/letter-header.jpg) no-repeat;
+  height: 110px;
+  border-radius: 4px 4px 0 0;
+}
+.letter-header-strip {
+  background:url(../../assets/images/letter-header-strip.jpg) no-repeat;
+  height: 75px;
+
+  h2 {
+    line-height: 75px;
+    margin-bottom: 0px;
+    font-weight: 500;
+    margin: 0px;
+    line-height: 75px;
+  }
+}
+.letter-head {height: 185px;padding:0px;}
+.letter-body {
+  height:730px;
+  padding: 16px 32px;
+  text-align: justify;
+  h4, .text-bold {font-weight: 500;}
+}
+
+.loaderImage{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: block;
+}
+
+/* .datpicker .btn-info contains selected date */
+.datepicker .btn-info {
+    font-size: 14px;
+    font-weight: bold;
+    background-color: red;
+}
+.datepicker .btn:disabled  {
+    font-size: 14px;
+    font-weight: normal;
+    color: gray;
+}
+.datepicker .btn:disabled>.text-muted  {
+    font-size: 14px;
+    font-weight: normal;
+    color: gray;
+}
+.datepicker .text-muted  {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+}
+.datepicker .btn:enabled  {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+}

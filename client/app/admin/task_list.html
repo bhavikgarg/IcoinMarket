@@ -1,0 +1,197 @@
+<section>
+  <div class="page-head">
+    <div class="container-fluid">
+      <!--<div class="rows">
+        <div class="col-md-2  col-sm-12 col-xm-12">
+            <div class="page-sidebar-wrapper">
+                <div class="page-sidebar  md-shadow-z-2-i navbar-collapse collapse">
+                    <div ng-include="'app/admin/navigate/navigation.html'"></div>
+                </div>
+            </div>
+        </div>-->
+      <div class="col-md-12 list-admin">
+        <div class="col-sm-12 col-xs-12 col-md-12 margin-bottom">
+          <div class="col-sm-9 col-md-9 col-xs-12">
+            <p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>
+          </div>
+          <div class="col-sm-3 col-md-3 col-xs-12">
+            <button class="btn btn-small waves-effect pull-right" data-toggle="modal" data-target="#addTask" type="button" ng-click="addTask()">Create Task</button>
+          </div>
+        </div>
+        <div class="table-scrollable">
+          <table class="table table-responsive table-scrollable  table-stripped table-hover table-bordered no-footer dataTable product_details">
+            <thead>
+              <tr>
+                <th class="text-left">Created At</th>
+                <th class="text-center">Task Name</th>
+                <th class="text-center">Task Description</th>
+                <th class="text-left">Task Steps</th>
+                <th class="text-center">Task Link</th>
+                <th class="text-center">#</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="(key, task) in tasks">
+                <td class="text-left">{{task.createdat | date}}</td>
+                <td class="text-center">{{task.title}}</td>
+                <td class="text-center">{{task.description}}</td>
+                <td class="text-left">
+                  <pre>{{task.tasksteps}}</pre>
+                </td>
+                <td class="text-center">{{task.tasklink}}</td>
+                <td class="text-center">
+                  <span ng-if="task.active == true">
+                  <i class="fa fa-pencil col-lg-1" data-toggle="modal" data-target="#editTask" type="button" ng-click="editTask(key)"></i>
+                  <i class="fa fa-times col-lg-1" type="button" confirm="Are you sure, you want to In-Active this task ?" confirm-settings="{windowClass: 'ci-confirm-window'}" ng-click="doInActive(key)"></i>
+                </span>
+                  <span ng-if="task.active != true">In Active Task</span>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="6">
+                  <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                    ng-change="loadPage()"></ul>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="modal fade" id="addTask" tabindex="-1" role="dialog" aria-labelled="addTask">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header model-header-color">
+                <h3>Add Task</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <div class="col-sm-12">
+                    <div class="clearfix"></div>
+
+                    <div class="form-group">
+                      <div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
+                        <label class="control-label">Title</label>
+                      </div>
+                      <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
+                        <input type="text" class="control-label" ng-model="taskinfo.title" />
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
+                        <label class="control-label">Description</label>
+                      </div>
+                      <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10 space-from-right">
+                        <textarea class="form-control" ng-model="taskinfo.description"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-group margin-top">
+                      <div class="col-lg-2 col-sm-2 col-md-2 col-xs-2 margin-top">
+                        <label class="control-label">Steps</label>
+                      </div>
+                      <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10 margin-top space-from-right">
+                        <textarea class="form-control" ng-model="taskinfo.tasksteps"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-lg-2 col-sm-2 col-md-2 col-xs-2" style="margin-top: 13px">
+                        <label class="control-label">Task URL</label>
+                      </div>
+                      <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10" style="margin-top: 13px">
+                        <input type="url" ng-blur="validateIframeLoading()" name="tasklink" class="form-control" ng-model="taskinfo.tasklink" ng-class="{'has-error': showError}"
+                          required />
+                        <span class="alertBtn alert alert-danger col-lg-12 col-sm-12 col-md-10 col-xs-10" ng-if="showError">
+                           {{errorMessage}}
+                         </span>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-sm-4 margin-top">
+                        <button type="button" class="btn btn-small waves-effect" ng-disabled="(!taskinfo.title||!taskinfo.description||!taskinfo.tasksteps||!taskinfo.tasklink||showError)"
+                          ng-click="save()">Save</button>
+                        <button type="button" class="btn btn-small waves-effect" ng-click="cancel()" data-dismiss="modal" aria-label="Close">Cancel</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="editTask" tabindex="-1" role="dialog" aria-labelled="editTask">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header model-header-color">
+                <h3>Task Details</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group" ng-form="">
+                  <div class="col-sm-12">
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                      <div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
+                        <label class="control-label">Title</label>
+                      </div>
+                      <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
+                        <input type="text" class="control-label" ng-model="taskeditinfo.title" />
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
+                        <label class="control-label">Description</label>
+                      </div>
+                      <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10 space-from-right">
+                        <textarea class="form-control" ng-model="taskeditinfo.description"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-group margin-top">
+                      <div class="col-lg-2 col-sm-2 col-md-2 col-xs-2 margin-top">
+                        <label class="control-label">Steps</label>
+                      </div>
+                      <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10 margin-top space-from-right">
+                        <textarea class="form-control" ng-model="taskeditinfo.tasksteps"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-lg-2 col-sm-2 col-md-2 col-xs-2" style="margin-top: 13px">
+                        <label class="control-label">Task URL</label>
+                      </div>
+                      <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10" style="margin-top: 13px">
+                        <input type="url" class="form-control" ng-blur="validateIframeLoading()" ng-model="taskeditinfo.tasklink" />
+                        <span class="alertBtn alert alert-danger col-lg-12 col-sm-12 col-md-10 col-xs-10" ng-if="showError">
+                           {{errorMessage}}
+                         </span>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-sm-4">
+                        <button type="button" class="btn btn-small waves-effect" ng-click="updateTask()" ng-disabled="(!taskeditinfo.title||!taskeditinfo.description||!taskeditinfo.tasksteps||!taskeditinfo.tasklink||showError)">Save</button>
+                        <button type="button" class="btn btn-small waves-effect" ng-click="cancel()" data-dismiss="modal" aria-label="Close">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </div>
+</section>

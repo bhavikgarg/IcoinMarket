@@ -1,0 +1,85 @@
+<div class="block block-condensed">
+    <div class="app-heading app-heading-small">
+        <div class="title">
+            <h5 style="font-size: 20px; padding: 10px 0px;"> Change Sponsor </h5>
+        </div>
+    </div>
+    <div class="block-content">
+        <div class="row">
+            <div class="col-md-6 pull-right">
+                <div class="row">
+                    <div class="col-md-8">
+                        <input type="text" ng-model="filter.data" name="filterdate" placeholder="Search Filter (Name, Username, And Email) " style="line-height : 30px; width : 100%"
+                        />
+                        <span style="margin-top: 0px;display: block;font-size: 0.85em;margin-bottom: 25px;">Filter based on username, name, email</span>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn blue" style="height:42px" ng-click="loadPage()">Search</button>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <br>
+        <div class="row" style="overflow-x: auto;">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table class="table table-stripped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username / System Id</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Country</th>
+                            <th>Date <span style="font-size:9px">(Date of Joining)</span></th>
+                            <th ng-if="!isSoloAddAdmin() && !canSeeUserBackOffice()">Time</th>
+                            <th>Mobile No.</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="(key, user) in users" ng-class="(key%2==0 ? 'even' : 'odd')">
+                            <td>{{user.userProfileId}}</td>
+                            <td>{{user.username}}<br>{{user._id}}</td>
+                            <td>{{user.name}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.countryName}}</td>
+                            <td>{{user.createdat | date}}</td>
+                            <td ng-if="!isSoloAddAdmin() && !canSeeUserBackOffice()">
+                                <span am-time-ago="user.createdat"></span>
+                            </td>
+                            <td>{{user.mobile}}</td>
+                            <td>
+                                <table cellpadding="0" cellspacing="5" border="0">
+                                    <tr>
+                                        <td ng-if="!isSoloAddAdmin() && canSeeUserBackOffice()">
+                                            <a ng-click="showSponsorInfo(user)"><span class="fa fa-eye" uib-tooltip="View Sponsor"></span></a>
+                                        </td>
+                                        <td ng-if="!isFinanceAdmin() && !isSoloAddAdmin() && !isWatchUserAdmin()">
+                                            <a ng-click="sponsorEdit(user._id)" class="pencil"><span class="fa fa-pencil" uib-tooltip="Change Sponsor"></span></a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td ng-if="!isSoloAddAdmin() && !canSeeUserBackOffice()" colspan="10">
+                                <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                                    ng-change="loadPage()"></ul>
+                            </td>
+
+                            <td ng-if="!(!isSoloAddAdmin() && !canSeeUserBackOffice())" colspan="9">
+                                <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                                    ng-change="loadPage()"></ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

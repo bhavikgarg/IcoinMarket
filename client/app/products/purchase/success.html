@@ -1,0 +1,20 @@
+<div class="block block-condensed">
+    <div class="app-heading app-heading-small">
+        <div class="title">
+            <p><a href="/dashboard">Dashboard</a> / Purchase Status</p>
+        </div>
+    </div>
+    <div class="block-content">
+        <span class="caption-subject font-green-sharp bold uppercase"><i class="fa fa-database leadertitle-icon-lrg"></i>Purchase Status</span>
+        <p class="purchase-success" ng-if="purchaseinfo.status == 'COMPLETED'" style="margin-top: 18px;">
+            <i class="fa fa-check"></i> You have successfully purchased product.
+        </p>
+        <p class="purchase-success" ng-if="purchaseinfo.status != 'COMPLETED'"  style="margin-top: 18px;">
+            <i class="fa fa-check"></i> You Have Successfully Placed Your Request
+        </p>
+
+        <p class="purchase-history">
+            To view your purchase history <a href="/purchase-history">Click here</a>
+        </p>
+    </div>
+</div>

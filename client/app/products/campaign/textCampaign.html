@@ -1,0 +1,75 @@
+<style>.text-campaign input.form-control, .banner-campaign input.form-control{ width:92%;}</style>
+<div class="col-md-12 col-sm-12 solo_ads_product" style="margin-top: 16px;">
+  <div class="form-group">
+    <div class="col-md-4 col-sm-12" style="display:inline; margin-left:0px; padding-left:0px;">
+      <input type="text" class="form-control" ng-model="campaign.title" placeholder="Title" maxlength="50" required/>
+    </div>
+    <div class="col-md-4 col-sm-12 campaign-url" style="display:inline;">
+      <input id="text-campaign-url" type="url" class="form-control" ng-model="campaign.url" placeholder="Text URL" ng-blur="validateIframeLoading()" style="margin-bottom:0px;" ng-class="{'has-error': showError}" required/>
+      <label style="font-size:0.8em;"><sup>**</sup>Please use full URL (example: http://www.yoursite.com)</label>
+    </div>
+    <div class="col-md-4 col-sm-12 campaign-url" style="margin-top:-10px;">
+      <h3 style="font-size:15px;" class="pull-left"><strong>Total : <i class="fa fa-database" style="font-size:15px;"></i> &nbsp; {{(canEditCredits == false ? campaign.credits : '')}}</strong></h3>
+      <div class="col-md-8 col-sm-6 col-xs-7 form-group" style="margin-top:8px;">
+        <input name="creditcoins" type="number" ng-min="0" class="form-control" ng-max="{{credits.silverCoins+campaign.processCredits}}" ng-model="campaign.credits" ng-if="canEditCredits" placeholder="Coins" ng-blur="validateIframeLoading()" required />
+        <strong ng-if="!canEditCredits">{{campaign.credits}}</strong>
+        <p class="help-block clearfix col-sm-12"
+           ng-show="(settextcampaign.creditcoins.$error.max)" ng-if="settextcampaign.creditcoins.$touched">
+          Allowed maximum coins is {{credits.silverCoins + campaign.processCredits}}.
+        </p>
+      </div>
+    </div>
+<div class="clearfix"></div>
+<hr style="margin-top:10px;">
+  </div>
+  <div class="col-sm-12 no-margin no-padding" style="display:inline;">
+      <textarea style="resize:none;" type="text" class="form-control col-sm-12" ng-model="campaign.description" placeholder="Description" maxlength="200" required></textarea>
+    </div> <div class="clearfix"></div><hr>
+  <div class="form-group ">
+    <div class="col-md-4 col-sm-12 no-margin no-padding " style="display:inline;padding-right:7px;">
+      <select class="form-control" ng-model="campaign.priority" ng-options="option.key as option.name for option in priorityOptions" ng-selected="option.key == campaign.priority" ng-if="canEditCredits==true" style="margin-left:0px;width:100%;">
+        <option value="">Select Priority</option>
+        <!-- <option ng-repeat="option in priorityOptions" value="{{option.key}}">{{option.name}}</option> -->
+      </select>
+      <select class="form-control" ng-model="campaign.priority" ng-if="canEditCredits==false" style="margin-left:0px;width:100%;">
+        <option selected="selected" value="">Select Priority</option>
+        <option ng-repeat="option in priorityOptions" value="{{option.key}}">{{option.name}}</option>
+      </select>
+            <label style="font-size:0.8em;"><sup>**</sup>Your current priority is Silver Coins x {{campaign.priority}} (Default priority is Silver Coins x 15)</label></br>
+    </div>
+    <!--div class="col-md-4 col-sm-12" style="display:inline;">
+      <input type="number" min="0" max="60" step="10" class="form-control" ng-model="campaign.quality" placeholder="Campaign Quality"/>
+    </div-->
+    <!--<div class="col-md-4 col-sm-12" style="display:inline;margin-bottom:0px;" flow-init="{singleFile:true}" flow-file-added="imageFileInfo($file, $event, $flow)">
+      <span class="btn btn-default" flow-btn><i class="fa fa-upload"></i> Upload Image</span>
+      <a ng-if="campaign.imagepath && campaign.imagepath != ''" target="_blank" href="{{campaign.imagepath}}">View Image</a>
+      <p ng-if="purchaseReceipt!='' && updateKey==key">{{purchaseReceipt}}</p>
+    </div>-->
+  </div>
+
+  <div class="clearfix"></div><hr>
+  <div class="form-group">
+<div class="col-md-12 col-sm-12 col-xs-12 no-margin no-padding">
+  <button style="padding:5px 10px 10px 10px;" type="button" class="btn btn-default btn-primary btn-lg" ng-click="preview(campaign)" ng-disabled="(settextcampaign.creditcoins.$error.max || settextcampaign.$invalid || showError || !campaign.priority)"> Preview </button>
+  <span style="margin-left:20px;" class="alert alert-danger" ng-if="showError">
+    {{errorMessage}}
+  </span>
+  <!--button class="silver-button-sm ">
+    <i class="fa fa-database" style="color:#999 !important;"></i> Buy Now
+  </button-->
+</div></div>
+</div>
+<style>
+  @media only screen and (min-width:770px) and (max-width: 992px) {
+    .campaign-url {
+    margin-left: 0px;
+    padding-left: 0px;
+    }
+  }
+  @media only screen and (min-width:280px) and (max-width: 762px) {
+    .campaign-url {
+    margin-left: 0px;
+    padding-left: 0px;
+    }
+  }
+</style>

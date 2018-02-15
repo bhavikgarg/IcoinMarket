@@ -1,0 +1,72 @@
+<style type="text/css" media="screen">
+  p.ng-binding {
+    padding-left: 8px;
+}
+.shareLink{padding-left: 7px;}
+.label-title{font-weight: 600 !important;color: #777 !important;}
+input.shareInput {
+    margin-top: 7px;
+}
+</style>
+<header class="header header-nav col-sm-12" ng-include="'app/dashboard/header/header.html'"></header>
+<section>
+  <div class="page-head main-top-space">
+
+    <div class="page-title">
+      <h1>
+        Task Detail
+      </h1>
+    </div>
+
+    <div class="col-md-12">
+
+      <div class="page-sidebar-wrapper col-md-2 clearfix">
+        <div class="page-sidebar navbar-collapse collapse" ng-include="'app/dashboard/navigate/navigate.html'"></div>
+      </div>
+
+      <div class="col-md-10">
+        <div class="col-md-12 portlet light bottom no-padding">
+
+          <div class="portlet-title task-title">
+            <div class="caption caption-md-">
+              <span class="caption-subject"><i class="fa fa-tasks"></i>About Task</span>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+           <div class="form-group">
+            <label class="label-title">Task Name:</label>
+             <p>{{task.title}}</p>
+            </div>
+            <div class="form-group">
+            <label class="label-title">Task Description: </label>
+             <p>{{task.description}}</p> 
+            </div>
+            <div class="form-group">
+            <label class="label-title">Task Link: </label>
+             <p>{{task.tasklink}}</p>
+            </div>
+            <p>
+              <label class="label-title">How to complete Task?</label>
+              <pre>{{task.tasksteps}}</pre>
+            </p>
+            <div class="form-group">
+             <label class="shareLink">Share your facebook Post link</label>
+              <input type="text" ng-model="postUrl" class="form-control shareInput" ng-change="currentValue(this)" />
+              
+              <button class="btn btn-small waves-effect" ng-disabled="(!postUrl || showError != '')" ng-click="submit()" style="margin-bottom: 5px">Submit</button>
+              <p ng-if="showError != ''" class="text-danger">
+                {{showError}}
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="clearfix"></div>
+</section>
+</div> <div class="clearfix"></div> <div class="app" style="position: absolute;bottom: 0px;min-height:initial;height:40px">     <footer ng-include="'app/dashboard/footer/footer.html'"></footer>     <div class="clearfix"></div> </div> <div class="clearfix">

@@ -1,0 +1,49 @@
+<div id="mobile-menu" class="app-header-navigation pull-right">
+    <nav>
+        <ul ng-controller="AdminNavigationCtrl">
+            <li ng-click="closeMenu()">
+                <a ui-sref="admin.dashboard" ng-class="getClass('admin.dashboard')" ng-if="isLoggedIn() && (userRole == 'admin' || userRole == 'finance')">Users</a>
+            </li>
+            <!--<li>
+                <a ui-sref="admin.AdminKyc">User Verification</a>
+            </li>-->
+            <li ng-click="closeMenu()">
+                <a ui-sref="admin.admin_affilatebannerslist" ng-class="getClass('admin.admin_affilatebannerslist')" ng-if="isLoggedIn() && userRole == 'admin'">Affiliates Banner</a>
+            </li>
+            <li ng-click="closeMenu()">
+                <a ui-sref="admin.AgentLogs" ng-class="getClass('admin.AgentLogs')" ng-if="isLoggedIn() && userRole == 'admin'">Agent History</a>
+            </li>
+            <li ng-click="closeMenu()">
+                <a ui-sref="admin.ChangeSponsor" ng-class="getClass('admin.ChangeSponsor')" ng-if="isLoggedIn() && userRole == 'admin'">Change Sponsor</a>
+            </li>
+            <li ng-click="closeMenu()">
+                <a ui-sref="admin.statistics" ng-class="getClass('admin.statistics')" ng-if="isLoggedIn() && userRole == 'admin'">Utilization Statistics</a>
+            </li>
+            <li ng-click="closeMenu()"><a ui-sref="admin.purchaseRequests" ng-class="getClass('admin.purchaseRequests')" ng-if="userRole == 'finance'">Purchases</a></li>
+            <li ng-click="closeMenu()"><a ui-sref="admin.withdrawlRequests" ng-class="getClass('admin.withdrawlRequests')" ng-if="userRole == 'finance'">Withdrawals</a></li>
+            <li>
+                <a href="#" ng-class="getClass('admin.purchaseRequests') || getClass('admin.withdrawlRequests') || getClass('admin.transferFeeRegister') || getClass('admin.commitments')" ng-if="isLoggedIn() && userRole == 'admin'" ng-click="openMenu($event)">Transactions</a>
+                <ul>
+                    <li ng-click="closeMenu()"><a ui-sref="admin.purchaseRequests" ng-class="getClass('admin.purchaseRequests')">Purchases</a></li>
+                    <li ng-click="closeMenu()"><a ui-sref="admin.withdrawlRequests" ng-class="getClass('admin.withdrawlRequests')">Withdrawals</a></li>
+                    <li ng-click="closeMenu()"><a ui-sref="admin.adcwithdrawlRequests" ng-class="getClass('admin.adcwithdrawlRequests')">ADC Withdrawals</a></li>
+                    <li ng-click="closeMenu()"><a ui-sref="admin.transferFeeRegister" ng-class="getClass('admin.transferFeeRegister')">Transfer Fee Register</a></li>
+                    <li ng-click="closeMenu()"><a ui-sref="admin.commitments" ng-class="getClass('admin.commitments')">Commitments</a></li>
+                    <li ng-click="closeMenu()"><a ui-sref="admin.profitlogsreport" ng-class="getClass('admin.profitlogsreport')">Profit Logs Report</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" ng-class="getClass('admin.supportUsersReport') ||getClass('admin.adminUsers') || getClass('admin.compOffUsers') || getClass('admin.topCommissionUsers')" ng-if="isLoggedIn() && userRole == 'admin'" ng-click="openMenu($event)">Administrations</a>
+
+                <ul>
+                    <li ng-click="closeMenu()"><a ui-sref="admin.adminUsers" ng-class="getClass('admin.adminUsers')">Admin Users</a></li>
+                    <li ng-click="closeMenu()"><a ui-sref="admin.compOffUsers" ng-class="getClass('admin.compOffUsers')">Comp Off Users</a></li>
+                    <li ng-click="closeMenu()"><a ui-sref="admin.topCommissionUsers" ng-class="getClass('admin.topCommissionUsers')">Top Commission Users</a></li>
+                </ul>
+            </li>
+            <li ng-click="closeMenu()">
+                <a ui-sref="admin.uploadmedia" ng-class="getClass('admin.uploadmedia')" ng-if="isLoggedIn() && userRole == 'admin'">Upload Media</a>
+            </li>
+        </ul>
+    </nav>
+</div>

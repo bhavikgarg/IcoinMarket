@@ -1,0 +1,250 @@
+<header class="header header-nav "
+   ng-include="'app/dashboard/header/header.html'"></header>
+<style type = "text/css">
+   .campaign-cards .priority-20 .text-campaign-preview {
+   background-color: #4DB4A3;
+   border-color: #0275d8;
+   height: 222px !important;}
+   .campaign-cards .priority-30 .text-campaign-preview {
+   background-color: #5bc0de;
+   border-color: #5bc0de;
+   height: 222px !important;}
+   .campaign-cards .priority-40 .text-campaign-preview {
+   background-color: #f0ad4e;
+   border-color: #f0ad4e;
+   height: 222px !important; }
+   .campaign-cards .priority-5 .text-campaign-preview {
+   background-color: #4DB4A3;
+   border-color: #0275d8;
+   height: 222px !important;}
+   .campaign-cards .priority-10 .text-campaign-preview {
+   background-color: #5bc0de;
+   border-color: #5bc0de;
+   height: 222px !important;}
+   .campaign-cards .priority-15 .text-campaign-preview {
+   background-color: #f0ad4e;
+   border-color: #f0ad4e;
+   height: 222px !important; }
+   .border-20
+   {
+   border-left: thick solid #247869 !important;
+   }
+   .border-30
+   {
+   border-left: thick solid #2A80B3 !important;
+   }
+   .border-40
+   {
+   border-left: thick solid #DF7311 !important;
+   }
+   .border-5
+   {
+   border-left: thick solid #247869 !important;
+   }
+   .border-10
+   {
+   border-left: thick solid #2A80B3 !important;
+   }
+   .border-15
+   {
+   border-left: thick solid #DF7311 !important;
+   }
+   .divcss
+   {
+   pointer-events: none !important;
+   /* for "disabled" effect */
+   opacity: 0.5;
+   }
+   .fadeout
+   {
+   opacity: 0.5 !important;
+   background-color: gray !important;
+   border-color: gray !important;
+   }
+   .shareButton {
+   background: #4c69ba;
+   background: linear-gradient(#4c69ba, #3b55a0);
+   background: rgba(0, 0, 0, 0) url("../../assets/images/social/fb-share.jpg") no-repeat scroll center center / 110% auto;
+   border-radius: 6px;
+   height: 37px;
+   white-space: nowrap;
+   width: 100px;
+   margin:0 auto;;
+   }
+   .campaign-cards .text-campaign-preview h4 {
+   margin-bottom:25px;
+   font-weight:bold;}
+   .campaign-cards .text-campaign-preview p {
+   margin-top: 20px;
+   text-align: center;
+   height: inherit !important;
+   }
+
+   .white-cirle-div {
+     background: none repeat scroll 0 0 white;
+     border-radius: 100px;
+     display: block;
+     height: 50px;
+     left: 13%;
+     margin: 0 auto;
+     position: absolute;
+     text-align: center;
+     top: 6%;
+     vertical-align: text-bottom;
+     width: 50px;
+   }
+
+   .coinIcon {
+     margin : 14px -12px -4px 14px !important;
+
+   }
+   .singleCoinIcon {
+     margin : 14px -4px -4px 14px !important;
+   }
+   .coindisplay {
+     position: absolute;
+     top: 11px;
+     right: 23px !important;
+     font-size: 20px;
+     color: black;
+     z-index: 55;
+     margin-top: -2px;
+   }
+
+   .singleCoinDisplay {
+     position: absolute;
+     top: 12px;
+     right: 29px !important;
+     font-size: 20px;
+     color: black;
+     z-index: 55;
+     margin-top: -2px;
+   }
+   .fb-title-lg {
+      height: 35px !important;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left;
+      padding-left: 25%;
+      padding-top: 8px;
+   }
+   .fb-title-sm {
+     height: 35px !important;
+     width: 100%;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     text-align: center;
+     padding-left: 0;
+     padding-top: 8px;
+   }
+</style>
+
+<section>
+   <div class="page-head main-top-space" >
+      <div class="col-sm-12">
+         <div class="page-sidebar-wrapper col-md-2 col-xs-12 col-sm-12 no-padding no-margin ">
+            <div class="page-sidebar md-shadow-z-2-i navbar-collapse  collapse" ng-include="'app/dashboard/navigate/navigate.html'"></div>
+         </div>
+         <div class="col-md-10 col-sm-12 col-xs-12 page-content">
+            <!-- html for page title -->
+            <div class="page-title col-sm-12">
+               <h1>
+                  <i class="fa fa-money leadertitle-icon-lrg"></i>
+                  <span style="text-transform:uppercase">{{campaignText}}</span> Advertising
+               </h1>
+            </div>
+            <div class="clearfix"></div>
+            <!-- html for dashboard -->
+            <div class="row" ng-controller="CampaignTextViewCtrl">
+               <div class="col-md-12">
+                  <div class="portlet light" >
+                     <div class="portlet-body">
+                        <br/>
+                        <br/>
+                        <div class="caption">
+                           <i class="fa fa-money font-green-sharp"></i>
+                           <span class="caption-subject font-green-sharp bold uppercase" style="font-size:16px !important;">View
+                           <span style="text-transform:uppercase">{{campaignText}}</span>  Ads Task
+                           </span>
+                           <button class="btn brown pull-right col-lg-2 col-md-4 col-sm-4 col-xs-12 view-ads" ng-disabled="((campaign && campaign.length>=12)?  false : true) || loadingAds" ng-click="getdata()">View More Ads</button>
+                           <span class="text-danger pull-right" style="margin-right:20px;font-size:16px !important;">
+                           <strong data-ng-show="campaignType == 'text'">Daily Clicks: {{pending}} Pending</strong>
+                           <strong data-ng-show="campaignType == 'fblike'"></strong>
+                           <strong data-ng-show="campaignType == 'fbshare'"></strong>
+                           </span>
+                        </div>
+                        <div class="col-md-12" data-ng-if="campaignType == 'fblike'">
+                            <p>You can now like the Facebook ads and get instant coins to your back office! Isn’t that awesome? You can spend a minute or two and you can earn 100 coins a day!!! You can like 20 ads daily. Do it daily, you can make $75 a month!! That can be the most easiest way of making money online.</p> 
+                        </div>
+                        <br/>
+                        <div class="col-md-12">
+                           <div class="col-md-12  bottom">
+                              <hr>
+                              <div class="clearfix"></div>
+                              <div class="col-md-12">
+                                 <div id="fb_wrapper" class="top campaign-cards">
+                                    <div ng-repeat="data in campaign" class="col-lg-4 col-md-4 col-sm-4 col-xs-10 col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-1 priority-{{data.priority}}" ng-init="viewtime=data.viewTime; url=data.viewUrl; id=data.id" ng-click="viewadd(viewtime, url, id, campaignType)" data-ng-style="{'pointer-events':getStyle}">
+                                       <div class="text-campaign-preview border-{{data.priority}}" id="{{data.id}}" >
+                                          <div class='white-cirle-div'  data-ng-if="campaignType == 'fbshare'">
+                                             <span ng-class = "{'singleCoinDisplay' : {{SharePriorityOptions[2].key * 25/100}} < 10, 'coindisplay':{{SharePriorityOptions[2].key * 25/100}} > 10}"><strong>{{SharePriorityOptions[2].key * 25/100}}</strong></span>
+                                             <span><img ng-class = "{'singleCoinIcon' : {{SharePriorityOptions[2].key * 25/100}} < 10, 'coinIcon':{{SharePriorityOptions[2].key * 25/100}} > 10}" src = '../assets/images/gold-coin-icon.png'></span>
+                                          </div>
+                                          <div class='white-cirle-div' data-ng-if="campaignType == 'fblike'" >
+                                             <span ng-class = "{'singleCoinDisplay' : {{LikePriorityOptions[2].key * 25/100}} < 10, 'coindisplay':{{LikePriorityOptions[2].key * 25/100}} > 10}"><strong>{{LikePriorityOptions[2].key * 25/100}}</strong></span>
+                                             <span><img ng-class = "{'singleCoinIcon' : {{LikePriorityOptions[2].key * 25/100}} < 10, 'coinIcon':{{LikePriorityOptions[2].key * 25/100}} > 10}" src = '../assets/images/gold-coin-icon.png'></span>
+                                          </div>
+                                          <h4 ng-class = '{"fb-title-lg" : {{data.title.length}} >= 10 && (campaignType == "fbshare" || campaignType == "fblike") , "fb-title-sm" : {{data.title.length}} < 10 && (campaignType == "fbshare" || campaignType == "fblike")}'>{{data.title}}</h4>
+                                          <div data-ng-if="campaignType == 'fblike'" style="pointer-events:all;width: 60px;margin-left: 39%;position: relative;">
+                                             <div fbLike fb-like="data.viewUrl" fb-id="{{data.id}}" fb-view-time="{{data.viewTime}}">loading...</div>
+                                          </div>
+                                          <div data-ng-if="campaignType == 'fbshare'" style="pointer-events:all;">
+                                             <div fb-share  data-ng-click="shareButton(id,url,viewtime,$event);$event.stopImmediatePropagation();" >Loading...</div>
+                                          </div>
+                                          <p style="word-wrap: break-word;">{{data.description}}</p>
+                                       </div>
+                                    </div>
+                                    <p class="text-center" style="color:#333;" ng-if="!campaign">
+                                       <strong>Please wait, while we are loading {{campaignText}} Ads...</strong>
+                                    </p>
+                                    <p class="text-center" style="color:#333;" ng-if="campaign && campaign.length==0">
+                                       <strong>Hey, We have not found "{{campaignText}} Ads" for you.
+                                       <br>Please update
+                                       <a ui-sref="userprofile" style="color:#5b9bd1;">your profile</a> for "View Campaign Categories", to visit more "{{campaignText}} Ads".
+                                       </strong>
+                                    </p>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="clearfix"></div>
+</section>
+</div> <div class="clearfix"></div> <div class="app" style="position: absolute;bottom: 0px;min-height:initial;height:40px">     <footer ng-include="'app/dashboard/footer/footer.html'"></footer>     <div class="clearfix"></div> </div> <div class="clearfix">
+<div class="modal fade"  id="alertpopup" tabindex="-1" role="dialog" aria-labelledby="alertpopupLabel">
+   <div class="modal-dialog" role="document" >
+      <div class="modal-content" style="padding: 15px !important;">
+         <div>
+            <i class="fa fa-close close-btn pull-right" data-dismiss="modal"></i>
+            <h4 class="modal-title" id="SharemodelpopupLabel">
+               <strong>
+               <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Notification
+               </strong>
+            </h4>
+         </div>
+         <div class="modal-body">
+            <div  ng-animate="animate">
+               <div class="table-scrollable" id="message" style="border: none !important;" ></div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

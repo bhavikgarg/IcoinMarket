@@ -1,0 +1,127 @@
+<style>
+    .modal-dialog {
+        margin: 20vh auto 0px auto
+    }
+
+    .modal.fade.adc-confirm-window {
+        z-index: 999999999 !important;
+    }
+</style>
+
+<!-- Commitment Withdrawal Modal Starts -->
+<div class="modal-content">
+    <div class="modal-header model-header-color">
+        <h3>Commitment Withdrawal</h2>
+    </div>
+    <div class="modal-body">
+        <form name="commitmentWithdrawalRequest">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <md-radio-group ng-model="withdrawType">
+                            <md-radio-button value="allAmount" class="col-md-6" ng-click="updateWithdrawalType('allAmount')">Full Amount</md-radio-button>
+                            <md-radio-button value="profitAmount" ng-if="(showProfitWithdrawalButton && isMature && (commitmentStatus != 'MATURED_PROFIT_WITHDRAWN') && WithdrawalInfo.ProfitWithdrawan == 0 && (WithdrawalInfo.Profitpercent > 0))" class="col-md-6" ng-click="updateWithdrawalType('profitAmount')"> Profit Only</md-radio-button>
+                        </md-radio-group>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div>
+                            <b>Details for {{packagename}} package</b>
+                        </div>
+                        <table class="table-responsive table-scrollable table table-stripped table-hover table-bordered no-footer dataTable product_details">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Committed Amount</td>
+                                    <td>{{tradeAmount | currency}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Matured Amount</td>
+                                    <td>{{(tradeAmount + WithdrawalInfo.TotalprofitAmount) | currency}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Profit/Loss %</td>
+                                    <td>{{WithdrawalInfo.Profitpercent}}%</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Profit/Loss Amount</td>
+                                    <td>{{WithdrawalInfo.TotalprofitAmount | currency}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Maintenance Fee (%)</td>
+                                    <td>{{WithdrawalInfo.MaintenanceFeePercentage}}%</td>
+                                </tr>
+                                <tr>
+                                    <td>Maintenance Fee (To iCoinMarket)</td>
+                                    <td>{{WithdrawalInfo.MaintenanceFee | currency}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Profit/Loss Amount (Self)</td>
+                                    <td>{{WithdrawalInfo.ProfitAmount | currency}}</td>
+                                </tr>
+                                 <tr ng-if="WithdrawalInfo.ProfitWithdrawan > 0">
+                                    <td>Profit Withdrawan</td>
+                                    <td>{{WithdrawalInfo.ProfitWithdrawan | currency}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            <b>Withdrawal Amount Summary</b>
+                        </div>
+                        <table ng-show="withdrawType == 'allAmount'" class="table-responsive table-scrollable table table-stripped table-hover table-bordered no-footer dataTable product_details">
+                            <tbody>
+                                <tr>
+                                    <td width="50%">USD</td>
+                                    <td>{{WithdrawalInfo.AmountInUSD | currency}}</td>
+                                </tr>
+                                <tr>
+                                    <td>AdsCash</td>
+                                    <td>{{WithdrawalInfo.AdsCash}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table ng-show="withdrawType == 'profitAmount'" class="table-responsive table-scrollable table table-stripped table-hover table-bordered no-footer dataTable product_details">
+                            <tbody>
+                                <tr>
+                                    <td width="50%">USD</td>
+                                    <td>{{WithdrawalInfo.ProfitUSD | currency}}</td>
+                                </tr>
+                                <tr>
+                                    <td>AdsCash</td>
+                                    <td>{{WithdrawalInfo.ProfitAdscash}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label class="control-label text-success" ng-if="!isMature">Commitment Amount will be credited as adscash balance for premature withdrawals.</label>
+                        <label class="control-label text-success" ng-if="isMature">Commitment Amount will be credited as in 50% in Adscash and 50% in USD.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group" style="margin-top:10px;" ng-class="{'has-error': withdrawalError != '', 'has-success': withdrawalSuccess != ''}">
+                <div class="col-sm-12 pull-right">
+                    <button type="submit" class="btn brown" ng-click="processCommitmentWithdrawal(commitmentWithdrawalRequest)" ng-disabled="disableProcessWithdraw || commitmentWithdrawalRequest.$invalid">Withdraw</button>
+                    <button type="button" class="btn btn-default" ng-click="cancelCommitmentWithdrawal();">Cancel</button>
+                    <p ng-if="withdrawalError != ''" class="help-block">{{withdrawalError}}</p>
+                    <p style="color:green" ng-if="withdrawalSuccess != ''" class="help-block"><strong>{{withdrawalSuccess}}</strong></p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>

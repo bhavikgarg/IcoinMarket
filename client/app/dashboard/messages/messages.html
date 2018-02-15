@@ -1,0 +1,95 @@
+<section>
+  <div class="page-head">
+    <div class="page-title">
+      <h1>
+        Welcome {{username.name}}
+      </h1>
+    </div>
+    <div class="col-sm-12">
+        <div class="col-sm-12 portlet light">
+          <div class="portlet-title">
+            <div class="caption caption-md">
+              <span class="caption-subject">Messages</span>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <tabset>
+              <tab heading="Inbox">
+                <ul class="messages" ng-scrollbars ng-scrollbars-config="config">
+                  <li ng-repeat="message in messages">
+                    <a>
+                      <span class="photo">
+                        <img class="img-circle" ng-src="{{message.avatar}}">
+                      </span>
+                      <span class="subject">
+                        <span class="from">{{message.name}}</span>
+                        <span class="time pull-right">just now</span>
+                      </span>
+                      <span class="message">{{message.message}}</span>
+                    </a>
+                  </li>
+                </ul>
+              </tab>
+              <tab heading="Outbox">
+                <ul class="messages" ng-scrollbars ng-scrollbars-config="config">
+                  <li ng-repeat="message in outbox">
+                    <a>
+                      <span class="photo">
+                        <img class="img-circle" ng-src="{{message.avatar}}">
+                      </span>
+                      <span class="subject">
+                        <span class="from">{{message.name}}</span>
+                        <span class="time pull-right">just now</span>
+                      </span>
+                      <span class="message">{{message.message}}</span>
+                    </a>
+                  </li>
+                  <li ng-if="outbox.length==0" style="text-align:center; border:none;">You have no messages in your outbox</li>
+                </ul>
+              </tab>
+              <tab heading="Sent Box">
+                <form>
+                  <label>To</label>
+                  <input type="text"/>
+                </form>
+              </tab>
+              <tab heading="Spam">
+                <ul class="messages" ng-scrollbars ng-scrollbars-config="config">
+                  <li ng-repeat="message in spam">
+                    <a>
+                      <span class="photo">
+                        <img class="img-circle" ng-src="{{message.avatar}}">
+                      </span>
+                      <span class="subject">
+                        <span class="from">{{message.name}}</span>
+                        <span class="time pull-right">just now</span>
+                      </span>
+                      <span class="message">{{message.message}}</span>
+                    </a>
+                  </li>
+                  <li ng-if="spam.length==0" style="text-align:center; border:none;">You have no spam messages</li>
+                </ul>
+              </tab>
+              <tab heading="Archieve">
+                <ul class="messages" ng-scrollbars ng-scrollbars-config="config">
+                  <li ng-repeat="message in archieved">
+                    <a>
+                      <span class="photo">
+                        <img class="img-circle" ng-src="{{message.avatar}}">
+                      </span>
+                      <span class="subject">
+                        <span class="from">{{message.name}}</span>
+                        <span class="time pull-right">just now</span>
+                      </span>
+                      <span class="message">{{message.message}}</span>
+                    </a>
+                  </li>
+                  <li ng-if="archieved.length==0" style="text-align:center; border:none;">You have no archieved messages</li>
+                </ul>
+              </tab>
+            </tabset>
+          </div>
+
+    </div>
+  </div>
+</section>

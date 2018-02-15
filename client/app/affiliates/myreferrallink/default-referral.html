@@ -1,0 +1,63 @@
+<div class="block block-condensed">
+  <!-- START HEADING -->
+  <div class="app-heading app-heading-small">
+    <div class="title">
+      <p><a href="/dashboard">Dashboard</a> / Marketing Tools / My Referral Links</p>
+    </div>
+  </div>
+  <!-- END HEADING -->
+  <div class="block-content">
+    <h5 style="font-size: 20px; padding: 10px 0px;"> My Referral Links </h5>
+    <div>
+       <div ng-repeat="referral in leadPages">
+           <div class="alert alert-success row" role="alert" ng-if="affiliates._main.linkurl.indexOf(referral.fileurl) >= 0" style="margin-left: 0px !important; margin-bottom: 10px !important">
+             <div class="col-sm-8 col-xs-12">
+               <strong>Note</strong> : Your iCoinMarket Landing Page {{referral.title}} Page is Active Now <br />          
+                <strong>REFFERAL LINK </strong> :
+                <span id="copy-text-clipboard" ng-if="!referral.defaultLink" style="word-wrap: break-word;">{{referral.fileurl}}{{signupURI}}</span>
+                <span id="copy-text-clipboard" ng-if="referral.defaultLink" style="word-wrap: break-word;">{{referral.fileurl}}{{linkURI}}</span>
+             </div>
+             <div class="col-sm-4 col-xs-12" >
+               <button ngclipboard data-clipboard-target="#copy-text-clipboard" class="btn btn-sm blue pull-right" ><i class="fa fa-chain "></i> Copy Link</button>
+             </div>
+           </div>
+         </div>
+    </div>
+    <div class="table-scrollable">      
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>Sr.No.</th>
+            <th>Title</th>
+            <th>Refferal Link</th>           
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(key, leadpage) in leadPages" ng-class="(key%2==0?'even':'odd')">
+            <td>{{key + 1}}</td>
+            <td>{{leadpage.title}}</td>
+            <td>{{leadpage.landingPageDesc}}<br>
+              <div ng-if="!affiliates._main.linkurl">
+                ( Loading... )
+              </div>
+              <div ng-if="affiliates._main.linkurl">
+                <div ng-if="!leadpage.defaultLink">
+                  <a ng-href="{{leadpage.fileurl}}{{signupURI}}" target="Referral:{{leadpage.title}}">{{leadpage.fileurl}}{{signupURI}}</a>
+                </div>
+                <div ng-if="leadpage.defaultLink">
+                  <a ng-href="{{leadpage.fileurl}}{{linkURI}}" target="Referral:{{leadpage.title}}">{{leadpage.fileurl}}{{linkURI}}</a>
+                </div>
+              </div>
+            </td>        
+            <td>
+              <center><button ng-click="setLandingPage(key)" class="btn brown" ng-disabled="affiliates._main.linkurl.indexOf(leadpage.fileurl) >= 0">Use This Landing Page</button></center>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row"></div>
+  </div>
+  <div class="clearfix"></div>
+</div>

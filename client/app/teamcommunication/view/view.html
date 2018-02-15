@@ -1,0 +1,87 @@
+<div class="block block-condensed">
+  <div class="app-heading app-heading-small">
+    <div class="title">
+      <p><a href="/dashboard">Dashboard</a> / Team Communication</p>
+    </div>
+  </div>
+  <div class="block-content">
+    <h5 style="font-size: 20px; padding: 10px 0px;"> View Messages</h5>
+    <div class="row">
+      <div class="inbox-header inbox-view-header">
+        <h1 class="pull-left">
+          {{message.name}}
+        </h1>
+        <a href="/teamcommunication/{{cameFromSent?'sent':'inbox'}}" class="message-inbox" style="padding : 5px 10px; text-decoration:none">
+                            <button type="button" class="btn brown btn-sm"><i class="fa fa-angle-left" aria-hidden="true" style="color:#fff;"></i>&nbsp; Back</button>
+                          </a>
+        <div class="pull-right" style="padding : 5px 10px">
+          <i class="fa fa-print"></i>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-sm-12">
+        <div>
+          <div class="col-md-10" ng-if="!cameFromSent">
+            <img src="" />
+            <span class="bold">From:</span>
+            <span>{{message.senderInfo.name}}</span>
+            <span>&lt;{{message.senderInfo.email}}&gt;</span>&nbsp;
+            <span class="bold">To:</span>&nbsp;
+            <span>me</span> on {{message.msgDate | amDateFormat:'hh:mm:ssa Do MMM YYYY'}}
+            <br />
+            <span class="bold">Subject:</span> <span>{{message.subject}}</span>
+          </div>
+          <div class="col-md-10" ng-if="cameFromSent">
+            <img src="" />
+            <span class="bold">From:</span>&nbsp;
+            <span>me</span>
+            <span class="bold">To:</span>&nbsp;
+            <span>{{receiverInfo.name}}</span>
+            <span>&lt;{{receiverInfo.email}}&gt;</span> on {{message.msgDate | amDateFormat:'hh:mm:ssa Do MMM YYYY'}}
+            <br />
+            <span class="bold">Subject:</span> <span>{{message.subject}}</span>
+          </div>
+          <div>
+            <span class="" ng-if="markSpamMessage">Message is marked as spam</span>
+            <span class="" ng-if="markSpamMessage">Message is marked as spam</span>
+          </div>
+          <div class="inbox-info-btn pull-right">
+            <div class="btn-group">
+              <button class="btn brown reply-btn waves-effect" ng-click="reply()">
+                                  <i class="fa fa-reply"></i>
+                                  &nbsp;Reply
+                                </button>
+              <button class="btn brown dropdown-toggle waves-effect" data-toggle="dropdown" ng-click="options=!options">
+                                  <i class="fa fa-angle-down"></i>
+                                </button>
+              <ul class="dropdown-menu pull-right" ng-show="options">
+                <li ng-click="reply()">
+                  <a class="reply-btn">
+                                      <i class="fa fa-reply reply-btn"></i>
+                                      Reply
+                                    </a>
+                </li>
+                <li class="divider"></li>
+                <li ng-click="deleteMessage()">
+                  <a>
+                                      <i class="fa fa-trash-o"></i>
+                                      Delete
+                                    </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inbox-view" ng-bind-html="msgBody"></div>
+      <hr class="clearfix">
+      <div class="inbox-attached"></div>
+    </div>
+  </div>
+</div>

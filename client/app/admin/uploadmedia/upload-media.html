@@ -1,0 +1,180 @@
+<div class="block block-condensed">
+    <div class="app-heading app-heading-small">
+        <div class="title">
+            <h5 style="font-size: 20px; padding: 10px 0px;"> Upload Media </h5>
+        </div>
+    </div>
+    <div class="block-content">
+        <ul class="nav nav-tabs navbar-right">
+            <li ng-class="{'active' : showList }"><a ng-click="setShowList(true);">Media List</a></li>
+            <li ng-class="{'active' : !showList }"><a data-toggle="tab" ng-click="setShowList(false);">Add Media </a></li>
+        </ul>
+        <div class="tab-content clearfix">
+            <div ng-class="{'active' : showList }" class="tab-pane">
+                <div class="row>">
+                    <div class="col-md-6">
+                        <h2>Media List</h2>
+                    </div>
+                    <!--<div class="col-md-6 pull-right">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" ng-model="filter.data" name="filterdate" placeholder="Search Filter (Name, Username, And Email) "
+                                    style="line-height : 30px; width : 100%" />
+                                <span style="margin-top: 0px;display: block;font-size: 0.85em;margin-bottom: 25px;">Filter based on Title</span>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn blue" style="height : 42px" ng-click="loadPage()" ng-if="!isRefreshCall">Search</button>
+                                <button class="btn blue" style="height : 42px" ng-click="loadBySearch()" ng-if="isRefreshCall">Search</button>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+                <div class="clearfix"></div>
+                <br>
+                <div style="overflow-x: auto;">
+                   <form name="formSequence" ng-submit="saveMediaSequence(formSequence, saveMediaList)" role="form" method="post">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-bottom:10px">
+                        <div class="form-group" ng-class="{ 'has-error': form.mediauploadfor.$dirty && form.mediauploadfor.$error.required }">
+                            <label for="mediauploadfor">Upload Media For</label>
+                            <select name="mediauploadfor" class="form-control" ng-model="mediauploadfor" ng-change="getsaveMedia()">
+                                <option selected>Market Presentations</option>
+                                <option>Training Videos</option>
+                                <option>Landing Pages</option>
+                            </select>
+                            <span ng-show="form.mediauploadfor.$dirty && form.mediauploadfor.$error.required" class="help-block">Upload Media For is required</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <table class="table table-stripped table-hover table-bordered">
+                            <thead style="border-top : 3px solid #d0d0d0">
+                                <tr>
+                                    <th style="background: #94cbe2;color: #fff;">Media For</th>
+                                    <th style="background: #94cbe2;color: #fff;">Title</th>
+                                    <th ng-if="mediauploadfor==='Market Presentations'" style="background: #94cbe2;color: #fff;">media type</th>
+                                    <th style="background: #94cbe2;color: #fff;">File Url</th>
+                                    <th ng-if="mediauploadfor==='Training Videos'" style="background: #94cbe2;color: #fff;">Video Title</th>
+                                    <th ng-if="mediauploadfor==='Training Videos'" style="background: #94cbe2;color: #fff;">Video Title Link Url</th>
+                                    <th ng-if="mediauploadfor==='Landing Pages'" style="background: #94cbe2;color: #fff;">Description</th>
+                                    <th ng-if="mediauploadfor==='Landing Pages'" style="background: #94cbe2;color: #fff;">Default Link</th>
+                                    <th style="background: #94cbe2;color: #fff;">Updated On</th>
+                                    <th style="background: #94cbe2;color: #fff;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody dnd-list="saveMediaList">
+                                <tr ng-repeat="(key, uploadmedia) in saveMediaList" ng-class="(key%2==0 ? 'even' : 'odd')"
+                                dnd-draggable="uploadmedia" dnd-moved="saveMediaList.splice($index, 1)" dnd-effect-allowed="move">
+                                <td>{{uploadmedia.mediauploadfor}}</td>
+                                <td style="word-wrap:break-word">{{uploadmedia.title}}</td>
+                                <td ng-if="mediauploadfor==='Market Presentations'" >{{uploadmedia.mediatype}}</td>
+                                <td style="word-wrap:break-word">{{uploadmedia.fileurl}}</td>
+                                <td ng-if="mediauploadfor==='Training Videos'" style="word-wrap:break-word">{{uploadmedia.videotitle}}</td>
+                                <td ng-if="mediauploadfor==='Training Videos'" style="word-wrap:break-word">{{uploadmedia.videotitlelinkurl}}</td>
+                                <td ng-if="mediauploadfor==='Landing Pages'" style="word-wrap:break-word">{{uploadmedia.landingPageDesc}}</td>
+                                <td ng-if="mediauploadfor==='Landing Pages'" style="word-wrap:break-word">{{uploadmedia.defaultLink}}</td>
+                                <td>{{uploadmedia.createdat | date: 'yyyy-MM-dd HH:mm'}}</td>
+                                <td>
+                                    <table cellpadding="0" cellspacing="5" border="0">
+                                        <tr>
+                                            <td ng-if="!isFinanceAdmin() && !isSoloAddAdmin() && !isWatchUserAdmin()">
+                                                <a ng-click="deactivateUploadMedia(uploadmedia._id)" confirm="Are you sure, you want to deactivate Media ?" confirm-settings="{windowClass: 'ci-confirm-window'}"
+                                                ng-if="uploadmedia.active" style="color:red"><span class="fa fa-trash" uib-tooltip="Deactivate Upload Media"></span></a>
+                                                <a ng-click="activateUploadMedia(uploadmedia._id)" confirm="Are you sure, you want to activate Media ?" confirm-settings="{windowClass: 'ci-confirm-window'}"
+                                                ng-if="!uploadmedia.active" style="color: green"><span class="fa fa-check" uib-tooltip="activate Upload Media"></span></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td ng-if="!isSoloAddAdmin() && !canSeeUserBackOffice()" colspan="11">
+                                    <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                                    ng-change="loadPage()"></ul>
+                                </td>
+
+                                <td ng-if="!(!isSoloAddAdmin() && !canSeeUserBackOffice())" colspan="10">
+                                    <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                                    ng-change="loadPage()"></ul>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button type="submit" class="btn blue pull-right pull-right">Update Sequence</button>
+                    <span class="help-block" ng-if="SequencesaveSuccess" style="color : green">{{SequencesaveSuccess}}</span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div ng-class="{'active' : !showList }" class="tab-pane">
+        <div>
+            <form name="form" ng-submit="saveMedia(form)" role="form" method="post">
+                <div class="col-md-12">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <h2><i class="fa fa-plus" aria-hidden="true"></i>Add Media</h2>
+                </div>
+                <div class="col-md-6 col-md-offset-1">
+                    <div class="form-group" ng-class="{ 'has-error': form.mediauploadfor.$dirty && form.mediauploadfor.$error.required }">
+                        <label for="mediauploadfor">Upload Media For<span style="color:red">*</span></label>
+                        <select name="mediauploadfor" id="mediauploadfor" class="form-control" ng-model="uploadmedia.mediauploadfor">
+                            <option>Market Presentations</option>
+                            <option>Training Videos</option>
+                            <option>Landing Pages</option>
+                        </select>
+                        <span ng-show="form.mediauploadfor.$dirty && form.mediauploadfor.$error.required" class="help-block">Upload Media For is required</span>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error': form.title.$dirty && form.title.$error.required }">
+                        <label for="title">Title<span style="color:red">*</span></label>
+                        <input type="text" name="title" id="title" class="form-control" ng-model="uploadmedia.title" required />
+                        <span ng-show="form.title.$dirty && form.title.$error.required" class="help-block">Title is required</span>
+                    </div>
+                    <div class="form-group" ng-if="uploadmedia.mediauploadfor === 'Market Presentations'" ng-class="{ 'has-error': form.mediatype.$dirty && form.mediatype.$error.required }">
+                        <label>Media Type<span style="color:red">*</span></label>
+                        <select name="mediatype" id="Type" class="form-control" ng-model="uploadmedia.mediatype">
+                            <option>PDF</option>
+                            <option>PPT</option>
+                        </select>
+                        <span ng-show="form.mediatype.$dirty && form.mediatype.$error.required" class="help-block">Media Type is required</span>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error': form.fileurl.$dirty && form.fileurl.$error.required }">
+                        <label for="fileurl">File URL<span style="color:red">*</span></label>
+                        <input type="text" name="fileurl" id="fileurl" class="form-control" ng-model="uploadmedia.fileurl" required />
+                        <span ng-show="form.fileurl.$dirty && form.fileurl.$error.required" class="help-block">File Url is required</span>
+                    </div>
+                    <div class="form-group" ng-if="uploadmedia.mediauploadfor == 'Training Videos'" ng-class="{ 'has-error': form.videotitle.$dirty && form.videotitle.$error.required }">
+                        <label  for="fileurl">Video Title<span style="color:red">*</span></label>
+                        <input type="text" name="videotitle" id="videotitle" class="form-control" ng-model="uploadmedia.videotitle" required />
+                        <span  ng-if="uploadmedia.mediauploadfor == 'Training Videos'" ng-show="form.videotitle.$dirty && form.videotitle.$error.required" class="help-block">Video Title is required</span>
+                    </div>
+                    <div class="form-group" ng-if="uploadmedia.mediauploadfor == 'Training Videos'">
+                        <label for="videotitlelinkurl">Video Title Link URL</label>
+                        <input type="text" name="videotitlelinkurl" id="videotitlelinkurl" class="form-control" ng-model="uploadmedia.videotitlelinkurl" />
+                    </div>
+                    <div class="form-group" ng-if="uploadmedia.mediauploadfor == 'Landing Pages'" ng-class="{ 'has-error': form.mediatype.$dirty && form.mediatype.$error.required }">
+                        <label>Description<span style="color:red">*</span></label>                        
+                        <input type="text" name="landingPageDesc" id="landingPageDesc" class="form-control" ng-model="uploadmedia.landingPageDesc" />
+                        <span ng-show="form.mediatype.$dirty && form.mediatype.$error.required" class="help-block">Description is required</span>
+                    </div>
+                     <div class="form-group" ng-if="uploadmedia.mediauploadfor == 'Landing Pages'" ng-class="{ 'has-error': form.mediatype.$dirty && form.mediatype.$error.required }">
+                        <label>Default Link<span style="color:red">*</span></label>                                                
+                        <select name="defaultLink" id="defaultLink" class="form-control" ng-model="uploadmedia.defaultLink">
+                            <option value='true' selected>True</option>
+                            <option value='false'>False</option>
+                        </select>
+                        <span ng-show="form.mediatype.$dirty && form.mediatype.$error.required" class="help-block">Default link is required</span>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" ng-disabled="form.$invalid" class="btn blue">Save</button>
+                        <a href="/admin"><button type='button' class="btn btn-warning">Cancel</button></a>
+                        <span class="help-block" ng-if="saveError" style="color : red">{{saveError}}</span>                        
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>

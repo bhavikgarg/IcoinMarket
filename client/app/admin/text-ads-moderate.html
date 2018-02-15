@@ -1,0 +1,84 @@
+<section>
+  <div class="page-head">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+
+      <!--<div class="page-sidebar-wrapper col-md-2 clearfix">
+        <div class="page-sidebar navbar-collapse collapse" ng-include="'app/admin/navigate/navigation.html'"></div>
+      </div>-->
+
+      <div class="col-md-12 list-admin">
+        <h2>Text Ads Moderation View</h2>
+        <div class="col-md-6 pull-left">
+          <button ng-click="showActiveTextAds()" class="btn" ng-class="{'btn-primary': (showActiveAds==1), 'btn-default': (showActiveAds==0)}">View Active Text Ads</button>
+          <button ng-click="showInActiveTextAds()" class="btn" ng-class="{'btn-primary': (showActiveAds==0), 'btn-default': (showActiveAds==1)}">View Expired Text Ads</button>
+        </div>
+        <div class="col-md-6 pull-right">
+          <form ng-submit="loadPage()">
+            <div class="col-md-8">
+              <input type="text" ng-model="filterQuery.data" name="filterdate" placeholder="Search Filter (Title, View URL) " />
+              <span style="margin-top: -12px;display: block;font-size: 0.85em;margin-bottom: 25px;">Filter based on Title, View URL</span>
+            </div>
+            <div class="col-md-4">
+              <button class="btn brown" type="submit">Search</button>
+            </div>
+            <div class="clearfix"></div>
+          </form>
+        </div>
+
+        <table class="table-responsive table-scrollable table table-stripped table-hover table-bordered no-footer dataTable product_details">
+          <thead>
+            <tr>
+              <th class="text-center">Created At</th>
+              <th class="text-center">Unique ID</th>
+              <th class="text-center">Name</th>
+              <th class="text-center">Priority</th>
+              <th class="text-center">View Url</th>
+              <th class="text-center">Assigned Silver Coins</th>
+              <th class="text-right">Active</th>
+              <th class="text-center">Comment</th>
+              <th class="text-center">#</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="(key,camp) in campaign">
+              <td class="text-center">{{camp.createdat | date:'medium'}}</td>
+              <td class="text-center">{{camp.id}}</td>
+              <td class="text-left">
+                <strong>{{camp.title}}</strong>
+                <p style="max-width:350px;word-wrap:break-word;">( {{camp.description}} )</p>
+              </td>
+              <td class="text-center">
+                <span ng-if="camp.viewTime == 15" class="paystatus label label-warning">High</span>
+                <span ng-if="camp.viewTime == 10" class="paystatus label label-primary">Medium</span>
+                <span ng-if="camp.viewTime == 5" class="paystatus label label-info">Low</span>
+              </td>
+              <td class="text-left">
+                <a href="{{camp.viewUrl}}" target="_blank">{{camp.viewUrl}}</a>
+              </td>
+              <td class="text-right">{{camp.credits}}</td>
+              <td class="text-right">{{camp.active}}</td>
+              <td class="text-left" style="overflow:hidden;">
+                <p>&nbsp;</p>
+              </td>
+              <td class="text-center">
+                <button ng-if="camp.active" confirm="Are you sure, your want to block this Text Ad ?" type="button" class="btn btn-small btn-danger waves-effect"
+                  ng-click="updateStatus(key)">Block Ad</button>
+                <button ng-if="!camp.active" confirm="Are you sure, your want to enable this Text Ad ?" type="button" class="btn btn-small btn-primary waves-effect"
+                  ng-click="updateStatus(key)">Enable Ad</button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="10">
+                <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                  ng-change="loadPage()"></ul>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</section>

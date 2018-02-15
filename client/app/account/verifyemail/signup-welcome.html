@@ -1,0 +1,80 @@
+<div class="app">
+    <div class="container-fluid" style="background: #fff; margin: 0px; padding: 0px; box-shadow: 2px 2px 2px #f2f2f2;">
+        <img src="assets/images/icmlogo.png" width="200" style="padding: 10px;"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- First column for navbar -->
+            <div class="col-md-12 col-sm-12 col-xs-12" style="margin:0px !important; padding:0px !important;">
+                <!-- Second column for content -->
+                <div class="container-fluid" style="margin-top : 10px">
+                    <div class="page-content">
+                        <div class="portlet light margin-top-10">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <span class="font-green-sharp bold uppercase" style="color:black !important">Welcome  User</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body" style="height:700px;">
+                                <strong style="font-size:20px;"><i class="fa fa-user" style="font-size:20px;"></i> Here you are!!!</strong><br>                                Welcome to the world of endless opportunities. We are happy to inform that you have successfully
+                                subscribed to iCoinMarket. There's an unread mail from iCoinMarket in your inbox waiting
+                                for your attention.
+                                <hr />
+                                <div ng-if="!showDashboardButton()" class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="note note-danger note-shadow">
+                                        <h2>Email Verification</h2>
+                                    </div>
+                                    <p>
+                                        Unable to Find Verification Mail?
+                                    </p>
+                                    <button name="verification-email" class="btn btn-default" ng-click="resendActivationLink()">Resend Verification Email</button>                                    <br><br><span>{{message}}</span><br>
+                                    <br><br>
+                                    <br>
+                                    <h2>
+                                        Having Problems <br> with Your Email ID?
+                                    </h2>
+                                    <br>
+                                    <form class="form" name="form" ng-submit="changeEmail(form)" novalidate>
+                                        <div class="form-group" ng-class="{'has-error': form.email.$error.mongoose}">
+                                            <label><strong>New Email Address</strong></label>
+                                            <input type="email" name="email" class="form-control" ng-model="user.email" required mongoose-error />
+                                            <p class="help-block" ng-show="form.email.$error.mongoose || (!form.$valid && submitted)">
+                                                Enter valid email address
+                                            </p>
+                                        </div>
+                                        <button name="change-email" type="submit" ng-disabled="form.email.$error.mongoose || form.email.$error.required || !form.$valid"
+                                            class="btn btn-default">Change Email Address</button>
+                                        <br><br><span>{{emailChangeMessage}}</span>
+                                    </form>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div ng-if="!showDashboardButton()" class="col-md-6 col-sm-6 col-xs-12">
+                                    <p align="center"><img src="assets/images/welcome-user/welcome-msg.png" class="img-responsive" style="height: 500px;"></p>
+                                </div>
+                                <div ng-if="showDashboardButton()" class="col-md-12 col-sm-12 col-xs-12">
+                                    <p align="center"><img src="assets/images/welcome-user/welcome-msg.png" class="img-responsive" style="height: 500px;"></p>
+                                </div>
+                                <p align="center">
+                                    <!-- <a href="/dashboard" ng-if="showDashboardButton() && userRole !='support' " class="btn brown">Show My DashBoard</a>
+                                    <a href="/chatboard" ng-if="showDashboardButton() && userRole ==='support' " class="btn brown">Show My DashBoard</a> -->
+                                    <a href="/chatboard" ng-if="showDashboardButton() && userRole ==='support' " class="btn brown">Show My DashBoard</a>
+                                    <a href="/dashboard" ng-if="showDashboardButton() && userRole === 'user' " class="btn brown">Show My DashBoard</a>
+                                    <a href="/admin/dashboard" ng-if="showDashboardButton() && userRole === 'finance'" class="btn brown">Show My DashBoard</a>
+                                    <a href="/admin/dashboard" ng-if="showDashboardButton() && userRole==='admin' " class="btn brown">Show My DashBoard</a>
+                                    <a href="/admin/dashboard" ng-if="showDashboardButton() && userRole==='manager'" class="btn brown">Show My DashBoard</a>                                  
+                                </p>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="app" style="position: absolute;bottom: 0px;min-height:initial;height:40px">
+    <footer ng-include="'app/dashboard/footer/footer.html'"></footer>
+    <div class="clearfix"></div>
+</div>
+<div class="clearfix">
+</div>

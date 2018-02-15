@@ -1,0 +1,119 @@
+<!-- <style>
+  .modal.fade.ci-confirm-window {z-index: 999999 !important;}
+</style> -->
+<div class="model-content" tabindex="-1">
+    <div class="modal-header model-header-color" id="acceptDetails">
+      <h3><i style="vertical-align:2px;" class="fa fa-university"></i> Withdrawal Details</h3>
+      <!-- <button type="button" class="close close-button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+    </div>
+    <div class="modal-body" style="padding:25px 0 !important;">
+        <!-- <div class="bank-modal" style="padding-left:20px;">
+            <h3><i style="vertical-align:2px;" class="fa fa-university"></i> Withdrawal Details</h3>
+        <button type="button" class="close" data-dismiss="modal" ng-click="closeModal()" aria-label="Close" style="position: relative;right: 25px;top: -28px;"><span aria-hidden="true">&times;</span></button>
+        </div> -->
+        <div class="form-group bankwireform">
+            <form name="wdform" method="post" ng-submit="updateWithdrawl(wdform)">
+                <div class="col-sm-12">
+                    <div class="form-group" style="overflow:hidden;">
+                     <div class="col-lg-5">
+                      <label class="control-label"><strong>Requester Name</strong></label><br>
+                     </div>
+                     <div class="col-lg-7">
+                      <label class="control-label">{{wdeditinfo.username}} ({{wdeditinfo.userfullname}})</label><br>
+                     </div>
+                    </div>
+                    <div class="form-group" style="overflow:hidden;">
+                     <div class="col-lg-5">
+                      <label class="control-label"><strong>Requested Date</strong></label><br>
+                     </div>
+                     <div class="col-lg-7">
+                      <label class="control-label">{{wdeditinfo.createdat | date:'medium'}}</label><br>
+                     </div>
+                    </div>
+                    <div class="form-group" style="overflow:hidden;">
+                     <div class="col-lg-5">
+                      <label class="control-label"><strong>Requested Amount (Adscash)</strong></label><br>
+                     </div>
+                     <div class="col-lg-7">
+                      <label class="control-label">{{wdeditinfo.requestedadscash | number : 2}}</label><br>
+                     </div>
+                    </div>
+                    <div class="form-group" style="overflow:hidden;">
+                     <div class="col-lg-5">
+                      <label class="control-label"><strong>Transfer Through</strong></label><br>
+                     </div>
+                     <div class="col-lg-7" style="overflow:hidden;">
+                      <label class="control-label text-capatilize">{{wdeditinfo.transferthrough}}</label><br>
+                     </div>
+                    </div>
+                    <div class="form-group" style="overflow:hidden;">
+                        <div class="col-lg-5">
+                          <label class="control-label"><strong>Requester Address(Eth)</strong></label>
+                        </div>
+                        <div class="col-lg-7">
+                          <label class="control-label">{{wdeditinfo.creditaccount}}</label><br>
+                          <!-- <label class="control-label" ng-if="wdeditinfo.transferthrough=='advcash'">{{userinfo.advcash || wdeditinfo.creditaccount}}</label>
+                          <label class="control-label" ng-if="wdeditinfo.transferthrough=='bitcoin'">{{userinfo.bitcoin || wdeditinfo.creditaccount}}</label>
+                          <a ng-if="userinfo.bitcoinscreenshot && userinfo.bitcoinscreenshot != '' && wdeditinfo.transferthrough=='bitcoin'" target="_blank" href="/{{userinfo.bitcoinscreenshot}}">View Bitcoin Uploaded File</a>
+                          <label class="control-label" ng-if="wdeditinfo.transferthrough=='stp'">{{userinfo.stp || wdeditinfo.creditaccount}}</label> -->
+                        </div>
+                      </div>
+                      <div class="form-group" ng-if="wdeditinfo.transactionid" style="word-wrap: break-word">
+                        <div class="col-lg-5"><label class="control-label"><strong>ADS Txid</strong></label></div>
+                        <div class="col-lg-7">
+                          <label class="control-label text-capatilize">{{wdeditinfo.transactionid}}</label>
+                        </div>
+                      </div>
+                      <div class="form-group" style="overflow:hidden;">
+                        <div class="col-lg-5"><label class="control-label"><strong>Current Status</strong></label></div>
+                        <div class="col-lg-7">
+                          <label class="control-label text-capatilize">{{wdeditinfo.status}}</label>
+                        </div>
+                      </div>
+
+                      <div ng-if="wdeditinfo.status == 'COMPLETED'">
+                        <div class="form-group" style="word-wrap: break-word" ng-if="wdeditinfo.admincommentcomplete">
+                          <div class="col-lg-5"><label class="control-label"><strong>Admin Comments</strong></label></div>
+                          <div class="col-lg-7">
+                            <label class="control-label text-capatilize">{{wdeditinfo.admincommentcomplete}}</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div ng-if="wdeditinfo.status == 'RETURNED'">
+                        <div class="form-group" style="word-wrap: break-word" ng-if="wdeditinfo.admincommentreturn">
+                          <div class="col-lg-5"><label class="control-label"><strong>Admin Comments</strong></label></div>
+                          <div class="col-lg-7">
+                            <label class="control-label text-capatilize">{{wdeditinfo.admincommentreturn}}</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div ng-if="wdeditinfo.status == 'CANCELLED'">
+                        <div class="form-group" style="word-wrap: break-word" ng-if="wdeditinfo.admincommentcancel">
+                          <div class="col-lg-5"><label class="control-label"><strong>Admin Comments</strong></label></div>
+                          <div class="col-lg-7">
+                            <label class="control-label text-capatilize">{{wdeditinfo.admincommentcancel}}</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12" ng-if="wdeditinfo.status == 'PENDING'">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Please add your comment</label>
+                          <textarea class="form-control" rows="3" ng-model="wdeditinfo.admincommentcomplete" placeholder="Please add your comment to accept this request."></textarea>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="form-group" ng-if="wdeditinfo.status == 'PENDING'">
+                        <div class="col-sm-12">
+                          <button class="btn btn-primary" confirm="Are you sure to do 'Instant Transfer' of {{wdeditinfo.withdrawamount}} ADSCASH ?" confirm-settings="{windowClass: 'ci-confirm-window zindex'}" ng-click="doInstantTransfer()" ng-disabled="inProgress || !wdeditinfo.admincommentcomplete">Instant Transfer</button>
+                          <button type="reset" class="btn btn-default" ng-click="closeModal()">Cancel</button>
+                          <p ng-class="{'has-error': errorMessage!=''}">
+                            <span class="help-block">{{errorMessage}}</span>
+                          </p>
+                        </div>
+                      </div> 
+                </div>
+            </form>
+        </div>
+      <div class="clearfix"></div>
+    </div>
+</div>

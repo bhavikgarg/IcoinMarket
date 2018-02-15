@@ -1,0 +1,274 @@
+$icon-font-path: "/bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+$fa-font-path: "/bower_components/font-awesome/fonts";
+
+$body-color:      #e9ecf3;
+$header-color:    #fff;
+$action-button:   #f36a5a;
+$input:           #ced6de;
+$icon-color:      #c0cddc;
+$success:         #45b6af;
+$danger:          #f3565d;
+$primary:         #428bca;
+$heading:         #697882;
+$theme-color:     #5b9bd1;
+$facebook-likes:  #4db3a2;
+$label-color:     #777;
+
+@import 'bootstrap-sass-official/assets/stylesheets/bootstrap';
+@import 'font-awesome/scss/font-awesome';
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all');
+
+/**
+ * App-wide Styles
+ */
+html {
+  height: auto !important;
+  background: transparent !important;
+}
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+body {
+  height: auto !important;
+  background   : $body-color;
+  font-family  : 'Open Sans', sans-serif;
+  font-size    : 13px !important;
+  font-size    : 600 !important;
+}
+
+.valid-username {
+  position: absolute;
+  right: 15px;
+  top: 30px;
+}
+
+.std-input {
+  width: 80px !important;
+  display: inline !important;
+  border: 1px solid #ccc !important;
+  height: 3.8rem !important;
+}
+.std-input + input[type="number"] {
+  display:inline-block;
+}
+.std-input + input.small-phone-input {
+  width: 62% !important;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  margin: 0;
+}
+
+.no-footer .row {margin-bottom: 0}
+.front-view-search {text-align: right}
+.export-section {text-align: left;}
+.export-section .btn {white-space: normal;height: auto;}
+.no-whitespace {white-space: normal;height: auto;}
+
+
+// Component styles are injected through grunt
+// injector
+@import 'account/signup/signup.scss';
+@import 'admin/admin-kyc.scss';
+@import 'admin/admin.scss';
+@import 'admin/header/header.scss';
+@import 'affiliates/affiliates.scss';
+@import 'campaign/campaign.scss';
+@import 'components.scss';
+@import 'dashboard/dashboard.scss';
+@import 'dashboard/header/header.scss';
+@import 'dashboard/messages/messages.scss';
+@import 'dashboard/navigate/navigate.scss';
+@import 'dashboard/notifications/notifications.scss';
+@import 'layout.scss';
+@import 'leaderboard/leaderboard.scss';
+@import 'marketpresentations/marketpresentations.scss';
+@import 'myteam/genealogy.scss';
+@import 'portfoliomanager/portfoliomanager.scss';
+@import 'products/products.scss';
+@import 'referral/referral.scss';
+@import 'soloadds/soloadds.scss';
+@import 'teamcommunication/message.scss';
+@import 'training/training.scss';
+@import 'userprofile/userprofile.scss';
+@import 'wallet/wallet.scss';
+@import 'modal/modal.scss';
+// endinjector
+
+.modal.fade {
+  box-shadow: none;
+  overflow: visible;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  z-index: 999999 !important;
+  background: transparent;
+}
+
+.modal-backdrop.fade {
+  z-index: 99997 !important;
+}
+
+.modal[role="dialog"] {
+  .modal-body {
+    padding:25px;
+    border:0px;
+  }
+
+  .modal-footer {
+    button.btn {margin-right: 5px;}
+  }
+}
+
+.modal {
+  .modal-dialog[role="document"] {
+    .modal-content, .modal-body {
+      padding: 0px !important;
+    }
+    .modal-body {
+      padding-bottom: 15px !important;
+    }
+  }
+}
+
+//textAngular text editor css
+.fr-toolbar .fr-command.fr-btn i, .fr-popup .fr-command.fr-btn i{
+  color:#000;
+}
+
+.overflow-visible {
+  overflow: visible !important;
+}
+
+text-angular ul {
+    padding-left: 40px;
+}
+
+text-angular ul li {
+    list-style-type: disc;
+}
+
+.pagination li{padding:0px !important}
+
+.browser_notification{
+  display: block;
+  padding: 5px 20px;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  float: left;
+  background-color: #f8f0a8;
+  border-top: solid 1px #FFEB3B;
+  border-bottom: solid 1px #d4d1b8;
+  width: 100%;
+  margin-left:-20px;
+  font-weight: normal;
+  z-index: 999;
+}
+
+.icon-box {
+  border-radius: 40px;
+  padding: 0;
+  position: relative;
+  top: 1px;
+}
+
+.icon-box .fa{
+  color: #f39006;
+  font-size: 16px;
+}
+
+.align-middle {
+  vertical-align: middle !important;
+}
+.top-space{
+  top:30px !important;
+}
+.modal.in .modal-dialog {
+    transform: none !important;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+
+@import 'admin/admin-kyc.scss';
+p .fr-command.fr-btn i{
+  color:#000;
+}
+
+.overflow-visible {
+  overflow: visible !important;
+}
+
+text-angular ul {
+    padding-left: 40px;
+}
+
+text-angular ul li {
+    list-style-type: disc;
+}
+
+.browser_notification{
+  display: block;
+  padding: 5px 20px;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  float: left;
+  background-color: #f8f0a8;
+  border-top: solid 1px #FFEB3B;
+  border-bottom: solid 1px #d4d1b8;
+  width: 100%;
+  margin-left:-20px;
+  font-weight: normal;
+  z-index: 999;
+}
+
+.icon-box {
+  border-radius: 40px;
+  padding: 0;
+  position: relative;
+  top: 1px;
+}
+
+.icon-box .fa{
+  color: #f39006;
+  font-size: 16px;
+}
+
+.align-middle {
+  vertical-align: middle !important;
+}
+.top-space{
+  top:30px !important;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+
+@import 'admin/admin-kyc.scss';

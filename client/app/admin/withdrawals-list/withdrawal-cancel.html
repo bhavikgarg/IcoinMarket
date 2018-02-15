@@ -1,0 +1,29 @@
+<div class="modal-content" tabindex="-1">
+  <div class="modal-header model-header-color">
+
+    <div class="col-md-12">
+      <h3 ng-if="request=='return'">
+        <i class="fa fa-university" aria-hidden="true" style="color:#fff; font-size:18px;"></i> Return Withdrawal
+      </h3>
+      <h3 ng-if="request=='cancel'">
+        <i class="fa fa-university" aria-hidden="true" style="color:#fff; font-size:18px;"></i> Cancel Withdrawal
+      </h3>
+      <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="closeModal()"><span aria-hidden="true">&times;</span></button> -->
+    </div>
+  </div>
+  <div class="modal-body" style="height:255px;padding:25px 0;">
+  <div class="col-lg-12">
+    <p>Are you sure, you want to {{request}} this request ?</p>
+    <form name="wcancel">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Please add comment</label>
+        <textarea class="form-control" rows="3" ng-model="cancel.comment" required></textarea>
+      </div>
+      <input type="hidden" ng-model="cancel.cancelKey" name="cancelKey" ng-init="cancel.cancelKey = cancelKey" />
+      <button type="button" class="btn brown" ng-if="request=='return'" ng-disabled="wcancel.$invalid" ng-click="doReturnRequest(cancel, request)">Ok</button>
+      <button type="button" class="btn brown" ng-if="request=='cancel'" ng-disabled="wcancel.$invalid" ng-click="doReturnRequest(cancel, request)">Ok</button>
+      <button type="reset" class="btn btn-default" ng-click="closeModal()">Cancel</button>
+    </form>
+  </div>
+  </div>
+</div>

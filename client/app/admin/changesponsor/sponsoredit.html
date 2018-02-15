@@ -1,0 +1,167 @@
+<style>
+    .sponsor_bottom {
+        padding-bottom: 19px;
+    }
+
+    div.modal-content {
+        margin-top: 150px;
+    }
+</style>
+
+
+<div class="modal-header model-header-color">
+    <div class="col-md-6">
+        <h3>
+            <i class="fa fa-user-plus" aria-hidden="true" style="color:#fff; font-size:18px;"></i>
+            Edit Sponsor
+            <!--button type="button" class="btn btn-small waves-effect contact_sponsor pull-right">Contact {{sponsor.username}}</button-->
+        </h3>
+    </div>
+   <!--  <button type="button" class="close close-button" data-dismiss="modal" aria-label="Close" ng-if="checkUserId"><span aria-hidden="true">&times;</span></button> -->
+    <div class="col-md-6 pull-right" ng-if="!canSeeUserBackOffice && canSeeUserBackOffice !== false">
+        <a class="btn blue pull-right" ng-click="closeallmodals()" style="margin-bottom:10px;margin-top: -7px;">Send Message</a>
+    </div>
+</div>
+<div class="modal-body" style="padding:25px 0;">
+    <div class="row">
+        <form name="sponsorform" method="post" ng-submit="updateSponser(sponsorform)" novalidate>
+            <div class="col-sm-12">
+                <div class="form-group sponsor_bottom">
+                    <div class="col-lg-5">
+                        <label class="control-label">
+                            <strong>User Name</strong>
+                        </label><br>
+                    </div>
+                    <div class="col-lg-7">
+                        <label class="control-label">{{user.username}}</label><br>
+                    </div>
+                </div>
+                <div class="form-group sponsor_bottom">
+                    <div class="col-lg-5">
+                        <label class="control-label">
+                            <strong>Name</strong>
+                        </label><br>
+                    </div>
+                    <div class="col-lg-7">
+                        <label class="control-label">{{user.name}}</label><br>
+                    </div>
+                </div>
+                <div class="form-group sponsor_bottom">
+                    <div class="col-lg-5">
+                        <label class="control-label">
+                            <strong>Email ID</strong>
+                        </label><br>
+                    </div>
+                    <div class="col-lg-7">
+                        <label class="control-label ng-binding">{{user.email}}</label><br>
+                    </div>
+                </div>
+                <div class="form-group sponsor_bottom">
+                    <div class="col-lg-5">
+                        <label class="control-label">Change Sponsor Email ID</label>
+                    </div>
+                    <div class="col-lg-7">
+                        <input type="email" name="sponsorEmail" class="control-label" ng-model="sponsorfrm.email" placeholder="Sponsor Email ID" required ng-change="reverifySponsor()" style="width : 100%">
+                        <span style="color:red" ng-show="(!sponsorform.$invalid && (status || disableForUser))">{{errorMes}}</span>
+                        <span style="color:red" ng-show="(sponsorform.$valid && !userStatus)">{{errorUserMes}}</span>
+                    </div>
+                </div>
+
+                <!-- Sponser Details -->
+                <div class="form-group sponsor_bottom" ng-if="searchedSponserDetail">
+                    <div class="col-sm-12">
+                      <h3><strong>Sponser Details</strong></h3>
+                    </div>
+                    <div class="row" style="padding-left: 40px; padding-bottom: 7px">
+                        <div class="col-sm-12">
+                            <div class="row">
+                              <div class="col-sm-4">
+                                <strong>System Id</strong>
+                              </div>
+                              <div class="col-sm-8">
+                                {{searchedSponserDetail.userid}}
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-left: 40px; padding-bottom: 7px">
+                        <div class="col-sm-12">
+                            <div class="row">
+                              <div class="col-sm-4">
+                                <strong>Name</strong>
+                              </div>
+                              <div class="col-sm-8">
+                                {{searchedSponserDetail.name}}
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-left: 40px; padding-bottom: 7px">
+                        <div class="col-sm-12">
+                            <div class="row">
+                              <div class="col-sm-4">
+                                <strong>Email Id</strong>
+                              </div>
+                              <div class="col-sm-8">
+                                {{searchedSponserDetail.email}}
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-left: 40px; padding-bottom: 7px">
+                        <div class="col-sm-12">
+                            <div class="row">
+                              <div class="col-sm-4">
+                                <strong>Username</strong>
+                              </div>
+                              <div class="col-sm-8">
+                                    {{searchedSponserDetail.username}}
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-left: 40px; padding-bottom: 7px">
+                        <div class="col-sm-12">
+                            <div class="row">
+                              <div class="col-sm-4">
+                                <strong>Mobile</strong>
+                              </div>
+                              <div class="col-sm-8">
+                                    {{searchedSponserDetail.mobile}}
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-left: 40px; padding-bottom: 7px">
+                        <div class="col-sm-12">
+                            <div class="row">
+                              <div class="col-sm-4">
+                                <strong>Country</strong>
+                              </div>
+                              <div class="col-sm-8">
+                                    {{searchedSponserDetail.countryName}}
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group sponsor_bottom">
+                    <div class="col-lg-12">
+                    <input type="hidden" name="userEmail" class="control-label" ng-model="user.email">
+                    <input type="hidden" name="userId" class="control-label" ng-model="userId">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn blue" ng-disabled="sponsorform.$invalid || disableForUser">Save Details</button>
+                        <button type="button" class="btn blue" ng-click="verifySponsorEmail()" ng-disabled="!disableForUser && sponsorform.$valid">Verify Sponsor Info</button>
+                        <br>
+                        <p class="text-danger">{{respMessage}}</p>
+                        <p ng-class="{'has-error': sponserfrmError!=''}">
+                            <span class="help-block ng-binding"></span>
+                        </p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

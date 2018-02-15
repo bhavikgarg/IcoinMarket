@@ -1,0 +1,441 @@
+<div class="col-md-12">
+  <div class="portlet light" >
+    <div class="portlet-body" style="margin-right:10px;"><br><br>
+      <div class="panel panel-default">
+        <div class="panel-body gold-adv-too-box">
+        <div class="gold-panding">
+              <div class="col-md-2 col-sm-6 col-xs-12">
+                <img src="../assets/images/gold01.png" class="img-responsive" width="220">
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <h1 style="color:#fff;">Gold Advertising</h1>
+                <p style="color:#fff; font-size:14px; text-align:justify; text-transform:capitalize">
+                  Gold Packs can be purchased for PREMIUM advert space such as Facebook Share Ads, Banner Ads , Login Ads , Solo Ads to give you a higher online presence. The best feature with Gold Coins is that they can be encashed from your bank. The more you hold Gold Coins with you, the better are the chances of premium advertising and product reach.<br><br>
+                </p>
+                <p>
+                  <strong>Gold Coins (Balance): <span>{{productPurchaseInfo.acoins | number:1}}</span></strong><br>
+                  <button ng-if="productPurchaseInfo.acoins > 0" class="btn brown no-whitespace" style="margin-top:10px;" ng-click="showTransferPopup()">Transfer Gold Coins</button>
+                </p>
+              </div>
+
+              <div align="left" class="col-md-4 col-sm-6 col-xs-12" style="padding-right: 0px !important;">
+                <form name="goldpacks" method="post" ng-submit="validatePaypalOption(); showPayMethods(goldpacks)">
+                 <br />
+                  <span style="font-size:20px; ">Packs</span>
+                  <input type="text" class="gold-texbox" name="quantity" numbersOnly ng-pattern="/^(\d)+$/" ng-change="updateBuyCost()" ng-model="buyInfo.packs" min=1 max=4000 required>
+                  <span ng-show="goldpacks.quantity.$error.pattern || goldpacks.quantity.$error.min || goldpacks.quantity.$error.max" class="alert alert-danger error-quantity">Gold Pack quantity must be between 1 to 4000</span>
+                  <h2 style="font-size:23px; color:#000">
+
+                    Coins <i class="fa fa-database" style="font-size:23px; color:#000;" ></i>
+
+                    {{packInformation.coins * (buyInfo.packs > 0 ? buyInfo.packs : 0)}}
+                 </h2>
+                  <h2 style="font-size:23px; color:#000">
+                    <strong>Total : <i class="fa fa-usd" style="font-size:23px; color:#000; " ></i>
+                      {{packInformation.price * (buyInfo.packs > 0 ? buyInfo.packs : 0)}}
+                    </strong>
+                  </h2><br />
+
+                  <button type="submit" class="gold-button" ng-disabled="goldpacks.quantity.$error.pattern || goldpacks.quantity.$error.required || goldpacks.quantity.$error.min || goldpacks.quantity.$error.max  || goldpacks.quantity.$error.number || buyInfo.packs == 0">
+                    Buy Gold Pack
+                  </button>
+                </form>
+            </div>
+
+          <div class="clearfix"></div>
+
+        </div>
+          <!--Default Product-->
+
+        </div>
+        <!--div align="center" class="panel-footer"></div-->
+        <div class="gold-adv-top-heading"> <h2>Products</h2></div>
+         <form name="buyprodcts" method="post" ng-submit="buyFromInterCredits(buyprodcts)" ng-class="{'has-error': silverPackPurchaseErrorMessage!=''}">
+            <div class="panel panel-default" style="background:#fafaf9;">
+              <div class="panel-body" style="padding-bottom:0px; ">
+                <div class="row">
+                  <div class="col-md-3 col-sm-6"><img src="../assets/images/silver01.png" class="img-responsive"></div>
+                  <div class="col-md-9 col-sm-6">
+                    <h1 style="color: #666;">Silver Packs</h1>
+                    <p style="font-size:14px;text-transform:capitalize">
+                      Silver Pack of $25 fetches 1000 silver coins. These coins are your currency for basic level advertising products such as ad exchange, text ads etc. Silver coins are system coins that will run in the system and can not be withdrawn. Thus, you can make the best use of these coins by purchasing basic advertising products, auto surf, social advertising and much more.
+                      <br><br>
+                    </p>
+                    <div class="row" style="border-top:1px solid #e2e2e2;">
+                      <div class="col-md-3 col-sm-12">
+                        <h3 style="font-size:18px  !important;"><strong>Cost : <i class="fa fa-database" style="font-size:18px  !important; color:#000;"></i> 1000</strong></h3>
+                      </div>
+
+                      <div class="col-md-4 col-sm-12">
+                        <h3 class="qty-font"><strong>Quantity </strong>
+                          <input type="text" class="gold-texbox qty-input" name="quantity" numbersOnly ng-model="gold.scqty" min="1" max="4000" ng-pattern="/^(\d)+$/" ng-change="validateInput()" required></h3>
+                        <span ng-show="buyprodcts.quantity.$error.pattern || buyprodcts.quantity.$error.min || buyprodcts.quantity.$error.max" class="alert alert-danger error-quantity visible-sm visible-xs">Silver Pack quantity must be between 1 to 4000</span>
+                      </div>
+                      <div class="col-md-3 col-sm-12">
+                        <h3 style="font-size:18px  !important;">
+                          <strong>Total : <i class="fa fa-database fa-gold" style="font-size:18px;"></i>
+                          {{(gold.scqty > 0 ? gold.scqty : 0) * packInformation.coins}}</strong>
+                        </h3>
+                      </div>
+
+                      <div class="col-md-2 col-sm-12">
+                        <!-- <button type="submit" class="silver-button-sm " ng-disabled="buyprodcts.quantity.$error.pattern || buyprodcts.quantity.$error.min || buyprodcts.quantity.$error.max || buyprodcts.quantity.$error.required || buyprodcts.quantity.$error.number || (productPurchaseInfo.apacks == 0) || clicked">
+                          <i class="fa fa-database" style="color:#666 !important;"></i> Buy Now
+                        </button> -->
+                        <button type="submit" class="gold-button-sm" style="width:95px;" ng-disabled="buyprodcts.quantity.$error.pattern || buyprodcts.quantity.$error.min || buyprodcts.quantity.$error.max || buyprodcts.quantity.$error.required || buyprodcts.quantity.$error.number || (productPurchaseInfo.apacks == 0) || clicked">
+                          <i class="fa fa-database" style="color:#fff !important;"></i> Buy Now
+                        </button>
+                        <p class="help-block" ng-if="silverPackPurchaseErrorMessage != ''">{{silverPackPurchaseErrorMessage}}</p>
+                      </div>
+                      <div class="col-md-6 col-sm-12 col-md-offset-3 visible-md visible-lg">
+                      <span ng-show="buyprodcts.quantity.$error.pattern||buyprodcts.quantity.$error.min || buyprodcts.quantity.$error.max" class="alert alert-danger error-quantity">Silver Pack quantity must be between 1 to 4000</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </form>
+
+
+      <!--For facebook like   Disabled temporarily-->
+       <form action="" name="setfblikecampaign" method="post" ng-controller="FacebookLikeCampaign">
+        <div class="panel panel-default">
+          <div class="panel-body" style="min-height:275px; padding-bottom:0px;">
+            <div class="row">
+              <div class="col-md-3 col-sm-6"><img src="../assets/images/fblike-ads-logo.png" class="img-responsive"></div>
+
+
+              <div class="col-md-9 col-sm-6"><h1 style="color: #999;">Facebook FanPage Like</h1>
+                <p>Now you can get authentic likes on your official Facebook channel. Use your coins to purchase likes as per your priorities. Set the priorities to High, Medium and Low and get likes from real people. <br><br>
+                  This is very simple! <br>
+                  -Share the Facebook link you want likes on.<br>
+                  -Purchase the number of likes you want.<br>
+                  -Deposit the required number of coins.<br>
+                  -Set the priority.<br>
+                  -Submit<br><br>
+                  This is just awesome! Isn’t it?<br><br>
+                </p>
+                <div class="row" style="border-top:1px solid #e2e2e2;" ng-include="templateUrl">
+                  Create Text Campaign Form Body
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!--Facebook like ends   -->
+
+      <!--For facebook share   -->
+      <form action="" name="setfbsharecampaign" method="post" ng-controller="FacebookShareCampaign">
+        <div class="panel panel-default">
+          <div class="panel-body" style="min-height:275px; padding-bottom:0px;">
+            <div class="row">
+              <div class="col-md-3 col-sm-6"><img src="../assets/images/fbshare-ads-logo.png" class="img-responsive"></div>
+
+
+              <div class="col-md-9 col-sm-6"><h1 style="color: #C90;">Facebook Share</h1>
+
+                  <div style="position: absolute;
+    z-index: 999;
+    /* height: 58px; */
+    font-weight: bold;
+    font-size: 11px;
+    margin: 0 auto;
+    margin-top: -33px;
+    /* float: right; */
+    width: 100%;
+    /* margin-right: 16px; */;">
+        <a class="anchorcss"  ng-click="showgif()"  >How to find URL ?</a>
+      </div>
+                <p>
+                  You can even place your Facebook URL in front of the Adscash affiliate userbase. The number of users who will view the advertisement will depend on the number of coins you put to it. You also get to set the priority level, that is High Priority, Medium Priority and Low Priority level, for the advertisement. And the number of viewers of your advertisement will be in proportion to the same.<br><br>
+                    So, if you have put, say 200 coins and you have set the Priority level to High, then the number of Adscash affiliates who will view your URL is 200 divided by 40 which means 5.<br><br>
+
+                  This is a highly converting promotion format which should be utilised to the core
+                  <br><br>
+                </p>
+                <div class="row" style="border-top:1px solid #e2e2e2;" ng-include="templateUrl">
+                  <!-- Create Text Campaign Form Body -->
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!--Facebook share ends   -->
+
+
+
+      <!--Default Product End-->
+      <div ng-repeat="(key,product) in products">
+        <!-- <form name="buyprodct" method="post" ng-if="product.subtype != 'soloemail'" ng-submit="purchaseProduct(this,key)">
+          <div class="panel panel-default">
+            <div class="panel-body" style=" padding-bottom:0px; ">
+              <div class="row">
+                <div class="col-md-3 col-sm-6"><img src="../assets/images/product.jpg" class="img-responsive"></div>
+                <div class="col-md-9 col-sm-6">
+                  <h1 style="color: #C90;">{{product.name}}</h1>
+                  <p>{{product.description}}<br><br>
+                  </p>
+                  <div class="row" style="border-top:1px solid #e2e2e2;">
+                    <div class="col-md-3 col-sm-12">
+                      <div class="btn-group">
+                      <button  type="button" class="btn btn-secondary dropdown-toggle gold-button-sel select-link gold-button-sel select-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Clicks</button>
+                      <div class="dropdown-menu" style="position: static!important;">
+                      <table class="table-responsive table-scrollable solo-ads">
+                        <thead>
+                          <tr>
+                            <th class="col-lg-3">No. of Clicks</th>
+                            <th class="col-lg-3">Coins Per Click</th>
+                            <th class="col-lg-4">Total Coins</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-click="setProductInfo(key, 100, 80, 8000);ads=!ads">
+                            <td>100</td>
+                            <td>80</td>
+                            <td>8000</td>
+                          </tr>
+                          <tr ng-click="setProductInfo(key, 250, 76, 19000);ads=!ads">
+                            <td>250</td>
+                            <td>76</td>
+                            <td>19000</td>
+                          </tr>
+                          <tr ng-click="setProductInfo(key, 500, 72, 36000);ads=!ads">
+                            <td>500</td>
+                            <td>72</td>
+                            <td>36000</td>
+                          </tr>
+                          <tr ng-click="setProductInfo(key, 750, 68, 51000);ads=!ads">
+                            <td>750</td>
+                            <td>68</td>
+                            <td>51000</td>
+                          </tr>
+                          <tr ng-click="setProductInfo(key, 1000, 64, 64000);ads=!ads">
+                            <td>1000</td>
+                            <td>64</td>
+                            <td>64000</td>
+                          </tr>
+                          <tr ng-click="setProductInfo(key, 2500, 60, 150000);ads=!ads">
+                            <td>2500</td>
+                            <td>60</td>
+                            <td>150000</td>
+                          </tr>
+                          <tr ng-click="setProductInfo(key, 5000, 56, 280000);ads=!ads">
+                            <td>5000</td>
+                            <td>56</td>
+                            <td>280000</td>
+                          </tr>
+                          <tr ng-click="setProductInfo(key, 7500, 52, 390000);ads=!ads">
+                            <td>7500</td>
+                            <td>52</td>
+                            <td>390000</td>
+                          </tr>
+                          <tr ng-click="setProductInfo(key, 10000, 48, 480000);ads=!ads">
+                            <td>10000</td>
+                            <td>48</td>
+                            <td>480000</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      </div>
+                      </div>
+                    </div>
+                    <div align="center" class="col-md-3 col-sm-12">
+                      <h3 class="gold-texbox-h3-font"><strong>Cost (CPC):
+                      <i class="fa fa-database fa-gold" style="font-size:15px;">
+                        </i> {{product.coins}}</strong></h3>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                      <h3 class="gold-texbox-h3-font"><strong>Clicks: <i class="fa fa-database fa-gold" style="font-size:15px;"></i> {{product.quantity}}</strong></h3>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                      <h3 class="gold-texbox-h3-font"><strong>Total : <i class="fa fa-database fa-gold" style="font-size:15px;">
+                        </i> {{product.coins * (product.quantity || 0)}}</strong></h3>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                      <div ng-if="false">
+                        <button type="submit" class="gold-button-sm" ng-disabled="buyprodct.quantity.$error.min || buyprodct.quantity.$error.max || buyprodct.quantity.$error.required || (productPurchaseInfo.apacks == 0)">
+                          <i class="fa fa-database fa-gold" style="color:#fff !important;"></i> Buy Now
+                        </button>
+                      </div>
+                      <button type="button" class="gold-button-sm" ng-disabled="true" style="background:#efdfb1;border:1px solid #efdfb1;">
+                        <i class="fa fa-database fa-gold" style="color:#fff !important;"></i> Buy Now
+                      </button>
+                      <p class="help-block" ng-if="product.packPurchaseErrorMessage != ''">{{product.packPurchaseErrorMessage}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form> -->
+        <form name="buyprodct" method="post" ng-if="product.subtype == 'soloemail'" ng-controller="SoloEmailProduct" ng-submit="purchaseProduct(this,key)">
+          <div class="panel panel-default">
+            <div class="panel-body" style=" padding-bottom:0px; ">
+              <div class="row">
+                <div class="col-md-3 col-sm-6"><img src="../assets/images/solo-ad-email.png" class="img-responsive"></div>
+                <div class="col-md-9 col-sm-6">
+                  <h1 style="color: #C90;">{{product.name}}</h1>
+                  <p>Imagine getting 1000's of views and clicks to your offer at the push of a button - This is what a targetted solo email ad to CI's extensive email list of over 110k+ subscribers can do for you.<br>
+                    Your email ad will be sent as a solo email to our entire user database on your preferred date and to say the least you will get guaranteed high quality clicks and leads to your offer.<br>
+                    Targetted Niche is 'Make Money Online', 'Business Opportunity'. Offers that will get good response are Investment Offers, Forex Trading, Make Money Online, MLM, Network Marketing, Affiliate Marketing, etc.<br><br></p>
+                  <div class="row" style="border-top:1px solid #e2e2e2;">
+                    <div align="center" class="col-md-4 col-sm-12">
+                      <h3 class="gold-texbox-h3-font" style="line-height:3rem;">
+                        <i class="fa fa-database fa-gold" style="font-size:15px;"></i>
+                        <strong>Cost: {{product.coins}}</strong>
+                      </h3>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                      <h3 class="gold-texbox-h3-font" style="line-height:3rem;">
+                        <strong>Quantity: {{product.quantity}} Email Broadcast</strong>
+                      </h3>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                      <h3 class="gold-texbox-h3-font" style="line-height:3rem;"><strong>Total :
+                        <i class="fa fa-database fa-gold" style="font-size:15px;"></i>
+                        {{product.coins * (product.quantity || 0)}}</strong></h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-8 col-sm-12">
+                      <h3 class="gold-texbox-h3-font" style="margin-top:5px;">
+                        <strong class="pull-left" style="line-height:4rem;margin-right:10px;">Broadcast Date:</strong>
+                        <!-- <input type="date" ng-model="broadcastat" min="{{currentDate}}" name="broadcast" ng-min="currentDate" required="required" style="width:200px;margin-bottom:0px;"/> -->
+                        <input type="text" class="form-control pull-left" uib-datepicker-popup="yyyy/MM/dd" ng-model="broadcastat" is-open="datepickerOptions.opened" show-button-bar="false" datepicker-options="datepickerOptions" ng-required="true" style="width:200px;margin-bottom:0px;" />
+                        <span class="input-group-btn pull-left">
+                          <button type="button" class="btn btn-default" ng-click="openDatePopup()" style="border-radius:0 5px 5px 0px;margin-left:-4px;height:38px;box-shadow:none !important;"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                        <div class="clearfix"></div>
+                        <span ng-if="transferCoinSuccess != ''" class="text-danger">{{transferCoinSuccess}}</span>
+                      </h3>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                      <button type="submit" class="gold-button-sm" ng-disabled="buyprodct.quantity.$error.min || buyprodct.quantity.$error.max || buyprodct.quantity.$error.required || (productPurchaseInfo.apacks == 0)">
+                        <i class="fa fa-database fa-gold" style="color:#fff !important;"></i> Buy Now
+                      </button>
+                      <p class="help-block" ng-if="product.packPurchaseErrorMessage != ''">{{product.packPurchaseErrorMessage}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <form name="buyprodct" method="post" ng-if="product.subtype == 'dailyads'" ng-controller="DailyLoginProduct" ng-submit="validatePaypalOption(); purchaseProduct(this,key)">
+          <div class="panel panel-default">
+            <div class="panel-body" style=" padding-bottom:0px; ">
+              <div class="row">
+                <div class="col-md-3 col-sm-6"><img src="../assets/images/daily-login-ad.png" class="img-responsive"></div>
+                <div class="col-md-9 col-sm-6">
+                  <h1 style="color: #C90;">{{product.name}}</h1>
+                  <p>Place your website/landing pages in front of Adscash affiliate userbase. They will be exposed to it for an eyefull of 15 seconds before getting access to their dashboards post login.<br>
+                    This is a highly converting promotion format. Make the best use of it.<br>
+                    We suggest you to buy consecutive slots to create maximum impact on your perspective buyers. Intermediate Gaps will enable the users to watch other ads and loose focus from your offer.<br><br></p>
+                  <div class="row" style="border-top:1px solid #e2e2e2;">
+                    <div align="center" class="col-md-4 col-sm-12">
+                      <h3 class="gold-texbox-h3-font" style="line-height:3rem;">
+                        <i class="fa fa-database fa-gold" style="font-size:15px;"></i>
+                        <strong>Cost: {{product.coins}}</strong>
+                      </h3>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                      <h3 class="gold-texbox-h3-font" style="line-height:3rem;">
+                        <strong>Quantity: {{product.quantity}} Day<span ng-if="product.quantity > 1">s</span></strong>
+                      </h3>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                      <h3 class="gold-texbox-h3-font" style="line-height:3rem;"><strong>Total :
+                        <i class="fa fa-database fa-gold" style="font-size:15px;"></i>
+                        {{product.coins * (product.quantity || 0)}}</strong></h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-8 col-sm-12">
+                      <h3 class="gold-texbox-h3-font col-md-6 col-sm-6" style="margin-top:5px;">
+                        <strong class="pull-left" style="line-height:4rem;margin-right:10px;">Start Date:</strong>
+                        <input type="text" class="form-control pull-left" uib-datepicker-popup="yyyy/MM/dd" ng-model="broadcaststart" is-open="datepickerOptions.startDate.opened" show-button-bar="false" datepicker-options="datepickerOptions.startDate" ng-required="true" style="width:200px;margin-bottom:0px;" ng-change="calculateQuantity()" />
+                        <span class="input-group-btn pull-left">
+                          <button type="button" class="btn btn-default" ng-click="openStartDatePopup()" style="border-radius:0 5px 5px 0px;margin-left:-4px;height:38px;box-shadow:none !important;"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                        <div class="clearfix"></div>
+                        <span ng-if="transferCoinSuccess != ''" class="text-danger">{{transferCoinSuccess}}</span>
+                      </h3>
+
+                      <h3 class="gold-texbox-h3-font col-md-6 col-sm-6" style="margin-top:5px;">
+                        <strong class="pull-left" style="line-height:4rem;margin-right:10px;">End Date:</strong>
+                        <input type="text" class="form-control pull-left" uib-datepicker-popup="yyyy/MM/dd" ng-model="broadcastend" is-open="datepickerOptions.endDate.opened" show-button-bar="false" datepicker-options="datepickerOptions.endDate" ng-required="true" style="width:200px;margin-bottom:0px;" ng-change="calculateQuantity()" />
+                        <span class="input-group-btn pull-left">
+                          <button type="button" class="btn btn-default" ng-click="openEndDatePopup()" style="border-radius:0 5px 5px 0px;margin-left:-4px;height:38px;box-shadow:none !important;"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                        <div class="clearfix"></div>
+                        <span ng-if="transferCoinSuccess != ''" class="text-danger">{{transferCoinSuccess}}</span>
+                      </h3>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                      <button type="submit" class="gold-button-sm" ng-disabled="buyprodct.quantity.$error.min || buyprodct.quantity.$error.max || buyprodct.quantity.$error.required || (productPurchaseInfo.apacks == 0)">
+                        <i class="fa fa-database fa-gold" style="color:#fff !important;"></i> Buy Now
+                      </button>
+                      <p class="help-block" ng-if="product.packPurchaseErrorMessage != ''">{{product.packPurchaseErrorMessage}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+        </div>
+
+      </div>
+
+<div class="modal fade"  id="Sharemodelpopup" tabindex="-1" role="dialog" aria-labelledby="SharemodelpopupLabel">
+  <div class="modal-dialog" role="document" style="width: 60%;">
+    <div class="modal-content">
+      <div>
+        <i class="fa fa-close close-btn pull-right" data-dismiss="modal"></i>
+        <h4 class="modal-title" id="SharemodelpopupLabel"><strong><i class="fa fa-user"></i> How to find URL ? </strong></h4>
+      </div>
+      <div class="modal-body">
+       <div  ng-animate="animate">
+      <div class="table-scrollable" id="show_gif_share_tut" >
+          </div>
+    </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<style>
+ @media only screen and (max-width: 814px) {
+    .anchorcss {
+    margin-top: 18px;
+  }
+    }
+@media only screen and (max-width: 470px) {
+    .anchorcss {
+    margin-top: 18px;
+  }
+    }
+    .anchorcss {
+   float: right;
+    margin-right: 29px;
+    }
+</style>
+
+<script type = "text/javascript">
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+</script>

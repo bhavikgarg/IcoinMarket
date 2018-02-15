@@ -1,0 +1,50 @@
+<div class="block block-condensed">
+    <div class="app-heading app-heading-small">
+        <div class="title">
+            <p><a href="/dashboard">Dashboard</a> / Genealogy</p>
+        </div>
+    </div>
+    <div class="block-content">
+        <h5 style="font-size: 20px; padding: 10px 0px;"> Genealogy</h5>
+        <div class="row">
+            <div class="col-sm-12">
+                <span class="pull-right" ng-click="loadLevel()" style="cursor: pointer;margin-right: 20px;">
+                    <img src="assets/images/refresh.png" width="20px" /> Refresh
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div ng-if="loadingMessage" class="ajax_loader"></div>
+                <div class="clearfix text-capitalize" id="scatterchart_material">
+
+                    <script type="text/ng-template" id="categoryTree">
+                        <span ng-click="loadGridMemberInfo(category.customInfo.levelCounter, category, $event)" child-data="{{category.customInfo.totalMembers}}"
+                            sponsor-id="{{category.sponsorId}}" data-level="{{category.customInfo.levelCounter}}" data-current="{{category.customInfo.currentIndex + 1}}"
+                            ng-class="{'no-click-8-gen':(category.customInfo.levelCounter>7)}"><i class="fa fa-user"></i>{{ category.label }}</span>
+                        <ul ng-if="category.children" class="genealogy-tree">
+                            <li ng-repeat="category in category.children" class="level-{{category.customInfo.levelCounter}}" ng-include="'categoryTree'"></li>
+                        </ul>
+                        <button class="btn brown btn-sm load-more level-{{category.customInfo.levelCounter}}" ng-click="loadNextPage(category.customInfo.id, category, $event)"
+                            style="margin: 10px 0;height:auto;display:none;">Load More...</button>
+                        <div current-page="{{category.customInfo.currentPage}}"></div>
+                    </script>
+
+                    <div id="generation-level">
+                        <ul class="first-level">
+                            <li ng-repeat="category in genealogyTree" ng-include="'categoryTree'"></li>
+                        </ul>
+                    </div>
+                </div>
+                <br></br>
+                <div class="tree-pagination">
+                    <p class="text-center"><strong>{{loadingMessage}}</strong></p>
+                    <p class="text-danger">** Note: Please select a member for which you want to load its child members (Default view limit
+                        is 50 members)</p>
+                    <!-- <p class="pull-left">View {{currentLoaded}} of {{totalMembers}} (For Member: {{viewMember.customInfo.name}})</p> -->
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

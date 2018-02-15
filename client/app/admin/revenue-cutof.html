@@ -1,0 +1,23 @@
+<section>
+  <div class="page-head">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="col-md-12 list-admin">
+        <div class="col-md-6">
+          <form class="form" name="revenuecutofform">
+            <div class="col-md-12">
+              <label>Revenue Share Cutof Value (Must be in Coins)</label>
+              <input type="text" min="0" max="1" ng-model="revenueCutof.cutofvalue" name="cutofvalue" placeholder="Revenue CutOf Value"
+                required />
+            </div>
+            <div class="col-md-12">
+              <button class="btn brown" ng-disabled="!revenuecutofform.$valid" ng-click="saveInfo(revenuecutofform)">Set New Cutof</button>
+            </div>
+            <div class="clearfix"></div>
+            <p ng-if="updatemessage!=''" class="text-danger">{{updatemessage}}</p>
+          </form>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

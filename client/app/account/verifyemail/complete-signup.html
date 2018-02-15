@@ -1,0 +1,175 @@
+<div class="app">
+  <section>
+    <div class="page-head main-top-space" style="margin-top: 15px !important">
+      <div class="col-sm-12" style="padding-bottom: 100px;">
+        <div class="col-md-10 page-content">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-4">
+              <div class="portlet box" style="margin-top:50px;">
+                <div class="portlet-body">
+                  <h1>
+                    <h1>
+                      Need More Info
+                    </h1>
+                  </h1>
+                 	<div class="" role="alert">
+	                    <h4>Hi! <i class="fa fa-user"></i> {{user.name}},</h4>
+	                    <p>We need more information to complete your signup process.</p>
+	                    <br>
+	                    <br>
+	                    <form class="form complete-signup-form" name="form" ng-submit="updateUser(form)" novalidate  style="height: 480px;">
+	                     	<div class="form-group" ng-class="{'has-error': (form.username.$invalid && submitted) || (!validUserName && validUserName != -1) || (form.username.$invalid && !form.username.$pristine)}">
+		                        <label><strong>Username</strong></label><br>
+		                        <div class="form-group">
+		                          <input type="text" name="username" class="form-control" ng-model="user.username" ng-minlength="6" ng-maxlength="19" ng-pattern="/^[A-Za-z0-9\_\@\.\-\u00C0-\u1FFF\u2C00-\uD7FF]*$/"
+		                            required mongoose-error/>
+		                        <div class="row">
+		                         <div class="col-md-12">
+                               <p class="help-block" ng-if="user.provider == 'facebook' && !form.username.$error.required && !form.username.$error.maxlength && !form.username.$error.minlength && !form.username.$error.pattern">
+                                  We recommend to change your username
+                                </p>
+                                <p class="help-block" ng-show="form.username.$error.required && submitted">
+                                  Username is required
+                                </p>
+                                <p class="help-block" ng-show="(form.username.$error.minlength || form.username.$error.maxlength) && !form.username.$error.pattern">
+                                  Username must be more than 5 characters and less than 20 characters.
+                                </p>
+                                <p class="help-block" ng-show="(form.username.$error.pattern || form.username.$error.username)">
+                                  Only letters, numbers and these characters (i.e. @ , _ , - , . ) are allowed (**Important: Space is also not allowed)
+                                </p>    
+                               </div>
+		                        </div>
+                              </div>
+	                     	</div>
+	                     	<div class="clearfix"></div>
+	                     	<div class="form-group" ng-class="{'has-error': (form.email.$error.mongoose ||form.email.$error.pattern || form.email.$error.email || form.email.$error.required && (form.email.$dirty || submitted))
+                           }">
+		                        <label><strong>Email Address</strong></label>
+		                        <input type="email" name="email" class="form-control" ng-model="user.email" ng-pattern="/^[a-z]+([a-z0-9._-](\+{0,1}))+@[a-z]+\.[a-z.]{2,6}$/i"
+		                          ng-change="checkEmail()" mongoose-error required/>
+		                        <p class="help-block" ng-show="(form.email.$error.required && submitted)">
+		                          Email is required
+		                        </p>
+		                        <p class="help-block" ng-show="form.email.$error.pattern || form.email.$error.email">
+		                          Please enter a valid email
+		                        </p>
+		                        <p class="help-block" ng-if="(errors.email && errors.email != '' && form.email.$valid == true) && (form.email.$dirty || submitted)">{{errors.email}}</p>
+	                     	</div>
+	                    	<div class="form-group" ng-class="{'has-error': (form.mobile.$error.minlength || form.mobile.$error.maxlength || form.mobile.$error.required || form.mobile.$error.pattern) && (form.mobile.$dirty || submitted)}">
+	                        	<label><strong>Mobile Number</strong></label>
+	                        	<div class="row">
+	                          		<div class="col-md-4" style="margin-right:0px; padding-right:0px;">
+	                            		<select name="phstdcode" ng-model="user.stdcode" class="std-input form-control" id="isdcodes" ng-change="setCountry()">
+	                     					<option ng-repeat="isd in isdCodes" value="{{isd.dial_code}}">{{isd.dial_code}}</option>
+	                    				</select>
+	                          		</div>
+	                          		<div class="col-md-8">
+	                            		<input type="number" name="mobile" class="form-control small-phone-input" ng-model="user.mobile" ng-pattern="/^[0-9]*$/" ng-minlength="5" ng-maxlength="12"
+	                              			required/>
+                                 
+	                          		</div>
+	                        		<p class="help-block" style="margin-left: 15px;" ng-show="(form.mobile.$error.minlength || form.mobile.$error.maxlength || form.mobile.$error.required || form.mobile.$error.pattern) && (form.mobile.$dirty || submitted)">
+	                            		Enter valid mobile number
+	                          		</p>                                 
+	                        	</div>
+	                        </div>
+	                        <div class="form-group" ng-class="{'has-error': form.country.$error.required && submitted}">
+	                        	<label><strong>Country</strong></label>
+	                        	<select name="country" class="form-control" ng-model="user.countryName" mongoose-error ng-change="setCountryCode()" required>
+	                      			<option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}</option>
+	                    		</select>
+	                          	<p class="help-block" ng-show="(form.country.$error.required && submitted)">
+	                            	Please select your country
+	                          	</p>
+	                        </div>
+	                        <p class="help-block"> {{ message }} </p>
+	                        <p class="help-block text-danger"> {{ errorMessage }} </p>
+	                        <div class="col-md-2" style="padding-left:0px;">
+	                         	<button class="btn brown" type="submit" ng-disabled="submitted || errors.email || form.email.$error.pattern || form.username.$error.minlength || form.username.$error.maxlength || form.username.$error.pattern || form.email.$error.required || form.mobile.$error.minlength || form.mobile.$error.maxlength || form.mobile.$error.required || form.mobile.$error.pattern">Save changes</button>
+	                        </div>
+	                        <br /><br />
+	                        <div class="col-md-10 text-left" style="padding-left:0px;line-height:36px;">
+	                         	<p class="text-danger text-left">{{validateSponsorMsg}}</p>
+	                        </div>
+	                        <div class="clearfix"></div>
+	                    </form>
+	                    <div style="display:none !important;">
+	                      <!-- AWeber Web Form Generator 3.0.1 -->
+<!-- 	                    	<form id="cisignupaweber" method="post" class="af-form-wrapper" accept-charset="UTF-8" action="https://www.aweber.com/scripts/addlead.pl">
+		                        <div style="display: none;">
+		                          <input type="hidden" name="meta_web_form_id" value="1613559458" />
+		                          <input type="hidden" name="meta_split_id" value="" />
+		                          <input type="hidden" name="listname" value="awlist4716033" />
+		                          <input type="hidden" name="redirect" value="{{welcomeApiUrl}}" id="redirect_2f693fca292b71bc9ccd1201fd8a6602" />
+		                          <input type="hidden" name="meta_redirect_onlist" value="{{welcomeApiUrl}}" />
+		                          <input type="hidden" name="meta_adtracking" value="My_Web_Form" />
+		                          <input type="hidden" name="meta_message" value="1" />
+		                          <input type="hidden" name="meta_required" value="name,email" />
+		                          <input type="hidden" name="meta_tooltip" value="" />
+		                        </div>
+		                        <div id="af-form-1613559458" class="af-form">
+		                          <div id="af-body-1613559458" class="af-body af-standards">
+		                              <div class="af-element">
+		                              <label class="previewLabel" for="awf_field-91425016">Name: </label>
+		                              <div class="af-textWrap">
+		                                <input ng-if="user.name != '' && user.name != null" id="awf_field-91425016" type="text" name="name" class="text" value="{{user.name}}"
+		                                  onfocus=" if (this.value == '') { this.value = ''; }" onblur="if (this.value == '') { this.value='';} "
+		                                  tabindex="500" />
+		                                <input ng-if="user.google && user.google.displayName" id="awf_field-91425016" type="text" name="name" class="text" value="{{user.google.displayName}}"
+		                                  onfocus=" if (this.value == '') { this.value = ''; }" onblur="if (this.value == '') { this.value='';} "
+		                                  tabindex="500" />
+		                                <input ng-if="!user.name && !user.google" id="awf_field-91425016" type="text" name="name" class="text" value="{{user._id}}"
+		                                  onfocus=" if (this.value == '') { this.value = ''; }" onblur="if (this.value == '') { this.value='';} "
+		                                  tabindex="500" />
+		                              </div>
+		                              <div class="af-clear"></div>
+		                              </div>
+		                              <div class="af-element">
+		                              <label class="previewLabel" for="awf_field-91425017">Email: </label>
+		                              <div class="af-textWrap"><input class="text" id="awf_field-91425017" type="text" name="email" value="{{user.email}}"
+		                                  tabindex="501" onfocus=" if (this.value == '') { this.value = ''; }" onblur="if (this.value == '') { this.value='';} "
+		                                />
+		                              </div>
+		                              <div class="af-clear"></div>
+		                              </div>
+		                              <div class="af-element buttonContainer">
+		                              <input name="submit" id="af-submit-image-1613559458" type="image"class="image" style="background: none; max-width: 100%;"
+		                                alt="Submit Form" src="//aweber.com/images/forms/plain/buttons/grey.png" tabindex="502" />
+		                              <div class="af-clear"></div>
+		                              </div>
+		                          </div>
+		                        </div>
+		                        <div style="display: none;"><img src="https://forms.aweber.com/form/displays.htm?id=jGyMzKysnCysHA==" alt="" /></div>
+                            </form> -->
+	                      <!-- /AWeber Web Form Generator 3.0.1 -->
+                          <form id="icmsignupgetresponse" data-editable="container.form" class="editor-loaded" data-spacing="8;20;8;20;0.4" action="https://app.getresponse.com/add_contact_webform_v2.html?u=rIG4&amp;webforms_id=12791701&amp;v=0" method="post" novalidate="" style="overflow: hidden;">
+                              <div>
+                                  <div data-editable="custom" style="left: 80px; top: 223px; width: 275px;" id="c_otemt"><div class="container label-position-top"><div class="label"><label for="webform_email">Email address</label></div><div class="box"><div class="field"><div class="block border"><input id="webform_email" class="placeholder padding" name="webform[email]" type="text" value="{{user.email}}" placeholder="" maxlength="" minlength="" data-tab-index="" tabindex="2" aria-required="true"><span class="placeholder like-placeholder" style="display:none;"></span></div></div><div class="info-error" hidden=""><p></p></div><div class="info"><p>Help text goes here...</p></div></div><div class="label position-right"><label for="webform_email">Email address</label></div></div></div>
+                                  <div data-editable="custom" class="submit" style="left: 130px; top: 355px; width: 200px;" id="c_jne1t"><div class="container"><button class="button border" type="submit" data-tab-index="" tabindex="3"><span>Submit</span></button></div></div>
+                              <div data-editable="custom" style="width: 275px; left: 80px; top: 125px;" id="c_eavea"><div class="container label-position-top"><div class="label"><label for="webform_name">Name</label></div><div class="box"><div class="field">
+
+                              <div class="block border">
+                                <input ng-if="user.name != '' && user.name != null" id="webform_name" class="placeholder padding" name="webform[name]" type="text" value="{{user.name}}" tabindex="1">
+                                <input ng-if="user.google && user.google.displayName" id="webform_name" class="placeholder padding" name="webform[name]" type="text" value="{{user.google.displayName}}" tabindex="1">
+                                <input ng-if="!user.name && !user.google" id="webform_name" class="placeholder padding" name="webform[name]" type="text" value="{{user._id}}" tabindex="1">
+                                    <span class="placeholder like-placeholder" style="display:none;"></span>
+                                </div></div><div class="info-error" hidden=""><p></p></div><div class="info"><p></p></div></div><div class="label position-right"><label for="webform_name">Name</label></div></div></div></div>
+                          </form>
+	                    </div>
+                   </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+  </section>
+  </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="app" style="position: absolute;bottom: 0px;min-height:initial;height:40px">
+    <footer ng-include="'app/dashboard/footer/footer.html'"></footer>
+    <div class="clearfix"></div>
+  </div>
+  <div class="clearfix">

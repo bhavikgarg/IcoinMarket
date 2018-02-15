@@ -1,0 +1,32 @@
+{
+  "chrome": {
+    "image": "assets/images/chrome.png",
+    "versions": [49,50,51],
+    "url":"https://www.google.com/chrome/browser/desktop/"
+  },
+  "safari": {
+    "image" : "assets/images/safari.png",
+    "versions": [7,8,9],
+    "url":"http://www.apple.com/osx/"
+  },
+  "firefox": {
+    "image" : "assets/images/firefox.png",
+    "versions": [45,46,47],
+    "url":"https://www.mozilla.org/en-US/firefox/new/"
+  },
+  "opera":{
+    "image" : "assets/images/opera.png",
+    "versions": [36,37,38],
+    "url":"http://www.opera.com/?utm_medium=roc&utm_source=burocratik&utm_campaign=outdatedbrowser"
+  },
+  "msEdge":{
+    "image" : "assets/images/internet-explorer.png",
+    "versions": [11,12,13],
+    "url":"http://windows.microsoft.com/en-us/internet-explorer/download-ie"
+  },
+  "msie":{
+    "image" : "assets/images/internet-explorer.png",
+    "versions": [10,11,12],
+    "url":"http://windows.microsoft.com/en-us/internet-explorer/download-ie"
+  }
+}

@@ -1,0 +1,203 @@
+<!-- APP WRAPPER -->
+<div class="app" style="margin-bottom: 30px">
+    <div class="app-header">
+        <ul class="app-header-buttons visible-mobile">
+            <li><a href="#" class="btn btn-link btn-icon" data-header-navigation-toggle="true"><span class="icon-menu"></span></a></li>
+        </ul>
+        <a href="#" class=" pull-left"><img src="assets/images/icmlogo.png" width="160" style="padding: 10px;"></a>
+        <div class="app-header-navigation pull-right">
+            <nav>
+                <ul>
+                    <li>
+                        <img ng-src="{{memberInfo.avatar ? memberInfo.avatar : 'assets/images/user/no-image.png' }}" width="40" height="40" style="border-radius: 50px; margin: 10px; margin-left: -10px;">
+                        <a href="#">Welcome - {{memberInfo.name}}</a>
+                        <ul>
+                            <li><a ui-sref="userprofile" ng-class="{active: ('/userprofile' | isActive)}" style="cursor : pointer">Profile Setting</a></li>
+                            <li><a ng-click="logout()">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- START APP CONTAINER -->
+    <div class="app-container">
+        <div align="center">
+            <div class="container" style="margin-top: 5px;">
+                <p align="center"><img src="assets/images/calling.png" width="100"></p><br />
+                <h2 style="border-bottom:2px solid #1b0881; padding: 0px 10px 10px;" align="center">
+                    <b>Icoinmarket</b> live chat provides customer engagement tools, <br />and a complete support solution
+                    that enables you to connect with your best customers online.
+                </h2>
+                <div class="row">
+                    <div class="col-md-5 col-sm-12">
+                        <div class="block block-condensed">
+                            <div class="app-heading">
+                                <div class="title">
+                                    <h2>Latest Signups</h2>
+                                </div>
+                                <div class="title pull-right" style="font-size: 16px;font-weight: 600">
+                                    Total Signups ({{totalsignups}})
+                                </div>
+                                <br />
+                            </div>
+                            <div class="block-content" style="height:410px;overflow-y: auto;margin-top:0px">
+                                <div class="table-responsive">
+                                    <table class="table table-clean-paddings margin-bottom-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th width="150">Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="signup in latestSignup">
+                                                <td>
+                                                    <div class="contact-container">
+                                                        <img ng-src="{{signup.flag}}" width="16" height="16"> {{signup.name}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span am-time-ago="signup.signupDate"></span>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-success" ng-click="pickUser();"><i class="fa fa-get-pocket"></i> Pick</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <h5 align="left" style="font-size:20px; padding: 10px 10px;">
+                            Current Calling Time Machine
+                        </h5>
+                        <div class="block block-condensed block-arrow-top" style="padding: 20px;">
+                            <div class="table-responsive">
+                                <table class="table table-clean-paddings margin-bottom-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th width="150">Hold on Chat</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-if="selectedusers.name"> <!--ng-repeat="selecteduser in selectedusers"-->
+                                            <td width="45%">
+                                                <div class="contact contact-rounded contact-bordered contact-lg">
+                                                    <img ng-src="{{selectedusers.avatar}}">
+                                                    <div class="contact-container">
+                                                        <img ng-src="{{selectedusers.flag}}"> <b>{{selectedusers.name}}</b>
+                                                        <small><br/><i class="fa fa-phone"></i> {{selectedusers.mobile}}<br/>
+                                                        <i class="fa fa-phone"></i> {{selectedusers.secondaryMobile}}<br/>
+                                                        <i class="fa fa-skype"></i> {{selectedusers.skypeName}}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td width="65%" style="padding-right: 10px;">
+                                                <input type="checkbox" checked="checked" name="active">
+                                                <button class="btn btn-block btn-xs btn-danger" ng-click="updateUserCallStatus(0)"><i class="fa fa-ban"></i> Wrong  Number</button>
+                                                <button class="btn btn-block btn-xs btn-default" ng-click="updateUserCallStatus(1)"><i class="fa fa-close"></i> Not Answering</button>
+                                                <button class="btn btn-xs btn-block btn-success" ng-click="updateUserCallStatus(2)"><i class="fa fa-check-square-o"></i> Answering</button>
+                                            </td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-12" align="left">
+                        <h5 style="font-size:20px; padding: 10px 10px;">
+                            Calling Time Machine
+                        </h5>
+                        <div class="block block-condensed block-arrow-top">
+                            <div class="block-content padding-top-15">
+                                <div class="col-md-4">
+                                    <div class="form-group" ng-class="{'has-success': form.country.$valid && submitted, 'has-error': form.country.$invalid && submitted}">
+                                        <select name="country" class="form-control" ng-model="filter.data" mongoose-error>
+                                          <option ng-repeat="country in countries" value="{{country.code}}">{{country.name}}</option>
+                                        </select>
+                                        <p class="help-block" ng-show="form.country.$error.required && submitted">Please correct the value</p>
+                                    </div>
+                                </div>
+                                <!--<div class="col-md-4">
+                                    <div class="form-group" ng-class="{'has-success': form.country.$valid && submitted, 'has-error': form.country.$invalid && submitted}">
+                                        <select name="country" class="form-control" ng-model="filter.data.preferedTime" mongoose-error>
+                                          <option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}</option>
+                                        </select>
+                                        <p class="help-block" ng-show="form.country.$error.required && submitted">Please correct the value</p>
+                                    </div>
+                                </div>-->
+                                <div class="col-md-4">
+                                    <button class="btn blue" style="height : 42px" ng-click="searchUsers();" ng-if="!isRefreshCall">Search</button>
+                                    <button class="btn blue" style="height : 42px" ng-click="loadBySearch()" ng-if="isRefreshCall">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block block-condensed block-arrow-top" style="padding: 20px;">
+                            <div class="table-responsive">
+                                <table class="table table-clean-paddings margin-bottom-0">
+                                    <thead>
+                                        <tr>
+                                            <th width="35%">Name</th>
+                                            <th width="35%"></th>
+                                            <th width="30%">Hold on Chat</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="(key, user) in users">
+                                            <td width="35%" style="    padding-left: 10px !important;">
+                                                <div class="contact contact-rounded contact-bordered contact-lg">
+                                                    <img ng-src="{{user.avatar}}">
+                                                    <div class="contact-container">
+                                                        <img ng-src="{{user.flag}}" width="20"> <b>{{user.name}}</b>
+                                                        <small><br/>
+                                                        <span> <i class="fa fa-phone"></i> </span><span>{{user.mobile}}</span><br/>
+                                                        <i class="fa fa-phone" ng-if="user.secondaryMobile"></i>{{user.secondaryMobile}}<br/>
+                                                        <i class="fa fa-skype" ng-if="user.skype"></i>{{user.skype}}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td width="35%">                                                
+                                                <div class="contact-container">                                                    
+                                                    <i class="fa fa-calendar" ng-if="user.preferredContactTimeStart"></i> &nbsp;&nbsp; {{user.preferredContactTimeStart}}<br/>
+                                                    <i class="fa fa-calendar" ng-if="user.preferredContactTimeEnd"></i>{{user.preferredContactTimeEnd}}</br/>
+                                                    <i class="fa fa-flag" ng-if="user.timezone"></i>{{user.timezone}}
+                                                    </small>
+                                                </div>
+                                            </td>
+                                            <td width="30%">
+                                                <button class="btn btn-sm btn-success" uib-tooltip="User View" ng-click="showUserPages(user)"><i class="fa fa-eye"></i> User View</button>
+                                                <button class="btn btn-sm btn-success" ng-click="pickUser($index);"><i class="fa fa-get-pocket"></i> Pick</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td ng-if="!isSoloAddAdmin() && !canSeeUserBackOffice()" colspan="10">
+                                                <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                                                    ng-change="loadPage(currentPage)"></ul>
+                                            </td>
+                                            <!--<td ng-if="!(!isSoloAddAdmin() && !canSeeUserBackOffice())" colspan="9">
+                                                <ul uib-pagination items-per-page="25" ng-model="currentPage" total-items="totalPages" max-size="5" boundary-links="true"
+                                                    ng-change="loadPage()"></ul>
+                                            </td>-->
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="app" style="position: absolute;bottom: 0px;min-height:initial;">
+    <footer ng-include="'app/dashboard/footer/footer.html'"></footer>
+    <div class="clearfix"></div>
+</div>
+<!-- END APP WRAPPER -->

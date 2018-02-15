@@ -1,0 +1,31 @@
+<style>
+    div.modal-content {
+        margin-top: 6%;
+    }
+
+    div.modal-dialog {
+        width: 80%;
+        height: 85%;
+        margin-left: 10%;
+        margin-right: 10%;
+        padding: 0px;
+    }
+
+    div.modal-content {
+        height: auto;
+        border-radius: 0px;
+    }
+</style>
+
+<div class="hidden-xs modal-header model-header-color">
+  <h3>User Session</h3>
+</div>
+
+<div class="modal-body" style="padding:25px 40px 40px;width:100%">
+
+  <iframe ng-src="{{proxyUser}}" width="100%" border="0" height="700px"></iframe>
+
+</div>
+<div class="modal-footer">
+    <button align="center" type="button" ng-click="clearClientSession()" class="btn brown" data-dismiss="modal" aria-hidden="true">Stop User Session</button>
+</div>

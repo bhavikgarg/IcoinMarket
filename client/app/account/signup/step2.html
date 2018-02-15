@@ -1,0 +1,151 @@
+<div class="panel panel-default col-md-4 col-md-offset-4  login-bor-bot" style="margin-top : 20px">
+    <div class="panel-body">
+        <p align="center"><img src="assets/images/adscashlogo2.png" width="200"></p>
+        <div class="join">Sign Up Now</div>
+        <div class="lock"></div>
+        <div class="clr"></div>
+        <div class="login-options">Fill in the form below to get instant access:
+
+        </div>
+
+        <div class="clr">
+            <hr />
+        </div>
+
+        <h4 align="center" class="step-block"><strong>STEP - 2</strong> (Personal Information)</h4>
+        <form>
+
+            <div class="form-group" ng-class="{'has-success': form.firstName.$valid && submitted, 'has-error': form.firstName.$invalid && submitted }">
+
+                <label>First Name</label>
+                <input type="text" name="firstName" class="form-control" ng-model="user.firstName" required mongoose-error ng-maxlength="19" />
+                <p class="help-block" ng-show="form.firstName.$error.required && submitted">
+                    First Name is required
+                </p>
+                <p class="help-block" ng-show="form.firstName.$error.maxlength">
+                    First Name must be less than 20 characters.
+                </p>
+    </div>
+
+    <div class="form-group" ng-class="{'has-success': form.lastname.$valid && submitted, 'has-error': form.lastname.$invalid && submitted}">
+        <label>Last Name</label>
+        <input type="text" name="lastname" class="form-control" ng-model="user.lastname" required mongoose-error ng-maxlength="19" />
+        <p class="help-block" ng-show="form.lastname.$error.required && submitted">
+            Last Name is required
+        </p>
+        <p class="help-block" ng-show="form.lastname.$error.maxlength">
+            Lastname must be less than 20 characters.
+        </p>
+    </div>
+
+
+    <div class="form-group" ng-class="{'has-success': form.contact.$valid && submitted, 'has-error': form.contact.$invalid && submitted}">
+        <label for="isdcodes">Mobile No.</label>
+        <!--input type="text" name="phstdcode" ng-model="stdcode" ng-maxlength="6" class="std-input" /-->
+        <div class="row">
+          <div class="col-md-4" style="margin-right:0px; padding-right:0px;">
+            <select name="phstdcode" ng-model="user.stdcode" ng-init = "user.stdcode = isdCodes[0].dial_code" class="std-input form-control" id="isdcodes" required>
+              <option ng-repeat="isd in isdCodes" value="{{isd.dial_code}}">{{isd.dial_code}}</option>
+            </select>
+          </div>
+          <div class="col-md-8">
+            <input type="number" name="contact" class="form-control small-phone-input margin-input" ng-model="user.contact" required mongoose-error />
+          </div>
+          <p class="help-block" ng-show="form.contact.$error.required && form.phstdcode.$error.required && submitted">
+              Mobile Number is required
+          </p>
+          <p class="help-block" ng-show="!form.contact.$error.required && form.phstdcode.$error.required && submitted">
+              Please select country code
+          </p>
+          <p class="help-block" ng-show="form.contact.$error.required && !form.phstdcode.$error.required && submitted">
+              Please enter your mobile number
+          </p>
+          <p class="help-block" ng-if="(errors.mobile && errors.mobile != '')">{{errors.mobile}}</p>
+        </div>
+    </div>
+
+    <div class="form-group username-field" ng-class="{'has-success': form.username.$valid && validUserName && validUserName != -1 && submitted, 'has-error': (form.username.$invalid && submitted) || (!validUserName && validUserName != -1)}">
+        <label>Username</label>
+        <input type="text" name="username" class="form-control" ng-model="user.username" required mongoose-error ng-minlength="6" ng-pattern="/^[A-Za-z0-9\_\@\.\-\u00C0-\u1FFF\u2C00-\uD7FF]*$/" ng-maxlength="19"/>
+        <span ng-if="validUserName && validUserName != -1 && !form.username.$error.maxlength && !form.username.$error.minlength && !(form.username.$error.pattern || form.username.$error.username)" class="valid-username"><i class="fa fa-check"></i></span>
+        <span ng-if="!validUserName && validUserName != -1 && !form.username.$error.maxlength && !form.username.$error.minlength  && form.username.$error.pattern" class="invalid-username"><i class="fa fa-times"></i></span>
+        <p class="help-block" ng-if="!validUserName && validUserName != -1 && !form.username.$error.required && !form.username.$error.maxlength && !form.username.$error.minlength">
+            Username is already exist.
+        </p>
+        <p class="help-block" ng-show="(form.username.$error.pattern || form.username.$error.username) && !form.username.$error.minlength && !form.username.$error.maxlength">
+            Only letters, numbers and these characters (i.e. @ , _ , - , . ) are allowed (**Important: Space is also not allowed)
+        </p>
+        <p class="help-block" ng-show="form.username.$error.required && submitted">
+            Username is required
+        </p>
+        <p class="help-block" ng-show="(form.username.$error.minlength || form.username.$error.maxlength)">
+            Username must be more than 5 characters and less than 20 characters.
+        </p>
+    </div>
+
+    <div class="form-group" ng-class="{'has-success': form.address.$valid && submitted, 'has-error': form.address.$invalid && submitted}">
+        <label>Address</label>
+        <input type="text" name="address" class="form-control" ng-model="user.address" mongoose-error/>
+        <p class="help-block" ng-show="form.address.$error.required && submitted">
+            Please correct the value
+        </p>
+    </div>
+
+    <div class="form-group" ng-class="{'has-success': form.country.$valid && submitted, 'has-error': form.country.$invalid && submitted}">
+        <label>Country</label>
+        <select name="country" class="form-control" ng-model="user.country" mongoose-error ng-change="setCountryCode()">
+      <option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}</option>
+    </select>
+        <p class="help-block" ng-show="form.country.$error.required && submitted">
+            Please correct the value
+        </p>
+    </div>
+
+    <div class="form-group" ng-class="{'has-success': form.state.$valid && submitted, 'has-error': form.address.$invalid && submitted}">
+        <label>State</label>
+        <input type="text" name="state" class="form-control" ng-model="user.state" mongoose-error/>
+        <p class="help-block" ng-show="form.state.$error.required && submitted">
+            Please correct the value
+        </p>
+    </div>
+
+    <div class="form-group" ng-class="{'has-success': form.city.$valid && submitted, 'has-error': form.city.$invalid && submitted}">
+        <label>City</label>
+        <input type="text" name="city" class="form-control" ng-model="user.city" mongoose-error/>
+        <p class="help-block" ng-show="form.city.$error.required && submitted">
+            Please correct the value
+        </p>
+    </div>
+
+    <div class="form-group" ng-class="{'has-success': form.pincode.$valid && submitted, 'has-error': form.pincode.$invalid && submitted}">
+        <label>Pincode/Postal Code</label>
+        <input type="text" name="pincode" class="form-control" ng-model="user.pincode" mongoose-error/>
+        <p class="help-block" ng-show="form.pincode.$error.required && submitted">
+            Please correct the value
+        </p>
+    </div>
+
+
+    <div class="form-group" ng-class="{'has-success': !errors.error && submitted, 'has-error': errors.error && submitted}">
+        <p class="help-block" ng-if="(errors.error && errors.error != '')">{{errors.error}}</p>
+    </div>
+    <div
+      vc-recaptcha
+      theme="'light'"
+      key="model.key"
+      on-create="setWidgetId(widgetId)"
+      on-success="setResponse(response)"
+      on-expire="cbExpiration()">
+    </div>
+    <p style="color:red; padding-bottom:15px;">{{captcha_error}}</p>
+    <input type="submit" name="submit" value="Sign Up" ng-disabled="disableForPost" class="btn brown">
+    <a ng-disabled="disableForPost" href="/login"> <button type="submit" class="btn btn-default">Cancel
+</button> </a>
+    <hr/>
+    <p align="center">Already a member? <a href="index.html"><strong>Login here</strong></a></p>
+    <hr/>
+    </form>
+</div>
+
+
+<div class="clearfix"></div>

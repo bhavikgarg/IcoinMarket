@@ -1,0 +1,40 @@
+<style>
+    div.modal-content {
+        margin-top: 70px;
+    }
+    div.modal-dialog {
+      width: 60%;
+      height: auto;
+      margin-left: 20%;
+      margin-right: 20%;
+      padding: 0px;
+    }
+
+    div.modal-content {
+      height: auto;
+      border-radius: 0px;
+    }
+
+    .large-width{
+      min-width: 80% !important;
+      /*width:50% !important;*/
+      /*max-width:80% !important;*/
+      margin: auto;
+    }
+    .coinImage {
+      width: 200px;
+    }
+</style>
+
+<div class="modal-body" style="padding:29px;">
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="english">
+      <div>
+        <youtube-video class="dashboard-video-popup youtube-player" type="text/html" video-url="url" player="english.player" player-width="'100%'" player-height = "'400px'" player-vars="english.vars"></youtube-video>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" ng-click="closeallmodals()" class="btn btn-lg brown btn-xs dashboard-video-button" data-dismiss="modal" aria-hidden="true">Close</button>
+</div>

@@ -1,0 +1,71 @@
+<style>
+  .read-only {
+    background-color:#EBEBE4;
+    border:1px solid #ABADB3;
+    padding:2px 1px;
+  }
+
+  .required {
+    color : red;
+  }
+  .success {
+    color : green !important;
+  }
+  .modal.fade.adc-confirm-window {z-index: 999999999 !important;}
+</style>
+<!-- Payment Options Modal Window -->
+
+<div class="modal-content">
+    <div class="modal-content">
+      <div class="modal-header model-header-color">
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+        <h4 class="modal-title" id="myModalLabel">Payment Options</h4>
+    </div>
+    <div class="modal-body">
+        <div ng-if="!showPaymentQRCode">
+            <div class="form-group">
+                <div class="col-sm-6" ng-repeat="gateway in gateways">
+                    <input name="paymode" type="radio" ng-model="paymode.name" ng-value="gateway.key"/>
+                    <img ng-src="assets/images/{{gateway.image}}" width="200">
+                </div>
+            </div>
+            <div class="form-group" style="margin-top:25px;">
+                <div class="col-sm-12">
+                    <button type="button" class="btn brown" ng-disabled="waitMessage!='' || paymentError !=''" ng-click="purchasePacks()">Pay Now</button>
+                    <button type="button" class="btn btn-warning" ng-disabled="waitMessage!=''" ng-click="closeDialog(); closeAllDialogs();">Back</button>
+                    <p ng-if="waitMessage!=''" class="has-error">
+                        <span class="help-block">{{waitMessage}}</span>
+                    </p>
+                    <p ng-if="paymentError!=''" class="has-error">
+                        <span class="help-block">{{paymentError}}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group" style="margin-top:10px;" ng-if="showPaymentQRCode">
+            <div class="col-sm-12">
+                <center>
+                    <span class="alert alert-danger">Please don't refresh this page, Choose the actions buttons to proceed.</span>
+                    <p style="padding-top:30px;" ng-if="buyInfo.response.coins">{{buyInfo.response.coins}} gold coins have been deducted from your CI account. For remaining amount, deposit <strong>{{buyInfo.response.amount }} BTC</strong> to the below address.</p>
+                    <p style="padding-top:30px;" ng-if="!buyInfo.response.coins && paymode.name == 'bitcoinBlockIO'">Please deposit <strong>{{buyInfo.response.amount }} BTC</strong> to the below address.</p>
+                    <p style="padding-top:30px;" ng-if="!buyInfo.response.coins && paymode.name == 'litecoinBlockIO'">Please deposit <strong>{{buyInfo.response.amount }} LTC</strong> to the below address.</p>
+                    <p><span style="font-size:16px; font-weight:bold;">{{buyInfo.response.address}}</span>
+                    <p>
+                        <qr size="200" text="buyInfo.response.address" image="true"></qr>
+                    <p>
+                        <!-- After successful payment, click the verify button to proceed. -->
+                        <button class="btn btn-success" ng-click="verifyPayment()" ng-disabled="paymentError">I've paid</button>
+                        <button class="btn btn-warning" ng-click="payLater()" ng-disabled="paymentError">I'll pay later</button>
+                        <button class="btn btn-danger" confirm="Are you sure, you want to cancel this transaction ?" confirm-settings="{windowClass: 'adc-confirm-window'}" title = "Cancel" ng-click="cancelInvoice(buyInfo.response.id)" ng-disabled="paymentError">Cancel Invoice</button>
+                    </p>
+                    <p ng-class="{'has-error': paymentError!=''}">
+                        <span class="help-block">{{paymentError}}</span>
+                    </p>
+                </center>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- Payment Options Modal Ends -->

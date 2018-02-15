@@ -1,0 +1,221 @@
+<div class="container" style="background-color: #fff">
+    <div class="block-condensed">
+        <div class="block-content">
+            <div class="row">
+                <div class="col-md-12" style="border-bottom: 1px solid #ccc;">
+                    <h5 style="font-size: 20px; padding: 10px 0px;">PORTFOLIO MANAGER DASHBOARD</h5>
+                </div>
+            </div>
+            <!--<div class="row">
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="white-box">
+                        <h3 class="box-title" style="font-size: 18px;"> Current Order(Day)</h3>
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <h6>Users</h6> <b>{{oneDayCommitmentData.users.length}}</b></div>
+                            <div class="stat-item">
+                                <h6>Total Investment</h6> <b>${{oneDayCommitmentData.totalAmount}}</b></div>
+                            <div class="stat-item">
+                                <h6>Profit & Loss</h6> <b>+$900.00</b></div>
+                        </div>
+                        <div id="currentChart" class="commitmentOrderChart" ng-hide="loading" style="width: 88% !important max-height:165px;"></div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="white-box">
+                        <h3 class="box-title" style="font-size: 18px;">Monthly Order</h3>
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <h6>Users</h6> <b>{{oneMonthCommitmentData.users.length}}</b></div>
+                            <div class="stat-item">
+                                <h6>Total Investment</h6> <b>${{oneMonthCommitmentData.totalAmount}}</b></div>
+                            <div class="stat-item">
+                                <h6>Profit & Loss</h6> <b>+$3900.00</b></div>
+                        </div>
+                        <div id="monthlyChart" class="commitmentOrderChart" ng-hide="loading" style="width: 88% !important; max-height:165px;"></div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="white-box">
+                        <h3 class="box-title" style="font-size: 18px;">Overall Order</h3>
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <h6>Users</h6> <b>{{overallCommitmentData.users.length}}</b></div>
+                            <div class="stat-item">
+                                <h6>Total Investment</h6> <b>${{overallCommitmentData.totalAmount}}</b></div>
+                            <div class="stat-item">
+                                <h6>Profit & Loss</h6> <b style="color:#f00;">-$900.00</b></div>
+                        </div>
+                        <div id="overallChart" class="commitmentOrderChart" ng-hide="loading" style="width: 88% !important; max-height:165px;"></div>
+                    </div>
+                </div>
+            </div>-->
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="white-box">
+                        <h3 class="box-title" style="font-size: 18px;">User's Investment</h3>
+
+                          <table class="table color-bordered-table info-bordered-table">
+                            <thead>
+                                <th width="15%"><strong>From Date</strong></th>
+                                <th width="15%"><strong>To Date</strong></th>
+                                <th width="15%"><strong>USD</strong></th>
+                                <th width="15%"><strong>Commitments</strong></th>
+                                <th width="15%"><strong>Users</strong></th>
+                                <!--<th width="25%"></th>-->
+                            </thead>
+                            <tr>
+                                <th width="15%">{{fromDate | date : "medium"}}</th>
+                                <th width="15%">{{toDate | date : "medium"}}</th>
+                                <th width="15%">${{totalCommittedAmount}}</th>
+                                <th width="15%">{{totalCommitCount}}</th>
+                                <th width="15%">{{usersCount}}</th>
+                                <!--<th width="25%"><button class="btn btn-block  btn-dribbble" ng-click="unPickedCommimentList()"> Pick Investment</button></th>-->
+                            </tr>
+                        </table>
+
+                        <div class="text-right">
+                            <a class="btn btn-success" style="margin-bottom: 12px" ng-click="profitLogList()">Show Profit Logs</a>
+                            <a class="btn btn-warning" style="margin-left: 5px;margin-bottom: 12px" ng-click="openPackagesList()">Update Profit %</a>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <th width="15%" style="background-color :cadetblue;text-align: center;color: #fff"><strong>Plan Name</strong></th>
+                                <th width="15%" style="background-color :cadetblue;text-align: center;color: #fff"><strong>Total Committed Amount</strong></th>
+                                <th width="15%" style="background-color :cadetblue;text-align: center;color: #fff"><strong>Total Users</strong></th>
+                                <th width="15%" style="background-color :cadetblue;text-align: center;color: #fff"><strong>Current Profit %</strong></th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="data in plansInvestmentData">
+                                    <td align="center" width="10%">
+                                        <h2 align="left" class="lg-number" style="font-size: 16px;">{{data._id}}</h2>
+                                    </td>
+                                    <td width="12%" align="center">{{data.totalAmount}}</td>
+                                    <td width="12%" align="center">{{data.totalUsers}}</td>
+                                    <td width="10%" align="center">{{data.profitpercent || 0}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--<table class="table table-bordered">
+                            <thead>
+                                <tr ng-repeat="data in pickedList">
+                                    <th align="center" width="10%" class="bg-danger2">
+                                        <h2 align="center" class="lg-number"  style="font-size: 16px;">{{data.pmname}}</h2>
+                                    </th>
+                                    <th width="12%">{{data.fromdate | date}}</th>
+                                    <th width="12%">{{data.todate | date}}</th>
+                                    <th width="10%">{{data.amount}}</th>
+                                    <th width="15%">{{data.totalcommit}}</th>
+                                    <th width="15%">{{data.userscount.length}}</th>
+                                    <td width="26%" align="center">
+                                        <a class="btn btn-success" ui-sref="mydashboard" ng-if="data._id === memberInfo._id">Show Results</a>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>-->
+                        <!--<table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th align="center" width="10%" class=" bg-success2">
+                                        <h2 align="center" class="lg-number" style="font-size: 16px;">Portfolio Manager 02</h2>
+                                    </th>
+                                    <th width="12%">12/3/2017</th>
+                                    <th width="12%">10:12:20</th>
+                                    <th width="10%">$900</th>
+                                    <th width="15%">10</th>
+                                    <th width="15%">04</th>
+                                    <td width="26%" align="center">
+                                        <button class="btn btn-default">Total Returns</button>
+                                        <button class="btn btn-success">Show Results</button>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th align="center" width="10%" class=" bg-primary2">
+                                        <h2 align="center" class="lg-number" style="font-size: 16px;">Portfolio Manager 03</h2>
+                                    </th>
+                                    <th width="12%" valign="middle">12/3/2017</th>
+                                    <th width="12%" valign="middle">10:12:20</th>
+                                    <th width="10%" valign="middle">$900</th>
+                                    <th width="15%" valign="middle">10</th>
+                                    <th width="15%" valign="middle">04</th>
+                                     <td width="26%" align="center">
+                                        <button class="btn btn-default">Total Returns</button>
+                                        <button class="btn btn-success">Show Results</button>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="white-box">
+                        <h3 class="box-title m-b-0" style="font-size: 18px;">Latest User Investment</h3>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <!--<th>User ID</th>-->
+                                    <th>User Name</th>
+                                    <th>Date</th>
+                                    <th>Investment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="(key,latestInvestment) in latestInvestments">
+                                    <td>{{key+1}}</td>
+                                    <!--<td>{{latestInvestment.userid._id}}</td>-->
+                                    <td>{{latestInvestment.userid.name}}</td>
+                                    <td>{{latestInvestment.createdat | date}}</td>
+                                    <td>{{latestInvestment.amount}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="white-box">
+                        <div class="row box-title m-b-0" style="padding-bottom: 5px;">
+                          <h3 class="col-md-6" style="font-size: 18px;">Per Day Investment Graph</h3>
+                          <div class="col-md-6">
+                                <div class="form-group from-datepicker">
+                                    <div class="input-group">
+                                        <div ng-click="OpenToDate()" class="input-group-addon"><span class="icon-calendar-full"></span></div>
+                                        <div style="position: relative;">
+                                            <input ng-click="OpenToDate()" type="text" class="form-control from-date calandar-dates" uib-datepicker-popup="dd/MM/yyyy"
+                                                ng-model="ToDate" name="ToDate" is-open="ToDatePopup.opened" datepicker-options="ToDateOptions"
+                                                ng-required="true" close-text="Close" placeholder="From Date" readonly ng-change="onDateChange()" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date</th>
+                                    <th>Users</th>
+                                    <th>Investment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="data in perDayInvestment track by $index">
+                                    <td> {{$index+1}} </td>
+                                    <td> {{data.date | date:'dd/MM/yyyy'}} </td>
+                                    <td> {{data.users.length}} </td>
+                                    <td> {{data.totalAmount}} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<style>
+    body {
+        background: url(assets/images/background/bg-1.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        margin-top: 20px;
+    }
+
+    a {
+        color: #960;
+    }
+
+    a:hover {
+        color: #960;
+    }
+</style>
+
+<div>
+    <form class="form " name="form" ng-submit="register(form)" novalidate ng-include="signup"></form>
+</div>
+<div style="display:none !important;">
+    <!-- AWeber Web Form Generator 3.0.1 -->
+
+<!--     <form id="cisignupaweber" method="post" class="af-form-wrapper" accept-charset="UTF-8" action="https://www.aweber.com/scripts/addlead.pl">
+        <div style="display: none;">
+            <input type="hidden" name="meta_web_form_id" value="1613559458" />
+            <input type="hidden" name="meta_split_id" value="" />
+            <input type="hidden" name="listname" value="awlist4716033" />
+            <input type="hidden" name="redirect" value="{{welcomeApiUrl}}" id="redirect_2f693fca292b71bc9ccd1201fd8a6602" />
+            <input type="hidden" name="meta_redirect_onlist" value="{{welcomeApiUrl}}" />
+            <input type="hidden" name="meta_adtracking" value="My_Web_Form" />
+            <input type="hidden" name="meta_message" value="1" />
+            <input type="hidden" name="meta_required" value="name,email" />
+            <input type="hidden" name="meta_tooltip" value="" />
+        </div>
+        <div id="af-form-1613559458" class="af-form">
+            <div id="af-body-1613559458" class="af-body af-standards">
+                <div class="af-element">
+                    <label class="previewLabel" for="awf_field-91425016">Name: </label>
+                    <div class="af-textWrap">
+                        <input id="awf_field-91425016" type="text" name="name" class="text" value="{{user.firstName}} {{user.lastname}}" onfocus=" if (this.value == '') { this.value = ''; }" onblur="if (this.value == '') { this.value='';} " tabindex="500" />
+                    </div>
+                    <div class="af-clear"></div>
+                </div>
+                <div class="af-element">
+                    <label class="previewLabel" for="awf_field-91425017">Email: </label>
+                    <div class="af-textWrap"><input class="text" id="awf_field-91425017" type="text" name="email" value="{{user.email}}" tabindex="501" onfocus=" if (this.value == '') { this.value = ''; }" onblur="if (this.value == '') { this.value='';} " />
+                    </div>
+                    <div class="af-clear"></div>
+                </div>
+                <div class="af-element buttonContainer">
+                    <input name="submit" id="af-submit-image-1613559458" type="image" class="image" style="background: none; max-width: 100%;" alt="Submit Form" src="http://aweber.com/images/forms/plain/buttons/grey.png" tabindex="502" />
+                    <div class="af-clear"></div>
+                </div>
+            </div>
+        </div>
+        <div style="display: none;"><img src="https://forms.aweber.com/form/displays.htm?id=jGyMzKysnCysHA==" alt="" /></div>
+    </form> -->
+    <!-- /AWeber Web Form Generator 3.0.1 -->
+    <form id="icmsignupgetresponse" data-editable="container.form" class="editor-loaded" data-spacing="8;20;8;20;0.4" action="https://app.getresponse.com/add_contact_webform_v2.html?u=rIG4&amp;webforms_id=12791701&amp;v=0" method="post" novalidate="" style="overflow: hidden;">
+        <div>
+            <div data-editable="custom" style="left: 80px; top: 223px; width: 275px;" id="c_otemt"><div class="container label-position-top"><div class="label"><label for="webform_email">Email address</label></div><div class="box"><div class="field"><div class="block border"><input id="webform_email" class="placeholder padding" name="webform[email]" type="text" value="{{user.email}}" placeholder="" maxlength="" minlength="" data-tab-index="" tabindex="2" aria-required="true"><span class="placeholder like-placeholder" style="display:none;"></span></div></div><div class="info-error" hidden=""><p></p></div><div class="info"><p>Help text goes here...</p></div></div><div class="label position-right"><label for="webform_email">Email address</label></div></div></div>
+            <div data-editable="custom" class="submit" style="left: 130px; top: 355px; width: 200px;" id="c_jne1t"><div class="container"><button class="button border" type="submit" data-tab-index="" tabindex="3"><span>Submit</span></button></div></div>
+        <div data-editable="custom" style="width: 275px; left: 80px; top: 125px;" id="c_eavea"><div class="container label-position-top"><div class="label"><label for="webform_name">Name</label></div><div class="box"><div class="field"><div class="block border"><input id="webform_name" class="placeholder padding" name="webform[name]" type="text" value="{{user.firstName}} {{user.lastname}}" placeholder="" maxlength="" minlength="" data-tab-index="" tabindex="1"><span class="placeholder like-placeholder" style="display:none;"></span></div></div><div class="info-error" hidden=""><p></p></div><div class="info"><p></p></div></div><div class="label position-right"><label for="webform_name">Name</label></div></div></div></div>
+    </form>
+</div>
+
